@@ -14,7 +14,7 @@ class Command(BaseCommand):
         if not os.path.exists("csvs"):
             os.mkdir("csvs")
 
-        for year in range(2001, 2022):
+        for year in range(1975, 2022):
             url = f"https://static.nhtsa.gov/nhtsa/downloads/FARS/{year}/National/FARS{year}NationalCSV.zip"
             if not os.path.exists(f"csvs/{year}"):
                 os.mkdir(f"csvs/{year}")
