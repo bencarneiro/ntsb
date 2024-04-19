@@ -91,12 +91,36 @@ class Accident(models.Model):
     ems_hospital_arrival_time
     #c101
     fatalities
+
+    #discontinued 2008
+    hit_and_run
+    #discontinued 2015 DRUNK_DR
+    num_drunk_drivers # needs a table for codes
+    # discontinued ALIGNMNT
+    roadway_alignment
+    #discontinued ROAD_FNC
+    roadway_function
+    # discontinued PROFILE
+    roadway_profile
+    # discontinued SUR_COND
+    roadway_surface_condition
+    # discontinued PAVE_TYP
+    pavement_type
+    # discontinued SP_LIMIT
+    speed_limit
+    # discontinued NO_LANES
+    num_lanes_in_roadway
+    # discontinued TRA_CONT
+    traffic_control_device # This one needs a huge table
+    # discontinued T_CONT_F
+    traffic_control_device_functioning
+
     
 
 class Vehicle(models.Model):
     id = models.PositiveBigIntegerField(primary_key=True)
     accident = models.ForeignKey(Accident, on_delete=models.DO_NOTHING)
-    veh_no = models.PositiveSmallIntegerField(null=False)
+    vehicle_number = models.PositiveSmallIntegerField(null=False)
     #v4
     num_occupants
     # v6
@@ -181,8 +205,96 @@ class Vehicle(models.Model):
     month_of_newest_violation
     #d20b
     year_of_newest_violation
+    #pc5
+    trafficway_description # need table
+    # pc6
+    total_lanes_in_roadway # need table
+    #pc7
+    speed_limit #need table
+    #pc8
+    roadway_alignment #needs a table for codes
+    #pc9
+    roadway_grade #needs a table for codes
+    #pc10
+    roadway_surface_type #needs a table for codes
+    #pc11
+    roadway_surface_condition #needs a table for codes
+    #pc12
+    traffic_control_device #needs a table for codes
+    #pc13
+    traffic_control_device_functioning #needs a table for codes
     
+
+class Person(models.Model):
+    accident = models.ForeignKey(Accident, on_delete=models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank=True)
+    person_number = models.PositiveSmallIntegerField(null=False)
+    # id = models.PositiveBigIntegerField(primary_key = True)
     
+    #p5
+    age = models.PositiveSmallIntegerField(null = True)
+    #p6 
+    sex # need table
+    #p7 PER_TYP
+    person_type
+    #p8 injury_severity
+    injury_severity
+    #p9 seating position
+    seating_position
+    #P10A restraint system use
+    restraint_system_use
+    #P10B restraint system use
+    restraint_system_misuse
+    # P11A Helmet Use 
+    helmet_use
+    #p11b
+    helmet_misuse
+    # p12
+    airbag_deployed
+    # p13
+    ejection
+    # p14 ejectionpath
+    ejection_path
+    #p15
+    extrication
+    #p16
+    alcohol_involvement
+    #p17
+    method_of_alcohol_determination
+    #p18a
+    alcohol_test
+    #p18b
+    alcohol_test_type
+    #P18C
+    alcohol_test_result
+    #p19
+    drug_involvement
+    #p20
+    method_of_drug_determination
+    #p21 
+    drug_test_status
+    #p22
+    transported_to_medical_facility_by
+    #p24a
+    month_of_death
+    #p24b
+    day_of_death
+    #p24c
+    year_of_death
+    #p25
+    time_of_death
+    #p100a
+    lag_hours
+    #p100b
+    lag_minutes
+    #NM4
+    vehicle_which_struck_non_motorist = models.ForeignKey(vehicle)
+    #nm10
+    non_motorist_location
+    #sp2
+    at_work
+
+
 
 
 
