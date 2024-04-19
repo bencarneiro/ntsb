@@ -12,8 +12,16 @@ class State(models.Model):
 
 
 class County(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
+    name = models.CharField(max_length=512, null=False)
+
+    class Meta:
+        db_table = "county"
+        managed = True
+
+class City(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
     state = models.ForeignKey(State, on_delete=models.DO_NOTHING)
-    county_id = models.PositiveIntegerField(null=False)
     name = models.CharField(max_length=512, null=False)
 
     class Meta:
@@ -21,9 +29,168 @@ class County(models.Model):
         managed = True
 
 class Accident(models.Model):
-    number_of_forms_submitted_for_persons_not_in_motor_vehicles
-    number_of_forms_submitted_for_persons_not_in_motor_vehicles_in_transit
+    year
+    st_case = models.PositiveIntegerField(null=False)
+    #c3
+    num_persons_not_in_motor_vehicles
+    #c3a
+    num_persons_not_in_motor_vehicles_in_transport
+    #c4
+    num_vehicles
+    #c4a
+    num_vehicles_in_transit
+    #c4b
+    num_parked_vehicles
+    #c5
+    num_persons_in_motor_vehicles
+    #c5a
+    num_persons_in_motor_vehicles_in_transport
+    # C6 County COUNTY 40
+    county
+    # C7 City CITY 41
+    city
+    # C8A Month of Crash MONTH 42
+    # C8B Day of Crash DAY 42
+    # C8C Day of Week DAY_WEEK 43
+    # C8D Year of Crash YEAR 43
+    # C9A Hour of Crash HOUR 44
+    # C9B Minute of Crash MINUTE 44
+    datetime
+    #c11
+    route_signing # needs a table for codes
+    #c15
+    special_jurisdiction # needs a table for codes
+    #c16
+    milepoint
+    #c17
+    latitude
+    longitude
+    #c19
+    first_harmful_event # needs a table for codes
+    #c20
+    manner_of_collision_of_first_harmful_event # needs a table for codes
+    #c21B
+    relation_to_junction # needs a table for codes
+    #c23
+    relation_to_trafficway # needs a table for codes
+    #c24
+    work_zone # needs a table for codes
+    #c25
+    light_condition # needs a table for codes
+    #c26
+    atmospheric_condition # needs a table for codes
+    #c27
+    school_bus_related # needs a table for codes
+    #c28
+    rail_grade_crossing_identifier #seven-char string
+    #c29
+    ems_notification_time
+    #c30
+    ems_accident_arrival_time
+    #c31
+    ems_hospital_arrival_time
+    #c101
+    fatalities
     
+
+class Vehicle(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
+    accident = models.ForeignKey(Accident, on_delete=models.DO_NOTHING)
+    veh_no = models.PositiveSmallIntegerField(null=False)
+    #v4
+    num_occupants
+    # v6
+    hit_and_run
+    #v7 
+    registration_state
+    #v9
+    vehicle_identification_number
+    #v10 
+    vehicle_model_year
+    #v14
+    ncsa_make # needs a table for codes
+    #v15
+    ncsa_model # needs a table for codes
+    #v16
+    body_type # needs a table for codes
+    #v19 
+    vehicle_trailing  # needs a table for codes
+    #v22 
+    jackknife  # needs a table for codes
+
+
+    #v28
+    special_vehicle_use  # needs a table for codes
+    #v29
+    emergency_vehicle_use  # needs a table for codes
+    #v30
+    travel_speed
+    #v32 
+    rollover  # needs a table for codes
+    #V34A
+    initial_contact_point   # needs a table for codes
+    #v35
+    extent_of_damage   # needs a table for codes
+    #v36
+    vehicle_towed # needs a table for codes
+    #v38
+    most_harmful_event # needs a table for codes
+    #v39
+    fire_occurence  # needs a table for codes
+    #v40a
+    automation_system_present  # needs a table for codes
+    #v40b
+    type_of_automation_system_present  # needs a table for codes
+    #v40c
+    type_of_automation_system_engaged  # needs a table for codes
+    #v150
+    fatalities
+    #v151
+    driver_drinking # needs a table for codes
+    #d4
+    driver_presence # needs a table for codes
+    #d5
+    driver_license_state # needs a table for codes
+    #d6 
+    driver_zip_code
+    #d7b
+    non_cdl_license_status # needs a table for codes
+    #d8
+    cdl_license_status # needs a table for codes
+    #d10
+    license_compliance_with_class_of_vehicle # needs a table for codes
+    #d11
+    compliance_with_license_restrictions # needs a table for codes
+    #d12 (inches)
+    driver_height
+    #d13 (lbs)
+    driver_weight
+    #d14
+    previous_recorded_crashes # needs a table for codes
+    #d16
+    previous_dwi_convictions # needs a table for codes
+    #d17
+    previous_speeding_convictions # needs a table for codes
+    #d18
+    previous_other_moving_violations # needs a table for codes
+    #d19a
+    month_of_oldest_violation
+    #d19b
+    year_of_oldest_violation
+    #d20a
+    month_of_newest_violation
+    #d20b
+    year_of_newest_violation
+    
+    
+
+
+
+
+
+
+
+
 
 
 # The ACCIDENT Data File 33
@@ -31,13 +198,16 @@ class Accident(models.Model):
 # Not in Motor Vehicles PEDS 34
 # C3A Number of Persons Not in Motor Vehicles
 # In-Transport (MVIT) PERNOTMVIT 34
+    
 # C4 Number of Vehicle Forms Submitted- ALL VE_TOTAL 35
 # C4A Number of Motor Vehicles In-Transport (MVIT) VE_FORMS 36
+    
 # C4B Number of Parked/Working Vehicles PVH_INVL 37
 # C5 Number of Forms Submitted for Persons
 # in Motor Vehicles PERSONS 38
 # C5A Number of Persons in Motor Vehicles
 # In-Transport (MVIT) PERMVIT 39
+    
 # C6 County COUNTY 40
 # C7 City CITY 41
 # C8A Month of Crash MONTH 42
@@ -46,6 +216,7 @@ class Accident(models.Model):
 # C8D Year of Crash YEAR 43
 # C9A Hour of Crash HOUR 44
 # C9B Minute of Crash MINUTE 44
+    
 # C10 Trafficway Identifier TWAY_ID 45
 # C10 Trafficway Identifier TWAY_ID2 45
 # C11 Route Signing ROUTE 46
@@ -58,6 +229,7 @@ class Accident(models.Model):
 # C16 Milepoint MILEPT 51
 # C17A Latitude LATITUDE 52
 # C17B Longitude LONGITUD 53
+    
 # C19 First Harmful Event HARM_EV 54
 # C20 Manner of Collision of the First Harmful Event MAN_COLL 58
 # C21A Relation to Junction- Within Interchange Area RELJCT1 60
