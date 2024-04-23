@@ -143,6 +143,17 @@ class Vehicle(models.Model):
     jackknife  # needs a table for codes
 
 
+    #v26a HAZ_INV
+    hazardous_material_involvement
+    #v26B HAZPLAC
+    hazardous_material_placard
+    # V26C - HAZ_ID
+    hazardous_material_id
+    # v26D HAZ_CNO
+    hazardous_material_class_number
+    # v26E HAZ_REL
+    release_of_hazardous_material
+    
     #v28
     special_vehicle_use  # needs a table for codes
     #v29
@@ -294,6 +305,167 @@ class Person(models.Model):
     #sp2
     at_work
 
+# A class for parked cars involved with a given fatal crash
+    
+class ParkedVehicle(models.Model):
+    accident = models.ForeignKey(Accident, on_delete=models.DO_NOTHING)
+    vehicle_number = models.PositiveSmallIntegerField(null=False)
+    #c4a #PVE_FORMS
+    num_vehicles_in_transit
+    #c19 PHARM_EV
+    first_harmful_event
+    # c20 PMAN_COLL
+    manner_of_collision_of_first_harmful_event
+    #v4 PNUMOCCS
+    num_occupants
+    #v5 PTYPE
+    unit_type
+    #v6 PHIT_RUN
+    hit_and_run
+    # v7 PREG_STAT
+    registration_state
+    # v8 POWNER
+    vehicle_owner
+    # v9 PVIN
+    vehicle_identification_number
+    # v10 PMODYEAR
+    vehicle_model_year
+    # v14 PMAKE
+    ncsa_make
+    # V15 PMODEL
+    ncsa_model
+    # V16 PBODYTYP
+    body_type
+    # V19 PTRAILER
+    vehicle_trailing
+    # V23 PMCARR_ID
+    motor_carrier_identification_number
+    #v24 PV_CONFIG
+    vehicle_configuration
+    #v25 PCARGTYP
+    cargo_body_type
+    #v26a PHAZ_INV
+    hazardous_material_involvement
+    #v26B PHAZPLAC
+    hazardous_material_placard
+    # V26C - PHAZ_ID
+    hazardous_material_id
+    # v26D PHAZ_CNO
+    hazardous_material_class_number
+    # v26E PHAZ_REL
+    release_of_hazardous_material
+    #V27 PBUS_USE
+    bus_use
+    #v28 PSP_USE
+    special_vehicle_use
+    #v29 PEM_USE
+    emergency_vehicle_use
+    # V34A PIMPACT1
+    initial_contact_point
+    #v35 PVEH_SEV
+    extent_of_damage
+    #v36 PTOWED
+    vehicle_towed
+    #v38 PM_HARM
+    most_harmful_event
+    #v39 PFIRE
+    fire_occurence
+
+class PBType(models.Model):
+    accident = models.ForeignKey(Accident, null=False, on_delete=models.DO_NOTHING)
+    person = models.ForeignKey(Person, null=True, blank=True)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank=True)
+    #p5 PBAGE
+    age
+    # p6 PBSEX
+    sex
+    #p7 PBPTYPE
+    person_type
+    # NM11-PB27 PBCWALK
+    on_sidewalk
+    # NM11-PB28 PBSWALK
+    at_marked_crosswalk
+    # NM11-PB29 PBSZONE
+    in_school_zone
+    # NM11-PB30 PEDCTYPE
+    pedestrian_crash_type
+    # NM11-PB30B BIKECTYPE
+    bicycle_crash_type
+    # NM11-PB31 PEDLOC
+    pedestrian_location
+    # NM11-PB31B BIKELOC
+    bicycle_location
+    # NM11-PB32 PEDPOS
+    pedestrian_position
+    # NM11-PB32B BIKEPOS
+    bicycle_position
+    # NM11-PB33 PEDDIR
+    pedestrian_direction
+    # NM11-PB33B BIKEDIR
+    bicycle_direction
+    # NM11-PB34 MOTDIR
+    motorist_direction
+    # NM11-PB35  MOTMAN
+    motorist_maneuver
+    # NM11-PB36 PEDLEG
+    intersection_leg
+    # NM11-PB37 PEDSNR
+    pedestrian_scenario
+    # NM11-PB38 PEDCGP
+    pedestrian_crash_group
+    # NM11-PB38B BIKECGP
+    bike_crash_group
+
+class CrashEvent(models.Model):
+    accident = models.ForeignKey(Accident, null=False, on_delete=models.DO_NOTHING)
+    event_num = models.PositiveSmallIntegerField(null=False)
+    # VNUMBER1 c18a
+    vehicle_1 = models.ForeignKey(Vehicle, null=True, blank=True)
+    # C18B AOI1 
+    area_of_impact_1
+    # V37 SOE
+    sequence_of_events
+    # C18C VNUMBER2
+    vehicle_2 - models.ForeignKey(Vehicle, null=True, blank=True)
+    # C18D AOI2
+    area_of_impact_2
+
+class VehicleEvent(models.Model):
+    accident = models.ForeignKey(Accident, null=False, on_delete=models.DO_NOTHING)
+    event_num = models.PositiveSmallIntegerField(null=False)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True)
+    # VNUMBER1 C18A
+    vehicle_1 = models.ForeignKey(Vehicle, null=True, blank = True)
+    # C18B AOI1 
+    area_of_impact_1
+    # V37 SOE
+    sequence_of_events
+    # C18C VNUMBER2
+    vehicle_2 - models.ForeignKey(Vehicle, null=True, blank=True)
+    # C18D AOI2
+    area_of_impact_2
+    
+class VehicleSequenceOfEvents(models.Model):
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle_event = models.ForeignKey(Vehicle, null=False, blank=False, on_delete = models.DO_NOTHING)
+    # C18E AOI
+    area_of_impact
+    # V37 SOE
+    sequence_of_events
+
+class CrashRelatedFactors(models.Model):
+    
+
+    
+
+    
+
+    
+    
+
+
+    
 
 
 
