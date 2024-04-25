@@ -186,7 +186,7 @@ class Vehicle(models.Model):
     driver_presence # needs a table for codes
     #d5
     driver_license_state # needs a table for codes
-    #d6 
+    #d6 DRIMPAIR
     driver_zip_code
     #d7b
     non_cdl_license_status # needs a table for codes
@@ -455,22 +455,165 @@ class VehicleSequenceOfEvents(models.Model):
     sequence_of_events
 
 class CrashRelatedFactors(models.Model):
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    # CRASHRF C32
+    crash_related_factor
     
 
-    
+class Weather(models.Model):
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    #c26 weather
+    atmospheric_condition
 
     
 
+class VehicleRelatedFactor(models.Model):
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    # v41 VEHICLESF
+    vehicle_related_factor
+
+class ParkedVehicleRelatedFactor(models.Model):
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    parked_vehicle = models.ForeignKey(ParkedVehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    # v41 VEHICLESF
+    parked_vehicle_related_factor
+
+class DriverRelatedFactor(models.Model):
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    # DRIVERRF D24
+    driver_related_factor
+
+class Damage(models.Model):
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    # MDAREAS DAMAGE  V34B
+    area_of_impact
+
+class DriverDistracted(models.Model):
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    # MDRDSTRD DRDISTRACT PC16
+    distracted_by
+
+class DriverImpaired:
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+
+    # DRIMPAIR D23
+    driver_impaired
+
+class VehicleFactor():
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     
+    # PC4 MFACTOR VEHICLECC
+    contributing_cause
+
+class Maneuver(): 
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     
+    # MDRMANAV MANEUVER PC15
+    driver_maneuvered_to_avoid
+
+class Violation():
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+
+    # MVIOLATN VIOLATION D21
+    moving_violation
+
+class Vision():
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+
+    # MVISOBSC VISION PC14
+    visibility
 
 
-    
+class PersonRelatedFactor():
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
 
+    # PERSONRF P24/NM26 
+    person_related_factor
 
+class Drugs():
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
 
+    # P19/NM21 DRUGSPEC
+    drug_test_type
+    # P19C/NM21C  DRUGRES
+    drug_test_results
 
+class Race():
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
 
+    # SP3A RACE
+    race
+    # SP3AA MULTRACE
+    is_multiple_races
+    # ORDER
+    order
+
+class NonMotoristCrash(models.Model):
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
+
+    # NM14 MTM_CRSH NMCC
+    nonmotorist_contributing_circumstance
+
+class NonmotoristDistracted(models.Model):
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
+
+    # NM15 MNMDSTRD NMDISTRACT
+    nonmotorist_distracted
+
+class NonmotoristImpaired(models.Model):
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
+
+    #NM17 NMIMPAIR
+    nonmotorist_impaired
+
+class NonmotoristPriorAction(models.Model):
+
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
+
+    # MPR_ACT NMACTION NM13
+    nonmotorist_prior_action
+
+class SafetyEquipment(models.Model):
+
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
+
+    # NM16A NMHELMET
+    helmet
+    # NM16B NMPROPAD
+    pads
+    # NM16C NMOTHPRO
+    other_protective_equipment
+    # NM16D NMREFCLO
+    reflective_equipment
+    # NM16E NMLIGHT
+    lights
+    # NM16F NMOTHPRE
+    other_preventative_equipment
 
 
 
