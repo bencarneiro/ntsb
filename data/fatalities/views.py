@@ -1,5 +1,267 @@
 from django.shortcuts import render
 
+
+FARS_DATA_DICTIONARY = {
+    #C3
+    "accident.number_of_persons_not_in_motor_vehicles": [
+        {
+            "range": {
+                "start": 1991,
+                "end": None
+            },
+            "key": "accident.PEDS"
+        }
+    ],
+    #C3A
+    "accident.number_of_persons_not_in_motor_vehicles_in_transport": [
+        {
+            "range": {
+                "start": 2011,
+                "end": None
+            },
+            "key": "accident.PERNOTMVIT"
+        }
+    ],
+    #C4
+    "accident.number_of_vehicles": [
+        {
+            "range": {
+                "start": 2005,
+                "end": None
+            },
+            "key": "accident.VE_TOTAL"
+        }
+    ],
+    #C4A
+    "accident.number_of_vehicles_in_transit": [
+
+        {
+            "range": {
+                "start": 1976,
+                "end": None
+            },
+            "key": "accident.VE_FORMS"
+        }
+    ],
+    #C4B
+    "accident.number_of_parked_vehicles": [
+
+        {
+            "range": {
+                "start": 2011,
+                "end": None
+            },
+            "key": "accident.PVH_INVL"
+        }
+    ],
+    #C5
+    "accident.number_of_persons_in_motor_vehicles": [
+
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.PERSONS"
+        }
+    ],
+    #C5A
+    "accident.number_of_persons_in_motor_vehicles_in_transport": [
+
+        {
+            "range": {
+                "start": 2011,
+                "end": None
+            },
+            "key": "accident.PERMVIT"
+        }
+    ],
+    #C6
+    "accident.county": [
+
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.COUNTY"
+        }
+    ],
+    #c7
+    "accident.city": [
+
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.CITY"
+        }
+    ],
+    #C8A
+    "accident.month": [
+
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.MONTH"
+        }
+    ],
+    #C8B
+    "accident.day": [
+
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.DAY"
+        }
+    ],
+    #C8C
+    "accident.day_of_the_week": [
+
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.DAY_WEEK"
+        }
+    ],
+    #C8D
+    "accident.year": [
+
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.YEAR"
+        }
+    ],
+    #C9A
+    "accident.hour": [
+
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.HOUR"
+        }
+    ],
+    # C9B
+    "accident.minute": [
+
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.MINUTE"
+        }
+    ],
+    # C10
+    "accident.trafficway_identifier_1": [
+
+        {
+            "range": {
+                "start": 1982,
+                "end": None
+            },
+            "key": "accident.TWAY_ID"
+        }
+    ],
+    "accident.trafficway_identifier_2": [
+
+        {
+            "range": {
+                "start": 1982,
+                "end": None
+            },
+            "key": "accident.TWAY_ID2"
+        }
+    ],
+    #C11
+    "accident.route_signing": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 1980
+            },
+            "key": "accident.CL_TWAY"
+        },
+        {
+            "range": {
+                "start": 1982,
+                "end": 1986
+            },
+            "key": "accident.CL_TWAY"
+        },
+        {
+            "range": {
+                "start": 1987,
+                "end": None
+            },
+            "key": "accident.ROUTE"
+        }
+    ],
+    #C12A
+    "accident.rural_urban": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 1986
+            },
+            "key": "accident.LAND_USE"
+        },
+        {
+            "range": {
+                "start": 1987,
+                "end": 2014
+            },
+            "key": "accident.ROAD_FNC"
+        },
+        {
+            "range": {
+                "start": 2015,
+                "end": None
+            },
+            "key": "accident.RUR_URB"
+        }
+    ],
+    #C12B
+    "accident.functional_system": [
+        {
+            "range": {
+                "start": 1981,
+                "end": 2014
+            },
+            "key": "accident.ROAD_FNC"
+        },
+        {
+            "range": {
+                "start": 2015,
+                "end": None
+            },
+            "key": "accident.FUNC_SYS"
+        }
+    ],
+    #C13
+    "accident.road_owner": [
+        {
+            "range": {
+                "start": 2015,
+                "end": None
+            },
+            "key": "accident.RD_OWNER"
+        }
+    ]
+}
+
 # # Create your views here.
 # 'STATE', 'COUNTY', 'MONTH', 'DAY', 'YEAR', 'HOUR', 'MINUTE', 'VE_FORMS',
 #        'PERSONS', 'VEHICLES', 'LAND_USE', 'CL_TWAY', 'ROAD_FNC', 'TA_1_CL',

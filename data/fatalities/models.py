@@ -12,16 +12,19 @@ class State(models.Model):
 
 
 class County(models.Model):
-    id = models.PositiveIntegerField(primary_key=True)
+    state = models.ForeignKey(State, null=False, blank=False)
+    id = models.PositiveIntegerField(null=False, blank=False)
     name = models.CharField(max_length=512, null=False)
 
     class Meta:
+        unique_together = [["state", "id"]]
         db_table = "county"
         managed = True
 
 class City(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
     state = models.ForeignKey(State, on_delete=models.DO_NOTHING)
+    county = models.ForeignKey(County, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=512, null=False)
 
     class Meta:
@@ -29,35 +32,119 @@ class City(models.Model):
         managed = True
 
 class Accident(models.Model):
-    year
+    year = models.PositiveSmallIntegerField(null=False, blank=False)
     st_case = models.PositiveIntegerField(null=False)
     #c3
-    num_persons_not_in_motor_vehicles
+    number_of_persons_not_in_motor_vehicles = models.PositiveSmallIntegerField(default=0)
     #c3a
-    num_persons_not_in_motor_vehicles_in_transport
+    number_of_persons_not_in_motor_vehicles_in_transport = models.PositiveSmallIntegerField(default=0)
     #c4
-    num_vehicles
+    number_of_vehicles = models.PositiveSmallIntegerField(default=0)
     #c4a
-    num_vehicles_in_transit
+    number_of_vehicles_in_transit = models.PositiveSmallIntegerField(default=0)
     #c4b
-    num_parked_vehicles
+    number_of_parked_vehicles = models.PositiveSmallIntegerField(default=0)
     #c5
-    num_persons_in_motor_vehicles
+    number_of_persons_in_motor_vehicles = models.PositiveSmallIntegerField(default=0)
     #c5a
-    num_persons_in_motor_vehicles_in_transport
+    number_of_persons_in_motor_vehicles_in_transport = models.PositiveSmallIntegerField(default=0)
     # C6 County COUNTY 40
-    county
+    county = models.ForeignKey(County, null=True, blank=True, on_delete = models.DO_NOTHING)
     # C7 City CITY 41
-    city
+    city = models.ForeignKey(City, null=True, blank=True, on_delete=models.DO_NOTHING)
     # C8A Month of Crash MONTH 42
+    months = [
+        (1, "January"), (2, "February"), (3, "March"), (4, "April"), (5, "May"), (6, "June"), 
+        (7, "July"), (8, "August"), (9, "September"), (10, "October"), (11, "November"), (12, "December"), (99, "Unknown")
+    ]
+    month = models.PositiveSmallIntegerField(choices=months, default=99)
     # C8B Day of Crash DAY 42
+    day = models.PositiveSmallIntegerField(null=True, blank=True)
     # C8C Day of Week DAY_WEEK 43
+    days_of_the_week = [(1, "Sunday"), (2, "Monday"), (3, "Tuesday"), (4, "Wednesday"), (5, "Thursday"), (6, "Friday"), (7, "Saturday"), (99, "Unknown")]
+    day_of_the_week = models.PositiveSmallIntegerField(choices=days_of_the_week, default=99)
     # C8D Year of Crash YEAR 43
+    year = models.PositiveSmallIntegerField(null=False, blank=False)
     # C9A Hour of Crash HOUR 44
+    hour = models.PositiveSmallIntegerField(null=True, blank=True)
     # C9B Minute of Crash MINUTE 44
-    datetime
+
+    hour = models.PositiveSmallIntegerField(null=True, blank=True)
+    datetime = models.DateTimeField(null=True, blank=True)
+
+    #C10
+    trafficway_identifier_1 = models.CharField(max_length=256, null=True, blank=True)
+    trafficway_identifier_2 = models.CharField(max_length=256, null=True, blank=True)
     #c11
-    route_signing # needs a table for codes
+    route_signing_types = [
+        (1, "Interstate"),
+        (2, "U.S. Highway"),
+        (3, "State Highway"),
+        (4, "County Road"),
+        (5, "Local Street - Township"),
+        (6, "Local Street - Municipality"),
+        (7, "Local Street - Frontage Road"),
+        (8, "Other"),
+        (9, "Unknown"),
+    ]
+    route_signing = models.PositiveSmallIntegerField(choices=route_signing_types, default=9)
+    #C12A
+    rural_urban_choices = [
+        (1, "Rural"),
+        (2, "Urban"),
+        (6, "Trafficway Not In State Inventory"),
+        (8, "Not Reported"),
+        (9, "Unknown")
+    ]
+    rural_urban = models.PositiveSmallIntegerField(choices=rural_urban_choices, default=9)
+    #C12B
+    functional_system_choices = [
+        (1, "Interstate"),
+        (2, "Principal Arterial - Other Freeways and Expressways"),
+        (3, "Principal Arterial -Other"),
+        (4, "Minor Arterial"),
+        (5, "Major Collector"), 
+        (6, "Minor Collector")
+        (7, "Local"),
+        (96, "Trafficway Not In State Inventory"),
+        (98, "Not Reported"),
+        (99, "Unknown")
+
+    ]
+    functional_system = models.PositiveSmallIntegerField(choices=functional_system_choices, default=9)
+    road_owner_choices = [
+        (1, 'State Highway Agency'),
+        (2, 'County Highway Agency'),
+        (3, 'Town or Township Highway Agency'),
+        (4, 'City or Municipal Highway Agency'),
+        (11, 'State Park, Forest or Reservation Agency'),
+        (12, 'Local Park, Forest or Reservation Agency'),
+        (21, 'Other State Agency'),
+        (25, 'Other Local Agency'),
+        (26, 'Private (other than Railroad)'),
+        (27, 'Railroad'),
+        (31, 'State Toll Road'),
+        (32, 'Local Toll Authority'),
+        (40, 'Other Public Instrumentality (i.e., Airport)'),
+        (50, 'Indian Tribe Nation'),
+        (60, 'Other Federal Agency'),
+        (62, 'Bureau of Indian Affairs'),
+        (63, 'Bureau of Fish and Wildlife'),
+        (64, 'U.S. Forest Service'),
+        (66, 'National Park Service'),
+        (67, 'Tennessee Valley Authority'),
+        (68, 'Bureau of Land Management'),
+        (69, 'Bureau of Reclamation'),
+        (70, 'Corps of Engineers'),
+        (72, 'Air Force'),
+        (74, 'Navy/Marines'),
+        (80, 'Army'),
+        (96, 'Trafficway Not in State Inventory'),
+        (98, 'Not Reported'),
+        (99, 'Unknown')
+    ]
+    road_owner = models.PositiveSmallIntegerField(choices=road_owner_choices)
+
     #c15
     special_jurisdiction # needs a table for codes
     #c16
