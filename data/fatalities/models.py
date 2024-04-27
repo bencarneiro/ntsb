@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.gis.db import models as gismodels
 
 # Create your models here.
 
@@ -112,6 +113,7 @@ class Accident(models.Model):
 
     ]
     functional_system = models.PositiveSmallIntegerField(choices=functional_system_choices, default=9)
+    #C13
     road_owner_choices = [
         (1, 'State Highway Agency'),
         (2, 'County Highway Agency'),
@@ -143,23 +145,138 @@ class Accident(models.Model):
         (98, 'Not Reported'),
         (99, 'Unknown')
     ]
-    road_owner = models.PositiveSmallIntegerField(choices=road_owner_choices)
+    road_owner = models.PositiveSmallIntegerField(choices=road_owner_choices, default=99)
+    #C14
+    national_highway_system_choices = [
+        (0, "Not in the National Highway System"),
+        (1, "Part of the National Highway System"),
+        (9, "Unknown")
+    ]
+    national_highway_system = models.PositiveSmallIntegerField(choices=national_highway_system_choices, default=9)
 
     #c15
-    special_jurisdiction # needs a table for codes
+    special_jurisdiction_choices = [
+        (0, 'No Special Jurisdiction (Includes National Forests Since 2008)'),
+        (1, 'National Park Service'),
+        (2, 'Military'),
+        (3, 'Indian Reservation'),
+        (4, 'College/University Campus'),
+        (5, 'Other Federal Properties (Since 1977)'),
+        (8, 'Other (Since 1976)'),
+        (9, 'Unknown')
+    ]
+    special_jurisdiction = models.PositiveSmallIntegerField(choices=special_jurisdiction_choices, default=9)
     #c16
-    milepoint
+    milepoint = models.PositiveIntegerField(null=True, blank=True)
     #c17
-    latitude
-    longitude
+    latitude = models.DecimalField(null=True, blank=True, decimal_places=7, max_digits=10)
+    longitude = models.DecimalField(null=True, blank=True, decimal_places=7, max_digits=10)
+    exact_location = gismodels.PointField(null=True, blank=True)
+    exact_location_best_guess = gismodels.PointField(null=True, blank=True)
     #c19
-    first_harmful_event # needs a table for codes
+    first_harmful_event_options = [
+        (1, 'Rollover/Overturn'),
+        (2, 'Fire/Explosion'),
+        (3, 'Immersion or Partial Immersion (Since 2012)'),
+        (4, 'Gas Inhalation'),
+        (5, 'Fell/Jumped From Vehicle'),
+        (6, 'Injured in Vehicle (Non-Collision)'),
+        (7, 'Other Non-Collision'),
+        (8, 'Pedestrian'),
+        (9, 'Pedalcyclist'),
+        (10, 'Railway Vehicle'),
+        (11, 'Live Animal'),
+        (12, 'Motor Vehicle In-Transport'),
+        (14, 'Parked Motor Vehicle (Not In-Transport)'),
+        (15, 'Non-Motorist on Personal Conveyance'),
+        (16, 'Thrown or Falling Object'),
+        (17, 'Boulder'),
+        (18, 'Other Object (Not Fixed)'),
+        (19, 'Building'),
+        (20, 'Impact Attenuator/Crash Cushion'),
+        (21, 'Bridge Pier or Support'),
+        (23, 'Bridge Rail (Includes Parapet)'),
+        (24, 'Guardrail Face'),
+        (25, 'Concrete Traffic Barrier'),
+        (26, 'Other Traffic Barrier'),
+        (30, 'Utility Pole/Light Support'),
+        (31, 'Post, Pole, or Other Supports'),
+        (32, 'Culvert'),
+        (33, 'Curb'),
+        (34, 'Ditch'),
+        (35, 'Embankment'),
+        (38, 'Fence'),
+        (39, 'Wall'),
+        (40, 'Fire Hydrant'),
+        (41, 'Shrubbery'),
+        (42, 'Tree (Standing Only)'),
+        (43, 'Other Fixed Object'),
+        (44, 'Pavement Surface Irregularity (Ruts, Potholes, Grates, etc.)'),
+        (45, 'Working Motor Vehicle'),
+        (46, 'Traffic Signal Support'),
+        (48, 'Snow Bank'),
+        (49, 'Ridden Animal or Animal-Drawn Conveyance (Since 1998)'),
+        (50, 'Bridge Overhead Structure'),
+        (51, 'Jackknife (Harmful to This Vehicle)'),
+        (52, 'Guardrail End'),
+        (53, 'Mail Box'),
+        (55, 'Motor Vehicle in Motion Outside the Trafficway (Since 2008)'),
+        (57, 'Cable Barrier (Since 2008)'),
+        (58, 'Ground'),
+        (59, 'Traffic Sign Support'),
+        (72, 'Cargo/Equipment Loss, Shift, or Damage (Harmful)'),
+        (73, 'Object That Had Fallen From Motor Vehicle In-Transport'),
+        (74, 'Road Vehicle on Rails'),
+        (91, 'Unknown Object Not Fixed'),
+        (93, 'Unknown Fixed Object'),
+        (98, 'Harmful Event, Details Not Reported (Since 2019)'),
+        (99, 'Reported as Unknown')
+    ]
+    first_harmful_event = models.PositiveSmallIntegerField(choices=first_harmful_event_options, default=98)
     #c20
-    manner_of_collision_of_first_harmful_event # needs a table for codes
-    #c21B
-    relation_to_junction # needs a table for codes
+    manner_of_collision_of_first_harmful_event_options = [
+        (0,'First Harmful Event was Not a Collision with Motor Vehicle In-Transport'),
+        (1,'Front-to-Rear'),
+        (2,'Front-to-Front'),
+        (6,'Angle'),
+        (7,'Sideswipe - Same Direction'),
+        (8,'Sideswipe - Opposite Direction'),
+        (9,'Rear-to-Side'),
+        (10,'Rear-to-Rear'),
+        (11,'Other (End-Swipes and Others)'),
+        (98,'Not Reported'),
+        (99,'Reported as Unknown')
+    ]
+    manner_of_collision_of_first_harmful_event = models.PositiveSmallIntegerField(choices=manner_of_collision_of_first_harmful_event_options, default=98)
+    #c21B RELJCT1
+    at_intersection_options = [
+        (0, "No"),
+        (1, "Yes"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ]
+    
+    at_intersection = models.PositiveSmallIntegerField(choices=at_intersection_options, default=8)
+#      2010- 2018- # needs a table for codes
     #c23
-    relation_to_trafficway # needs a table for codes
+    relation_to_junction_options = [
+        (1,'Non-Junction'),
+        (2,'Intersection'),
+        (3,'Intersection Related'),
+        (4,'Driveway Access'),
+        (5,'Entrance/Exit Ramp Related'),
+        (6,'Railway Grade Crossing'),
+        (7,'Crossover Related'),
+        (8,'Driveway Access Related'),
+        (16,'Shared-Use Path Crossing'),
+        (17,'Acceleration/Deceleration Lane'),
+        (18,'Through Roadway'),
+        (19,'Other Location Within Interchange Area'),
+        (20,'Entrance/Exit Ramp'),
+        (98,'Not Reported'),
+        (99,'Reported as Unknown')
+    ]
+    relation_to_junction = models.PositiveSmallIntegerField(choices=relation_to_junction_options, default=98)
     #c24
     work_zone # needs a table for codes
     #c25

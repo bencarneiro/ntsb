@@ -259,7 +259,105 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "accident.RD_OWNER"
         }
+    ],
+    #C14
+    "accident.national_highway_system": [
+        {
+            "range": {
+                "start": 1994,
+                "end": None
+            },
+            "key": "accident.NHS"
+        }
+    ],
+    #C15
+    "accident.special_jurisdiction": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.SP_JUR"
+        }
+    ],
+    #C16
+    "accident.milepoint": [
+        {
+            "range": {
+                "start": 1982,
+                "end": None
+            },
+            "key": "accident.MILEPT"
+        }
+    ],
+    #C17A
+    "accident.latitude": [
+        {
+            "range": {
+                "start": 1999,
+                "end": None
+            },
+            "key": "accident.LATITUDE"
+        }
+    ],
+    #C17B
+    "accident.longitude": [
+        {
+            "range": {
+                "start": 1999,
+                "end": None
+            },
+            "key": "accident.LONGITUD"
+        }
+    ],
+    #C19
+    "accident.first_harmful_event": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.HARM_EV"
+        }
+    ],
+    #C20
+    "accident.manner_of_collision_of_first_harmful_event": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.MAN_COLL"
+        }
+    ],
+    #C21
+    "accident.at_intersection": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "accident.RELJCT1"
+        }
+    ],
+    #c21B
+    "accident.relation_to_junction": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "accident.REL_JUNC"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "accident.RELJCT2"
+        }
     ]
+
 }
 
 # # Create your views here.
