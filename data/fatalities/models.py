@@ -29,7 +29,7 @@ class City(models.Model):
     name = models.CharField(max_length=512, null=False)
 
     class Meta:
-        db_table = "county"
+        db_table = "city"
         managed = True
 
 class Accident(models.Model):
@@ -257,7 +257,7 @@ class Accident(models.Model):
     ]
     
     at_intersection = models.PositiveSmallIntegerField(choices=at_intersection_options, default=8)
-#      2010- 2018- # needs a table for codes
+#      2010- 2018- 
     #c23
     relation_to_junction_options = [
         (1,'Non-Junction'),
@@ -277,47 +277,119 @@ class Accident(models.Model):
         (99,'Reported as Unknown')
     ]
     relation_to_junction = models.PositiveSmallIntegerField(choices=relation_to_junction_options, default=98)
+    #c22
+    type_of_intersection_options = [
+        (1, "Not an Intersection"),
+        (2, "Four-Way Intersection"),
+        (3, "T-Intersection"),
+        (4, "Y-Intersection"),
+        (5, "Traffic Circle"),
+        (6, "Roundabout"),
+        (7, "Five-Point, or More"),
+        (10, "L-Intersection"),
+        (11, "Other Intersection Type"),
+        (98, "Not Reported"),
+        (99, "Reported as Unknown")
+    ]
+    type_of_intersection = models.PositiveSmallIntegerField(choices=type_of_intersection_options, default=98)
+    #c23
+    relation_to_road_options = [
+        (1,'On Roadway'),
+        (2,'On Shoulder'),
+        (3,'On Median'),
+        (4,'On Roadside'),
+        (5,'Outside Trafficway'),
+        (6,'Off Roadway - Location Unknown'),
+        (7,'In Parking Lane/Zone'),
+        (8,'Gore'),
+        (10,'Separator'),
+        (11,'Continuous Left-Turn Lane'),
+        (12,'Pedestrian Refuge Island or Traffic Island'),
+        (98,'Not Reported'),
+        (99,'Reported as Unknown')
+    ]
+    relation_to_road = models.PositiveSmallIntegerField(choices=relation_to_road_options, default=98)
     #c24
-    work_zone # needs a table for codes
-    #c25
-    light_condition # needs a table for codes
-    #c26
-    atmospheric_condition # needs a table for codes
-    #c27
-    school_bus_related # needs a table for codes
-    #c28
-    rail_grade_crossing_identifier #seven-char string
-    #c29
-    ems_notification_time
-    #c30
-    ems_accident_arrival_time
-    #c31
-    ems_hospital_arrival_time
-    #c101
-    fatalities
+    work_zone_options = [
+        (0, "None"),
+        (1, "Construction"),
+        (2, "Maintenance")
+        (3, "Utility"),
+        (4, "Work Zone, Type Unknown")
 
-    #discontinued 2008
-    hit_and_run
-    #discontinued 2015 DRUNK_DR
-    num_drunk_drivers # needs a table for codes
-    # discontinued ALIGNMNT
-    roadway_alignment
-    #discontinued ROAD_FNC
-    roadway_function
-    # discontinued PROFILE
-    roadway_profile
-    # discontinued SUR_COND
-    roadway_surface_condition
-    # discontinued PAVE_TYP
-    pavement_type
-    # discontinued SP_LIMIT
-    speed_limit
-    # discontinued NO_LANES
-    num_lanes_in_roadway
-    # discontinued TRA_CONT
-    traffic_control_device # This one needs a huge table
-    # discontinued T_CONT_F
-    traffic_control_device_functioning
+    ]
+    work_zone = models.PositiveSmallIntegerField(choices=work_zone_options, default=0)
+    #c25
+    light_condition_options = [
+        (1,'Daylight'),
+        (2,'Dark - Not Lighted'),
+        (3,'Dark - Lighted'),
+        (4,'Dawn'),
+        (5,'Dusk'),
+        (6,'Dark - Unknown Lighting'),
+        (7,'Other'),
+        (8,'Not Reported'),
+        (9,'Reported as Unknown')
+    ]
+    light_condition = models.PositiveSmallIntegerField(choices=light_condition_options, default=8) 
+    #c26
+    atmospheric_condition_options = [
+        (1,'Clear'),
+        (2,'Rain'),
+        (3,'Sleet, Hail'),
+        (4,'Snow'),
+        (5,'Fog, Smog, Smoke'),
+        (6,'Severe Crosswinds'),
+        (7,'Blowing Sand, Soil, Dirt'),
+        (8,'Other'),
+        (10,'Cloudy'),
+        (11,'Blowing Snow'),
+        (12,'Freezing Rain or Drizzle'),
+        (98,'Not Reported'),
+        (99,'Unknown/')
+    ]
+    atmospheric_condition = models.PositiveSmallIntegerField(choices=atmospheric_condition_options, default=98) 
+    #c27
+    school_bus_related = models.BooleanField(null=False, blank=False, default=0)
+    #c28
+    rail_grade_crossing_identifier = models.CharField(null=True, blank=True) #seven-char string
+    #c29a
+    ems_notified_hour = models.PositiveSmallIntegerField(null=True, blank=True)
+    #c29b
+    ems_notified_minute = models.PositiveSmallIntegerField(null=True, blank=True)
+    #c30A
+    ems_arrived_hour = models.PositiveSmallIntegerField(null=True, blank=True)
+    #c30B
+    ems_arrived_minute = models.PositiveSmallIntegerField(null=True, blank=True)
+    #c31A
+    arrived_at_hospital_hour = models.PositiveSmallIntegerField(null=True, blank=True)
+    #c31B
+    arrived_at_hospital_minute = models.PositiveSmallIntegerField(null=True, blank=True)
+    #c101
+    fatalities = models.PositiveSmallIntegerField(null=False, blank=False)
+
+    # #discontinued 2008
+    # hit_and_run
+    # #discontinued 2015 DRUNK_DR
+    # num_drunk_drivers 
+    # # discontinued ALIGNMNT
+    # roadway_alignment
+    # #discontinued ROAD_FNC
+    # roadway_function
+    # # discontinued PROFILE
+    # roadway_profile
+    # # discontinued SUR_COND
+    # roadway_surface_condition
+    # # discontinued PAVE_TYP
+    # pavement_type
+    # # discontinued SP_LIMIT
+    # speed_limit
+    # # discontinued NO_LANES
+    # num_lanes_in_roadway
+    # # discontinued TRA_CONT
+    # traffic_control_device # This one needs a huge table
+    # # discontinued T_CONT_F
+    # traffic_control_device_functioning
 
     
 
@@ -336,15 +408,15 @@ class Vehicle(models.Model):
     #v10 
     vehicle_model_year
     #v14
-    ncsa_make # needs a table for codes
+    ncsa_make 
     #v15
-    ncsa_model # needs a table for codes
+    ncsa_model 
     #v16
-    body_type # needs a table for codes
+    body_type 
     #v19 
-    vehicle_trailing  # needs a table for codes
+    vehicle_trailing  
     #v22 
-    jackknife  # needs a table for codes
+    jackknife  
 
 
     #v26a HAZ_INV
@@ -359,59 +431,59 @@ class Vehicle(models.Model):
     release_of_hazardous_material
     
     #v28
-    special_vehicle_use  # needs a table for codes
+    special_vehicle_use  
     #v29
-    emergency_vehicle_use  # needs a table for codes
+    emergency_vehicle_use  
     #v30
     travel_speed
     #v32 
-    rollover  # needs a table for codes
+    rollover  
     #V34A
-    initial_contact_point   # needs a table for codes
+    initial_contact_point   
     #v35
-    extent_of_damage   # needs a table for codes
+    extent_of_damage   
     #v36
-    vehicle_towed # needs a table for codes
+    vehicle_towed 
     #v38
-    most_harmful_event # needs a table for codes
+    most_harmful_event 
     #v39
-    fire_occurence  # needs a table for codes
+    fire_occurence  
     #v40a
-    automation_system_present  # needs a table for codes
+    automation_system_present  
     #v40b
-    type_of_automation_system_present  # needs a table for codes
+    type_of_automation_system_present  
     #v40c
-    type_of_automation_system_engaged  # needs a table for codes
+    type_of_automation_system_engaged  
     #v150
     fatalities
     #v151
-    driver_drinking # needs a table for codes
+    driver_drinking 
     #d4
-    driver_presence # needs a table for codes
+    driver_presence 
     #d5
-    driver_license_state # needs a table for codes
+    driver_license_state 
     #d6 DRIMPAIR
     driver_zip_code
     #d7b
-    non_cdl_license_status # needs a table for codes
+    non_cdl_license_status 
     #d8
-    cdl_license_status # needs a table for codes
+    cdl_license_status 
     #d10
-    license_compliance_with_class_of_vehicle # needs a table for codes
+    license_compliance_with_class_of_vehicle 
     #d11
-    compliance_with_license_restrictions # needs a table for codes
+    compliance_with_license_restrictions 
     #d12 (inches)
     driver_height
     #d13 (lbs)
     driver_weight
     #d14
-    previous_recorded_crashes # needs a table for codes
+    previous_recorded_crashes 
     #d16
-    previous_dwi_convictions # needs a table for codes
+    previous_dwi_convictions 
     #d17
-    previous_speeding_convictions # needs a table for codes
+    previous_speeding_convictions 
     #d18
-    previous_other_moving_violations # needs a table for codes
+    previous_other_moving_violations 
     #d19a
     month_of_oldest_violation
     #d19b
@@ -427,17 +499,17 @@ class Vehicle(models.Model):
     #pc7
     speed_limit #need table
     #pc8
-    roadway_alignment #needs a table for codes
+    roadway_alignment 
     #pc9
-    roadway_grade #needs a table for codes
+    roadway_grade 
     #pc10
-    roadway_surface_type #needs a table for codes
+    roadway_surface_type 
     #pc11
-    roadway_surface_condition #needs a table for codes
+    roadway_surface_condition 
     #pc12
-    traffic_control_device #needs a table for codes
+    traffic_control_device 
     #pc13
-    traffic_control_device_functioning #needs a table for codes
+    traffic_control_device_functioning 
     
 
 class Person(models.Model):

@@ -356,7 +356,156 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "accident.RELJCT2"
         }
+    ],
+    #C22
+    "accident.type_of_intersection": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "accident.TYP_INT"
+        }
+    ],
+    #c23
+    "accident.relationship_to_road": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.REL_ROAD"
+        }
+    ],
+    #c24
+    "accident.work_zone": [
+        {
+            "range": {
+                "start": 1980,
+                "end": 2008
+            },
+            "key": "accident.C_M_ZONE"
+        },
+
+        {
+            "range": {
+                "start": 2009,
+                "end": None
+            },
+            "key": "accident.WRK_ZONE"
+        }
+    ],
+    #c25
+    "accident.light_condition": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.LGT_COND"
+        }
+    ],
+    #C26
+    "accident.atmospheric_condition": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.WEATHER"
+        }
+    ],
+    #C27
+    "accident.school_bus_involved": [
+        {
+            "range": {
+                "start": 1977,
+                "end": None
+            },
+            "key": "accident.SCH_BUS"
+        }
+    ],
+    #c28
+    "accident.rail_grade_crossing_identifier": [
+        {
+            "range": {
+                "start": 1979,
+                "end": None
+            },
+            "key": "accident.RAIL"
+        }
+    ],
+    #c29A
+    "accident.ems_notified_hour": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.NOT_HOUR"
+        }
+    ],
+    #c29B
+    "accident.ems_notified_minute": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.NOT_MIN"
+        }
+    ],
+    #c30A
+    "accident.ems_arrived_hour": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.ARR_HOUR"
+        }
+    ],
+    #c30B
+    "accident.ems_arrived_minute": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.ARR_MIN"
+        }
+    ],
+    #C31A
+    "accident.arrived_at_hospital_hour": [
+        {
+            "range": {
+                "start": 1987,
+                "end": None
+            },
+            "key": "accident.HOSP_HOUR"
+        }
+    ],
+    #c31B
+    "accident.arrived_at_hospital_minute": [
+        {
+            "range": {
+                "start": 1987,
+                "end": None
+            },
+            "key": "accident.HOSP_MIN"
+        }
+    ],
+    #C101
+    "accident.fatalities": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.FATALS"
+        }
     ]
+
 
 }
 
