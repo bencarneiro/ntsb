@@ -504,7 +504,116 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "accident.FATALS"
         }
-    ]
+    ],
+
+    # VEHICLES
+
+    # V4
+    "vehicle.number_of_occupants": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2008
+            },
+            "key": "vehicle.OCUPANTS"
+        },
+        {
+            "range": {
+                "start": 2009,
+                "end": None
+            },
+            "key": "vehicle.NUMOCCS"
+        }
+    ],
+
+    #V6
+    "vehicle.hit_and_run": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.HIT_RUN"
+        }
+    ],
+
+    #V7 
+    "vehicle.registration_state": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.REG_STAT"
+        }
+    ],
+
+    #V8
+    "vehicle.registered_vehicle_owner": [
+        {
+            "range": {
+                "start": 1991,
+                "end": None
+            },
+            "key": "vehicle.OWNER"
+        }
+    ],
+
+    # V9
+    "vehicle.vehicle_identification_number": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.VIN"
+        }
+    ],
+
+    # V10
+    "vehicle.model_year": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.MOD_YEAR"
+        }
+    ],
+
+    # V11
+    "vehicle.vpic_make": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "vehicle.VPICMAKE"
+        }
+    ],
+
+    # V12
+    "vehicle.vpic_model": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "vehicle.VPICMODEL"
+        }
+    ],
+
+    # V13
+    "vehicle.vpic_body_class": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "vehicle.VPICBODYCLASS"
+        }
+    ],
+
 
 
 }

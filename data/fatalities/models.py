@@ -398,15 +398,108 @@ class Vehicle(models.Model):
     accident = models.ForeignKey(Accident, on_delete=models.DO_NOTHING)
     vehicle_number = models.PositiveSmallIntegerField(null=False)
     #v4
-    num_occupants
+    number_of_occupants = models.PositiveSmallIntegerField(null=True, blank=True)
     # v6
-    hit_and_run
+    hit_and_run_choices = [
+        (0, "No Hit and Run"),
+        (1, "Hit and Run"),
+        (9, "Unknown")
+    ]
+    hit_and_run = models.PositiveSmallIntegerField(choices=hit_and_run_choices, default=0) 
     #v7 
-    registration_state
+    registration_state_choices = [
+        (0, "Not Applicable"),
+        (1, 'Alabama'),
+        (2, 'Alaska'),
+        (3, 'American Samoa'),
+        (4, 'Arizona'),
+        (5, 'Arkansas'),
+        (6, 'California'),
+        (8, 'Colorado'),
+        (9, 'Connecticut'),
+        (10, 'Delaware'),
+        (11, 'District of Columbia'),
+        (12, 'Florida'),
+        (13, 'Georgia'),
+        (14, 'Guam'),
+        (15, 'Hawaii'),
+        (16, 'Idaho'),
+        (17, 'Illinois'),
+        (18, 'Indiana'),
+        (19, 'Iowa'),
+        (20, 'Kansas'),
+        (21, 'Kentucky'),
+        (22, 'Louisiana'),
+        (23, 'Maine'),
+        (24, 'Maryland'),
+        (25, 'Massachusetts'),
+        (26, 'Michigan'),
+        (27, 'Minnesota'),
+        (28, 'Mississippi'),
+        (29, 'Missouri'),
+        (30, 'Montana'),
+        (31, 'Nebraska'),
+        (32, 'Nevada'),
+        (33, 'New Hampshire'),
+        (34, 'New Jersey'),
+        (35, 'New Mexico'),
+        (36, 'New York'),
+        (37, 'North Carolina'),
+        (38, 'North Dakota'),
+        (39, 'Ohio '),
+        (40, 'Oklahoma'),
+        (41, 'Oregon'),
+        (42, 'Pennsylvania'),
+        (43, 'Puerto Rico'),
+        (44, 'Rhode Island'),
+        (45, 'South Carolina'),
+        (46, 'South Dakota'),
+        (47, 'Tennessee'),
+        (48, 'Texas'),
+        (49, 'Utah'),
+        (50, 'Vermont'),
+        (51, 'Virginia'),
+        (52, 'Virgin Islands'),
+        (53, 'Washington'),
+        (54, 'West Virginia'),
+        (55, 'Wisconsin'),
+        (56, 'Wyoming'),
+        (91, "Not Reported"),
+        (92, "No Registration"),
+        (93, "Multiple State Registrations"),
+        (94, "US Government / Military"),
+        (95, "Canada"),
+        (96, "Mexico"),
+        (97, "Other Foreign Country"),
+        (98, "Other Registration"),
+        (99, "Unknown")
+    ]
+    registration_state = models.PositiveSmallIntegerField(choices=registration_state_choices, default=99)
+    #v8 registered vehicle owner
+    registered_vehicle_owner_choices = [
+        (0, 'Not Applicable, Vehicle Not Registered'),
+        (1, 'Driver (in This Crash) Was Registered Owner'),
+        (2, 'Driver (in This Crash) Not Registered Owner (Other Private Owner)'),
+        (3, 'Vehicle Registered as Commercial/Business/Company/Government'),
+        (4, 'Vehicle Registered as Rental Vehicle'),
+        (5, 'Vehicle Was Stolen (Reported by Police)'),
+        (6, 'Driverless/Motor Vehicle Parked/Stopped off Roadway'),
+        (9, 'Unknown')
+    ]
+    registered_vehicle_owner = models.PositiveSmallIntegerField(choices=registered_vehicle_owner_choices, default=9)
     #v9
-    vehicle_identification_number
+    vehicle_identification_number = models.CharField(max_length=32, null=True, blank=True)
     #v10 
-    vehicle_model_year
+    vehicle_model_year = models.PositiveSmallIntegerField(null=True, blank=True)
+    # V11
+    vpic_make = models.PositiveSmallIntegerField(null=True, blank=True)
+    # V12
+    vpic_model = models.PositiveIntegerField(null=True, blank=True)
+    # V13
+    vpic_body_class_choices = [
+          
+    ]
+    vpic_body_class = models.PositiveSmallIntegerField()
     #v14
     ncsa_make 
     #v15
