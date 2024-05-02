@@ -686,7 +686,7 @@ class Vehicle(models.Model):
         (17, '3-Door Coupe'),
         (19, 'Utility Unknown Body'),
         (20, 'Minivan'),
-        (21, 'Large Van – Includes Van-Based Buses'),
+        (21, 'Large Van - Includes Van-Based Buses'),
         (22, 'Step Van or Walk-in Van (GVWR ≤ 10,000 lbs)'),
         (28, 'Other Van Type (Hi-Cube Van)'),
         (29, 'Unknown Van Type'),
@@ -740,12 +740,161 @@ class Vehicle(models.Model):
         (99, 'Unknown Body Type')
     ]
     body_type = models.PositiveSmallIntegerField(choices=body_type_choices, default=99)
+
+    #V17
+    final_stage_body_class_choices = [
+        (0, 'Not Applicable'),
+        (2, 'Minivan'),
+        (4, 'Low-Speed Vehicle (LSV)'),
+        (7, 'Sport Utility Vehicle (SUV)/Multi-Purpose Vehicle (MPV)'),
+        (8, 'Crossover Utility Vehicle (CUV)'),
+        (9, 'Van'),
+        (11, 'Truck'),
+        (15, 'Wagon'),
+        (16, 'Bus'),
+        (60, 'Pickup'),
+        (66, 'Truck-Tractor'),
+        (68, 'Streetcar/Trolley'),
+        (73, 'Bus-School Bus'),
+        (95, 'Cargo Van'),
+        (108, 'Motorhome'),
+        (111, 'Step Van/Walk-in Van'),
+        (117, 'Limousine'),
+        (119, 'Sport Utility Truck'),
+        (128, 'Ambulance'),
+        (129, 'Street Sweeper'),
+        (130, 'Fire Apparatus'),
+        (997, 'Other'),
+        (998, 'Not Reported'),
+        (999, 'Unknown')
+    ]
+    final_stage_body_class = models.PositiveSmallIntegerField(choices=final_stage_body_class_choices, default=999)
+    # V18
+    weight_rating_choices = [
+        (11, 'Class 1: 6,000 lbs or less (2,722 kg or less)'),
+        (12, 'Class 2: 6,001 - 10,000 lbs (2,722 - 4,536 kg)'),
+        (13, 'Class 3: 10,001 - 14,000 lbs (4,536 - 6,350 kg)'),
+        (14, 'Class 4: 14,001 - 16,000 lbs (6,350 - 7,258 kg)'),
+        (15, 'Class 5: 16,001 - 19,500 lbs (7,258 - 8,845 kg)'),
+        (16, 'Class 6: 19,501 - 26,000 lbs (8,845 - 11,794 kg)'),
+        (17, 'Class 7: 26,001 - 33,000 lbs (11,794 - 14,969 kg)'),
+        (18, 'Class 8: 33,001 lbs and above (14,969 kg and above)'),
+        (98, 'Not Reported'),
+        (99, 'Reported as Unknown')
+    ]
+    gross_vehicle_weight_rating_lower = models.PositiveSmallIntegerField(choices = weight_rating_choices, default = 99)
+    gross_vehicle_weight_rating_upper = models.PositiveSmallIntegerField(choices = weight_rating_choices, default = 99)
     #v19 
-    vehicle_trailing  
+    vehicle_trailing_choices = [
+        (0, 'No Trailers'),
+        (1, 'One Trailer'),
+        (2, 'Two Trailers'),
+        (3, 'Three or More Trailers'),
+        (4, 'Yes, Number of Trailers Unknown'),
+        (5, 'Vehicle Towing Another Motor Vehicle - Fixed Linkage'),
+        (6, 'Vehicle Towing Another Motor Vehicle - Non-Fixed Linkage'),
+        (7, 'Trailing Unit Other than a Trailer or Another Motor Vehicle'),
+        (9, 'Unknown')
+    ]
+    vehicle_trailing = models.PositiveSmallIntegerField(choices=vehicle_trailing_choices, default=0)
+    #V20
+    trailer_vin_1= models.CharField(max_length=32, null=True, blank=True)
+    trailer_vin_2= models.CharField(max_length=32, null=True, blank=True)
+    trailer_vin_3= models.CharField(max_length=32, null=True, blank=True)
+    #V21
+    trailer_weight_rating_choices = [
+        (0, 'No Trailer GVWR Required'),
+        (11, 'Class 1: 6,000 lbs or less (2,722 kg or less)'),
+        (12, 'Class 2: 6,001 - 10,000 lbs (2,722 - 4,536 kg)'),
+        (13, 'Class 3: 10,001 - 14,000 lbs (4,536 - 6,350 kg)'),
+        (14, 'Class 4: 14,001 - 16,000 lbs (6,350 - 7,258 kg)'),
+        (15, 'Class 5: 16,001 - 19,500 lbs (7,258 - 8,845 kg)'),
+        (16, 'Class 6: 19,501 - 26,000 lbs (8,845 - 11,794 kg)'),
+        (17, 'Class 7: 26,001 - 33,000 lbs (11,794 - 14,969 kg)'),
+        (18, 'Class 8: 33,001 lbs and above (14,969 kg and above)'),
+        (77, 'No Trailing Units'),
+        (98, 'Not Reported'),
+        (99, 'Reported as Unknown')
+    ]
+    trailer_weight_rating_1 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=0)
+    trailer_weight_rating_2 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=0)
+    trailer_weight_rating_3 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=0)
     #v22 
-    jackknife  
-
-
+    jackknife_choices = [
+        (0, "Not an Articulated Vehicle"),
+        (1, "No")
+        (2, "Yes, First Event")
+        (3, "Yes, Subsequent Event")
+    ]
+    jackknife = models.PositiveSmallIntegerField(choices=jackknife_choices, default=0)
+    #V23
+    mcid_issuing_authority_choices = [
+        (0, "Not Applicable"),
+        (1, 'Alabama'),
+        (2, 'Alaska'),
+        (3, 'American Samoa'),
+        (4, 'Arizona'),
+        (5, 'Arkansas'),
+        (6, 'California'),
+        (8, 'Colorado'),
+        (9, 'Connecticut'),
+        (10, 'Delaware'),
+        (11, 'District of Columbia'),
+        (12, 'Florida'),
+        (13, 'Georgia'),
+        (14, 'Guam'),
+        (15, 'Hawaii'),
+        (16, 'Idaho'),
+        (17, 'Illinois'),
+        (18, 'Indiana'),
+        (19, 'Iowa'),
+        (20, 'Kansas'),
+        (21, 'Kentucky'),
+        (22, 'Louisiana'),
+        (23, 'Maine'),
+        (24, 'Maryland'),
+        (25, 'Massachusetts'),
+        (26, 'Michigan'),
+        (27, 'Minnesota'),
+        (28, 'Mississippi'),
+        (29, 'Missouri'),
+        (30, 'Montana'),
+        (31, 'Nebraska'),
+        (32, 'Nevada'),
+        (33, 'New Hampshire'),
+        (34, 'New Jersey'),
+        (35, 'New Mexico'),
+        (36, 'New York'),
+        (37, 'North Carolina'),
+        (38, 'North Dakota'),
+        (39, 'Ohio '),
+        (40, 'Oklahoma'),
+        (41, 'Oregon'),
+        (42, 'Pennsylvania'),
+        (43, 'Puerto Rico'),
+        (44, 'Rhode Island'),
+        (45, 'South Carolina'),
+        (46, 'South Dakota'),
+        (47, 'Tennessee'),
+        (48, 'Texas'),
+        (49, 'Utah'),
+        (50, 'Vermont'),
+        (51, 'Virginia'),
+        (52, 'Virgin Islands'),
+        (53, 'Washington'),
+        (54, 'West Virginia'),
+        (55, 'Wisconsin'),
+        (56, 'Wyoming'),
+        (57, "U.S. DOT"),
+        (58, "MC/MX (ICC)"),
+        (77, "Not Reported"),
+        (88, "None"),
+        (95, "Canada"),
+        (96, "Mexico"),
+        (99, "Unknown")
+    ] 
+    motor_carrier_issuing_authority = models.PositiveSmallIntegerField(choices=mcid_issuing_authority_choices, default=0)
+    motor_carrier_identification_number = models.CharField(max_length=32, null=True, blank=True)
     #v26a HAZ_INV
     hazardous_material_involvement
     #v26B HAZPLAC
@@ -1219,152 +1368,3 @@ class SafetyEquipment(models.Model):
     other_preventative_equipment
 
 
-
-
-
-
-# The ACCIDENT Data File 33
-# C3 Number of Forms Submitted for Persons
-# Not in Motor Vehicles PEDS 34
-# C3A Number of Persons Not in Motor Vehicles
-# In-Transport (MVIT) PERNOTMVIT 34
-    
-# C4 Number of Vehicle Forms Submitted- ALL VE_TOTAL 35
-# C4A Number of Motor Vehicles In-Transport (MVIT) VE_FORMS 36
-    
-# C4B Number of Parked/Working Vehicles PVH_INVL 37
-# C5 Number of Forms Submitted for Persons
-# in Motor Vehicles PERSONS 38
-# C5A Number of Persons in Motor Vehicles
-# In-Transport (MVIT) PERMVIT 39
-    
-# C6 County COUNTY 40
-# C7 City CITY 41
-# C8A Month of Crash MONTH 42
-# C8B Day of Crash DAY 42
-# C8C Day of Week DAY_WEEK 43
-# C8D Year of Crash YEAR 43
-# C9A Hour of Crash HOUR 44
-# C9B Minute of Crash MINUTE 44
-    
-# C10 Trafficway Identifier TWAY_ID 45
-# C10 Trafficway Identifier TWAY_ID2 45
-# C11 Route Signing ROUTE 46
-# C12A Land Use RUR_URB 47
-# C12B Functional System FUNC_SYS 47
-# 13
-# C13 Ownership RD_OWNER 48
-# C14 National Highway System NHS 49
-# C15 Special Jurisdiction SP_JUR 50
-# C16 Milepoint MILEPT 51
-# C17A Latitude LATITUDE 52
-# C17B Longitude LONGITUD 53
-    
-# C19 First Harmful Event HARM_EV 54
-# C20 Manner of Collision of the First Harmful Event MAN_COLL 58
-# C21A Relation to Junction- Within Interchange Area RELJCT1 60
-# C21B Relation to Junction- Specific Location RELJCT2 61
-# C22 Type of Intersection TYP_INT 63
-# C23 Relation to Trafficway REL_ROAD 64
-# C24 Work Zone WRK_ZONE 65
-# C25 Light Condition LGT_COND 66
-# C26 Atmospheric Conditions WEATHER 67
-# C27 School Bus Related SCH_BUS 69
-# C28 Rail Grade Crossing Identifier RAIL 70
-# C29A Hour of Notification NOT_HOUR 71
-# C29B Minute of Notification NOT_MIN 71
-# C30A Hour of Arrival at Scene ARR_HOUR 72
-# C30B Minute of Arrival at Scene ARR_MIN 72
-# C31A Hour of EMS Arrival at Hospital HOSP_HR 73
-# C31B Minute of EMS Arrival at Hospital HOSP_MN 73
-# C101 Fatalities FATALS 74
-# Atmospheric Conditions (discontinued) WEATHER1 75
-# Atmospheric Conditions (discontinued) WEATHER2 75
-# Federal Highway (discontinued) FED_AID 76
-# Hit-and-Run (discontinued) HIT_RUN 77
-# Land Use (discontinued) LAND_USE 78
-# Number of Drinking Drivers (discontinued) DRUNK_DR 79
-# Related Factors- Crash Level (discontinued) CF1 80
-# Related Factors- Crash Level (discontinued) CF2 80
-# Related Factors- Crash Level (discontinued) CF3 80
-# Roadway Alignment (discontinued) ALIGNMNT 82
-# Roadway Function Class (discontinued) ROAD_FNC 83
-# Roadway Profile (discontinued) PROFILE 84
-# Roadway Surface Condition (discontinued) SUR_COND 84
-# Roadway Surface Type (discontinued) PAVE_TYP 85
-# Speed Limit (discontinued) SP_LIMIT 85
-# 14
-# Total Lanes in Roadway (discontinued) NO_LANES 86
-# Traffic Control Device (discontinued) TRA_CONT 87
-# Traffic Control Device Functioning
-# (discontinued) T_CONT_F 89
-# Trafficway Description (discontinued) TRAF_FLO 89
-# Vehicles In-Transport (discontinued) VEHICLES 90
-
-
-
-
-
-
-# class Accident(models.Model):
-    # STATE
-    # COUNTY
-    # MONTH
-    # DAY
-    # HOUR
-    # MINUTE
-    # VE_FORMS
-    # PERSONS
-    # PEDS
-    # NHS
-    # ROAD_FNC
-    # ROUTE
-    # SP_JUR
-    # HARM_EV
-    # MAN_COLL
-    # REL_JUNC
-    # REL_ROAD
-    # TRAF_FLO
-    # NO_LANES
-    # SP_LIMIT
-    # ALIGNMNT
-    # PROFILE
-    # PAVE_TYP
-    # SUR_COND
-    # TRA_CONT
-    # T_CONT_F
-    # HIT_RUN
-    # LGT_COND
-    # WEATHER
-    # C_M_ZONE
-    # NOT_HOUR
-    # NOT_MIN
-    # ARR_HOUR
-    # ARR_MIN
-    # HOSP_HR
-    # HOSP_MN
-    # SCH_BUS
-    # CF1
-    # CF2
-    # CF3
-    # FATALS
-    # DAY_WEEK
-    # DRUNK_DR
-    # ST_CASE
-    # CITY
-    # MILEPT
-    # YEAR
-    # TWAY_ID
-    # RAIL
-    # latitude
-    # longitud
-
-#     class Meta:
-#         db_table = "accident"
-#         managed = True
-
-
-# 2021 accidents table
-# STATE,STATENAME,ST_CASE,PEDS,PERNOTMVIT,VE_TOTAL,VE_FORMS,PVH_INVL,PERSONS,PERMVIT,COUNTY,COUNTYNAME,CITY,CITYNAME,MONTH,MONTHNAME,DAY,DAYNAME,DAY_WEEK,DAY_WEEKNAME,YEAR,HOUR,HOURNAME,MINUTE,MINUTENAME,TWAY_ID,TWAY_ID2,ROUTE,ROUTENAME,RUR_URB,RUR_URBNAME,FUNC_SYS,FUNC_SYSNAME,RD_OWNER,RD_OWNERNAME,NHS,NHSNAME,SP_JUR,SP_JURNAME,MILEPT,MILEPTNAME,LATITUDE,LATITUDENAME,LONGITUD,LONGITUDNAME,HARM_EV,HARM_EVNAME,MAN_COLL,MAN_COLLNAME,RELJCT1,RELJCT1NAME,RELJCT2,RELJCT2NAME,TYP_INT,TYP_INTNAME,REL_ROAD,REL_ROADNAME,WRK_ZONE,WRK_ZONENAME,LGT_COND,LGT_CONDNAME,WEATHER,WEATHERNAME,SCH_BUS,SCH_BUSNAME,RAIL,RAILNAME,NOT_HOUR,NOT_HOURNAME,NOT_MIN,NOT_MINNAME,ARR_HOUR,ARR_HOURNAME,ARR_MIN,ARR_MINNAME,HOSP_HR,HOSP_HRNAME,HOSP_MN,HOSP_MNNAME,FATALS
-# 2001 accidents table
-# STATE,COUNTY,MONTH,DAY,HOUR,MINUTE,VE_FORMS,PERSONS,PEDS,NHS,ROAD_FNC,ROUTE,SP_JUR,HARM_EV,MAN_COLL,REL_JUNC,REL_ROAD,TRAF_FLO,NO_LANES,SP_LIMIT,ALIGNMNT,PROFILE,PAVE_TYP,SUR_COND,TRA_CONT,T_CONT_F,HIT_RUN,LGT_COND,WEATHER,C_M_ZONE,NOT_HOUR,NOT_MIN,ARR_HOUR,ARR_MIN,HOSP_HR,HOSP_MN,SCH_BUS,CF1,CF2,CF3,FATALS,DAY_WEEK,DRUNK_DR,ST_CASE,CITY,MILEPT,YEAR,TWAY_ID,RAIL,latitude,longitud

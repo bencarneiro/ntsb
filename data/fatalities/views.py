@@ -648,6 +648,135 @@ FARS_DATA_DICTIONARY = {
             "key": "vehicle.BODY_TYP"
         }
     ],
+    # V17
+    "vehicle.final_stage_body_class": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "vehicle.ICFINALBODY"
+        }
+    ],
+    # V18
+    "vehicle.gross_vehicle_weight_rating_lower": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "vehicle.GVWR_FROM"
+        }
+    ],
+    # V18
+    "vehicle.gross_vehicle_weight_rating_upper": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "vehicle.GVWR_TO"
+        }
+    ],
+    
+    # V19
+    "vehicle.vehicle_trailing": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.TOW_VEH"
+        }
+    ],
+    #v20
+    "vehicle.trailer_vin_1": [
+        {
+            "range": {
+                "start": 2016,
+                "end": None
+            },
+            "key": "vehicle.TRLR1VIN"
+        }
+    ],
+    "vehicle.trailer_vin_2": [
+        {
+            "range": {
+                "start": 2016,
+                "end": None
+            },
+            "key": "vehicle.TRLR2VIN"
+        }
+    ],
+    "vehicle.trailer_vin_3": [
+        {
+            "range": {
+                "start": 2016,
+                "end": None
+            },
+            "key": "vehicle.TRLR3VIN"
+        }
+    ],
+    #V21
+    "vehicle.trailer_weight_rating_1": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "vehicle.TRLR1GVWR"
+        }
+    ],
+    "vehicle.trailer_weight_rating_2": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "vehicle.TRLR2GVWR"
+        }
+    ],
+    "vehicle.trailer_weight_rating_3": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "vehicle.TRLR3GVWR"
+        }
+    ],
+    #V22
+    
+    "vehicle.jackknife": [
+        {
+            "range": {
+                "start": 1980,
+                "end": None
+            },
+            "key": "vehicle.J_KNIFE"
+        }
+    ],
+
+    #V23
+    "vehicle.motor_carrier_issuing_authority": [
+        {
+            "range": {
+                "start": 2007,
+                "end": None
+            },
+            "key": "vehicle.MCARR_I1"
+        }
+    ],
+    "vehicle.motor_carrier_identification_number": [
+        {
+            "range": {
+                "start": 2007,
+                "end": None
+            },
+            "key": "vehicle.MCARR_I2"
+        }
+    ]
+
 
 
 
