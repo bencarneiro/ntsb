@@ -867,6 +867,47 @@ FARS_DATA_DICTIONARY = {
             "key": "vehicle.EMER_USE"
         }
     ],
+    #v30
+    "vehicle.travel_speed": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.TRAV_SP"
+        }
+    ],
+    #v31
+    "vehicle.under_override": [
+        {
+            "range": {
+                "start": 2021,
+                "end": None
+            },
+            "key": "vehicle.UNDEROVERRIDE"
+        }
+    ],
+    #v32
+    "vehicle.rollover": [
+        {
+            "range": {
+                "start": 1978,
+                "end": None
+            },
+            "key": "vehicle.ROLLOVER"
+        }
+    ],
+    #v33
+    "vehicle.rollover_location": [
+        {
+            "range": {
+                "start": 2009,
+                "end": None
+            },
+            "key": "ROLINLOC"
+        }
+    ]
+    
 
 
 

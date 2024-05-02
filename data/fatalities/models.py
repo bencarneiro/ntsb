@@ -1019,9 +1019,38 @@ class Vehicle(models.Model):
     ]
     emergency_vehicle_use = models.PositiveSmallIntegerField(choices=emergency_vehicle_use_choices, default=0)
     #v30
-    travel_speed
+    travel_speed = models.PositiveSmallIntegerField(null=True, blank=True)
+    #v31
+    underride_override_choices = [
+        (0, "No Underride or Override"),
+        (1, "Underride"),
+        (2, "Override"),
+        (7, "Not Applicable"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ]
+    underride_override = models.PositiveSmallIntegerField(choices=underride_override_choices, default=0)
     #v32 
-    rollover  
+    rollover_choices = [
+        (0, "No Rollover"),
+        (3, "Rollover"),
+        (8, "Not Applicable")
+    ]
+    rollover = models.PositiveSmallIntegerField(choices=rollover_choices, default=0)
+    #v33 
+    rollover_location_choices = [
+        (0, "No Rollover"),
+        (1, "On Roadway"),
+        (2, "On Shoulder"),
+        (3, "On Median/Separator"),
+        (4, "In Gore"),
+        (5, "On Roadside"),
+        (6, "Outside of Trafficway"),
+        (7, "In Parking Lane/Zone"),
+        (8, "Not Applicable"),
+        (9, "Unknown")
+    ]
+    rollover_location = models.PositiveSmallIntegerField(choices=rollover_location_choices, default=0)
     #V34A
     initial_contact_point   
     #v35
