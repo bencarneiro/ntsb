@@ -915,21 +915,109 @@ class Vehicle(models.Model):
         (99, 'Unknown (Reported as Unknown, 2018-2019)')
     ]
     vehicle_configuration = models.PositiveSmallIntegerField(choices=vehicle_configuration_choices, default=0)
+
+    #v25
+    cargo_body_type_choices = [
+        (0, 'Not Applicable'),
+        (1, 'Van/Enclosed Box'),
+        (2, 'Cargo Tank'),
+        (3, 'Flatbed'),
+        (4, 'Dump'),
+        (5, 'Concrete Mixer'),
+        (6, 'Auto Transporter'),
+        (7, 'Garbage/Refuse'),
+        (8, 'Grain/Chips/Gravel'),
+        (9, 'Pole-Trailer'),
+        (10, 'Log (Since 2007)'),
+        (11, 'Intermodal Container Chassis'),
+        (12, 'Vehicle Towing Another Motor Vehicle (Since 2007)'),
+        (22, 'Bus'),
+        (28, 'Not Reported (2010-2012)'),
+        (96, 'No Cargo Body Type'),
+        (97, 'Other'),
+        (98, 'Unknown Cargo Body Type'),
+        (99, 'Unknown (Reported as Unknown, 2018-2019)')
+    ]
+    cargo_body_type = models.PositiveSmallIntegerField(choices=cargo_body_type_choices, default=0)
     #v26a HAZ_INV
-    hazardous_material_involvement
+    hazardous_material_involvement = models.BooleanField(default=False)
     #v26B HAZPLAC
-    hazardous_material_placard
+    placard_choices = [
+        (0, "Not Applicable"),
+        (1, "No"),
+        (2, "Yes"),
+        (8, "Not Reported")
+    ]
+    hazardous_material_placard = models.PositiveSmallIntegerField(choices=placard_choices, default=0)
     # V26C - HAZ_ID
-    hazardous_material_id
+    hazardous_material_id = models.IntegerField(null=True, blank=True)
     # v26D HAZ_CNO
-    hazardous_material_class_number
+    hazardous_material_class_number_choices = [
+        (0, "Not Applicable"),
+        (1, "Explosives"),
+        (2, "Gases"),
+        (3, "Flammable/Combustible Liquid"),
+        (4, "Flammable Solid, Spontaneously Combustible, and Dangerous When Wet"),
+        (5, "Oxidizer and Organic Peroxide"),
+        (6, "Poison and Poison Inhalation Hazard"),
+        (7, "Radioactive"),
+        (8, "Corrosive"),
+        (9, "Miscellaneous"),
+        (88, "Not Reported")
+    ]
+    hazardous_material_class_number = models.PositiveSmallIntegerField(choices=hazardous_material_class_number_choices, default=0)
     # v26E HAZ_REL
-    release_of_hazardous_material
-    
+    release_of_hazardous_material = models.PositiveSmallIntegerField(choices=placard_choices, default=0)
+    #v27 
+    bus_use_choices = [
+        (0, "Not a Bus"),
+        (1, "School"),
+        (4, "Intercity"),
+        (5, "Charter/Tour"),
+        (6, "Transit/Commuter"),
+        (7, "Shuttle"),
+        (8, "Modified for Personal/Private Use"),
+        (97, "Bus, Unknown Use"),
+        (98, "Not Reported"),
+        (99, "Reported as Unknown")
+
+    ]
+    bus_use = models.PositiveSmallIntegerField(choices=bus_use_choices, default=0)
     #v28
-    special_vehicle_use  
+    special_vehicle_use_choices = [
+        (0, 'No Special Use Noted'),
+        (1, 'Taxi'),
+        (2, 'Vehicle Used as School Transport'),
+        (3, 'Vehicle Used as Other Bus'),
+        (4, 'Military'),
+        (5, 'Police'),
+        (6, 'Ambulance (Since 1980)'),
+        (7, 'Fire Truck (Since 1982)'),
+        (8, 'Non-Transport Emergency Services Vehicle'),
+        (10, 'Safety Service Patrols – Incident Response'),
+        (11, 'Other Incident Response'),
+        (12, 'Towing – Incident Response'),
+        (19, 'Motor Vehicle Used for Vehicle Sharing Mobility'),
+        (20, 'Motor Vehicle Used for Electronic Ride-Hailing'),
+        (21, 'Mail Carrier'),
+        (22, 'Public Utility'),
+        (23, 'Rental Truck Over 10,000 lbs'),
+        (24, 'Truck Operating With Crash Attenuator Equipment'),
+        (99, 'Reported as Unknown (since 2018)')
+    ]
+    special_vehicle_use = models.PositiveSmallIntegerField(choices=special_vehicle_use_choices, default=0)
     #v29
-    emergency_vehicle_use  
+    emergency_vehicle_use_choices = [
+        (0, 'Not Applicable'),
+        (2, 'Non-Emergency, Non-Transport'),
+        (3, 'Non-Emergency Transport'),
+        (4, 'Emergency Operation, Emergency Warning Equipment Not in Use'),
+        (5, 'Emergency Operation, Emergency Warning Equipment in Use'),
+        (6, 'Emergency Operation, Emergency Warning Equipment in Use Unknown'),
+        (8, 'Not Reported'),
+        (9, 'Reported as Unknown')
+    ]
+    emergency_vehicle_use = models.PositiveSmallIntegerField(choices=emergency_vehicle_use_choices, default=0)
     #v30
     travel_speed
     #v32 

@@ -786,7 +786,87 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "vehicle.V_CONFIG"
         }
-    ]
+    ],
+    #v25
+    "vehicle.cargo_body_type": [
+        {
+            "range": {
+                "start": 1991,
+                "end": None
+            },
+            "key": "vehicle.CARGO_BT"
+        }
+    ],
+    #V26
+    "vehicle.hazardous_material_involvement": [
+        {
+            "range": {
+                "start": 2007,
+                "end": None
+            },
+            "key": "vehicle.HAZ_INV"
+        }
+    ],
+    "vehicle.hazardous_material_placard": [
+        {
+            "range": {
+                "start": 2007,
+                "end": None
+            },
+            "key": "vehicle.HAZ_PLAC"
+        }
+    ],
+    "vehicle.hazardous_material_id": [
+        {
+            "range": {
+                "start": 2007,
+                "end": None
+            },
+            "key": "vehicle.HAZ_ID"
+        }
+    ],
+    "vehicle.hazardous_material_class_number": [
+        {
+            "range": {
+                "start": 2007,
+                "end": None
+            },
+            "key": "vehicle.HAZ_CNO"
+        }
+    ],
+    #V27
+
+    "vehicle.bus_use": [
+        {
+            "range": {
+                "start": 2000,
+                "end": None
+            },
+            "key": "vehicle.BUS_USE"
+        }
+    ],
+    #v28
+
+    "vehicle.special_vehicle_use": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.SPEC_USE"
+        }
+    ],
+    #v29
+
+    "vehicle.emergency_vehicle_use": [
+        {
+            "range": {
+                "start": 1977,
+                "end": None
+            },
+            "key": "vehicle.EMER_USE"
+        }
+    ],
 
 
 
