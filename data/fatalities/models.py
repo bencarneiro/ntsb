@@ -895,6 +895,26 @@ class Vehicle(models.Model):
     ] 
     motor_carrier_issuing_authority = models.PositiveSmallIntegerField(choices=mcid_issuing_authority_choices, default=0)
     motor_carrier_identification_number = models.CharField(max_length=32, null=True, blank=True)
+
+    #v24
+    vehicle_configuration_choices = [
+        (0, 'Not Applicable'),
+        (1, 'Single-Unit Truck (2 Axles and GVWR More Than 10,000 lbs)'),
+        (2, 'Single-Unit Truck (3 or More Axles)'),
+        (4, 'Truck Pulling Trailer(s)'),
+        (5, 'Truck Tractor (Bobtail)'),
+        (6, 'Truck Tractor/Semi-Trailer'),
+        (7, 'Truck Tractor/Double'),
+        (8, 'Truck Tractor/Triple'),
+        (10, 'Vehicle 10,000 lbs. or Less Placarded for Hazardous Materials'),
+        (19, 'Vehicle More Than 10,000 lbs., Other'),
+        (20, 'Bus/Large Van (Seats for 9-15 Occupants, Including Driver)'),
+        (21, 'Bus (Seats for More Than 15 Occupants, Including Driver, 2010-Later)'),
+        (88, 'Qualifying Vehicle, Unknown Configuration'),
+        (98, 'Not Reported (2010-2012)'),
+        (99, 'Unknown (Reported as Unknown, 2018-2019)')
+    ]
+    vehicle_configuration = models.PositiveSmallIntegerField(choices=vehicle_configuration_choices, default=0)
     #v26a HAZ_INV
     hazardous_material_involvement
     #v26B HAZPLAC
