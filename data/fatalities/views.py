@@ -614,6 +614,41 @@ FARS_DATA_DICTIONARY = {
         }
     ],
 
+    # V14
+    "vehicle.ncsa_make": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.MAKE"
+        }
+    ],
+
+
+    # V15
+    "vehicle.ncsa_model": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.MODEL"
+        }
+    ],
+
+
+    # V16
+    "vehicle.body_type": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.BODY_TYP"
+        }
+    ],
+
 
 
 }
