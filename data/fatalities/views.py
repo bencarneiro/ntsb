@@ -1064,7 +1064,78 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "vehicle.DR_ZIP"
         }
+    ],
+
+    #d7a 
+    "vehicle.non_cdl_license_type": [
+        {
+            "range": {
+                "start": 2004,
+                "end": None
+            },
+            "key": "vehicle.L_TYPE"
+        }
+    ],
+    #d7B    
+    "vehicle.non_cdl_license_status": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.L_STATUS"
+        }
+    ],
+    #d8 CDL_STAT cdl_license_status 
+    "vehicle.cdl_license_status": [
+        {
+            "range": {
+                "start": 1991,
+                "end": None
+            },
+            "key": "vehicle.CDL_STAT"
+        }
+    ],
+    #d9
+    "vehicle.cdl_endorsements": [
+        {
+            "range": {
+                "start": 1991,
+                "end": None
+            },
+            "key": "vehicle.L_ENDORS"
+        }
+    ],
+    #d10 
+    "vehicle.license_compliance_with_class_of_vehicle": [
+        {
+            "range": {
+                "start": 1982,
+                "end": 1986
+            },
+            "key": "vehicle.L_CL_VEH"
+        },
+        {
+            "range": {
+                "start": 1987,
+                "end": None
+            },
+            "key": "vehicle.L_COMPL"
+        }
+    ],
+    #d11
+    "vehicle.compliance_with_license_restrictions": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.L_RESTRI"
+        }
     ]
+    
+
+
 
 
     

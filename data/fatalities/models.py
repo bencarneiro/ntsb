@@ -391,7 +391,6 @@ class Accident(models.Model):
     # # discontinued T_CONT_F
     # traffic_control_device_functioning
 
-    
 
 class Vehicle(models.Model):
     id = models.PositiveBigIntegerField(primary_key=True)
@@ -994,9 +993,9 @@ class Vehicle(models.Model):
         (6, 'Ambulance (Since 1980)'),
         (7, 'Fire Truck (Since 1982)'),
         (8, 'Non-Transport Emergency Services Vehicle'),
-        (10, 'Safety Service Patrols – Incident Response'),
+        (10, 'Safety Service Patrols - Incident Response'),
         (11, 'Other Incident Response'),
-        (12, 'Towing – Incident Response'),
+        (12, 'Towing - Incident Response'),
         (19, 'Motor Vehicle Used for Vehicle Sharing Mobility'),
         (20, 'Motor Vehicle Used for Electronic Ride-Hailing'),
         (21, 'Mail Carrier'),
@@ -1287,18 +1286,83 @@ class Vehicle(models.Model):
         (99, "Reported as Unknown")
     ]
     drivers_license_state = models.PositiveSmallIntegerField(choices=drivers_license_state_choices, default=98)
-    
     #d6 
     driver_zip_code = models.IntegerField(null=True, blank=True)
 
+    #d7a
+    non_cdl_license_type_choices = [
+        (0, "Not Licensed"),
+        (1, "Full Driver License"),
+        (2, "Intermediate Driver License"),
+        (6, "No Driver Present/Unknown if Driver Present"),
+        (7, "Learner's Permit"),
+        (8, "Temporary License"),
+        (9, "Unknown License Type")
+    ]
+    non_cdl_license_type = models.PositiveSmallIntegerField(choices=non_cdl_license_type_choices, default=9)
+
     #d7b
-    non_cdl_license_status 
+    non_cdl_license_status_choices = [
+        (0, 'Not Licensed'),
+        (1, 'Suspended'),
+        (2, 'Revoked'),
+        (3, 'Expired'),
+        (4, 'Cancelled or Denied'),
+        (5, "Single-Class License")
+        (6, 'Valid'),
+        (7, 'No Driver Present/Unknown if Driver'),
+        (9, 'Unknown License Status')
+    ]
+    non_cdl_license_status = models.PositiveSmallIntegerField(choices=non_cdl_license_status_choices, default=9)
     #d8
-    cdl_license_status 
+    cdl_license_status_choices = [
+        (0, "No Commercial Driver's License (CDL)"),
+        (1, 'Suspended'),
+        (2, 'Revoked'),
+        (3, 'Expired'),
+        (4, 'Cancelled or Denied'),
+        (5, 'Disqualified'),
+        (6, 'Valid'),
+        (7, "Commercial Learner's Permit (CLP)"),
+        (8, 'Other - Not Valid'),
+        (97, 'No Driver Present/Unknown if Driver Present'),
+        (99, 'Unknown License Status')
+    ]
+    cdl_license_status = models.PositiveSmallIntegerField(choices=cdl_license_status_choices, default=99)
+    #d9
+    cdl_endorsements_choices = [
+        (0, 'No Endorsements Required for This Vehicle'),
+        (1, 'Endorsements Required, Complied With'),
+        (2, 'Endorsements Required, Not Complied With'),
+        (3, 'Endorsements Required, Compliance Unknown'),
+        (7, 'No Driver Present/Unknown if Driver Present'),
+        (9, 'Unknown, if Required')
+    ]
+    cdl_endorsements = models.PositiveSmallIntegerField(choices=cdl_endorsements_choices, default=0)
     #d10
-    license_compliance_with_class_of_vehicle 
+    license_compliance_with_class_of_vehicle_choices = [
+        (0, 'Not Licensed'),
+        (1, 'No License Required for This Class Vehicle'),
+        (2, 'No Valid License for This Class Vehicle'),
+        (3, 'Valid License for This Class Vehicle'),
+        (6, 'No Driver Present/Unknown if Driver Present'),
+        (8, 'Unknown if CDL and/or CDL Endorsement Required for This Vehicle'),
+        (9, 'Unknown')
+    ]
+    license_compliance_with_class_of_vehicle = models.PositiveSmallIntegerField(choices=license_compliance_with_class_of_vehicle_choices, default=9)
     #d11
-    compliance_with_license_restrictions 
+    compliance_with_license_restrictions_choices = [
+        (0, "No Restrictions or Not Applicable"),
+        (1, "Restrictions Complied With"),
+        (2, "Restrictions Not Complied With"),
+        (3, "Restrictions, Compliance Unknown"),
+        (7, "No Driver Present/Unknown if Driver Present"),
+        (9, "Unknown")
+    ]
+    compliance_with_license_restrictions = models.PositiveSmallIntegerField(choices=compliance_with_license_restrictions_choices, default=9)
+    
+
+
     #d12 (inches)
     driver_height
     #d13 (lbs)
