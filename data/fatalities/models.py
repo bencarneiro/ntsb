@@ -693,7 +693,7 @@ class Vehicle(models.Model):
         (33, 'Convertible Pickup'),
         (34, 'Light Pickup'),
         (39, 'Unknown (Pickup Style) Light Conventional Truck Type'),
-        (40, 'Cab Chassis -Based (Includes Light Stake, Light Dump, Light Tow, Rescue Vehicles)'),
+        (40, 'Cab Chassis-Based (Includes Light Stake, Light Dump, Light Tow, Rescue Vehicles)'),
         (41, 'Truck-Based Panel'),
         (42, 'Light Vehicle-Based Motorhome (Chassis Mounted)'),
         (45, 'Other Light Conventional Truck Type (Includes Stretched Suburban Limousine)'),
@@ -1202,16 +1202,95 @@ class Vehicle(models.Model):
 
     ]
     automated_driving_system_engaged = models.PositiveSmallIntegerField(choices=automated_driving_system_engaged_choices, default=98)
+    combined_make_model_id = models.IntegerField(null=True, blank=True)
     #v150
-    fatalities
+    fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
     #v151
-    driver_drinking 
+    driver_drinking_choices = [
+        (0, "No Drinking"),
+        (1, "Drinking"),
+        (9, "Unknown")
+    ]
+    driver_drinking = models.PositiveSmallIntegerField(choices=driver_drinking_choices, default=9)
     #d4
-    driver_presence 
+    driver_present_choices = [
+        (0, "No Driver Present/Not Applicable")
+        (1, "Driver Present"),
+        (9, "Unknown")
+    ]
+    driver_present = models.PositiveSmallIntegerField(choices=driver_present_choices, default=9)
     #d5
-    driver_license_state 
-    #d6 DRIMPAIR
-    driver_zip_code
+    drivers_license_state_choices = [
+        (0, "No Driver Present (Since 2010)"),
+        (1, 'Alabama'),
+        (2, 'Alaska'),
+        (3, 'American Samoa'),
+        (4, 'Arizona'),
+        (5, 'Arkansas'),
+        (6, 'California'),
+        (8, 'Colorado'),
+        (9, 'Connecticut'),
+        (10, 'Delaware'),
+        (11, 'District of Columbia'),
+        (12, 'Florida'),
+        (13, 'Georgia'),
+        (14, 'Guam'),
+        (15, 'Hawaii'),
+        (16, 'Idaho'),
+        (17, 'Illinois'),
+        (18, 'Indiana'),
+        (19, 'Iowa'),
+        (20, 'Kansas'),
+        (21, 'Kentucky'),
+        (22, 'Louisiana'),
+        (23, 'Maine'),
+        (24, 'Maryland'),
+        (25, 'Massachusetts'),
+        (26, 'Michigan'),
+        (27, 'Minnesota'),
+        (28, 'Mississippi'),
+        (29, 'Missouri'),
+        (30, 'Montana'),
+        (31, 'Nebraska'),
+        (32, 'Nevada'),
+        (33, 'New Hampshire'),
+        (34, 'New Jersey'),
+        (35, 'New Mexico'),
+        (36, 'New York'),
+        (37, 'North Carolina'),
+        (38, 'North Dakota'),
+        (39, 'Ohio '),
+        (40, 'Oklahoma'),
+        (41, 'Oregon'),
+        (42, 'Pennsylvania'),
+        (43, 'Puerto Rico'),
+        (44, 'Rhode Island'),
+        (45, 'South Carolina'),
+        (46, 'South Dakota'),
+        (47, 'Tennessee'),
+        (48, 'Texas'),
+        (49, 'Utah'),
+        (50, 'Vermont'),
+        (51, 'Virginia'),
+        (52, 'Virgin Islands'),
+        (53, 'Washington'),
+        (54, 'West Virginia'),
+        (55, 'Wisconsin'),
+        (56, 'Wyoming'),
+        (57, "Other U.S. Driver's License (Since 2018)"),
+        (93, "Indian Nation (Since 2009)"),
+        (94, "U.S. Government"),
+        (95, "Canada"),
+        (96, "Mexico"),
+        (97, "Other Foreign Country"),
+        (98, "Not Reported"),
+        (99, "Reported as Unknown")
+    ]
+    drivers_license_state = models.PositiveSmallIntegerField(choices=drivers_license_state_choices, default=98)
+    
+    #d6 
+    driver_zip_code = models.IntegerField(null=True, blank=True)
+
     #d7b
     non_cdl_license_status 
     #d8

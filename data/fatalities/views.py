@@ -1004,6 +1004,68 @@ FARS_DATA_DICTIONARY = {
             "key": "vehicle.ADS_ENG"
         }
     ],
+    #V100
+    "vehicle.combined_make_model_id": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.MAK_MOD"
+        }
+    ],
+
+    #V150
+    "vehicle.fatalities": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.DEATHS"
+        }
+    ],
+    #V151
+    "vehicle.driver_drinking": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.DR_DRINK"
+        }
+    ],
+    #D4
+    "vehicle.driver_present": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.DR_PRES"
+        }
+    ],
+    #d5
+    "vehicle.drivers_license_state": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.L_STATE"
+        }
+    ],
+    #d6 
+    "vehicle.driver_zip_code": [
+        {
+            "range": {
+                "start": 1987,
+                "end": None
+            },
+            "key": "vehicle.DR_ZIP"
+        }
+    ]
+
 
     
 
