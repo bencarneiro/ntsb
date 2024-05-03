@@ -879,6 +879,14 @@ FARS_DATA_DICTIONARY = {
     ],
     #v31
     "vehicle.under_override": [
+                               
+        {
+            "range": {
+                "start": 1994,
+                "end": 2020
+            },
+            "key": "vehicle.UNDERIDE"
+        },
         {
             "range": {
                 "start": 2021,
@@ -906,7 +914,97 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "ROLINLOC"
         }
-    ]
+    ],
+    #v34A
+    "vehicle.initial_contact_point": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.IMPACT1"
+        }
+    ],
+    
+    #v35
+    "vehicle.extent_of_damage": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.DEFORMED"
+        }
+    ],
+    
+    #v36 
+
+    "vehicle.vehicle_towed": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2008
+            },
+            "key": "vehicle.TOWAWAY"
+        },
+        {
+            "range": {
+                "start": 2009,
+                "end": None
+            },
+            "key": "vehicle.TOWED"
+        }
+    ],
+    
+    #v38
+    "vehicle.most_harmful_event": [
+        {
+            "range": {
+                "start": 1979,
+                "end": None
+            },
+            "key": "vehicle.M_HARM"
+        }
+    ],
+    #v39 
+    "vehicle.fire_occurence": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.FIRE_EXP"
+        }
+    ],
+    #v40
+    "vehicle.automated_driving_system_present": [
+        {
+            "range": {
+                "start": 2019,
+                "end": None
+            },
+            "key": "vehicle.ADS_PRES"
+        }
+    ],
+    "vehicle.automated_driving_system_level": [
+        {
+            "range": {
+                "start": 2019,
+                "end": None
+            },
+            "key": "vehicle.ADS_LEV"
+        }
+    ],
+    "vehicle.automated_driving_system_engaged": [
+        {
+            "range": {
+                "start": 2019,
+                "end": None
+            },
+            "key": "vehicle.ADS_ENG"
+        }
+    ],
+
     
 
 

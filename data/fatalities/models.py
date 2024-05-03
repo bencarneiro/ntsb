@@ -1052,21 +1052,156 @@ class Vehicle(models.Model):
     ]
     rollover_location = models.PositiveSmallIntegerField(choices=rollover_location_choices, default=0)
     #V34A
-    initial_contact_point   
+    initial_contact_point_choices = [
+        (0, "Non-Collision"),
+        (1, "1 O'Clock"),
+        (2, "2 O'Clock"),
+        (3, "3 O'Clock"),
+        (4, "4 O'Clock"),
+        (5, "5 O'Clock"),
+        (6, "6 O'Clock"),
+        (7, "7 O'Clock"),
+        (8, "8 O'Clock"),
+        (9, "9 O'Clock"),
+        (10, "10 O'Clock"),
+        (11, "11 O'Clock"),
+        (12, "12 O'Clock"),
+        (13, "Top"),
+        (14, "Undercarriage"),
+        (18, "Cargo/Vehicle Parts Set-in-Motion"),
+        (19, "Other Objects or Person Set-in-Motion"),
+        (20, "Object Set in Motion, Unknown if Cargo/Vehicle Parts or Other"),
+        (61, "Left"),
+        (62, "Left-Front Side"),
+        (63, "Left-Back Side")
+        (81, "Right"),
+        (82, "Right-Front Side"),
+        (83, "Right-Back Side"),
+        (98, "Not Reported"),
+        (99, "Unknown")
+    ] 
+    initial_contact_point = models.PositiveSmallIntegerField(choices=initial_contact_point_choices, default=98)
     #v35
-    extent_of_damage   
+    extent_of_damage_choices = [
+        (0, "No Damage"),
+        (2, "Minor Damage"),
+        (4, "Functional Damage"),
+        (6, "Disabling Damage"),
+        (7, "Damage Reported, Extent Unknown"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ] 
+    extent_of_damage = models.PositiveSmallIntegerField(choices=extent_of_damage_choices, default=8)
     #v36
-    vehicle_towed 
+    vehicle_towed_choices = [
+        (5, "Not Towed"),
+        (6, "Towed"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ]
+
+    vehicle_towed = models.PositiveSmallIntegerField(choices=vehicle_towed_choices, default=8)
     #v38
-    most_harmful_event 
+
+    most_harmful_event_choices = [
+        (1, 'Rollover/Overturn'),
+        (2, 'Fire/Explosion'),
+        (3, 'Immersion (or Partial Immersion, Since 2012)'),
+        (4, 'Gas Inhalation'),
+        (5, 'Fell/Jumped From Vehicle'),
+        (6, 'Injured in Vehicle (Non-Collision)'),
+        (7, 'Other Non-Collision'),
+        (8, 'Pedestrian'),
+        (9, 'Pedalcyclist'),
+        (10, 'Railway Vehicle'),
+        (11, 'Live Animal'),
+        (12, 'Motor Vehicle In-Transport'),
+        (14, 'Parked Motor Vehicle'),
+        (15, 'Non-Motorist on Personal Conveyance'),
+        (16, 'Thrown or Falling Object'),
+        (17, 'Boulder'),
+        (18, 'Other Object (Not Fixed)'),
+        (19, 'Building'),
+        (20, 'Impact Attenuator/Crash Cushion'),
+        (21, 'Bridge Pier or Support'),
+        (23, 'Bridge Rail (Includes Parapet)'),
+        (24, 'Guardrail Face'),
+        (25, 'Concrete Traffic Barrier'),
+        (26, 'Other Traffic Barrier'),
+        (30, 'Utility Pole/Light Support'),
+        (31, 'Post, Pole or Other Support'),
+        (32, 'Culvert'),
+        (33, 'Curb'),
+        (34, 'Ditch'),
+        (35, 'Embankment'),
+        (38, 'Fence'),
+        (39, 'Wall'),
+        (40, 'Fire Hydrant'),
+        (41, 'Shrubbery'),
+        (42, 'Tree (Standing Only)'),
+        (43, 'Other Fixed Object'),
+        (44, 'Pavement Surface Irregularity (Ruts, Potholes, Grates, etc.)'),
+        (45, 'Working Motor Vehicle'),
+        (46, 'Traffic Signal Support'),
+        (48, 'Snow Bank'),
+        (49, 'Ridden Animal or Animal-Drawn Conveyance (Since 1998)'),
+        (50, 'Bridge Overhead Structure'),
+        (51, 'Jackknife (Harmful to This Vehicle)'),
+        (52, 'Guardrail End'),
+        (53, 'Mail Box'),
+        (54, 'MotorMotor Vehicle In-Transport Strikes or Is Struck by Cargo, Persons or Objects Setin-Motion From/by Another Motor Vehicle In-Transport'),
+        (55, 'Motor Vehicle in Motion Outside the Trafficway (Since 2008)'),
+        (57, 'Cable Barrier (Since 2008)'),
+        (58, 'Ground'),
+        (59, 'Traffic Sign Support'),
+        (72, 'Cargo/Equipment Loss, Shift, or Damage (Harmful)'),
+        (73, 'Object That Had Fallen From Motor Vehicle In-Transport'),
+        (74, 'Road Vehicle on Rails'),
+        (91, 'Unknown Object Not Fixed'),
+        (93, 'Unknown Fixed Object'),
+        (98, 'Harmful Event, Details Not Reported (Since 2019)'),
+        (99, 'Unknown / Reported as Unknown (Since 2018)')
+    ]
+    most_harmful_event = models.PositiveSmallIntegerField(choices=most_harmful_event_choices, default=98)
     #v39
-    fire_occurence  
+    fire_occurence = models.BooleanField(default=False)
     #v40a
-    automation_system_present  
+    automated_driving_system_present_choices = [
+        (0, "No"),
+        (1, "Yes"),
+        (98, "Not Reported"),
+        (99, "Reported as Unknown")
+    ]
+    automated_driving_system_present = models.PositiveSmallIntegerField(choices=automated_driving_system_present_choices, default=98)
     #v40b
-    type_of_automation_system_present  
-    #v40c
-    type_of_automation_system_engaged  
+    automated_driving_system_level_choices = [
+        (0, "No Automation"),
+        (1, "Level 1 - Driver Assistance Present"),
+        (2, "Level 2 - Partial Automation Present"),
+        (3, "Level 3 - Conditional Automation Present"),
+        (4, "Level 4 - High Automation Present"),
+        (5, "Level 5 - Full Automation Present"),
+        (9, "Automation Present, Level Unknown"),
+        (98, "Not Reported"),
+        (99, "Reported as Unknown")
+    ]
+    automated_driving_system_level = models.PositiveSmallIntegerField(choices=automated_driving_system_level_choices, default=98)
+    
+    automated_driving_system_engaged_choices = [
+        (0, "No Automation"),
+        (1, "Level 1 - Driver Assistance Engaged"),
+        (2, "Level 2 - Partial Automation Engaged"),
+        (3, "Level 3 - Conditional Automation Engaged"),
+        (4, "Level 4 - High Automation Engaged"),
+        (5, "Level 5 - Full Automation Engaged"),
+        (6, "Automation Systems Engaged, Level Unknown"),
+        (9, "Automation Systems Present, Unknown if Any Engaged"),
+        (90, "Automation Systems Present, Not Engaged"),
+        (98, "Not Reported"),
+        (99, "Reported as Unknown")
+
+    ]
+    automated_driving_system_engaged = models.PositiveSmallIntegerField(choices=automated_driving_system_engaged_choices, default=98)
     #v150
     fatalities
     #v151
