@@ -55,14 +55,34 @@ class Accident(models.Model):
     city = models.ForeignKey(City, null=True, blank=True, on_delete=models.DO_NOTHING)
     # C8A Month of Crash MONTH 42
     months = [
-        (1, "January"), (2, "February"), (3, "March"), (4, "April"), (5, "May"), (6, "June"), 
-        (7, "July"), (8, "August"), (9, "September"), (10, "October"), (11, "November"), (12, "December"), (99, "Unknown")
+        (1, "January"), 
+        (2, "February"), 
+        (3, "March"), 
+        (4, "April"), 
+        (5, "May"), 
+        (6, "June"), 
+        (7, "July"), 
+        (8, "August"), 
+        (9, "September"), 
+        (10, "October"), 
+        (11, "November"), 
+        (12, "December"), 
+        (99, "Unknown")
     ]
     month = models.PositiveSmallIntegerField(choices=months, default=99)
     # C8B Day of Crash DAY 42
     day = models.PositiveSmallIntegerField(null=True, blank=True)
     # C8C Day of Week DAY_WEEK 43
-    days_of_the_week = [(1, "Sunday"), (2, "Monday"), (3, "Tuesday"), (4, "Wednesday"), (5, "Thursday"), (6, "Friday"), (7, "Saturday"), (99, "Unknown")]
+    days_of_the_week = [
+        (1, "Sunday"), 
+        (2, "Monday"), 
+        (3, "Tuesday"), 
+        (4, "Wednesday"), 
+        (5, "Thursday"), 
+        (6, "Friday"), 
+        (7, "Saturday"), 
+        (99, "Unknown")
+    ]
     day_of_the_week = models.PositiveSmallIntegerField(choices=days_of_the_week, default=99)
     # C8D Year of Crash YEAR 43
     year = models.PositiveSmallIntegerField(null=False, blank=False)
@@ -367,29 +387,6 @@ class Accident(models.Model):
     arrived_at_hospital_minute = models.PositiveSmallIntegerField(null=True, blank=True)
     #c101
     fatalities = models.PositiveSmallIntegerField(null=False, blank=False)
-
-    # #discontinued 2008
-    # hit_and_run
-    # #discontinued 2015 DRUNK_DR
-    # num_drunk_drivers 
-    # # discontinued ALIGNMNT
-    # roadway_alignment
-    # #discontinued ROAD_FNC
-    # roadway_function
-    # # discontinued PROFILE
-    # roadway_profile
-    # # discontinued SUR_COND
-    # roadway_surface_condition
-    # # discontinued PAVE_TYP
-    # pavement_type
-    # # discontinued SP_LIMIT
-    # speed_limit
-    # # discontinued NO_LANES
-    # num_lanes_in_roadway
-    # # discontinued TRA_CONT
-    # traffic_control_device # This one needs a huge table
-    # # discontinued T_CONT_F
-    # traffic_control_device_functioning
 
 
 class Vehicle(models.Model):
@@ -1364,25 +1361,58 @@ class Vehicle(models.Model):
 
 
     #d12 (inches)
-    driver_height
+    driver_height = models.PositiveSmallIntegerField(null=True, blank=True)
     #d13 (lbs)
-    driver_weight
+    driver_weight = models.PositiveSmallIntegerField(null=True, blank=True)
     #d14
-    previous_recorded_crashes 
+    previous_recorded_crashes = models.PositiveSmallIntegerField(null=True, blank=True)
+    #d15
+    previous_bac_suspensions_underage = models.PositiveSmallIntegerField(null=True, blank=True)
+    previous_bac_suspensions = models.PositiveSmallIntegerField(null=True, blank=True)
+    previous_other_suspensions = models.PositiveSmallIntegerField(null=True, blank=True)
     #d16
-    previous_dwi_convictions 
+    previous_dwi_convictions = models.PositiveSmallIntegerField(null=True, blank=True)
     #d17
-    previous_speeding_convictions 
+    previous_speeding_convictions = models.PositiveSmallIntegerField(null=True, blank=True)
     #d18
-    previous_other_moving_violations 
+    previous_other_moving_violations = models.PositiveSmallIntegerField(null=True, blank=True)
     #d19a
-    month_of_oldest_violation
+
+    month_of_oldest_violation_choices = [
+        (0, "No Record"),
+        (1, "January"), 
+        (2, "February"), 
+        (3, "March"), 
+        (4, "April"), 
+        (5, "May"), 
+        (6, "June"), 
+        (7, "July"), 
+        (8, "August"), 
+        (9, "September"), 
+        (10, "October"), 
+        (11, "November"), 
+        (12, "December"),
+        (98, "No Driver Present/Unknown if Driver Present"),
+        (99, "Unknown")
+    ]
+    month_of_oldest_violation = models.PositiveSmallIntegerField(choices=month_of_oldest_violation_choices, default=99)
     #d19b
-    year_of_oldest_violation
+    year_of_oldest_violation = models.PositiveIntegerField(null=True, blank=True)
     #d20a
-    month_of_newest_violation
+    month_of_newest_violation = models.PositiveSmallIntegerField(choices=month_of_oldest_violation_choices, default=99)
     #d20b
-    year_of_newest_violation
+    year_of_newest_violation = models.PositiveIntegerField(null=True, blank=True)
+    #d22
+    speeding_related_choices = [
+        (0, "No"),
+        (2, "Yes, Racing"),
+        (3, "Yes, Exceeded Speed Limit"),
+        (4, "Yes, Too Fast for Conditions"),
+        (5, "Yes, Specifics Unknown"),
+        (8, "No Driver Present/Unknown if Driver Present"),
+        (9, "Reported as Unknown")
+    ]
+    speeding_related = models.PositiveSmallIntegerField(choices=speeding_related_choices, default=9)
     #pc5
     trafficway_description # need table
     # pc6

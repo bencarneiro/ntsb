@@ -1132,15 +1132,155 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "vehicle.L_RESTRI"
         }
-    ]
+    ],
+    #d12 DR_HGT
+
+    "vehicle.driver_height": [
+        {
+            "range": {
+                "start": 1998,
+                "end": None
+            },
+            "key": "vehicle.DR_HGT"
+        }
+    ],
+    #d13 DR_HGT
+
+    "vehicle.driver_weight": [
+        {
+            "range": {
+                "start": 1998,
+                "end": None
+            },
+            "key": "vehicle.DR_WGT"
+        }
+    ],
+    #d14
+
+    "vehicle.previous_recorded_crashes": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.PREV_ACC"
+        }
+    ],
+    #d15a
+
+    "vehicle.previous_bac_suspensions_underage": [
+        {
+            "range": {
+                "start": 2018,
+                "end": None
+            },
+            "key": "vehicle.PREV_SUS1"
+        }
+    ],
+    #d15B
+
+    "vehicle.previous_bac_suspensions": [
+        {
+            "range": {
+                "start": 2018,
+                "end": None
+            },
+            "key": "vehicle.PREV_SUS2"
+        }
+    ],
+    #d15C
+
+    "vehicle.previous_other_suspensions": [
+        {
+            "range": {
+                "start": 2018,
+                "end": None
+            },
+            "key": "vehicle.PREV_SUS3"
+        }
+    ],
+    #d16 PREV_DWI
     
-
-
-
-
+    "vehicle.previous_dwi_convictions": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.PREV_DWI"
+        }
+    ],
+    #d17 PREV_SPD
     
-
-
-
+    "vehicle.previous_speeding_convictions": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.PREV_SPD"
+        }
+    ],
+    #d18 PREV_OTH
+    
+    "vehicle.previous_other_moving_violations": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.PREV_OTH"
+        }
+    ],
+    #d19 month_of_oldest_violation
+    "vehicle.month_of_oldest_violation": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.FIRST_MO"
+        }
+    ],
+    #d19B month_of_newwest_violation
+    "vehicle.year_of_oldest_violation": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.FIRST_YR"
+        }
+    ],
+    #d20a month_of_oldest_violation
+    "vehicle.month_of_newest_violation": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.LAST_MO"
+        }
+    ],
+    #d20B month_of_oldest_violation
+    "vehicle.year_of_newest_violation": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.LAST_YR"
+        }
+    ],
+    #d22 SPEEDREL
+    "vehicle.speeding_related": [
+        {
+            "range": {
+                "start": 2009,
+                "end": None
+            },
+            "key": "vehicle.SPEEDREL"
+        }
+    ],
 
 }
