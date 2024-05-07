@@ -1282,5 +1282,235 @@ FARS_DATA_DICTIONARY = {
             "key": "vehicle.SPEEDREL"
         }
     ],
+    # VTRAFWAY PC5
+    "vehicle.trafficway_description": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 1981
+            },
+            "key": "accident.ROAD_FLO"
+        },
+        {
+            "range": {
+                "start": 1982,
+                "end": 1986
+            },
+            "key": "accident.TWAY_FLO"
+        },
+        {
+            "range": {
+                "start": 1987,
+                "end": 2009
+            },
+            "key": "accident.TRAF_FLO"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.VTRAFWAY"
+        }
+    ],
+    # PC6 NO_LANES
+    "vehicle.total_lanes_in_roadway": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "accident.NO_LANES"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.VNUM_LAN"
+        }
+    ],
+    # pc7 VSPD_LIM
+    "vehicle.speed_limit": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "accident.SP_LIMIT"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.VSPD_LIM"
+        }
+    ],
+    # pc8
+    "vehicle.roadway_alignment": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "accident.ALIGNMNT"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.VALIGN"
+        }
+    ],
+    # pc9
+    "vehicle.roadway_grade": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "accident.PROFILE"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.VPROFILE"
+        }
+    ],
+    # pc10
+    "vehicle.roadway_surface_type": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "accident.PAVE_TYP"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.VPAVETYP"
+        }
+    ],
+    # pc11
+    "vehicle.roadway_surface_conditions": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "accident.SUR_COND"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.VSURCOND"
+        }
+    ],
+    # pc12
+    "vehicle.traffic_control_device": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "accident.TRA_CONT"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.VTRAFCON"
+        }
+    ],
+    # pc13
+    "vehicle.traffic_control_device_functioning": [
+        {
+            "range": {
+                "start": 1982,
+                "end": 2009
+            },
+            "key": "accident.T_CONT_F"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.VTCONT_F"
+        }
+    ],
+    # pc17 pre_event_movement
+    "vehicle.pre_event_movement": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.P_CRASH1"
+        }
+    ],
+    # pc19 
+    "vehicle.critical_precrash_event": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.P_CRASH2"
+        }
+    ],
+    # pc20 
+    "vehicle.attempted_avoidance_maneuver": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.P_CRASH3"
+        }
+    ],
+    # pc21 
+    "vehicle.precrash_stability": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.P_CRASH4"
+        }
+    ], 
+    # pc22
+    "vehicle.preimpact_location": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.P_CRASH5"
+        }
+    ],
+
+    # pc23
+    "vehicle.crash_type": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.ACC_TYPE"
+        }
+    ],
+
+
 
 }

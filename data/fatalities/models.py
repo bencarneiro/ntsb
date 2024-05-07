@@ -1413,25 +1413,351 @@ class Vehicle(models.Model):
         (9, "Reported as Unknown")
     ]
     speeding_related = models.PositiveSmallIntegerField(choices=speeding_related_choices, default=9)
+
     #pc5
-    trafficway_description # need table
+    trafficway_description_choices = [
+        (0, 'Non-Trafficway or Driveway Access'),
+        (1, 'Two-Way, Not Divided'),
+        (2, 'Two-Way, Divided, Unprotected Median'),
+        (3, 'Two-Way, Divided, Positive Median Barrier'),
+        (4, 'One-Way Trafficway'),
+        (5, 'Two-Way, Not Divided With a Continuous Left Turn Lane'),
+        (6, 'Entrance/Exit Ramp'),
+        (7, 'Two-Way Divided, Unknown if Unprotected Median or Positive Median Barrier'),
+        (8, 'Not Reported'),
+        (9, 'Reported as Unknown'),
+    ]
+    trafficway_description = models.PositiveSmallIntegerField(choices=trafficway_description_choices, default=9)
     # pc6
-    total_lanes_in_roadway # need table
+    total_lanes_in_roadway_choices = [
+        (0, 'Non-Trafficway or Driveway Access'),
+        (1, 'One Lane'),
+        (2, 'Two Lanes'),
+        (3, 'Three Lanes'),
+        (4, 'Four Lanes'),
+        (5, 'Five Lanes'),
+        (6, 'Six Lanes'),
+        (7, 'Seven or More Lanes'),
+        (8, 'Not Reported'),
+        (9, 'Reported as Unknown'),
+    ] 
+    total_lanes_in_roadway = models.PositiveSmallIntegerField(choices=total_lanes_in_roadway_choices, default=9)
     #pc7
-    speed_limit #need table
+    speed_limit = models.PositiveSmallIntegerField(null=True, blank=True)
     #pc8
-    roadway_alignment 
+    roadway_alignment_choices = [
+        (0, 'Non-Trafficway or Driveway Access'),
+        (1, 'Straight'),
+        (2, 'Curve Right'),
+        (3, 'Curve Left'),
+        (4, 'Curve - Unknown Direction'),
+        (8, 'Not Reported'),
+        (9, 'Reported as Unknown'),
+    ]
+    roadway_alignment = models.PositiveSmallIntegerField(choices=roadway_alignment_choices, default=9)
     #pc9
-    roadway_grade 
+    roadway_grade_choices = [
+        (0, 'Non-Trafficway or Driveway Access'),
+        (1, 'Level'),
+        (2, 'Grade, Unknown Slope'),
+        (3, 'Hillcrest'),
+        (4, 'Sag (Bottom)'),
+        (5, 'Uphill'),
+        (6, 'Downhill'),
+        (8, 'Not Reported'),
+        (9, 'Reported as Unknown')
+    ]
+    roadway_grade = models.PositiveSmallIntegerField(choices=roadway_grade_choices, default=9)
     #pc10
-    roadway_surface_type 
+    roadway_surface_type_choices = [
+        (0, 'Non-Trafficway or Driveway Access'),
+        (1, 'Concrete'),
+        (2, 'Blacktop, Bituminous, or Asphalt'),
+        (3, 'Brick or Block'),
+        (4, 'Slag, Gravel, or Stone'),
+        (5, 'Dirt'),
+        (7, 'Other'),
+        (8, 'Not Reported'),
+        (9, 'Reported as Unknown')
+    ]
+    roadway_surface_type = models.PositiveSmallIntegerField(choices=roadway_surface_type_choices, default=9)
     #pc11
-    roadway_surface_condition 
+    roadway_surface_condition_choices = [
+        (0, 'Non-Trafficway Area or Driveway Access'),
+        (1, 'Dry'),
+        (2, 'Wet'),
+        (3, 'Snow'),
+        (4, 'Ice/Frost'),
+        (5, 'Sand'),
+        (6, 'Water (Standing or Moving)'),
+        (7, 'Oil'),
+        (8, 'Other'),
+        (10, 'Slush'),
+        (11, 'Mud, Dirt, Gravel'),
+        (98, 'Not Reported'),
+        (99, 'Reported as Unknown'),
+    ]
+    roadway_surface_condition = models.PositiveSmallIntegerField(choices=roadway_surface_condition_choices, default=98)
     #pc12
-    traffic_control_device 
+    traffic_control_device_choices = [
+        (0, 'No Controls'),
+        (1, 'Traffic Control Signal (on Colors) Without Pedestrian Signal'),
+        (2, 'Traffic Control Signal (on Colors) With Pedestrian Signal'),
+        (3, 'Traffic Control Signal (on Colors) Not Known if Pedestrian Signal'),
+        (4, 'Flashing Traffic Control Signal'),
+        (7, 'Lane Use Control Signal'),
+        (8, 'Other Highway Traffic Signal'),
+        (9, 'Unknown Highway Traffic Signal'),
+        (20, 'Stop Sign'),
+        (21, 'Yield Sign'),
+        (28, 'Other Regulatory Sign'),
+        (29, 'Unknown Regulatory Sign'),
+        (23, 'School Zone Sign/Device'),
+        (40, 'Warning Sign'),
+        (50, 'Person'),
+        (65, 'Railway Crossing Device'),
+        (98, 'Other'),
+        (97, 'Not Reported'),
+        (99, 'Reported as Unknown'),
+    ]
+    traffic_control_device = models.PositiveSmallIntegerField(choices=traffic_control_device_choices, default=97)
     #pc13
-    traffic_control_device_functioning 
-    
+    traffic_control_device_functioning_choices = [
+        (0, 'No Controls'),
+        (1, 'Device Not Functioning'),
+        (2, 'Device Functioning - Functioning Improperly'),
+        (3, 'Device Functioning Properly'),
+        (4, 'Device Not Functioning or Device Functioning Improperly, Specifics Unknown'),
+        (8, 'Not Reported'),
+        (9, 'Reported as Unknown'),
+    ]
+    traffic_control_device_functioning = models.PositiveSmallIntegerField(choices=traffic_control_device_functioning_choices, default=8)
+    # PC17
+    pre_event_movement_choices = [
+        (0, 'No Driver Present/Unknown if Driver Present'),	
+        (1, 'Going Straight'),	
+        (2, 'Decelerating in Road'),
+        (3, 'Accelerating in Road'),	
+        (4, 'Starting in Road'),
+        (5, 'Stopped in Roadway'),
+        (6, 'Passing or Overtaking Another Vehicle'),
+        (7, 'Disabled or "Parked" in Travel Lane'),
+        (8, 'Leaving a Parking Position'),
+        (9, 'Entering a Parking Position'),
+        (10, 'Turning Right'),
+        (11, 'Turning Left'),
+        (12, 'Making a U-Turn'),
+        (13, 'Backing up (Other Than for Parking Position)'),
+        (14, 'Negotiating a Curve'),	
+        (15, 'Changing Lanes'),	
+        (16, 'Merging'),	
+        (17, 'Successful Avoidance Maneuver to a Previous Critical Event'),	
+        (98, 'Other'),	
+        (99, 'Unknown')
+    ]
+    pre_event_movement = models.PositiveSmallIntegerField(choices=pre_event_movement_choices, default=99)
+    # PC19
+    critical_precrash_event_choices = [
+        (1, 'THIS VEHICLE LOSS OF CONTROL DUE TO: Blow Out/Flat Tire'),
+        (2, 'THIS VEHICLE LOSS OF CONTROL DUE TO: Stalled Engine'),
+        (3, 'THIS VEHICLE LOSS OF CONTROL DUE TO: Disabling Vehicle Failure (e.g., Wheel Fell off)'),
+        (4, 'THIS VEHICLE LOSS OF CONTROL DUE TO: Non-Disabling Vehicle Problem (e.g., Hood Flew up)'),
+        (5, 'THIS VEHICLE LOSS OF CONTROL DUE TO: Poor Road Conditions (Puddle, Pothole, Ice, etc.)'),
+        (6, 'THIS VEHICLE LOSS OF CONTROL DUE TO: Traveling Too Fast for Conditions'),
+        (8, 'THIS VEHICLE LOSS OF CONTROL DUE TO: Other Cause of Control Loss'),
+        (9, 'THIS VEHICLE LOSS OF CONTROL DUE TO: Unknown Cause of Control Loss'),
+        (10, 'THIS VEHICLE TRAVELING Over the Lane Line on Left Side of Travel Lane'),
+        (11, 'THIS VEHICLE TRAVELING Over the Lane Line on Right Side of Travel Lane'),
+        (12, 'THIS VEHICLE TRAVELING Off the Edge of the Road on the Left Side'),
+        (13, 'THIS VEHICLE TRAVELING Off the Edge of the Road on the Right Side'),
+        (14, 'THIS VEHICLE TRAVELING End Departure'),
+        (15, 'THIS VEHICLE TRAVELING Turning Left'),
+        (16, 'THIS VEHICLE TRAVELING Turning Right'),
+        (17, 'THIS VEHICLE TRAVELING Crossing Over (Passing Through) Intersection'),
+        (18, 'THIS VEHICLE TRAVELING This Vehicle Decelerating'),
+        (19, 'THIS VEHICLE TRAVELING Unknown Travel Direction'),
+        (20, 'THIS VEHICLE TRAVELING Backing'),
+        (21, 'THIS VEHICLE TRAVELING Making a U-Turn'),
+        (50, 'OTHER MOTOR VEHICLE IN LANE Other Vehicle Stopped'),
+        (51, 'OTHER MOTOR VEHICLE IN LANE Traveling in Same Direction With Lower Steady Speed'),
+        (52, 'OTHER MOTOR VEHICLE IN LANE Traveling in Same Direction While Decelerating'),
+        (53, 'OTHER MOTOR VEHICLE IN LANE Traveling in Same Direction With Higher Speed'),
+        (54, 'OTHER MOTOR VEHICLE IN LANE Traveling in Opposite Direction'),
+        (55, 'OTHER MOTOR VEHICLE IN LANE In Crossover'),
+        (56, 'OTHER MOTOR VEHICLE IN LANE Backing'),
+        (59, 'OTHER MOTOR VEHICLE IN LANE Unknown Travel Direction of the Other Motor Vehicle in Lane'),
+        (60, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Adjacent Lane (Same Direction) Over Left Lane Line'),
+        (61, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Adjacent Lane (Same Direction) Over Right Lane Line'),
+        (62, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Opposite Direction Over Left Lane Line'),
+        (63, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Opposite Direction Over Right Lane Line'),
+        (64, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Parking Lane/Shoulder, Median/Crossover, Roadside'),
+        (65, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Crossing Street, Turning Into Same Direction'),
+        (66, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Crossing Street, Across Path'),
+        (67, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Crossing Street, Turning Into Opposite Direction'),
+        (68, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Crossing Street, Intended Path Not Known'),
+        (70, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Driveway, Turning Into Same Direction'),
+        (71, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Driveway, Across Path'),
+        (72, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Driveway, Turning Into Opposite Direction'),
+        (73, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Driveway, Intended Path Not Known'),
+        (74, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE From Entrance to Limited Access Highway'),
+        (78, 'OTHER MOTOR VEHICLE ENCROACHING INTO LANE Encroachment by Other Vehicle - Details Unknown'),
+        (80, 'PEDESTRIAN OR PEDALCYCLIST OR OTHER NON-MOTORIST Pedestrian in Road'),
+        (81, 'PEDESTRIAN OR PEDALCYCLIST OR OTHER NON-MOTORIST Pedestrian Approaching Road'),
+        (82, 'PEDESTRIAN OR PEDALCYCLIST OR OTHER NON-MOTORIST Pedestrian Unknown Location'),
+        (83, 'PEDESTRIAN OR PEDALCYCLIST OR OTHER NON-MOTORIST Pedalcyclist/Other Non-Motorist in Road'),
+        (84, 'PEDESTRIAN OR PEDALCYCLIST OR OTHER NON-MOTORIST Pedalcyclist/Other Non-Motorist Approaching Road'),
+        (85, 'PEDESTRIAN OR PEDALCYCLIST OR OTHER NON-MOTORIST Pedalcyclist/Other Non-Motorist Unknown Location'),
+        (87, 'OBJECT OR ANIMAL Animal in Road'),
+        (88, 'OBJECT OR ANIMAL Animal Approaching Road'),
+        (89, 'OBJECT OR ANIMAL Animal - Unknown Location'),
+        (90, 'OBJECT OR ANIMAL Object in Road'),
+        (91, 'OBJECT OR ANIMAL Object Approaching Road'),
+        (92, 'OBJECT OR ANIMAL Object Unknown Location'),
+        (98, 'OTHER Other Critical Precrash Event'),
+        (99, 'OTHER Unknown'),
+    ]
+    critical_precrash_event = models.PositiveSmallIntegerField(choices=critical_precrash_event_choices, default=99)
+    #pc20
+    attempted_avoidance_maneuver_choices = [
+        (0, 'No Driver Present/Unknown if Driver Present'),
+        (1, 'No Avoidance Maneuver'),
+        (5, 'Releasing Brakes'),
+        (6, 'Steering Left'),
+        (7, 'Steering Right'),
+        (8, 'Braking and Steering Left'),
+        (9, 'Braking and Steering Right'),
+        (10, 'Accelerating'),
+        (11, 'Accelerating and Steering Left'),
+        (12, 'Accelerating and Steering Right'),
+        (15, 'Braking and Unknown Steering Direction'),
+        (16, 'Braking'),
+        (98, 'Other Actions'),
+        (99, 'Unknown/Not Reported'),
+    ]
+    attempted_avoidance_maneuver = models.PositiveSmallIntegerField(choices=attempted_avoidance_maneuver_choices, default=99 )
+    #pc21
+    precrash_stability_choices = [
+        (0, 'No Driver Present/Unknown if Driver Present'),
+        (1, 'Tracking'),
+        (2, 'Skidding Longitudinally - Rotation Less Than 30 Degrees'),
+        (3, 'Skidding Laterally - Clockwise Rotation'),
+        (4, 'Skidding Laterally - Counterclockwise Rotation'),
+        (5, 'Skidding Laterally - Rotation Direction Unknown'),
+        (7, 'Other Vehicle Loss-of-Control'),
+        (9, 'Precrash Stability Unknown'),
+    ]
+    precrash_stability = models.PositiveSmallIntegerField(choices=precrash_stability_choices, default=9)
+    #pc22
+    preimpact_location_choices = [
+        (0, 'No Driver Present/Unknown if Driver Present'),
+        (1, 'Stayed in Original Travel Lane'),
+        (2, 'Stayed on Roadway, but Left Original Travel Lane'),
+        (3, 'Stayed on Roadway, Not Known if Left Original Travel Lane'),
+        (4, 'Departed Roadway'),
+        (5, 'Remained off Roadway'),
+        (6, 'Returned to Roadway'),
+        (7, 'Entered Roadway'),
+        (9, 'Unknown'),
+    ]
+    preimpact_location = models.PositiveSmallIntegerField(choices=preimpact_location_choices, default=9)
+    #pc23
+    crash_type_choices = [
+        (0, 'No Impact'),
+        (1, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION A: RIGHT ROADSIDE DEPARTURE - Drive off Road'),
+        (2, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION A: RIGHT ROADSIDE DEPARTURE - Control/Traction Loss'),
+        (3, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION A: RIGHT ROADSIDE DEPARTURE - Avoid Collision With Vehicle, Pedestrian, Animal'),
+        (4, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION A: RIGHT ROADSIDE DEPARTURE - Specifics Other'),
+        (5, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION A: RIGHT ROADSIDE DEPARTURE - Specifics Unknown'),
+        (6, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION B: LEFT ROADSIDE DEPARTURE - Drive off Road'),
+        (7, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION B: LEFT ROADSIDE DEPARTURE - Control/Traction Loss'),
+        (8, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION B: LEFT ROADSIDE DEPARTURE - Avoid Collision With Vehicle, Pedestrian, Animal'),
+        (9, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION B: LEFT ROADSIDE DEPARTURE - Specifics Other'),
+        (10, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION B: LEFT ROADSIDE DEPARTURE - Specifics Unknown'),
+        (11, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION C: FORWARD IMPACT - Parked Vehicle'),
+        (12, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION C: FORWARD IMPACT - Stationary Object'),
+        (13, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION C: FORWARD IMPACT - Pedestrian/Animal'),
+        (14, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION C: FORWARD IMPACT - End Departure'),
+        (15, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION C: FORWARD IMPACT - Specifics Other'),
+        (16, 'CATEGORY I: SINGLE DRIVER - CONFIGURATION C: FORWARD IMPACT - Specifics Unknown'),
+        (20, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Stopped'),
+        (21, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Stopped, Straight'),
+        (22, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Stopped, Left'),
+        (23, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Stopped, Right'),
+        (24, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Slower'),
+        (25, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Slower, Going Straight'),
+        (26, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Slower, Going Left'),
+        (27, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Slower, Going Right'),
+        (28, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Decelerating (Slowing)'),
+        (29, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Decelerating (Slowing), Going Straight'),
+        (30, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Decelerating (Slowing), Going Left'),
+        (31, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Decelerating (Slowing), Going Right'),
+        (32, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Specifics Other'),
+        (33, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION D: REAR END - Specifics Unknown'),
+        (34, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION E: FORWARD IMPACT - Control/Traction Loss, Avoiding Non-Contact Vehicle- Vehicle’s Frontal Area Impacts Another Vehicle'),
+        (35, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION E: FORWARD IMPACT - Control/Traction Loss, Avoiding Non-Contact Vehicle- Vehicle Is Impacted by Frontal Area of Another Vehicle'),
+        (36, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION E: FORWARD IMPACT - Control/Traction Loss, Avoiding Non-Fixed Object- Vehicle’s Frontal Area Impacts Another Vehicle'),
+        (37, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION E: FORWARD IMPACT - Control/Traction Loss, Avoiding Non-Fixed Object- Vehicle Is Impacted by Frontal Area of Another Vehicle'),
+        (38, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION E: FORWARD IMPACT - Avoiding Non-Contact Vehicle- Vehicle’s Frontal Area Impacts Another Vehicle'),
+        (39, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION E: FORWARD IMPACT - Avoiding Non-Contact Vehicle- Vehicle Is Impacted by Frontal Area of Another Vehicle'),
+        (40, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION E: FORWARD IMPACT - Avoiding Non-Fixed Object- Vehicle’s Frontal Area Impacts Another Vehicle'),
+        (41, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION E: FORWARD IMPACT - Avoiding Non-Fixed Object- Vehicle Is Impacted by Frontal Area of Another Vehicle'),
+        (42, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION E: FORWARD IMPACT - Specifics Other'),
+        (43, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION E: FORWARD IMPACT - Specifics Unknown'),
+        (44, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION F: SIDESWIPE/ANGLE - Straight Ahead on Left'),
+        (45, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION F: SIDESWIPE/ANGLE - Straight Ahead on Left/Right'),
+        (46, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION F: SIDESWIPE/ANGLE - Changing Lanes to the Right'),
+        (47, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION F: SIDESWIPE/ANGLE - Changing Lanes to the Left'),
+        (48, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION F: SIDESWIPE/ANGLE - Specifics Other'),
+        (49, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION F: SIDESWIPE/ANGLE - Specifics Unknown'),
+        (50, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION G: HEAD-ON - Lateral Move (Left/Right)'),
+        (51, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION G: HEAD-ON - Lateral Move (Going Straight)'),
+        (52, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION G: HEAD-ON - Specifics Other'),
+        (53, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION G: HEAD-ON - Specifics Unknown'),
+        (54, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION H: FORWARD IMPACT - Control/Traction Loss, Avoiding Non-Contact Vehicle- Vehicle’s Frontal Area Impacts Another Vehicle'),
+        (55, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION H: FORWARD IMPACT - Control/Traction Loss, Avoiding Non-Contact Vehicle- Vehicle Is Impacted by Frontal Area of Another Vehicle'),
+        (56, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION H: FORWARD IMPACT - Control/Traction Loss, Avoiding Non-Fixed Object- Vehicle’s Frontal Area Impacts Another Vehicle'),
+        (57, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION H: FORWARD IMPACT - Control/Traction Loss, Avoiding Non-Fixed Object- Vehicle Is Impacted by Frontal Area of Another Vehicle'),
+        (58, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION H: FORWARD IMPACT - Avoiding Non-Contact Vehicle- Vehicle’s Frontal Area Impacts Another Vehicle'),
+        (59, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION H: FORWARD IMPACT - Avoiding Non-Contact Vehicle- Vehicle Is Impacted by Frontal Area of Another Vehicle'),
+        (60, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION H: FORWARD IMPACT - Avoiding Non-Fixed Object- Vehicle’s Frontal Area Impacts Another Vehicle'),
+        (61, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION H: FORWARD IMPACT - Avoiding Non-Fixed Object- Vehicle Is Impacted by Frontal Area of Another Vehicle'),
+        (62, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION H: FORWARD IMPACT - Specifics Other'),
+        (63, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION H: FORWARD IMPACT - Specifics Unknown'),
+        (64, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION I: SIDESWIPE/ANGLE - Lateral Move (Left/Right)'),
+        (65, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION I: SIDESWIPE/ANGLE - Lateral Move (Going Straight)'),
+        (66, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION I: SIDESWIPE/ANGLE - Specifics Other'),
+        (67, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION I: SIDESWIPE/ANGLE - Specifics Unknown'),
+        (68, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Opposite Directions (Left/Right)'),
+        (69, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Opposite Directions (Going Straight)'),
+        (70, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Same Directions (Turning Right)'),
+        (71, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Same Directions (Going Straight)'),
+        (72, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Same Directions (Turning Left)'),
+        (73, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Same Directions (Going Straight)'),
+        (74, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Specifics Other'),
+        (75, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Specifics Unknown'),
+        (76, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Same Direction (Turning Left)'),
+        (77, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Same Direction (Going Straight)'),
+        (78, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Same Direction (Turning Right)'),
+        (79, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Same Direction (Going Straight)'),
+        (80, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Opposite Directions (Turning Right)'),
+        (81, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Opposite Directions (Going Straight)'),
+        (82, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Opposite Directions (Turning Left)'),
+        (83, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Opposite Directions (Going Straight)'),
+        (84, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Specifics Other'),
+        (85, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Specifics Unknown'),
+        (86, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Striking From the Right'),
+        (87, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Struck on the Right'),
+        (88, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Striking From the Left'),
+        (89, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Struck on the Left'),
+        (90, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Specifics Other'),
+        (91, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Specifics Unknown'),
+        (92, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Backing Vehicle'),
+        (93, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Other Vehicle or Object (2010-2012)'),
+        (93, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Other Vehicle (2013-Later)'),
+        (98, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Other Crash Type'),
+        (99, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Unknown Crash Type'),
+    ]
+    crash_type = models.PositiveSmallIntegerField(choices = crash_type_choices, default=99)
 
 class Person(models.Model):
     accident = models.ForeignKey(Accident, on_delete=models.DO_NOTHING)
