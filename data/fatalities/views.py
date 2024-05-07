@@ -1564,6 +1564,112 @@ FARS_DATA_DICTIONARY = {
             "key": "person.SEAT_POS"
         }
     ],
+    #p10a REST_USE
+    "person.restraint_system_use":[
+        {
+            "range": {
+                "start": 1991,
+                "end": None
+            },
+            "key": "person.REST_USE"
+        }
+    ],
+    #p10a REST_USE
+    "person.restraint_system_misuse":[
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "person.REST_MIS"
+        }
+    ],
+    #p11A HELM_USE
+    "person.helmet_use":[
+        {
+            "range": {
+                "start": 1991,
+                "end": 2018
+            },
+            "key": "person.REST_USE"
+        },
+        {
+            "range": {
+                "start": 2019,
+                "end": None
+            },
+            "key": "person.HELM_USE"
+        }
+    ],
+    #p11b HELM_MIS
+    "person.helmet_misuse":[
+        {
+            "range": {
+                "start": 2010,
+                "end": 2018
+            },
+            "key": "person.REST_MIS"
+        },
+        {
+            "range": {
+                "start": 2019,
+                "end": None
+            },
+            "key": "person.HELM_MIS"
+        }
+    ],
+    #p12 AIR_BAG
+    "person.air_bag": [
+        {
+            "range": {
+                "start": 1991,
+                "end": None
+            },
+            "key": "person.AIR_BAG"
+        }
+    ],
+    #p13 EJECTION
+    "person.ejection": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.EJECTION"
+        }
+    ],
+    #p14 EJ_PATH
+    "person.ejection_path": [
+        {
+            "range": {
+                "start": 1991,
+                "end": None
+            },
+            "key": "person.EJ_PATH"
+        }
+    ],
+    #p15 EXTRICAT
+    "person.extrication": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.EXTRICAT"
+        }
+    ],
+    #p16
+    "person.alcohol_involvement": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.DRINKING"
+        }
+    ],
+
+
 
 
 

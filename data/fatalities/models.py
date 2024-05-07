@@ -1838,21 +1838,92 @@ class Person(models.Model):
     ]
     seating_position = models.PositiveSmallIntegerField(choices=seating_position_choices, default=98)
     #P10A restraint system use
-    restraint_system_use
-    #P10B restraint system use
-    restraint_system_misuse
+    restraint_system_use_choices = [
+        (1, 'Shoulder Belt Only Used'),
+        (2, 'Lap Belt Only Used'),
+        (3, 'Shoulder and Lap Belt Used'),
+        (4, 'Child Restraint - Type Unknown'),
+        (8, 'Restraint Used - Type Unknown'),
+        (10, 'Child Restraint System - Forward Facing (Since 2008)'),
+        (11, 'Child Restraint System - Rear Facing (Since 2008)'),
+        (12, 'Booster Seat'),
+        (20, 'None Used/Not Applicable'),
+        (96, 'Not a Motor Vehicle Occupant'),
+        (97, 'Other'),
+        (98, 'Not Reported'),
+        (99, 'Unknown/Reported as Unknown (Since 2018)'),
+    ]
+    restraint_system_use = models.PositiveSmallIntegerField(choices=restraint_system_use_choices, default=98)
+    #P10B restraint system misuse
+    restraint_system_misuse_choices = [
+        (0, "No Indication of Misuse"),
+        (1, "Yes, Indication of Misuse"),
+        (7, "None Used/Not Applicable"),
+        (8, "Not a Motor Vehicle Occupant")
+    ]
+    restraint_system_misuse = models.PositiveSmallIntegerField(chocies=restraint_system_misuse_choices, default=7)
+    
     # P11A Helmet Use 
-    helmet_use
+    helmet_use_choices = [
+        (5, 'DOT-Compliant Motorcycle Helmet'),
+        (16, 'Helmet, Other than DOT-Compliant Motorcycle Helmet'),
+        (17, 'No Helmet'),
+        (19, 'Helmet, Unknown if DOT-Compliant'),
+        (20, 'Not Applicable'),
+        (96, 'Not a Motor Vehicle Occupant'),
+        (98, 'Not Reported'),
+        (99, 'Unknown/Reported as Unknown if Helmet Worn'),
+    ]
+    helmet_use = models.PositiveSmallIntegerField(choices=helmet_use_choices, default=98)
     #p11b
-    helmet_misuse
+    helmet_misuse = models.PositiveSmallIntegerField(chocies=restraint_system_misuse_choices, default=7)
+
     # p12
-    airbag_deployed
+    airbag_deployed_choices = [
+        (1, 'Deployed - Front'),
+        (2, 'Deployed - Side (Door, Seat Back)'),
+        (3, 'Deployed - Curtain (Roof)'),
+        (7, 'Deployed - Other (Knee, Air Belt, etc.)'),
+        (8, 'Deployed - Combination'),
+        (9, 'Deployment - Unknown Location'),
+        (20, 'Not Deployed'),
+        (97, 'Not a Motor Vehicle Occupant'),
+        (98, 'Not Reported'),
+        (99, 'Reported as Deployment Unknown'),
+    ]
+    airbag_deployed = models.PositiveSmallIntegerField(choices=airbag_deployed_choices, default=98)
     # p13
-    ejection
+    ejection_choices = [
+        (0, "Not Ejected"),
+        (1, "Totally Ejected"),
+        (2, "Partially Ejected"),
+        (3, "Ejected - Unknown Degree (Since 2008)"),
+        (7, "Not Reported"),
+        (8, "Not Applicable"),
+        (9, "Reported as Unknown if Ejected")
+    ]
+    ejection = models.PositiveSmallIntegerField(choices=ejection_choices, default=8)
     # p14 ejectionpath
-    ejection_path
+    ejection_path_choices = [
+        (0, 'Ejection Path Not Applicable'),
+        (1, 'Through Side Door Opening'),
+        (2, 'Through Side Window'),
+        (3, 'Through Windshield'),
+        (4, 'Through Back Window'),
+        (5, 'Through Back Door/Tailgate Opening'),
+        (6, 'Through Roof Opening (Sun Roof, Convertible Top Down)'),
+        (7, 'Through Roof (Convertible Top Up)'),
+        (8, 'Other Path (e.g., Back of Pickup Truck)'),
+        (9, 'Ejection Path Unknown'),
+    ]
+    ejection_path = models.PositiveSmallIntegerField(choices=ejection_path_choices, default=0)
     #p15
-    extrication
+    extrication_choices = [
+        (0, "Not Extricated/Not Applicable"),
+        (1, "Extricated"),
+        (9, "Unknown")
+    ]
+    extrication = models.PositiveSmallIntegerField(choices=extrication_choices, default=9)
     #p16
     alcohol_involvement
     #p17
