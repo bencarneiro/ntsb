@@ -1768,13 +1768,75 @@ class Person(models.Model):
     #p5
     age = models.PositiveSmallIntegerField(null = True)
     #p6 
-    sex # need table
+    sex_choices = [
+        (1, "Male"),
+        (2, "Female"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ]
+    sex = models.PositiveSmallIntegerField(choices=sex_choices, default=8)
     #p7 PER_TYP
-    person_type
+    person_type_choices = [
+        (1, 'Driver of a Motor Vehicle In-Transport'),
+        (2, 'Passenger of a Motor Vehicle In-Transport'),
+        (3, 'Occupant of a Motor Vehicle Not In-Transport'),
+        (4, 'Occupant of a Non-Motor Vehicle Transport Device'),
+        (5, 'Pedestrian'),
+        (6, 'Bicyclist'),
+        (7, 'Other Pedalcyclist'),
+        (8, 'Person on Personal Conveyance'),
+        (9, 'Unknown Occupant Type in a Motor Vehicle In Transport'),
+        (10, 'Person In/On a Building'),
+        (19, 'Unknown Type of Non-Motorist'),
+    ]
+    person_type = models.PositiveSmallIntegerField(choices=person_type_choices, default=9)
     #p8 injury_severity
-    injury_severity
+    injury_severity_choices = [
+        (0, 'No Apparent Injury (O)'),
+        (1, 'Possible Injury (C)'),
+        (2, 'Suspected Minor Injury (B)'),
+        (3, 'Suspected Serious Injury (A)'),
+        (4, 'Fatal Injury (K)'),
+        (5, 'Injured, Severity Unknown (U) (Since 1978)'),
+        (6, 'Died Prior to Crash'),
+        (9, 'Unknown/Not Reported')
+    ]
+    injury_severity = models.PositiveSmallIntegerField(choices=injury_severity_choices, default=9)
+
     #p9 seating position
-    seating_position
+    seating_position_choices = [
+        (0, 'Not a Motor Vehicle Occupant (2005-Later)'),
+        (11, "Front Seat, Left Side (Driver's Side)"),
+        (12, 'Front Seat, Middle'),
+        (13, 'Front Seat, Right Side'),
+        (18, 'Front Seat, Other'),
+        (19, 'Front Seat, Unknown'),
+        (21, 'Second Seat, Left Side'),
+        (22, 'Second Seat, Middle'),
+        (23, 'Second Seat, Right Side'),
+        (28, 'Second Seat, Other'),
+        (29, 'Second Seat, Unknown'),
+        (31, 'Third Seat, Left Side'),
+        (32, 'Third Seat, Middle'),
+        (33, 'Third Seat, Right Side'),
+        (38, 'Third Seat, Other'),
+        (39, 'Third Seat, Unknown'),
+        (41, 'Fourth Seat, Left Side'),
+        (42, 'Fourth Seat, Middle'),
+        (43, 'Fourth Seat, Right Side'),
+        (48, 'Fourth Seat, Other'),
+        (49, 'Fourth Seat, Unknown'),
+        (50, 'Sleeper Section of Cab (Truck)'),
+        (51, 'Other Passenger in Enclosed Passenger or Cargo Area (Since 2009)'),
+        (52, 'Other Passenger in Unenclosed Passenger or Cargo Area'),
+        (53, 'Other Passenger in Passenger or Cargo Area, Unknown Whether or Not Enclosed'),
+        (54, 'Trailing Unit'),
+        (55, 'Riding on Vehicle Exterior'),
+        (56, 'Appended to a Motor Vehicle for Motion'),
+        (98, 'Not Reported'),
+        (99, 'Unknown/Reported as Unknown (Since 2018)'),
+    ]
+    seating_position = models.PositiveSmallIntegerField(choices=seating_position_choices, default=98)
     #P10A restraint system use
     restraint_system_use
     #P10B restraint system use

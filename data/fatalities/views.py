@@ -1511,6 +1511,60 @@ FARS_DATA_DICTIONARY = {
         }
     ],
 
+    # p5 nm5 
+    "person.age":[
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.AGE"
+        }
+    ],
+
+    # p6
+    "person.sex":[
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.SEX"
+        }
+    ],
+    #p7 PER_TYP
+
+    "person.person_type":[
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.PER_TYP"
+        }
+    ],
+    #p8 INJ_SEV
+
+    "person.injury_severity":[
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.INJ_SEV"
+        }
+    ],
+    # p9 SEAT_POS
+    "person.seat_position":[
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.SEAT_POS"
+        }
+    ],
+
 
 
 }
