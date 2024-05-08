@@ -1659,7 +1659,7 @@ FARS_DATA_DICTIONARY = {
         }
     ],
     #p16
-    "person.alcohol_involvement": [
+    "person.police_reported_alcohol_involvement": [
         {
             "range": {
                 "start": 1975,
@@ -1668,6 +1668,63 @@ FARS_DATA_DICTIONARY = {
             "key": "person.DRINKING"
         }
     ],
+    #p17A
+    "person.alcohol_test_given": [
+        {
+            "range": {
+                "start": 2009,
+                "end": None
+            },
+            "key": "person.ALC_STATUS"
+        }
+    ],
+    #p17B
+    "person.alcohol_test_type": [
+        {
+            "range": {
+                "start": 2004,
+                "end": None
+            },
+            "key": "person.ATST_TYP"
+        }
+    ],
+    #p17C
+    "person.alcohol_test_results": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 1990
+            },
+            "key": "person.TEST_RES"
+        },
+        {
+            "range": {
+                "start": 1991,
+                "end": None
+            },
+            "key": "person.ALC_RES"
+        }
+    ],
+    #p18
+    "person.police_reported_drug_involvement": [
+        {
+            "range": {
+                "start": 1991,
+                "end": None
+            },
+            "key": "person.DRUGS"
+        }
+    ],
+    # P19A
+    "person.drug_tested":  [
+        {
+            "range": {
+                "start": 2009,
+                "end": None
+            },
+            "key": "person.DSTATUS"
+        }
+    ]
 
 
 

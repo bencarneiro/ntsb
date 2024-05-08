@@ -1925,21 +1925,59 @@ class Person(models.Model):
     ]
     extrication = models.PositiveSmallIntegerField(choices=extrication_choices, default=9)
     #p16
-    alcohol_involvement
-    #p17
-    method_of_alcohol_determination
-    #p18a
-    alcohol_test
-    #p18b
-    alcohol_test_type
-    #P18C
-    alcohol_test_result
-    #p19
-    drug_involvement
-    #p20
-    method_of_drug_determination
-    #p21 
-    drug_test_status
+    police_reported_alcohol_involvement_choices = [
+        (0, "No (Alcohol Not Involved)"),
+        (1, "Yes (Alcohol Involved)"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ]
+    police_reported_alcohol_involvement = models.PositiveSmallIntegerField(choices=police_reported_alcohol_involvement_choices, default=8)
+    
+    #p17A
+    alcohol_test_given_choices = [
+        (0, "Test Not Given"),
+        (2, "Test Given"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown if Tested ")
+    ]
+    alcohol_test_given = models.PositiveSmallIntegerField(choices=alcohol_test_given_choices, default=8)
+    #p17B
+    alcohol_test_type_choices = [
+        (0, 'Not Tested for Alcohol'),
+        (1, 'Blood Test'),
+        (2, 'Breath Test (AC)'),
+        (3, 'Urine'),
+        (4, 'Vitreous'),
+        (5, 'Blood Plasma/Serum'),
+        (6, 'Blood Clot'),
+        (7, 'Liver'),
+        (8, 'Other Test Type'),
+        (10, 'Preliminary Breath Test (PBT)'),
+        (11, 'Breath Test, Unknown Type'),
+        (95, 'Not Reported'),
+        (98, 'Unknown Test Type (Since 2009)'),
+        (99, 'Reported as Unknown if Tested')
+    ]
+    alcohol_test_type = models.PositiveSmallIntegerField(choices=alcohol_test_type_choices, default=95)
+    #p17C
+    alcohol_test_result = models.PositiveSmallIntegerField(null=True, blank=True)
+    #p18
+    police_reported_drug_involvement_choices = [
+        (0, "No (Drugs Not Involved)"),
+        (1, "Yes (Drugs Involved)")
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ]
+    police_reported_drug_involvement = models.PositiveSmallIntegerField(choices=police_reported_drug_involvement_choices, default=8)
+    #p19A
+    drug_tested_choices = [
+        (0, "Test Not Given"),
+        (2, "Test Given"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown if Tested")
+    ]
+    drug_tested = models.PositiveSmallIntegerField(choices=drug_tested_choices, default=8)
+    
     #p22
     transported_to_medical_facility_by
     #p24a
