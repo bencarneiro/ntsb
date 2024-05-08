@@ -1978,26 +1978,126 @@ class Person(models.Model):
     ]
     drug_tested = models.PositiveSmallIntegerField(choices=drug_tested_choices, default=8)
     
-    #p22
-    transported_to_medical_facility_by
-    #p24a
-    month_of_death
-    #p24b
-    day_of_death
-    #p24c
-    year_of_death
-    #p25
-    time_of_death
+    #p20
+    transported_to_medical_facility_by_choices = [
+        (0, 'Not Transported for Treatment'),
+        (1, 'EMS Air'),
+        (2, 'Law Enforcement'),
+        (3, 'EMS Unknown Mode'),
+        (4, 'Transported Unknown Source'),
+        (5, 'EMS Ground'),
+        (6, 'Other'),
+        (8, 'Not Reported'),
+        (9, 'Reported as Unknown')
+    ]
+    transported_to_medical_facility_by = models.PositiveSmallIntegerField(choices=transported_to_medical_facility_by_choices, default=8)
+    #p21
+    died_en_route_choices = [
+        (0, "Not Applicable"),
+        (7, "Died at Scene"),
+        (8, "Died En Route")
+        (9, "Unknown")
+    ]
+    died_en_route = models.PositiveSmallIntegerField(choices=died_en_route_choices, default=0)
+    #p22a
+    month_of_death_choices = [
+        (1, "January"), 
+        (2, "February"), 
+        (3, "March"), 
+        (4, "April"), 
+        (5, "May"), 
+        (6, "June"), 
+        (7, "July"), 
+        (8, "August"), 
+        (9, "September"), 
+        (10, "October"), 
+        (11, "November"), 
+        (12, "December"), 
+        (88, "Not Applicable (Non-Fatal)"),
+        (99, "Unknown")
+    ]
+    month_of_death = models.PositiveSmallIntegerField(choices=month_of_death_choices)
+    #p22b
+    day_of_death = models.PositiveSmallIntegerField(null=True, blank=True)
+    #p22c
+    year_of_death = models.PositiveSmallIntegerField(null=True, blank=True)
+    #p23
+    time_of_death = models.IntegerField(null=True, blank=True)
     #p100a
-    lag_hours
+    lag_hours = models.PositiveSmallIntegerField(null=True, blank=True)
     #p100b
-    lag_minutes
+    lag_minutes = models.PositiveSmallIntegerField(null=True, blank=True)
     #NM4
     vehicle_which_struck_non_motorist = models.ForeignKey(vehicle)
+    #nm8
+    non_motorist_device_type_choices = [
+        (0, 'Not Applicable'),
+        (1, 'Ridden Animal, Animal Drawn Conveyance, or Trailer'),
+        (2, 'Railway Vehicle or Road Vehicle on Rails'),
+        (3, 'Bicycle'),
+        (4, 'Other Pedalcycle'),
+        (5, 'Mobility Aid Device'),
+        (6, 'Skates'),
+        (7, 'Non-Self-Balancing Board (Skateboard)'),
+        (8, 'Self-Balancing Board'),
+        (9, 'Standing or Seated Scooter'),
+        (97, 'Personal Conveyance, Other'),
+        (98, 'Personal Conveyance, Unknown Type'),
+        (99, 'Unknown Type of Non-Motorist'),
+    ]
+    non_motorist_device_type = models.PositiveSmallIntegerField(choices=non_motorist_device_type_choices, default=0)
+    #nm9
+    non_motorist_device_motorization_choices = [
+        (0, "Not Applicable"),
+        (1, "Not Motorized"),
+        (2, "Motorized"),
+        (3, "Unknown/Not Reported if Motorized"),
+        (9, "Unknown Type of Non-Motorist")
+    ]
+    non_motorist_device_motorization = models.PositiveSmallIntegerField(choices=non_motorist_device_motorization_choices, default=0)
     #nm10
-    non_motorist_location
-    #sp2
-    at_work
+    non_motorist_location_choices = [
+        (0, 'Occupant of a Motor Vehicle (Includes Railway Train Occupants Since 2006)'),
+        (1, 'At Intersection-In Marked Crosswalk'),
+        (2, 'At Intersection-Unmarked/Unknown if Marked Crosswalk'),
+        (3, 'At Intersection-Not in Crosswalk'),
+        (9, 'At Intersection-Unknown Location'),
+        (10, 'Not at Intersection-In Marked Crosswalk'),
+        (11, 'Non at Intersection-On Roadway, Not in Marked Crosswalk'),
+        (13, 'Not at Intersection-On Roadway, Crosswalk Availability Unknown'),
+        (14, 'Parking Lane/Zone'),
+        (16, 'Bicycle Lane'),
+        (20, 'Shoulder/Roadside'),
+        (21, 'Sidewalk'),
+        (22, 'Median/Crossing Island'),
+        (23, 'Driveway Access'),
+        (24, 'Shared-Use Path'),
+        (25, 'Non-Trafficway Area'),
+        (28, 'Other'),
+        (98, 'Not Reported'),
+        (99, 'Reported as Unknown Location'),
+    ]
+    non_motorist_location = models.PositiveSmallIntegerField(choices=non_motorist_location_choices, default=0)
+    #sp2 
+    at_work_choices = [
+        (0, "No"),
+        (1, "Yes"),
+        (8, "Not Aplicable"),
+        (9, "Unknown")
+    ]
+    at_work = models.PositiveSmallIntegerField(choices=at_work_choices, default=9)
+    hispanic_choices = [
+        (0, 'Not a Fatality (Not Applicable)'),
+        (1, 'Mexican'),
+        (2, 'Puerto Rican'),
+        (3, 'Cuban'),
+        (4, 'Central or South American'),
+        (5, 'European Spanish (Since 2000)'),
+        (6, 'Hispanic, Origin Not Specified or Other Origin'),
+        (7, 'Non-Hispanic'),
+        (99, 'Unknown')
+    ]
+    hispanic = models.PositiveSmallIntegerField(choices=hispanic_choices, default=99)
 
 # A class for parked cars involved with a given fatal crash
     
@@ -2005,7 +2105,7 @@ class ParkedVehicle(models.Model):
     accident = models.ForeignKey(Accident, on_delete=models.DO_NOTHING)
     vehicle_number = models.PositiveSmallIntegerField(null=False)
     #c4a #PVE_FORMS
-    num_vehicles_in_transit
+    num_vehicles_in_transit 
     #c19 PHARM_EV
     first_harmful_event
     # c20 PMAN_COLL
