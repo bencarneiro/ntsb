@@ -1724,10 +1724,171 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "person.DSTATUS"
         }
-    ]
+    ],
+    #p20
+    "person.transported_to_medical_facility_by": [
+        {
+            "range": {
+                "start": 1977,
+                "end": None
+            },
+            "key": "person.HOSPITAL"
+        }
+    ],
+    #p21 DOA
+    "person.died_en_route": [
+        {
+            "range": {
+                "start": 2001,
+                "end": None
+            },
+            "key": "person.DOA"
+        }
+    ],
+    # p22A DEATH_MO
 
+    "person.month_of_death": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.DEATH_MO"
+        }
+    ],
+    # p22B DEATH_DA
 
+    "person.day_of_death": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.DEATH_DA"
+        }
+    ],
+    # p22C DEATH_YR
+    "person.year_of_death": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.DEATH_YR"
+        }
+    ],
+    #p23A DEATH_HR
+
+    "person.hour_of_death": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.DEATH_HR"
+        }
+    ],
+    #p23B DEATH_MN
+
+    "person.minute_of_death": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.DEATH_MN"
+        }
+    ],
+
+    #p100A
+    "person.lag_hours": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.LAG_HRS"
+        }
+    ],
+    #p100B
+    "person.lag_minutes": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.LAG_MNS"
+        }
+    ],
+    #NM4 N_MOT_NO STR_VEH
+    "person.vehicle_which_struck_non_motorist": [
+        {
+            "range": {
+                "start": 1982,
+                "end": 2010
+            },
+            "key": "person.N_MOT_NO"
+        },
+        {
+            "range": {
+                "start": 2011,
+                "end": None
+            },
+            "key": "person.STR_VEH"
+        }
+    ],
+    # NM8 DEVTYPE
+    "person.non_motorist_device_type": [
+        {
+            "range": {
+                "start": 2022,
+                "end": None
+            },
+            "key": "person.DEVTYPE"
+        }
+    ],
+    # NM9 DEVMOTOR
+    "person.non_motorist_device_motorization": [
+        {
+            "range": {
+                "start": 2022,
+                "end": None
+            },
+            "key": "person.DEVMOTOR"
+        }
+    ],
+    # NM12 LOCATION
+    "person.non_motorist_location": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.LOCATION"
+        }
+    ],
+    # SP2 WORK_INJ
+    "person.at_work": [
+        {
+            "range": {
+                "start": 1987,
+                "end": None
+            },
+            "key": "person.WORK_INJ"
+        }
+    ],
+    # SP3B HISPANIC
+    "person.hipsanic": [
+        {
+            "range": {
+                "start": 1999,
+                "end": None
+            },
+            "key": "person.HISPANIC"
+        }
+    ],
 
 
 
 }
+

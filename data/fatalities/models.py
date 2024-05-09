@@ -2021,14 +2021,16 @@ class Person(models.Model):
     day_of_death = models.PositiveSmallIntegerField(null=True, blank=True)
     #p22c
     year_of_death = models.PositiveSmallIntegerField(null=True, blank=True)
-    #p23
-    time_of_death = models.IntegerField(null=True, blank=True)
+    #p23A
+    hour_of_death = models.IntegerField(null=True, blank=True)
+    #p23B
+    minute_of_death = models.IntegerField(null=True, blank=True)
     #p100a
     lag_hours = models.PositiveSmallIntegerField(null=True, blank=True)
     #p100b
     lag_minutes = models.PositiveSmallIntegerField(null=True, blank=True)
     #NM4
-    vehicle_which_struck_non_motorist = models.ForeignKey(vehicle)
+    vehicle_which_struck_non_motorist = models.ForeignKey(vehicle, null=True, blank=True)
     #nm8
     non_motorist_device_type_choices = [
         (0, 'Not Applicable'),
