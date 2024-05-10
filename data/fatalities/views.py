@@ -757,23 +757,14 @@ FARS_DATA_DICTIONARY = {
         }
     ],
 
-    #V23
-    "vehicle.motor_carrier_issuing_authority": [
-        {
-            "range": {
-                "start": 2007,
-                "end": None
-            },
-            "key": "vehicle.MCARR_I1"
-        }
-    ],
+    # V23
     "vehicle.motor_carrier_identification_number": [
         {
             "range": {
-                "start": 2007,
+                "start": 1998,
                 "end": None
             },
-            "key": "vehicle.MCARR_I2"
+            "key": "VEHICLE.MCARR_ID"
         }
     ],
     #V24
@@ -832,6 +823,15 @@ FARS_DATA_DICTIONARY = {
                 "end": None
             },
             "key": "vehicle.HAZ_CNO"
+        }
+    ],
+    "vehicle.release_of_hazardous_material": [
+        {
+            "range": {
+                "start": 2007,
+                "end": None
+            },
+            "key": "vehicle.HAZ_REL"
         }
     ],
     #V27
@@ -2181,6 +2181,199 @@ FARS_DATA_DICTIONARY = {
             "key": "PARKWORK.PTRAILER"
         }
     ],
+
+    #v20
+    "parked_vehicle.trailer_vin_1": [
+        {
+            "range": {
+                "start": 2016,
+                "end": None
+            },
+            "key": "PARKWORK.PTRLR1VIN"
+        }
+    ],
+    "parked_vehicle.trailer_vin_2": [
+        {
+            "range": {
+                "start": 2016,
+                "end": None
+            },
+            "key": "PARKWORK.PTRLR2VIN"
+        }
+    ],
+    "parked_vehicle.trailer_vin_3": [
+        {
+            "range": {
+                "start": 2016,
+                "end": None
+            },
+            "key": "PARKWORK.PTRLR3VIN"
+        }
+    ],
+    #V21
+    "parked_vehicle.trailer_weight_rating_1": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "PARKWORK.PTRLR1GVWR"
+        }
+    ],
+    "parked_vehicle.trailer_weight_rating_2": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "PARKWORK.PTRLR2GVWR"
+        }
+    ],
+    "parked_vehicle.trailer_weight_rating_3": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "PARKWORK.PTRLR3GVWR"
+        }
+    ],
+    # V23
+    "parked_vehicle.motor_carrier_identification_number": [
+        {
+            "range": {
+                "start": 1998,
+                "end": 2009
+            },
+            "key": "VEHICLE.MCARR_ID"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PMCARR_ID"
+        }
+    ],
+    #v24
+    "parked_vehicle.vehicle_configuration": [
+        {
+            "range": {
+                "start": 1991,
+                "end": 2009
+            },
+            "key": "vehicle.V_CONFIG"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PV_CONFIG"
+        }
+    ],
+    #v25 CARGO_BT
+    "parked_vehicle.cargo_body_type": [
+        {
+            "range": {
+                "start": 1991,
+                "end": 2009
+            },
+            "key": "vehicle.CARGO_BT"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PCARGTYP"
+        }
+    ],
+    
+    #V26
+    "vehicle.hazardous_material_involvement": [
+        {
+            "range": {
+                "start": 2007,
+                "end": 2009
+            },
+            "key": "vehicle.HAZ_INV"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.PHAZ_INV"
+        }
+    ],
+    "vehicle.hazardous_material_placard": [
+        {
+            "range": {
+                "start": 2007,
+                "end": 2009
+            },
+            "key": "vehicle.HAZ_PLAC"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.PHAZ_PLAC"
+        }
+    ],
+    "vehicle.hazardous_material_id": [
+        {
+            "range": {
+                "start": 2007,
+                "end": 2009
+            },
+            "key": "vehicle.HAZ_ID"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.PHAZ_ID"
+        }
+    ],
+    "vehicle.hazardous_material_class_number": [
+        {
+            "range": {
+                "start": 2007,
+                "end": 2009
+            },
+            "key": "vehicle.HAZ_CNO"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.PHAZ_CNO"
+        }
+    ],
+    "vehicle.release_of_hazardous_material": [
+        {
+            "range": {
+                "start": 2007,
+                "end": 2009
+            },
+            "key": "vehicle.HAZ_REL"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "vehicle.PHAZ_REL"
+        }
+    ],
+
+
+
 
 }
 
