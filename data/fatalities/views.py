@@ -1887,8 +1887,300 @@ FARS_DATA_DICTIONARY = {
             "key": "person.HISPANIC"
         }
     ],
+    # C19 
+    "parked_vehicle.first_harmful_event": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.HARM_EV"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PHARM_EV"
+        }
+    ],
+    #c20
+    "parked_vehicle.manner_of_collision_of_first_harmful_event": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.MAN_COLL"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PMAN_COLL"
+        }
+    ],
+    # V4
+    "parked_vehicle.number_of_occupants": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2008
+            },
+            "key": "VEHICLE.OCUPANTS"
+        },
+        {
+            "range": {
+                "start": 2009,
+                "end": 2009
+            },
+            "key": "VEHICLE.NUMOCCS"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PNUMOCCS"
+        }
+    ],
+    #v5 UNITTYPE
+    "parked_vehicle.unit_type": [
+        {
+            "range": {
+                "start": 2005,
+                "end": 2009
+            },
+            "key": "VEHICLE.UNITTYPE"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PTYPE"
+        }
+    ],
+    #v6
+    "parked_vehicle.hit_and_run": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.HIT_RUN"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PHIT_RUN"
+        }
+    ],
+    # v7 PREG_STAT
 
+    "parked_vehicle.registration_state": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.REG_STAT"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PREG_STAT"
+        }
+    ],
+    #v8  
+    "parked_vehicle.registered_vehicle_owner": [
+        {
+            "range": {
+                "start": 1991,
+                "end": 2009
+            },
+            "key": "VEHICLE.OWNER"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.POWNER"
+        }
+    ],
+    #v9 VIN
+    "parked_vehicle.vehicle_identification_number": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.VIN"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PVIN"
+        }
+    ],
+    #v10 MOD_YEAR
+    "parked_vehicle.vehicle_model_year": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.MOD_YEAR"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PMODYEAR"
+        }
+    ],
+    # v11 PVPICMAKE
+    "parked_vehicle.vpic_make": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "PARKWORK.PVPICMAKE"
+        }
+    ],
+    # v12 PVPICMODEL
+    "parked_vehicle.vpic_model": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "PARKWORK.PVPICMODEL"
+        }
+    ],
+    # v13 PVPICBODYCLASS
+    "parked_vehicle.vpic_body_class": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "PARKWORK.PVPICBODYCLASS"
+        }
+    ],
+    # V14 PMAKE
 
+    "parked_vehicle.ncsa_make": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.MAKE"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PMAKE"
+        }
+    ],
+    # V15 PMODEL
+
+    "parked_vehicle.ncsa_make": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.MODEL"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PMODEL"
+        }
+    ],
+    # V16 BODY_TYP
+
+    "parked_vehicle.body_type": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.BODY_TYP"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PBODYTYP"
+        }
+    ],
+    #v17 PICFINALBODY
+
+    "parked_vehicle.final_stage_body_class": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "PARKWORK.PICFINALBODY"
+        }
+    ],
+ 
+    # V18
+    "parked_vehicle.gross_vehicle_weight_rating_lower": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "PARKWORK.PGVWR_FROM"
+        }
+    ],
+    # V18
+    "parked_vehicle.gross_vehicle_weight_rating_upper": [
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "PARKWORK.PGVWR_TO"
+        }
+    ],
+    # V19
+    "parked_vehicle.vehicle_trailing": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.TOW_VEH"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PTRAILER"
+        }
+    ],
 
 }
 
