@@ -2107,65 +2107,828 @@ class ParkedVehicle(models.Model):
     accident = models.ForeignKey(Accident, on_delete=models.DO_NOTHING)
     vehicle_number = models.PositiveSmallIntegerField(null=False)
     #c4a #PVE_FORMS
-    num_vehicles_in_transit 
+    # number_of_vehicles_in_transit = models.PositiveSmallIntegerField(default=0)
     #c19 PHARM_EV
-    first_harmful_event
+    first_harmful_event_options = [
+        (1, 'Rollover/Overturn'),
+        (2, 'Fire/Explosion'),
+        (3, 'Immersion or Partial Immersion (Since 2012)'),
+        (4, 'Gas Inhalation'),
+        (5, 'Fell/Jumped From Vehicle'),
+        (6, 'Injured in Vehicle (Non-Collision)'),
+        (7, 'Other Non-Collision'),
+        (8, 'Pedestrian'),
+        (9, 'Pedalcyclist'),
+        (10, 'Railway Vehicle'),
+        (11, 'Live Animal'),
+        (12, 'Motor Vehicle In-Transport'),
+        (14, 'Parked Motor Vehicle (Not In-Transport)'),
+        (15, 'Non-Motorist on Personal Conveyance'),
+        (16, 'Thrown or Falling Object'),
+        (17, 'Boulder'),
+        (18, 'Other Object (Not Fixed)'),
+        (19, 'Building'),
+        (20, 'Impact Attenuator/Crash Cushion'),
+        (21, 'Bridge Pier or Support'),
+        (23, 'Bridge Rail (Includes Parapet)'),
+        (24, 'Guardrail Face'),
+        (25, 'Concrete Traffic Barrier'),
+        (26, 'Other Traffic Barrier'),
+        (30, 'Utility Pole/Light Support'),
+        (31, 'Post, Pole, or Other Supports'),
+        (32, 'Culvert'),
+        (33, 'Curb'),
+        (34, 'Ditch'),
+        (35, 'Embankment'),
+        (38, 'Fence'),
+        (39, 'Wall'),
+        (40, 'Fire Hydrant'),
+        (41, 'Shrubbery'),
+        (42, 'Tree (Standing Only)'),
+        (43, 'Other Fixed Object'),
+        (44, 'Pavement Surface Irregularity (Ruts, Potholes, Grates, etc.)'),
+        (45, 'Working Motor Vehicle'),
+        (46, 'Traffic Signal Support'),
+        (48, 'Snow Bank'),
+        (49, 'Ridden Animal or Animal-Drawn Conveyance (Since 1998)'),
+        (50, 'Bridge Overhead Structure'),
+        (51, 'Jackknife (Harmful to This Vehicle)'),
+        (52, 'Guardrail End'),
+        (53, 'Mail Box'),
+        (55, 'Motor Vehicle in Motion Outside the Trafficway (Since 2008)'),
+        (57, 'Cable Barrier (Since 2008)'),
+        (58, 'Ground'),
+        (59, 'Traffic Sign Support'),
+        (72, 'Cargo/Equipment Loss, Shift, or Damage (Harmful)'),
+        (73, 'Object That Had Fallen From Motor Vehicle In-Transport'),
+        (74, 'Road Vehicle on Rails'),
+        (91, 'Unknown Object Not Fixed'),
+        (93, 'Unknown Fixed Object'),
+        (98, 'Harmful Event, Details Not Reported (Since 2019)'),
+        (99, 'Reported as Unknown')
+    ]
+    first_harmful_event = models.PositiveSmallIntegerField(choices=first_harmful_event_options, default=98)
     # c20 PMAN_COLL
-    manner_of_collision_of_first_harmful_event
+    manner_of_collision_of_first_harmful_event_options = [
+        (0,'First Harmful Event was Not a Collision with Motor Vehicle In-Transport'),
+        (1,'Front-to-Rear'),
+        (2,'Front-to-Front'),
+        (6,'Angle'),
+        (7,'Sideswipe - Same Direction'),
+        (8,'Sideswipe - Opposite Direction'),
+        (9,'Rear-to-Side'),
+        (10,'Rear-to-Rear'),
+        (11,'Other (End-Swipes and Others)'),
+        (98,'Not Reported'),
+        (99,'Reported as Unknown')
+    ]
+    manner_of_collision_of_first_harmful_event = models.PositiveSmallIntegerField(choices=manner_of_collision_of_first_harmful_event_options, default=98)
     #v4 PNUMOCCS
-    num_occupants
+    number_of_occupants = models.PositiveSmallIntegerField(null=True, blank=True)
     #v5 PTYPE
-    unit_type
-    #v6 PHIT_RUN
-    hit_and_run
-    # v7 PREG_STAT
-    registration_state
-    # v8 POWNER
-    vehicle_owner
-    # v9 PVIN
-    vehicle_identification_number
-    # v10 PMODYEAR
-    vehicle_model_year
-    # v14 PMAKE
-    ncsa_make
-    # V15 PMODEL
-    ncsa_model
-    # V16 PBODYTYP
-    body_type
-    # V19 PTRAILER
-    vehicle_trailing
-    # V23 PMCARR_ID
-    motor_carrier_identification_number
-    #v24 PV_CONFIG
-    vehicle_configuration
-    #v25 PCARGTYP
-    cargo_body_type
-    #v26a PHAZ_INV
-    hazardous_material_involvement
-    #v26B PHAZPLAC
-    hazardous_material_placard
-    # V26C - PHAZ_ID
-    hazardous_material_id
-    # v26D PHAZ_CNO
-    hazardous_material_class_number
-    # v26E PHAZ_REL
-    release_of_hazardous_material
-    #V27 PBUS_USE
-    bus_use
-    #v28 PSP_USE
-    special_vehicle_use
-    #v29 PEM_USE
-    emergency_vehicle_use
-    # V34A PIMPACT1
-    initial_contact_point
-    #v35 PVEH_SEV
-    extent_of_damage
-    #v36 PTOWED
-    vehicle_towed
-    #v38 PM_HARM
-    most_harmful_event
-    #v39 PFIRE
-    fire_occurence
+    unit_type_choices = [
+        (2, "Motor Vehicle Not In-Transport Within the Trafficway"),
+        (3, "Motor Vehicle Not In-Transport Outside the Trafficway"),
+        (4, "Working Motor Vehicle (Highway Construction, Maintenance, Utility Only)")
+    ]
+    unit_type = models.PositiveSmallIntegerField(choices=unit_type_choices, default=3)
+    # v6 PHIT_RUN
+    hit_and_run_choices = [
+        (0, "No Hit and Run"),
+        (1, "Hit and Run"),
+        (9, "Unknown")
+    ]
+    hit_and_run = models.PositiveSmallIntegerField(choices=hit_and_run_choices, default=0) 
+    
+    #v7 
+    registration_state_choices = [
+        (0, "Not Applicable"),
+        (1, 'Alabama'),
+        (2, 'Alaska'),
+        (3, 'American Samoa'),
+        (4, 'Arizona'),
+        (5, 'Arkansas'),
+        (6, 'California'),
+        (8, 'Colorado'),
+        (9, 'Connecticut'),
+        (10, 'Delaware'),
+        (11, 'District of Columbia'),
+        (12, 'Florida'),
+        (13, 'Georgia'),
+        (14, 'Guam'),
+        (15, 'Hawaii'),
+        (16, 'Idaho'),
+        (17, 'Illinois'),
+        (18, 'Indiana'),
+        (19, 'Iowa'),
+        (20, 'Kansas'),
+        (21, 'Kentucky'),
+        (22, 'Louisiana'),
+        (23, 'Maine'),
+        (24, 'Maryland'),
+        (25, 'Massachusetts'),
+        (26, 'Michigan'),
+        (27, 'Minnesota'),
+        (28, 'Mississippi'),
+        (29, 'Missouri'),
+        (30, 'Montana'),
+        (31, 'Nebraska'),
+        (32, 'Nevada'),
+        (33, 'New Hampshire'),
+        (34, 'New Jersey'),
+        (35, 'New Mexico'),
+        (36, 'New York'),
+        (37, 'North Carolina'),
+        (38, 'North Dakota'),
+        (39, 'Ohio '),
+        (40, 'Oklahoma'),
+        (41, 'Oregon'),
+        (42, 'Pennsylvania'),
+        (43, 'Puerto Rico'),
+        (44, 'Rhode Island'),
+        (45, 'South Carolina'),
+        (46, 'South Dakota'),
+        (47, 'Tennessee'),
+        (48, 'Texas'),
+        (49, 'Utah'),
+        (50, 'Vermont'),
+        (51, 'Virginia'),
+        (52, 'Virgin Islands'),
+        (53, 'Washington'),
+        (54, 'West Virginia'),
+        (55, 'Wisconsin'),
+        (56, 'Wyoming'),
+        (91, "Not Reported"),
+        (92, "No Registration"),
+        (93, "Multiple State Registrations"),
+        (94, "US Government / Military"),
+        (95, "Canada"),
+        (96, "Mexico"),
+        (97, "Other Foreign Country"),
+        (98, "Other Registration"),
+        (99, "Unknown")
+    ]
+    registration_state = models.PositiveSmallIntegerField(choices=registration_state_choices, default=99)
+    #v8 registered vehicle owner
+    registered_vehicle_owner_choices = [
+        (0, 'Not Applicable, Vehicle Not Registered'),
+        (1, 'Driver (in This Crash) Was Registered Owner'),
+        (2, 'Driver (in This Crash) Not Registered Owner (Other Private Owner)'),
+        (3, 'Vehicle Registered as Commercial/Business/Company/Government'),
+        (4, 'Vehicle Registered as Rental Vehicle'),
+        (5, 'Vehicle Was Stolen (Reported by Police)'),
+        (6, 'Driverless/Motor Vehicle Parked/Stopped off Roadway'),
+        (9, 'Unknown')
+    ]
+    registered_vehicle_owner = models.PositiveSmallIntegerField(choices=registered_vehicle_owner_choices, default=9)
+    #v9
+    vehicle_identification_number = models.CharField(max_length=32, null=True, blank=True)
+    #v10 
+    vehicle_model_year = models.PositiveSmallIntegerField(null=True, blank=True)
+    # V11
+    vpic_make = models.PositiveSmallIntegerField(null=True, blank=True)
+    # V12
+    vpic_model = models.PositiveIntegerField(null=True, blank=True)
+    # V13
+    vpic_body_class_choices = [
+        (1, 'Convertible/Cabriolet'),
+        (2, 'Minivan'),
+        (3, 'Coupe'),
+        (4, 'Low Speed Vehicle (LSV)/Neighborhood Electric Vehicle (NEV)'),
+        (5, 'Hatchback/Liftback/Notchback'),
+        (6, 'Motorcycle - Standard'),
+        (7, 'Sport Utility Vehicle (SUV)/Multi-Purpose Vehicle (MPV)'),
+        (8, 'Crossover Utility Vehicle (CUV)'),
+        (9, 'Van'),
+        (10, 'Roadster'),
+        (11, 'Truck'),
+        (12, 'Motorcycle - Scooter'),
+        (13, 'Sedan/Saloon'),
+        (15, 'Wagon'),
+        (16, 'Bus'),
+        (60, 'Pickup'),
+        (62, 'Incomplete - Cutaway*'),
+        (63, 'Incomplete - Chassis Cab (Single Cab)*'),
+        (64, 'Incomplete - Glider*'),
+        (65, 'Incomplete*'),
+        (66, 'Truck-Tractor'),
+        (67, 'Incomplete - Stripped Chassis*'),
+        (68, 'Streetcar/Trolley'),
+        (69, 'Off-Road Vehicle - All Terrain Vehicle (ATV) (Motorcycle-Style)'),
+        (70, 'Incomplete - Chassis Cab (Double Cab)*'),
+        (71, 'Incomplete - School Bus Chassis*'),
+        (72, 'Incomplete - Commercial Bus Chassis*'),
+        (73, 'Bus - School Bus'),
+        (74, 'Incomplete - Chassis Cab (Number of Cab Unknown)*'),
+        (75, 'Incomplete - Transit Bus Chassis*'),
+        (76, 'Incomplete - Motor Coach Chassis*'),
+        (77, 'Incomplete - Shuttle Bus Chassis*'),
+        (78, 'Incomplete - Motor Home Chassis*'),
+        (80, 'Motorcycle - Sport'),
+        (81, 'Motorcycle - Touring/Sport Touring'),
+        (82, 'Motorcycle - Cruiser'),
+        (83, 'Motorcycle - Trike'),
+        (84, 'Off-Road Vehicle - Dirt Bike/Off-Road'),
+        (85, 'Motorcycle - Dual Sport/Adventure/Supermoto/On/Off-Road'),
+        (86, 'Off-Road Vehicle - Enduro (off-road long-distance racing)'),
+        (87, 'Motorcycle - Small/Minibike'),
+        (88, 'Off-Road Vehicle - Go Kart'),
+        (90, 'Motorcycle - Side Car'),
+        (94, 'Motorcycle - Custom'),
+        (95, 'Cargo Van'),
+        (97, 'Off-Road Vehicle - Snowmobile'),
+        (98, 'Motorcycle - Street'),
+        (100, 'Motorcycle - Enclosed Three Wheeled/Enclosed Autocycle'),
+        (103, 'Motorcycle - Unenclosed Three Wheeled/Open Autocycle'),
+        (104, 'Motorcycle - Moped'),
+        (105, 'Off-Road Vehicle - Recreational Off-Road Vehicle (ROV)'),
+        (107, 'Incomplete - Bus Chassis*'),
+        (108, 'Motorhome'),
+        (109, 'Motorcycle - Cross Country'),
+        (110, 'Motorcycle - Underbone'),
+        (111, 'Step Van/Walk-in Van'),
+        (112, 'Incomplete - Commercial Chassis*'),
+        (113, 'Off-Road Vehicle - Motocross (Off-Road Short-Distance, Closed-Track Racing)'),
+        (114, 'Motorcycle - Competition'),
+        (117, 'Limousine'),
+        (119, 'Sport Utility Truck (SUT)'),
+        (124, 'Off-Road Vehicle - Golf Cart'),
+        (125, 'Motorcycle - Unknown Body Type'),
+        (126, 'Off-Road Vehicle - Farm Equipment'),
+        (127, 'Off-Road Vehicle - Construction Equipment'),
+        (128, 'Ambulance'),
+        (129, 'Street Sweeper'),
+        (130, 'Fire Apparatus'),
+        (996, 'Motorized Bicycle (discontinued in 2022)'),
+        (997, 'Other'),
+        (998, 'Not Reported'),
+        (999, 'Unknown')
+    ]
+    vpic_body_class = models.PositiveSmallIntegerField(choices=vpic_body_class_choices, default=999)
+    #v14
+    ncsa_make_choices = [
+        (1, 'American Motors'),
+        (2, 'Jeep/Kaiser-Jeep/Willys Jeep'),
+        (3, 'AM General'),
+        (6, 'Chrysler'),
+        (7, 'Dodge'),
+        (8, 'Imperial'),
+        (9, 'Plymouth'),
+        (10, 'Eagle'),
+        (12, 'Ford'),
+        (13, 'Lincoln'),
+        (14, 'Mercury'),
+        (18, 'Buick/Opel'),
+        (19, 'Cadillac'),
+        (20, 'Chevrolet'),
+        (21, 'Oldsmobile'),
+        (22, 'Pontiac'),
+        (23, 'GMC'),
+        (24, 'Saturn'),
+        (25, 'Grumman'),
+        (26, 'Coda (Since 2013)'),
+        (29, 'Other Domestic Manufacturers'),
+        (30, 'Volkswagen'),
+        (31, 'Alfa Romeo'),
+        (32, 'Audi'),
+        (33, 'Austin/Austin Healey'),
+        (34, 'BMW'),
+        (35, 'Datsun/Nissan'),
+        (36, 'Fiat'),
+        (37, 'Honda'),
+        (38, 'Isuzu'),
+        (39, 'Jaguar'),
+        (40, 'Lancia'),
+        (41, 'Mazda'),
+        (42, 'Mercedes-Benz'),
+        (43, 'MG'),
+        (44, 'Peugeot'),
+        (45, 'Porsche'),
+        (46, 'Renault'),
+        (47, 'Saab'),
+        (48, 'Subaru'),
+        (49, 'Toyota'),
+        (50, 'Triumph'),
+        (51, 'Volvo'),
+        (52, 'Mitsubishi'),
+        (53, 'Suzuki'),
+        (54, 'Acura'),
+        (55, 'Hyundai'),
+        (56, 'Merkur'),
+        (57, 'Yugo'),
+        (58, 'Infiniti'),
+        (59, 'Lexus'),
+        (60, 'Daihatsu'),
+        (61, 'Sterling'),
+        (62, 'Land Rover'),
+        (63, 'Kia'),
+        (64, 'Daewoo'),
+        (65, 'Smart (Since 2010)'),
+        (66, 'Mahindra (2011-2013)'),
+        (67, 'Scion (Since 2012)'),
+        (69, 'Other Imports'),
+        (70, 'BSA'),
+        (71, 'Ducati'),
+        (72, 'Harley-Davidson'),
+        (73, 'Kawasaki'),
+        (74, 'Moto Guzzi'),
+        (75, 'Norton'),
+        (76, 'Yamaha'),
+        (77, 'Victory'),
+        (78, 'Other Make Moped (Since 2010)'),
+        (79, 'Other Make Motored Cycle (Since 2010)'),
+        (80, 'Brockway'),
+        (81, 'Diamond Reo/Reo'),
+        (82, 'Freightliner'),
+        (83, 'FWD'),
+        (84, 'International Harvester/Navistar'),
+        (85, 'Kenworth'),
+        (86, 'Mack'),
+        (87, 'Peterbilt'),
+        (88, 'Iveco/Magirus'),
+        (89, 'White/Autocar, White/GMC'),
+        (90, 'Bluebird'),
+        (91, 'Eagle Coach'),
+        (92, 'Gillig'),
+        (93, 'MCI'),
+        (94, 'Thomas Built'),
+        (97, 'Not Reported (Since 2010)'),
+        (98, 'Other Make'),
+        (99, 'Unknown Make')
+    ]
+    ncsa_make = models.PositiveSmallIntegerField(choices=ncsa_make_choices, default=99)
+    #v15
+    ncsa_model = models.IntegerField(null=True, blank=True)
+    #v16
+    body_type_choices = [
+        (1, 'Convertible (Excludes Sunroof, T-Bar)'),
+        (2, '2-Door Sedan/Hardtop/Coupe'),
+        (3, '3-Door/2-Door Hatchback'),
+        (4, '4-Door Sedan/Hardtop'),
+        (5, '5-Door/4-Door Hatchback'),
+        (6, 'Station Wagon (Excluding Van- and Truck-Based)'),
+        (7, 'Hatchback, Number of Doors Unknown'),
+        (8, 'Sedan/Hardtop, Number of Doors Unknown (Since 1994)'),
+        (9, 'Other or Unknown Automobile Type (Since 1994)'),
+        (10, 'Auto-Based Pickup'),
+        (11, 'Auto-Based Panel (Cargo Station Wagon, AutoBased Ambulance or Hearse)'),
+        (12, 'Large Limousine (More Than Four Side Doors or Stretch Chassis)'),
+        (13, 'Three-Wheel Automobile or Automobile Derivative'),
+        (14, 'Compact Utility (ANSI D-16 Utility Vehicle Categories “Small” and “Midsize”)'),
+        (15, 'Large Utility (ANSI D-16 Utility Vehicle Categories “Full Size” and “Large”)'),
+        (16, 'Utility Station Wagon'),
+        (17, '3-Door Coupe'),
+        (19, 'Utility Unknown Body'),
+        (20, 'Minivan'),
+        (21, 'Large Van - Includes Van-Based Buses'),
+        (22, 'Step Van or Walk-in Van (GVWR ≤ 10,000 lbs)'),
+        (28, 'Other Van Type (Hi-Cube Van)'),
+        (29, 'Unknown Van Type'),
+        (33, 'Convertible Pickup'),
+        (34, 'Light Pickup'),
+        (39, 'Unknown (Pickup Style) Light Conventional Truck Type'),
+        (40, 'Cab Chassis-Based (Includes Light Stake, Light Dump, Light Tow, Rescue Vehicles)'),
+        (41, 'Truck-Based Panel'),
+        (42, 'Light Vehicle-Based Motorhome (Chassis Mounted)'),
+        (45, 'Other Light Conventional Truck Type (Includes Stretched Suburban Limousine)'),
+        (48, 'Unknown Light Truck Type (Since 2013)'),
+        (49, 'Unknown Light-Vehicle Type (Automobile, Utility Vehicle, Van or Light Truck)'),
+        (50, 'School Bus'),
+        (51, 'Cross-Country/Intercity Bus (i.e., Greyhound)'),
+        (52, 'Transit Bus (City Bus)'),
+        (55, 'Van-Based Bus (GVWR > 10,000 lbs) (Since 2011)'),
+        (58, 'Other Bus Type'),
+        (59, 'Unknown Bus Type'),
+        (60, 'Step Van (GVWR > 10,000 lbs)'),
+        (61, 'Single-Unit Straight Truck or Cab-Chassis (GVWR range 10,001 to 19,500 lbs) (Since 2011)'),
+        (62, 'Single-Unit Straight Truck or Cab-Chassis (GVWR range 19,501 to 26,000 lbs) (Since 2011)'),
+        (63, 'Single-Unit Straight Truck or Cab-Chassis (GVWR > 26,000 lbs) (Since 2011)'),
+        (64, 'Single Unit Straight Truck or Cab-Chassis (GVWR Unknown) (Since 2011)'),
+        (65, 'Medium/Heavy Vehicle-Based Motorhome'),
+        (66, 'Truck/Tractor (Cab Only, or With Any Number of Trailing Units: Any Weight)'),
+        (67, 'Medium/Heavy Pickup (GVWR > 10,000 lbs) (Since 2001)'),
+        (71, 'Unknown if Single-Unit or Combination-Unit Medium Truck (GVWR range 10,001 to 26,000 lbs)'),
+        (72, 'Unknown if Single-Unit or Combination-Unit Heavy Truck (GVWR > 26,000 lbs)'),
+        (73, 'Camper or Motorhome, Unknown GVWR'),
+        (78, 'Unknown Medium/Heavy Truck Type'),
+        (79, 'Unknown Truck Type'),
+        (80, 'Two Wheel Motorcycle (excluding motor scooters)'),
+        (81, 'Moped (Since 2022)'),
+        (82, 'Three-Wheel Motorcycle (2 Rear Wheels)'),
+        (83, 'Off-Road Motorcycle'),
+        (84, 'Motor Scooter'),
+        (85, 'Unenclosed Three-Wheel Motorcycle/Unenclosed Autocycle (1 Rear Wheel)'),
+        (86, 'Enclosed Three-Wheel Motorcycle/Enclosed Autocycle (1 Rear Wheel)'),
+        (87, 'Unknown Three-Wheel Motorcycle Type'),
+        (88, 'Other Motored Cycle Type (Mini-Bikes, Pocket Motorcycles, Pocket Bikes)'),
+        (89, 'Unknown Motored Cycle Type'),
+        (90, 'ATV (All-Terrain Vehicle; Includes 3 or 4 Wheels)'),
+        (91, 'Snowmobile'),
+        (92, 'Farm Equipment Other Than Trucks'),
+        (93, 'Construction Equipment Other Than Trucks (Includes Graders)'),
+        (94, 'Low-Speed Vehicle (LSV)/Neighborhood Electric Vehicle (NEV) (Since 2011)'),
+        (95, 'Golf Cart (Since 2012)'),
+        (96, 'Recreational Off-Highway Vehicle'),
+        (97, 'Other Vehicle Type (Includes Go-Cart, Fork-Lift, City Street Sweeper, Dune/Swamp Buggy)'),
+        (98, 'Not Reported'),
+        (99, 'Unknown Body Type')
+    ]
+    body_type = models.PositiveSmallIntegerField(choices=body_type_choices, default=99)
+
+    #V17
+    final_stage_body_class_choices = [
+        (0, 'Not Applicable'),
+        (2, 'Minivan'),
+        (4, 'Low-Speed Vehicle (LSV)'),
+        (7, 'Sport Utility Vehicle (SUV)/Multi-Purpose Vehicle (MPV)'),
+        (8, 'Crossover Utility Vehicle (CUV)'),
+        (9, 'Van'),
+        (11, 'Truck'),
+        (15, 'Wagon'),
+        (16, 'Bus'),
+        (60, 'Pickup'),
+        (66, 'Truck-Tractor'),
+        (68, 'Streetcar/Trolley'),
+        (73, 'Bus-School Bus'),
+        (95, 'Cargo Van'),
+        (108, 'Motorhome'),
+        (111, 'Step Van/Walk-in Van'),
+        (117, 'Limousine'),
+        (119, 'Sport Utility Truck'),
+        (128, 'Ambulance'),
+        (129, 'Street Sweeper'),
+        (130, 'Fire Apparatus'),
+        (997, 'Other'),
+        (998, 'Not Reported'),
+        (999, 'Unknown')
+    ]
+    final_stage_body_class = models.PositiveSmallIntegerField(choices=final_stage_body_class_choices, default=999)
+    # V18
+    weight_rating_choices = [
+        (11, 'Class 1: 6,000 lbs or less (2,722 kg or less)'),
+        (12, 'Class 2: 6,001 - 10,000 lbs (2,722 - 4,536 kg)'),
+        (13, 'Class 3: 10,001 - 14,000 lbs (4,536 - 6,350 kg)'),
+        (14, 'Class 4: 14,001 - 16,000 lbs (6,350 - 7,258 kg)'),
+        (15, 'Class 5: 16,001 - 19,500 lbs (7,258 - 8,845 kg)'),
+        (16, 'Class 6: 19,501 - 26,000 lbs (8,845 - 11,794 kg)'),
+        (17, 'Class 7: 26,001 - 33,000 lbs (11,794 - 14,969 kg)'),
+        (18, 'Class 8: 33,001 lbs and above (14,969 kg and above)'),
+        (98, 'Not Reported'),
+        (99, 'Reported as Unknown')
+    ]
+    gross_vehicle_weight_rating_lower = models.PositiveSmallIntegerField(choices = weight_rating_choices, default = 99)
+    gross_vehicle_weight_rating_upper = models.PositiveSmallIntegerField(choices = weight_rating_choices, default = 99)
+    #v19 
+    vehicle_trailing_choices = [
+        (0, 'No Trailers'),
+        (1, 'One Trailer'),
+        (2, 'Two Trailers'),
+        (3, 'Three or More Trailers'),
+        (4, 'Yes, Number of Trailers Unknown'),
+        (5, 'Vehicle Towing Another Motor Vehicle - Fixed Linkage'),
+        (6, 'Vehicle Towing Another Motor Vehicle - Non-Fixed Linkage'),
+        (7, 'Trailing Unit Other than a Trailer or Another Motor Vehicle'),
+        (9, 'Unknown')
+    ]
+    vehicle_trailing = models.PositiveSmallIntegerField(choices=vehicle_trailing_choices, default=0)
+    #V20
+    trailer_vin_1= models.CharField(max_length=32, null=True, blank=True)
+    trailer_vin_2= models.CharField(max_length=32, null=True, blank=True)
+    trailer_vin_3= models.CharField(max_length=32, null=True, blank=True)
+    #V21
+    trailer_weight_rating_choices = [
+        (0, 'No Trailer GVWR Required'),
+        (11, 'Class 1: 6,000 lbs or less (2,722 kg or less)'),
+        (12, 'Class 2: 6,001 - 10,000 lbs (2,722 - 4,536 kg)'),
+        (13, 'Class 3: 10,001 - 14,000 lbs (4,536 - 6,350 kg)'),
+        (14, 'Class 4: 14,001 - 16,000 lbs (6,350 - 7,258 kg)'),
+        (15, 'Class 5: 16,001 - 19,500 lbs (7,258 - 8,845 kg)'),
+        (16, 'Class 6: 19,501 - 26,000 lbs (8,845 - 11,794 kg)'),
+        (17, 'Class 7: 26,001 - 33,000 lbs (11,794 - 14,969 kg)'),
+        (18, 'Class 8: 33,001 lbs and above (14,969 kg and above)'),
+        (77, 'No Trailing Units'),
+        (98, 'Not Reported'),
+        (99, 'Reported as Unknown')
+    ]
+    trailer_weight_rating_1 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=0)
+    trailer_weight_rating_2 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=0)
+    trailer_weight_rating_3 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=0)
+    
+    #V23
+    mcid_issuing_authority_choices = [
+        (0, "Not Applicable"),
+        (1, 'Alabama'),
+        (2, 'Alaska'),
+        (3, 'American Samoa'),
+        (4, 'Arizona'),
+        (5, 'Arkansas'),
+        (6, 'California'),
+        (8, 'Colorado'),
+        (9, 'Connecticut'),
+        (10, 'Delaware'),
+        (11, 'District of Columbia'),
+        (12, 'Florida'),
+        (13, 'Georgia'),
+        (14, 'Guam'),
+        (15, 'Hawaii'),
+        (16, 'Idaho'),
+        (17, 'Illinois'),
+        (18, 'Indiana'),
+        (19, 'Iowa'),
+        (20, 'Kansas'),
+        (21, 'Kentucky'),
+        (22, 'Louisiana'),
+        (23, 'Maine'),
+        (24, 'Maryland'),
+        (25, 'Massachusetts'),
+        (26, 'Michigan'),
+        (27, 'Minnesota'),
+        (28, 'Mississippi'),
+        (29, 'Missouri'),
+        (30, 'Montana'),
+        (31, 'Nebraska'),
+        (32, 'Nevada'),
+        (33, 'New Hampshire'),
+        (34, 'New Jersey'),
+        (35, 'New Mexico'),
+        (36, 'New York'),
+        (37, 'North Carolina'),
+        (38, 'North Dakota'),
+        (39, 'Ohio '),
+        (40, 'Oklahoma'),
+        (41, 'Oregon'),
+        (42, 'Pennsylvania'),
+        (43, 'Puerto Rico'),
+        (44, 'Rhode Island'),
+        (45, 'South Carolina'),
+        (46, 'South Dakota'),
+        (47, 'Tennessee'),
+        (48, 'Texas'),
+        (49, 'Utah'),
+        (50, 'Vermont'),
+        (51, 'Virginia'),
+        (52, 'Virgin Islands'),
+        (53, 'Washington'),
+        (54, 'West Virginia'),
+        (55, 'Wisconsin'),
+        (56, 'Wyoming'),
+        (57, "U.S. DOT"),
+        (58, "MC/MX (ICC)"),
+        (77, "Not Reported"),
+        (88, "None"),
+        (95, "Canada"),
+        (96, "Mexico"),
+        (99, "Unknown")
+    ] 
+    motor_carrier_issuing_authority = models.PositiveSmallIntegerField(choices=mcid_issuing_authority_choices, default=0)
+    motor_carrier_identification_number = models.CharField(max_length=32, null=True, blank=True)
+
+    #v24
+    vehicle_configuration_choices = [
+        (0, 'Not Applicable'),
+        (1, 'Single-Unit Truck (2 Axles and GVWR More Than 10,000 lbs)'),
+        (2, 'Single-Unit Truck (3 or More Axles)'),
+        (4, 'Truck Pulling Trailer(s)'),
+        (5, 'Truck Tractor (Bobtail)'),
+        (6, 'Truck Tractor/Semi-Trailer'),
+        (7, 'Truck Tractor/Double'),
+        (8, 'Truck Tractor/Triple'),
+        (10, 'Vehicle 10,000 lbs. or Less Placarded for Hazardous Materials'),
+        (19, 'Vehicle More Than 10,000 lbs., Other'),
+        (20, 'Bus/Large Van (Seats for 9-15 Occupants, Including Driver)'),
+        (21, 'Bus (Seats for More Than 15 Occupants, Including Driver, 2010-Later)'),
+        (88, 'Qualifying Vehicle, Unknown Configuration'),
+        (98, 'Not Reported (2010-2012)'),
+        (99, 'Unknown (Reported as Unknown, 2018-2019)')
+    ]
+    vehicle_configuration = models.PositiveSmallIntegerField(choices=vehicle_configuration_choices, default=0)
+
+    #v25
+    cargo_body_type_choices = [
+        (0, 'Not Applicable'),
+        (1, 'Van/Enclosed Box'),
+        (2, 'Cargo Tank'),
+        (3, 'Flatbed'),
+        (4, 'Dump'),
+        (5, 'Concrete Mixer'),
+        (6, 'Auto Transporter'),
+        (7, 'Garbage/Refuse'),
+        (8, 'Grain/Chips/Gravel'),
+        (9, 'Pole-Trailer'),
+        (10, 'Log (Since 2007)'),
+        (11, 'Intermodal Container Chassis'),
+        (12, 'Vehicle Towing Another Motor Vehicle (Since 2007)'),
+        (22, 'Bus'),
+        (28, 'Not Reported (2010-2012)'),
+        (96, 'No Cargo Body Type'),
+        (97, 'Other'),
+        (98, 'Unknown Cargo Body Type'),
+        (99, 'Unknown (Reported as Unknown, 2018-2019)')
+    ]
+    cargo_body_type = models.PositiveSmallIntegerField(choices=cargo_body_type_choices, default=0)
+    #v26a HAZ_INV
+    hazardous_material_involvement = models.BooleanField(default=False)
+    #v26B HAZPLAC
+    placard_choices = [
+        (0, "Not Applicable"),
+        (1, "No"),
+        (2, "Yes"),
+        (8, "Not Reported")
+    ]
+    hazardous_material_placard = models.PositiveSmallIntegerField(choices=placard_choices, default=0)
+    # V26C - HAZ_ID
+    hazardous_material_id = models.IntegerField(null=True, blank=True)
+    # v26D HAZ_CNO
+    hazardous_material_class_number_choices = [
+        (0, "Not Applicable"),
+        (1, "Explosives"),
+        (2, "Gases"),
+        (3, "Flammable/Combustible Liquid"),
+        (4, "Flammable Solid, Spontaneously Combustible, and Dangerous When Wet"),
+        (5, "Oxidizer and Organic Peroxide"),
+        (6, "Poison and Poison Inhalation Hazard"),
+        (7, "Radioactive"),
+        (8, "Corrosive"),
+        (9, "Miscellaneous"),
+        (88, "Not Reported")
+    ]
+    hazardous_material_class_number = models.PositiveSmallIntegerField(choices=hazardous_material_class_number_choices, default=0)
+    # v26E HAZ_REL
+    release_of_hazardous_material = models.PositiveSmallIntegerField(choices=placard_choices, default=0)
+    #v27 
+    bus_use_choices = [
+        (0, "Not a Bus"),
+        (1, "School"),
+        (4, "Intercity"),
+        (5, "Charter/Tour"),
+        (6, "Transit/Commuter"),
+        (7, "Shuttle"),
+        (8, "Modified for Personal/Private Use"),
+        (97, "Bus, Unknown Use"),
+        (98, "Not Reported"),
+        (99, "Reported as Unknown")
+
+    ]
+    bus_use = models.PositiveSmallIntegerField(choices=bus_use_choices, default=0)
+    #v28
+    special_vehicle_use_choices = [
+        (0, 'No Special Use Noted'),
+        (1, 'Taxi'),
+        (2, 'Vehicle Used as School Transport'),
+        (3, 'Vehicle Used as Other Bus'),
+        (4, 'Military'),
+        (5, 'Police'),
+        (6, 'Ambulance (Since 1980)'),
+        (7, 'Fire Truck (Since 1982)'),
+        (8, 'Non-Transport Emergency Services Vehicle'),
+        (10, 'Safety Service Patrols - Incident Response'),
+        (11, 'Other Incident Response'),
+        (12, 'Towing - Incident Response'),
+        (19, 'Motor Vehicle Used for Vehicle Sharing Mobility'),
+        (20, 'Motor Vehicle Used for Electronic Ride-Hailing'),
+        (21, 'Mail Carrier'),
+        (22, 'Public Utility'),
+        (23, 'Rental Truck Over 10,000 lbs'),
+        (24, 'Truck Operating With Crash Attenuator Equipment'),
+        (99, 'Reported as Unknown (since 2018)')
+    ]
+    special_vehicle_use = models.PositiveSmallIntegerField(choices=special_vehicle_use_choices, default=0)
+    #v29
+    emergency_vehicle_use_choices = [
+        (0, 'Not Applicable'),
+        (2, 'Non-Emergency, Non-Transport'),
+        (3, 'Non-Emergency Transport'),
+        (4, 'Emergency Operation, Emergency Warning Equipment Not in Use'),
+        (5, 'Emergency Operation, Emergency Warning Equipment in Use'),
+        (6, 'Emergency Operation, Emergency Warning Equipment in Use Unknown'),
+        (8, 'Not Reported'),
+        (9, 'Reported as Unknown')
+    ]
+    emergency_vehicle_use = models.PositiveSmallIntegerField(choices=emergency_vehicle_use_choices, default=0)
+    #v31
+    underride_override_choices = [
+        (0, "No Underride or Override"),
+        (1, "Underride"),
+        (2, "Override"),
+        (7, "Not Applicable"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ]
+    underride_override = models.PositiveSmallIntegerField(choices=underride_override_choices, default=0)
+    #V34A
+    initial_contact_point_choices = [
+        (0, "Non-Collision"),
+        (1, "1 O'Clock"),
+        (2, "2 O'Clock"),
+        (3, "3 O'Clock"),
+        (4, "4 O'Clock"),
+        (5, "5 O'Clock"),
+        (6, "6 O'Clock"),
+        (7, "7 O'Clock"),
+        (8, "8 O'Clock"),
+        (9, "9 O'Clock"),
+        (10, "10 O'Clock"),
+        (11, "11 O'Clock"),
+        (12, "12 O'Clock"),
+        (13, "Top"),
+        (14, "Undercarriage"),
+        (18, "Cargo/Vehicle Parts Set-in-Motion"),
+        (19, "Other Objects or Person Set-in-Motion"),
+        (20, "Object Set in Motion, Unknown if Cargo/Vehicle Parts or Other"),
+        (61, "Left"),
+        (62, "Left-Front Side"),
+        (63, "Left-Back Side")
+        (81, "Right"),
+        (82, "Right-Front Side"),
+        (83, "Right-Back Side"),
+        (98, "Not Reported"),
+        (99, "Unknown")
+    ] 
+    initial_contact_point = models.PositiveSmallIntegerField(choices=initial_contact_point_choices, default=98)
+    #v35
+    extent_of_damage_choices = [
+        (0, "No Damage"),
+        (2, "Minor Damage"),
+        (4, "Functional Damage"),
+        (6, "Disabling Damage"),
+        (7, "Damage Reported, Extent Unknown"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ] 
+    extent_of_damage = models.PositiveSmallIntegerField(choices=extent_of_damage_choices, default=8)
+    #v36
+    vehicle_towed_choices = [
+        (5, "Not Towed"),
+        (6, "Towed"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ]
+
+    vehicle_towed = models.PositiveSmallIntegerField(choices=vehicle_towed_choices, default=8)
+    #v38
+
+    most_harmful_event_choices = [
+        (1, 'Rollover/Overturn'),
+        (2, 'Fire/Explosion'),
+        (3, 'Immersion (or Partial Immersion, Since 2012)'),
+        (4, 'Gas Inhalation'),
+        (5, 'Fell/Jumped From Vehicle'),
+        (6, 'Injured in Vehicle (Non-Collision)'),
+        (7, 'Other Non-Collision'),
+        (8, 'Pedestrian'),
+        (9, 'Pedalcyclist'),
+        (10, 'Railway Vehicle'),
+        (11, 'Live Animal'),
+        (12, 'Motor Vehicle In-Transport'),
+        (14, 'Parked Motor Vehicle'),
+        (15, 'Non-Motorist on Personal Conveyance'),
+        (16, 'Thrown or Falling Object'),
+        (17, 'Boulder'),
+        (18, 'Other Object (Not Fixed)'),
+        (19, 'Building'),
+        (20, 'Impact Attenuator/Crash Cushion'),
+        (21, 'Bridge Pier or Support'),
+        (23, 'Bridge Rail (Includes Parapet)'),
+        (24, 'Guardrail Face'),
+        (25, 'Concrete Traffic Barrier'),
+        (26, 'Other Traffic Barrier'),
+        (30, 'Utility Pole/Light Support'),
+        (31, 'Post, Pole or Other Support'),
+        (32, 'Culvert'),
+        (33, 'Curb'),
+        (34, 'Ditch'),
+        (35, 'Embankment'),
+        (38, 'Fence'),
+        (39, 'Wall'),
+        (40, 'Fire Hydrant'),
+        (41, 'Shrubbery'),
+        (42, 'Tree (Standing Only)'),
+        (43, 'Other Fixed Object'),
+        (44, 'Pavement Surface Irregularity (Ruts, Potholes, Grates, etc.)'),
+        (45, 'Working Motor Vehicle'),
+        (46, 'Traffic Signal Support'),
+        (48, 'Snow Bank'),
+        (49, 'Ridden Animal or Animal-Drawn Conveyance (Since 1998)'),
+        (50, 'Bridge Overhead Structure'),
+        (51, 'Jackknife (Harmful to This Vehicle)'),
+        (52, 'Guardrail End'),
+        (53, 'Mail Box'),
+        (54, 'MotorMotor Vehicle In-Transport Strikes or Is Struck by Cargo, Persons or Objects Setin-Motion From/by Another Motor Vehicle In-Transport'),
+        (55, 'Motor Vehicle in Motion Outside the Trafficway (Since 2008)'),
+        (57, 'Cable Barrier (Since 2008)'),
+        (58, 'Ground'),
+        (59, 'Traffic Sign Support'),
+        (72, 'Cargo/Equipment Loss, Shift, or Damage (Harmful)'),
+        (73, 'Object That Had Fallen From Motor Vehicle In-Transport'),
+        (74, 'Road Vehicle on Rails'),
+        (91, 'Unknown Object Not Fixed'),
+        (93, 'Unknown Fixed Object'),
+        (98, 'Harmful Event, Details Not Reported (Since 2019)'),
+        (99, 'Unknown / Reported as Unknown (Since 2018)')
+    ]
+    most_harmful_event = models.PositiveSmallIntegerField(choices=most_harmful_event_choices, default=98)
+    #v39
+    fire_occurence = models.BooleanField(default=False)
 
 class PBType(models.Model):
     accident = models.ForeignKey(Accident, null=False, on_delete=models.DO_NOTHING)
