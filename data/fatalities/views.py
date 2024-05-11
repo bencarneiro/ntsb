@@ -2596,6 +2596,182 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "PBTYPE.PBPTYPE"
         }
-    ]
+    ],
+    #NM11-PB27
+    "pedestrian_type.marked_crosswalk_present": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.PBCWALK"
+        }
+    ],
+    #NM11-PB28
+    "pedestrian_type.sidewalk_present": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.PBSWALK"
+        }
+    ],
+    #NM11-PB29
+    "pedestrian_type.in_school_zone": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.PBSZONE"
+        }
+    ],
+    #NM11-PB30
+    "pedestrian_type.pedestrian_crash_type": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.PEDCTYPE"
+        }
+    ],
+    #NM11-PB30B
+    "pedestrian_type.bicycle_crash_type": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.BIKECTYPE"
+        }
+    ],
+    # NM11-PB31 
+
+    "pedestrian_type.pedestrian_location": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.PEDLOC"
+        }
+    ],
+    # NM11-PB31B
+
+    "pedestrian_type.bicycle_location": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.BIKELOC"
+        }
+    ],
+    # NM11-PB32
+
+    "pedestrian_type.pedestrian_position": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.PEDPOS"
+        }
+    ],
+    # NM11-PB32B
+
+    "pedestrian_type.bicycle_position": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.BIKEPOS"
+        }
+    ],
+    # NM11-PB33
+
+    "pedestrian_type.pedestrian_direction": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.PEDDIR"
+        }
+    ],
+    # NM11-PB33B
+
+    "pedestrian_type.bicycle_direction": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.BIKEDIR"
+        }
+    ],
+    # NM11-PB34
+    "pedestrian_type.motorist_direction": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.MOTDIR"
+        }
+    ],
+    # NM11-PB35
+    "pedestrian_type.motorist_maneuver": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.MOTMAN"
+        }
+    ],
+    # NM11-PB36
+    "pedestrian_type.intersection_leg": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.PEDLEG"
+        }
+    ],
+    #  NM11-PB37
+    "pedestrian_type.pedestrian_scenario": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.PEDSNR"
+        }
+    ],
+    # NM11-PB38
+    "pedestrian_type.pedestrian_crash_group": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.PEDCGP"
+        }
+    ],
+    # NM11-PB38B
+    "pedestrian_type.bicycle_crash_group": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.BIKECGP"
+        }
+    ],
 }
 
