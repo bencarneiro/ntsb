@@ -2817,50 +2817,398 @@ class ParkedVehicle(models.Model):
 
 
 
-class PBType(models.Model):
+class PedestrianType(models.Model):
     accident = models.ForeignKey(Accident, null=False, on_delete=models.DO_NOTHING)
     person = models.ForeignKey(Person, null=True, blank=True)
     vehicle = models.ForeignKey(Vehicle, null=True, blank=True)
-    #p5 PBAGE
-    age
-    # p6 PBSEX
-    sex
+    #p5
+    age = models.PositiveSmallIntegerField(null = True)
+    #p6 
+    sex_choices = [
+        (1, "Male"),
+        (2, "Female"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ]
+    sex = models.PositiveSmallIntegerField(choices=sex_choices, default=8)
     #p7 PBPTYPE
-    person_type
+    person_type_choices = [
+        (5, "Pedestrian"),
+        (6, "Bicyclist"),
+        (7, "Other Pedalcyclist"),
+        (8, "Person on a Personal Conveyance")
+    ]
+    person_type = models.PositiveSmallIntegerField(choices=person_type_choices, default=5)
     # NM11-PB27 PBCWALK
-    on_sidewalk
+    marked_crosswalk_present_choices = [
+        (0, "None Noted"),
+        (1, "Yes"),
+        (9, "Unknown")
+    ]
+    marked_crosswalk_present = models.PositiveSmallIntegerField(choices=marked_crosswalk_present_choices, default=9)
     # NM11-PB28 PBSWALK
-    at_marked_crosswalk
+    sidewalk_present_choices = [
+        (0, "None Noted"),
+        (1, "Yes"),
+        (9, "Unknown")
+    ]
+    sidewalk_present = models.PositiveSmallIntegerField(choices=sidewalk_present_choices, default=9)
     # NM11-PB29 PBSZONE
-    in_school_zone
+    in_school_zone_choices = [
+        (0, "None Noted"),
+        (1, "Yes"),
+        (9, "Unknown")
+    ]
+    in_school_zone = models.PositiveSmallIntegerField(choices=in_school_zone_choices, default=9)
     # NM11-PB30 PEDCTYPE
-    pedestrian_crash_type
+    pedestrian_crash_type_choices = [
+        (0, 'Not a Pedestrian'),
+        (120, 'Dispute-Related'),
+        (130, 'Pedestrian on Vehicle'),
+        (140, 'Vehicle Into Vehicle or Vehicle Into Object'),
+        (150, 'Motor Vehicle Loss of Control'),
+        (160, 'Pedestrian Loss of Control'),
+        (190, 'Other Unusual Circumstances'),
+        (211, 'Backing Vehicle - Non-Trafficway - Driveway'),
+        (212, 'Backing Vehicle - Driveway Access'),
+        (213, 'Backing Vehicle - Trafficway'),
+        (214, 'Backing Vehicle - Non-Trafficway - Parking Lot'),
+        (219, 'Backing Vehicle - Other/Unknown'),
+        (220, 'Driverless Vehicle'),
+        (230, 'Disabled Vehicle-Related'),
+        (240, 'Emergency Vehicle-Related'),
+        (250, 'Play Vehicle-Related'),
+        (311, 'Working in Roadway'),
+        (312, 'Playing in Roadway'),
+        (313, 'Lying in Roadway'),
+        (320, 'Entering/Exiting Parked or Stopped Vehicle'),
+        (330, 'Mailbox-Related'),
+        (341, 'Transit Bus Stop-Related'),
+        (342, 'School Bus Stop-Related'),
+        (360, 'Ice Cream/Vendor Truck-Related'),
+        (410, 'Walking/Running Along Roadway With Traffic - From Behind'),
+        (420, 'Walking/Running Along Roadway With Traffic - From Front'),
+        (430, 'Walking/Running Along Roadway Against Traffic - From Behind'),
+        (440, 'Walking/Running Along Roadway Against Traffic - From Front'),
+        (459, 'Walking/Running Along Roadway - Direction/Position Unknown'),
+        (461, 'Motorist Entering Driveway'),
+        (465, 'Motorist Exiting Driveway'),
+        (469, 'Driveway Access - Other/Unknown'),
+        (510, 'Waiting to Cross - Vehicle Turning'),
+        (520, 'Waiting to Cross - Vehicle Not Turning'),
+        (590, 'Waiting to Cross - Vehicle Action Unknown'),
+        (610, 'Standing in Roadway'),
+        (620, 'Walking in Roadway'),
+        (680, 'Not at Intersection - Other/Unknown'),
+        (690, 'At Intersection - Other/Unknown'),
+        (710, 'Multiple Threat'),
+        (730, 'Trapped'),
+        (741, 'Dash - Run, No Visial Obstruction Noted'),
+        (742, 'Dart-out - Visual Obstruction Noted'),
+        (760, 'Pedestrian Failed to Yield'),
+        (770, 'Motorist Failed to Yield'),
+        (781, 'Motorist Left Turn - Parallel Paths'),
+        (782, 'Motorist Left Turn - Perpendicular Paths'),
+        (791, 'Motorist Right Turn - Parallel Paths'),
+        (792, 'Motorist Right Turn on Red - Parallel Paths'),
+        (794, 'Motorist Right Turn on Red - Perpendicular Paths'),
+        (795, 'Motorist Right Turn - Perpendicular Paths'),
+        (799, 'Motorist Turn/Merge - Other/Unknown'),
+        (830, 'Non-Trafficway - Parking Lot'),
+        (890, 'Non-Trafficway - Other/Unknown'),
+        (900, 'Other - Unknown Location'),
+        (910, 'Crossing an Expressway'),
+    ]
+    pedestrian_crash_type = models.PositiveSmallIntegerField(choices=pedestrian_crash_type_choices, default=0)
     # NM11-PB30B BIKECTYPE
-    bicycle_crash_type
+    bicycle_crash_type_choices = [
+        (0, 'Not a Cyclist'),
+        (111, 'Motorist Turning Error - Left Turn'),
+        (112, 'Motorist Turning Error - Right Turn'),
+        (113, 'Motorist Turning Error - Other'),
+        (114, 'Bicyclist Turning Error - Left Turn'),
+        (115, 'Bicyclist Turning Error - Right Turn'),
+        (116, 'Bicyclist Turning Error - Other'),
+        (121, 'Bicyclist Lost Control - Mechanical Problems'),
+        (122, 'Bicyclist Lost Control - Oversteering, Improper Braking, Speed'),
+        (123, 'Bicyclist Lost Control - Alcohol/Drug Impairment'),
+        (124, 'Bicyclist Lost Control - Surface Conditions'),
+        (129, 'Bicyclist Lost Control - Other/Unknown'),
+        (131, 'Motorist Lost Control - Mechanical Problems'),
+        (132, 'Motorist Lost Control - Oversteering, Improper Braking, Speed'),
+        (133, 'Motorist Lost Control - Alcohol/Drug Impairment'),
+        (134, 'Motorist Lost Control - Surface Conditions'),
+        (139, 'Motorist Lost Control - Other/Unknown'),
+        (141, 'Motorist Drive-out - Sign-Controlled Intersection'),
+        (142, 'Bicyclist Ride-out - Sign-Controlled Intersection'),
+        (143, 'Motorist Drive-Through - Sign-Controlled Intersection'),
+        (144, 'Bicyclist Ride-Through - Sign-Controlled Intersection'),
+        (147, 'Multiple Threat - Sign-Controlled Intersection'),
+        (148, 'Sign-Controlled Intersection - Other/Unknown'),
+        (151, 'Motorist Drive-out - Right Turn on Red'),
+        (152, 'Motorist Drive-out - Signalized Intersection'),
+        (153, 'Bicyclist - Ride-out - Signalized Intersection'),
+        (154, 'Motorist Drive-Through - Signalized Intersection'),
+        (155, 'Bicyclist Ride-Through - Signalized Intersection'),
+        (156, 'Bicyclist Failed to Clear - Trapped'),
+        (157, 'Bicyclist Failed to Clear - Multiple Threat'),
+        (158, 'Signalized Intersection - Other/Unknown'),
+        (159, 'Bicyclist Failed to Clear - Unknown'),
+        (160, 'Crossing Paths - Uncontrolled Intersection'),
+        (180, 'Crossing Paths - Intersection - Other/Unknown'),
+        (211, 'Motorist Left Turn - Same Direction'),
+        (212, 'Motorist Left Turn - Opposite Direction'),
+        (213, 'Motorist Right Turn - Same Direction'),
+        (214, 'Motorist Right Turn - Opposite Direction'),
+        (215, 'Motorist Drive-in/out - Parking'),
+        (216, 'Bus/Delivery Vehicle Pullover'),
+        (217, 'Motorist Right Turn on Red - Same Direction'),
+        (218, 'Motorist Right Turn on Red - Opposite Direction'),
+        (219, 'Motorist Turn/Merge - Other/Unknown'),
+        (221, 'Bicyclist Left Turn - Same Direction'),
+        (222, 'Bicyclist Left Turn - Opposite Direction'),
+        (223, 'Bicyclist Right Turn - Same Direction'),
+        (224, 'Bicyclist Right Turn - Opposite Direction'),
+        (225, 'Bicyclist Ride-out - Parallel Path'),
+        (231, 'Motorist Overtaking - Undetected Bicyclist'),
+        (232, 'Motorist Overtaking - Misjudged Space'),
+        (235, 'Motorist Overtaking - Bicyclist Swerved'),
+        (239, 'Motorist Overtaking - Other/Unknown'),
+        (241, 'Bicyclist Overtaking - Passing on Right'),
+        (242, 'Bicyclist Overtaking - Passing on Left'),
+        (243, 'Bicyclist Overtaking - Parked Vehicle'),
+        (244, 'Bicyclist Overtaking - Extended Door'),
+        (249, 'Bicyclist Overtaking - Other/Unknown'),
+        (250, 'Wrong-Way/Wrong-Side - Bicyclist'),
+        (255, 'Wrong-Way/Wrong-Side - Motorist'),
+        (259, 'Wrong-Way/Wrong-Side - Unknown'),
+        (280, 'Parallel Paths - Other/Unknown'),
+        (311, 'Bicyclist Ride-out - Residential Driveway'),
+        (312, 'Bicyclist Ride-out - Commercial Driveway'),
+        (313, 'Bicyclist Ride-out - Driveway, Unknown Type'),
+        (318, 'Bicyclist Ride-out - Other Midblock'),
+        (319, 'Bicyclist Ride-out - Unknown'),
+        (321, 'Motorist Drive-out - Residential Driveway'),
+        (322, 'Motorist Drive-out - Commercial Driveway'),
+        (323, 'Motorist Drive-out - Driveway, Unknown Type'),
+        (328, 'Motorist Drive-out - Other Midblock'),
+        (329, 'Motorist Drive-out - Midblock - Unknown'),
+        (357, 'Multiple Threat - Midblock'),
+        (380, 'Crossing Paths - Midblock - Other/Unknown'),
+        (610, 'Backing Vehicle'),
+        (700, 'Play Vehicle-Related'),
+        (800, 'Unusual Circumstances'),
+        (910, 'Non-Trafficway'),
+        (970, 'Unknown Approach Paths'),
+        (980, 'Unknown Location'),
+    ]
+    bicycle_crash_type = models.PositiveSmallIntegerField(choices=bicycle_crash_type_choices, default=0)
+
     # NM11-PB31 PEDLOC
-    pedestrian_location
+    pedestrian_location_choices = [
+        (1, 'At Intersection'),
+        (2, 'Intersection-Related'),
+        (3, 'Not at Intersection'),
+        (4, 'Non-Trafficway Location'),
+        (7, 'Not a Pedestrian'),
+        (9, 'Unknown/Insufficient Information'),
+    ]
+    pedestrian_location = models.PositiveSmallIntegerField(choices=pedestrian_location_choices, default=7)
     # NM11-PB31B BIKELOC
-    bicycle_location
+    bicycle_location_choices = [
+        (1, 'At Intersection'),
+        (2, 'Intersection-Related'),
+        (3, 'Not at Intersection'),
+        (4, 'Non-Trafficway Location'),
+        (7, 'Not a Cyclist'),
+        (9, 'Unknown/Insufficient Information'),
+    ]
+    bicycle_location = models.PositiveSmallIntegerField(choices=bicycle_location_choices, default=7)
+
     # NM11-PB32 PEDPOS
-    pedestrian_position
+    pedestrian_position_choices = [
+        (1, 'Intersection Area'),
+        (2, 'Crosswalk Area'),
+        (3, 'Travel Lane'),
+        (4, 'Paved Shoulder/Bicycle Lane/Parking Lane'),
+        (5, 'Sidewalk/Shared-Use Path/Driveway Access'),
+        (6, 'Unpaved Right-of-Way'),
+        (7, 'Non-Trafficway - Driveway'),
+        (8, 'Non-Trafficway - Parking Lot/Other'),
+        (9, 'Other/Unknown'),
+        (77, 'Not a Pedestrian'),
+    ]
+    pedestrian_position = models.PositiveSmallIntegerField(choices=pedestrian_position_choices, default=77)
     # NM11-PB32B BIKEPOS
-    bicycle_position
+    bicycle_position_choices = [
+        (1, 'Travel Lane'),
+        (2, 'Bicycle Lane/Paved Shoulder/Parking Lane'),
+        (3, 'Sidewalk/Crosswalk/Driveway Access'),
+        (4, 'Shared-Use Path'),
+        (5, 'Non-Trafficway - Driveway'),
+        (6, 'Non-Trafficway - Parking Lot/Other'),
+        (7, 'Not a Cyclist'),
+        (8, 'Other'),
+        (9, 'Unknown'),
+    ]
+    bicycle_position = models.PositiveSmallIntegerField(choices=bicycle_position_choices, default=7)
+
     # NM11-PB33 PEDDIR
-    pedestrian_direction
+    pedestrian_direction_choices = [
+        (1, 'Northbound'),
+        (2, 'Eastbound'),
+        (3, 'Southbound'),
+        (4, 'Westbound'),
+        (7, 'Not a Pedestrian'),
+        (8, 'Not Applicable'),
+        (9, 'Not Derived/Unknown Initial Direction of Travel'),
+    ]
+    pedestrian_direction = models.PositiveSmallIntegerField(choices=pedestrian_direction_choices, default=7)
     # NM11-PB33B BIKEDIR
-    bicycle_direction
+    bicycle_direction_choices = [
+        (1, "With Traffic"),
+        (2, "Facing Traffic"),
+        (3, "Not Applicable"),
+        (7, "Not a Cyclist"),
+        (9, "Unknown")
+    ]
+    bicycle_direction = models.PositiveSmallIntegerField(choices=bicycle_direction_choices, default=7)
+
     # NM11-PB34 MOTDIR
-    motorist_direction
+    motorist_direction_choices = [
+        (1, 'Northbound'),
+        (2, 'Eastbound'),
+        (3, 'Southbound'),
+        (4, 'Westbound'),
+        (7, 'Not a Pedestrian'),
+        (8, 'Not Applicable'),
+        (9, 'Unknown Initial Direction of Travel'),
+    ]
+    motorist_direction = models.PositiveSmallIntegerField(choices=motorist_direction_choices, default=9)
     # NM11-PB35  MOTMAN
-    motorist_maneuver
+    motorist_maneuver_choices = [
+        (1, 'Left Turn'),
+        (2, 'Right Turn'),
+        (3, 'Straight Through'),
+        (7, 'Not a Pedestrian'),
+        (8, 'Not Applicable'),
+        (9, 'Unknown Motorist Maneuver'),
+    ]
+    motorist_maneuver = models.PositiveSmallIntegerField(choices=motorist_maneuver_choices, default=9)
+
     # NM11-PB36 PEDLEG
-    intersection_leg
+    intersection_leg_choices = [
+        (1, "Nearside"),
+        (2, "Farside"),
+        (7, "Not a Pedestrian"),
+        (8, "Not Applicable"),
+        (9, "Unknown/None of the Above")
+
+    ]
+    intersection_leg = models.PositiveSmallIntegerField(choices=intersection_leg_choices, default=9)
     # NM11-PB37 PEDSNR
-    pedestrian_scenario
+    pedestrian_scenario_choices = [
+        ('1a', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Traveled From Motorist’s Left.'),
+        ('1b', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Traveled From Motorist’s Right.'),
+        ('1c', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Approach Direction Unknown.'),
+        ('1d', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Other (Since 2017)'),
+        ('2a', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Traveled From Motorist’s Left.'),
+        ('2b', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Traveled From Motorist’s Right.'),
+        ('2c', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Approach Direction Unknown.'),
+        ('2d', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Other (Since 2017)'),
+        ('3a', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Traveled From Motorist’s Left.'),
+        ('3b', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Traveled From Motorist’s Right.'),
+        ('3c', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Approach Direction Unknown.'),
+        ('3d', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Other (Since 2017)'),
+        ('4a', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Traveled From Motorist’s Left.'),
+        ('4b', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Traveled From Motorist’s Right.'),
+        ('4c', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Approach Direction Unknown.'),
+        ('4d', 'MOTORIST TRAVELING STRAIGHT THROUGH - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Other (Since 2017)'),
+        ('5a', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Traveled From Motorist’s Left.'),
+        ('5b', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Traveled From Motorist’s Right.'),
+        ('5c', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Approach Direction Unknown.'),
+        ('5d', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Other (Since 2017)'),
+        ('6a', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Traveled From Motorist’s Left.'),
+        ('6b', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Traveled From Motorist’s Right.'),
+        ('6c', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Approach Direction Unknown.'),
+        ('6d', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Other (Since 2017)'),
+        ('7a', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Approach Direction Same as Motorist’s.'),
+        ('7b', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Approach Direction Opposite Motorist’s.'),
+        ('7c', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Approach Direction Unknown.'),
+        ('7d', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Other (Since 2017)'),
+        ('8a', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Approach Direction Same as Motorist’s.'),
+        ('8b', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Approach Direction Opposite Motorist’s.'),
+        ('8c', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Approach Direction Unknown.'),
+        ('8d', 'MOTORIST TURNING RIGHT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Other (Since 2017)'),
+        ('9a', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Traveled From Motorist’s Left.'),
+        ('9b', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Traveled From Motorist’s Right.'),
+        ('9c', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Approach Direction Unknown.'),
+        ('9d', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Other (Since 2017)'),
+        ('10a', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Traveled From Motorist’s Left.'),
+        ('10b', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Traveled From Motorist’s Right.'),
+        ('10c', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Approach Direction Unknown.'),
+        ('10d', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON NEAR (APPROACH) SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Other (Since 2017)'),
+        ('11a', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Approach Direction Same as Motorist’s.'),
+        ('11b', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Approach Direction Opposite Motorist’s.'),
+        ('11c', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Approach Direction Unknown.'),
+        ('11d', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Within Crosswalk Area, Other (Since 2017)'),
+        ('12a', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Approach Direction Same as Motorist’s.'),
+        ('12b', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Approach Direction Opposite Motorist’s.'),
+        ('12c', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Approach Direction Unknown.'),
+        ('12d', 'MOTORIST TURNING LEFT - CRASH OCCURRED ON FAR SIDE OF INTERSECTION - Pedestrian Outside Crosswalk Area, Other (Since 2017)'),
+        ('7', 'Not a Pedestrian'),
+        ('8', 'Not Applicable'),
+        ('99', 'Unknown/Insufficient Information (Since 2017)'),
+    ]
+    pedestrian_scenario = models.CharField(choices=pedestrian_scenario_choices, default=99)
+
     # NM11-PB38 PEDCGP
-    pedestrian_crash_group
+    pedestrian_crash_group_choices = [
+        (0, 'Not a Pedestrian'),
+        (100, 'Unusual Circumstances'),
+        (200, 'Backing Vehicle'),
+        (310, 'Working or Playing in Roadway'),
+        (340, 'Bus Stop-Related'),
+        (350, 'Unique Midblock'),
+        (400, 'Walking/Running Along Roadway'),
+        (460, 'Driveway Access/Driveway Access-Related'),
+        (500, 'Waiting to Cross'),
+        (600, 'Pedestrian in Roadway - Circumstances Unknown'),
+        (720, 'Multiple Threat/Trapped'),
+        (740, 'Dash - Run, No Visual Obstruction Noted/ Dart-out - Visual Obstruction Noted'),
+        (750, 'Crossing Roadway - Vehicle Not Turning'),
+        (790, 'Crossing Roadway - Vehicle Turning'),
+        (800, 'Non-Trafficway'),
+        (910, 'Crossing Expressway'),
+        (990, 'Other/Unknown - Insufficient Details'),
+    ]
+    pedestrian_crash_group = models.PositiveSmallIntegerField(choices=pedestrian_crash_group_choices, default=0)
     # NM11-PB38B BIKECGP
-    bike_crash_group
+    bike_crash_group_choices = [
+        (0, 'Not a Cyclist'),
+        (110, 'Loss of Control/Turning Error'),
+        (140, 'Motorist Failed to Yield - Sign-Controlled Intersection'),
+        (145, 'Bicyclist Failed to Yield - Sign-Controlled Intersection'),
+        (150, 'Motorist Failed to Yield - Signalized Intersection'),
+        (158, 'Bicyclist Failed to Yield - Signalized Intersection'),
+        (190, 'Crossing Paths - Other Circumstances'),
+        (210, 'Motorist Left Turn/Merge'),
+        (215, 'Motorist Right Turn/Merge'),
+        (219, 'Parking/Bus-Related'),
+        (220, 'Bicyclist Left Turn/Merge'),
+        (225, 'Bicyclist Right Turn/Merge'),
+        (230, 'Motorist Overtaking Bicyclist'),
+        (240, 'Bicyclist Overtaking Motorist'),
+        (258, 'Wrong-Way/Wrong-Side'),
+        (290, 'Parallel Paths - Other Circumstances'),
+        (310, 'Bicyclist Failed to Yield - Midblock'),
+        (320, 'Motorist Failed to Yield - Midblock'),
+        (600, 'Backing Vehicle'),
+        (850, 'Other/Unusual Circumstances'),
+        (910, 'Non-Trafficway'),
+        (990, 'Other/Unknown - Insufficient Details'),
+    ]
+    bike_crash_group = models.PositiveSmallIntegerField(choices=bike_crash_group_choices, default=0)
 
 class CrashEvent(models.Model):
     accident = models.ForeignKey(Accident, null=False, on_delete=models.DO_NOTHING)

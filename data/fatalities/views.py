@@ -2567,5 +2567,35 @@ FARS_DATA_DICTIONARY = {
             "key": "PARKWORK.PMAK_MOD"
         }
     ],
+    #p5
+    "pedestrian_type.age": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.PBAGE"
+        }
+    ],
+    #p6
+    "pedestrian_type.sex": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.PBSEX"
+        }
+    ],
+    #p7
+    "pedestrian_type.person_type": [
+        {
+            "range": {
+                "start": 2014,
+                "end": None
+            },
+            "key": "PBTYPE.PBPTYPE"
+        }
+    ]
 }
 
