@@ -2291,7 +2291,7 @@ FARS_DATA_DICTIONARY = {
     ],
     
     #V26
-    "vehicle.hazardous_material_involvement": [
+    "parked_vehicle.hazardous_material_involvement": [
         {
             "range": {
                 "start": 2007,
@@ -2304,10 +2304,10 @@ FARS_DATA_DICTIONARY = {
                 "start": 2010,
                 "end": None
             },
-            "key": "vehicle.PHAZ_INV"
+            "key": "PARKWORK.PHAZ_INV"
         }
     ],
-    "vehicle.hazardous_material_placard": [
+    "parked_vehicle.hazardous_material_placard": [
         {
             "range": {
                 "start": 2007,
@@ -2320,10 +2320,10 @@ FARS_DATA_DICTIONARY = {
                 "start": 2010,
                 "end": None
             },
-            "key": "vehicle.PHAZ_PLAC"
+            "key": "PARKWORK.PHAZ_PLAC"
         }
     ],
-    "vehicle.hazardous_material_id": [
+    "parked_vehicle.hazardous_material_id": [
         {
             "range": {
                 "start": 2007,
@@ -2336,10 +2336,10 @@ FARS_DATA_DICTIONARY = {
                 "start": 2010,
                 "end": None
             },
-            "key": "vehicle.PHAZ_ID"
+            "key": "PARKWORK.PHAZ_ID"
         }
     ],
-    "vehicle.hazardous_material_class_number": [
+    "parked_vehicle.hazardous_material_class_number": [
         {
             "range": {
                 "start": 2007,
@@ -2352,10 +2352,10 @@ FARS_DATA_DICTIONARY = {
                 "start": 2010,
                 "end": None
             },
-            "key": "vehicle.PHAZ_CNO"
+            "key": "PARKWORK.PHAZ_CNO"
         }
     ],
-    "vehicle.release_of_hazardous_material": [
+    "parked_vehicle.release_of_hazardous_material": [
         {
             "range": {
                 "start": 2007,
@@ -2368,12 +2368,204 @@ FARS_DATA_DICTIONARY = {
                 "start": 2010,
                 "end": None
             },
-            "key": "vehicle.PHAZ_REL"
+            "key": "PARKWORK.PHAZ_REL"
+        }
+    ],
+    "parked_vehicle.bus_use": [
+        {
+            "range": {
+                "start": 2000,
+                "end": 2009
+            },
+            "key": "vehicle.BUS_USE"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PBUS_USE"
+        }
+    ],
+    "parked_vehicle.special_vehicle_use": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "vehicle.SPEC_USE"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PSP_USE"
+        }
+    ],
+
+    #v29
+    "parked_vehicle.emergency_vehicle_use": [
+        {
+            "range": {
+                "start": 1977,
+                "end": 2009
+            },
+            "key": "vehicle.EMER_USE"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PEM_USE"
+        }
+    ],
+    #v31 PUNDEROVERRIDE
+    "parked_vehicle.underride_override": [
+        {
+            "range": {
+                "start": 2021,
+                "end": None
+            },
+            "key": "PARKWORK.PUNDEROVERRIDE"
         }
     ],
 
 
+    #v34A
+    "parked_vehicle.initial_contact_point": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "vehicle.IMPACT1"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PIMPACT1"
+        }
+    ],
+    #v35
+    "parked_vehicle.extent_of_damage": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "vehicle.DEFORMED"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PVEH_SEV"
+        }
+    ],
+
+    #v36 
+
+    "parked_vehicle.vehicle_towed": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2008
+            },
+            "key": "vehicle.TOWAWAY"
+        },
+        {
+            "range": {
+                "start": 2009,
+                "end": 2009
+            },
+            "key": "vehicle.TOWED"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PTOWED"
+        }
+    ],
+
+    #v38
+    "parked_vehicle.most_harmful_event": [
+        {
+            "range": {
+                "start": 1979,
+                "end": 2009
+            },
+            "key": "vehicle.M_HARM"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PM_HARM"
+        }
+    ],
+
+    #v39 PFIRE
+    "parked_vehicle.fire_occurence": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "vehicle.FIRE_EXP"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PFIRE"
+        }
+    ],
 
 
+    #V150 PFIRE
+    "parked_vehicle.fatalities": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "vehicle.DEATHS"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PDEATHS"
+        }
+    ],
+
+
+    #V150 PFIRE
+    "parked_vehicle.combined_make_model_id": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "vehicle.MAK_MOD"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.PMAK_MOD"
+        }
+    ],
 }
 

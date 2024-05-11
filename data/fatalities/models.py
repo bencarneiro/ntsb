@@ -2810,6 +2810,11 @@ class ParkedVehicle(models.Model):
     most_harmful_event = models.PositiveSmallIntegerField(choices=most_harmful_event_choices, default=98)
     #v39
     fire_occurence = models.BooleanField(default=False)
+    #v150
+    fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    # V100
+    combined_make_model_id = models.PositiveIntegerField(null=True, blank=True)
+
 
 
 class PBType(models.Model):
