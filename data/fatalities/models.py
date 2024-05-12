@@ -3590,7 +3590,22 @@ class CrashRelatedFactors(models.Model):
 class Weather(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     #c26 weather
-    atmospheric_condition
+    atmospheric_condition_choices = [
+        (1, "Clear"),
+        (2, "Rain"),
+        (3, "Sleet or Hail"),
+        (4, "Snow"),
+        (5, "Fog, Smog, Smoke"),
+        (6, "Severe Crosswinds"),
+        (7, "Blowing Sand, Soil, Dirt"),
+        (8, "Other"),
+        (10, "Cloudy"),
+        (11, "Blowing Snow"),
+        (12, "Freezing Rain or Drizzle"),
+        (98, "Not Reported"),
+        (99, "Reported as Unknown"),
+    ]
+    atmospheric_condition = models.PositiveSmallIntegerField(choices=atmospheric_condition_choices, default=98)
 
     
 

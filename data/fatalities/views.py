@@ -3013,6 +3013,22 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "CRASHRF.CRASHRF"
         }
+    ],
+    "weather.weather": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2019
+            },
+            "key": "ACCIDENT.WEATHER"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "WEATHER.WEATHER"
+        }
     ]
 }
 
