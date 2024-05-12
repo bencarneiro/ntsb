@@ -2773,5 +2773,174 @@ FARS_DATA_DICTIONARY = {
             "key": "PBTYPE.BIKECGP"
         }
     ],
+    # C18A VNUMBER1
+    "crash_event.vehicle_1": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "CEVENT.VNUMBER1"
+        }
+    ],
+    #c18B AOI1
+    "crash_event.area_of_impact_1": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "CEVENT.AOI1"
+        }
+    ],
+    # SOE V37
+    "crash_event.sequence_of_events": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "CEVENT.SOE"
+        }
+    ],
+    # C18C VNUMBER2
+    "crash_event.vehicle_2": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "CEVENT.VNUMBER2"
+        }
+    ],
+    #c18D AOI2
+    "crash_event.area_of_impact_2": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "CEVENT.AOI2"
+        }
+    ],
+    # C18A VEH_NO
+    "vehicle_event.event_number": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "VEVENT.VEH_NO"
+        }
+    ],
+    # C18A 
+    "vehicle_event.vehicle_event_number": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "VEVENT.EVENTNUM"
+        }
+    ],
+    # C18A 
+    "vehicle_event.vehicle": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "VEVENT.VEVENTNUM"
+        }
+    ],
+    # C18A VNUMBER1
+    "vehicle_event.vehicle_1": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "VEVENT.VNUMBER1"
+        }
+    ],
+    #c18B AOI1
+    "vehicle_event.area_of_impact_1": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "VEVENT.AOI1"
+        }
+    ],
+    # SOE V37
+    "vehicle_event.sequence_of_events": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "VEVENT.SOE"
+        }
+    ],
+    # C18C VNUMBER2
+    "vehicle_event.vehicle_2": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "VEVENT.VNUMBER2"
+        }
+    ],
+    #c18D AOI2
+    "vehicle_event.area_of_impact_2": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "VEVENT.AOI2"
+        }
+    ],
+
+    "vehicle_sequence_of_events.vehicle": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "VSOE.VEH_NO"
+        }
+    ],
+    "vehicle_sequence_of_events.vehicle_event_number": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "VSOE.VEVENTNUM"
+        }
+    ],
+    # SOE V37
+    "vehicle_sequence_of_events.sequence_of_events": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "VSOE.SOE"
+        }
+    ],
+    #c18B AOI
+    "vehicle_sequence_of_events.area_of_impact": [
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "VSOE.AOI"
+        }
+    ],
 }
 
