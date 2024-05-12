@@ -3554,7 +3554,37 @@ class VehicleSequenceOfEvents(models.Model):
 class CrashRelatedFactors(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     # CRASHRF C32
-    crash_related_factor
+    crash_related_factor_choices = [
+        (0, 'None Noted'),
+        (1, 'Inadequate Warning of Exits, Lanes Narrowing, Traffic Controls, etc.'),
+        (2, 'Shoulder Design or Condition'),
+        (3, 'Other Maintenance or Construction-Created Condition'),
+        (4, 'No or Obscured Pavement Marking'),
+        (5, 'Surface Under Water'),
+        (6, 'Inadequate Construction or Poor Design of Roadway, Bridge, etc.'),
+        (7, 'Surface Washed out (Caved in, Road Slippage)'),
+        (10, 'Emergency Vehicle Related'),
+        (12, 'Distracted Driver of a Non-Contact Vehicle'),
+        (13, 'Aggressive Driving/Road Rage by Non-Contact Vehicle Driver'),
+        (14, 'Motor Vehicle Struck by Falling Cargo or Something That Came Loose From or Something That Was Set in Motion by a Vehicle'),
+        (15, 'Non-Occupant Struck by Falling Cargo, or Something Came Loose From or Something That Was Set in Motion by a Vehicle'),
+        (16, 'Non-Occupant Struck Vehicle'),
+        (17, 'Stopped Vehicle Set in Motion by Non-Driver'),
+        (18, 'Date of Crash and Date of EMS Notification Were Not Same Day'),
+        (19, 'Recent Previous Crash Scene Nearby'),
+        (20, 'Police-Pursuit-Involved'),
+        (21, 'Within Designated School Zone'),
+        (22, 'Speed Limit Is a Statutory Limit as Recorded or Was Determined as This State’s “Basic Rule”'),
+        (23, 'Indication of a Stalled/Disabled Vehicle'),
+        (24, 'Unstabilized Situation Began and All Harmful Events Occurred off of the Roadway'),
+        (25, 'Toll Booth/Plaza Related'),
+        (26, 'Prior Non-Recurring Incident'),
+        (27, 'Backup Due to Prior Crash'),
+        (28, 'Regular Congestion'),
+        (30, 'Obstructed Crosswalks'),
+        (31, 'Related to a Bus Stop'),
+    ]
+    crash_related_factor = models.PositiveSmallIntegerField(choices=crash_related_factor_choices, default=0)
     
 
 class Weather(models.Model):

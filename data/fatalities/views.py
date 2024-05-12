@@ -2877,6 +2877,48 @@ FARS_DATA_DICTIONARY = {
     "vehicle_event.sequence_of_events": [
         {
             "range": {
+                "start": 2004,
+                "end": 2009
+            },
+            "key": "VEHICLE.SEQ1"
+        },
+        {
+            "range": {
+                "start": 2004,
+                "end": 2009
+            },
+            "key": "VEHICLE.SEQ2"
+        },
+        {
+            "range": {
+                "start": 2004,
+                "end": 2009
+            },
+            "key": "VEHICLE.SEQ3"
+        },
+        {
+            "range": {
+                "start": 2004,
+                "end": 2009
+            },
+            "key": "VEHICLE.SEQ4"
+        },
+        {
+            "range": {
+                "start": 2004,
+                "end": 2009
+            },
+            "key": "VEHICLE.SEQ5"
+        },
+        {
+            "range": {
+                "start": 2004,
+                "end": 2009
+            },
+            "key": "VEHICLE.SEQ6"
+        },
+        {
+            "range": {
                 "start": 2010,
                 "end": None
             },
@@ -2942,5 +2984,35 @@ FARS_DATA_DICTIONARY = {
             "key": "VSOE.AOI"
         }
     ],
+    "crash_related_factors.crash_related_factor": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2019
+            },
+            "key": "ACCIDENT.CF1"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2019
+            },
+            "key": "ACCIDENT.CF2"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2019
+            },
+            "key": "ACCIDENT.CF3"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "CRASHRF.CRASHRF"
+        }
+    ]
 }
 
