@@ -3029,6 +3029,151 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "WEATHER.WEATHER"
         }
+    ],
+    # VEH_SC1
+    "vehicle_related_factor.vehicle_related_factor": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.VEH_CF1"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.VEH_CF2"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "VEHICLE.VEH_SC1"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "VEHICLE.VEH_SC2"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "VEHICLESF.VEHICLESF"
+        }
+    ],
+
+    # PVEHICLESF
+    "parked_vehicle_related_factor.vehicle_related_factor": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.VEH_CF1"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.VEH_CF2"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "PARKWORK.PVEH_SC1"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "PARKWORK.PVEH_SC1"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "PVEHICLESF.PVEHICLESF"
+        }
+    ],
+
+    #driverrf DRIVERRF
+
+    "driver_related_factor.driver_related_factor": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.DR_CF1"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.DR_CF2"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.DR_CF3"
+        },
+        {
+            "range": {
+                "start": 1997,
+                "end": 2009
+            },
+            "key": "VEHICLE.DR_CF4"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "VEHICLE.DR_SF1"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "VEHICLE.DR_SF2"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "VEHICLE.DR_SF3"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "VEHICLE.DR_SF4"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "DRIVERRF.DRIVERRF"
+        }
     ]
 }
 
