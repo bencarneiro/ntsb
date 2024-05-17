@@ -3774,7 +3774,7 @@ class DriverDistracted(models.Model):
     ]
     distracted_by = models.PositiveSmallIntegerField(choices=distracted_by_choices, default=99)
 
-class DriverImpaired:
+class DriverImpaired(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
 
@@ -3798,7 +3798,7 @@ class DriverImpaired:
     ]
     driver_impaired = models.PositiveSmallIntegerField(choices=driver_impaired_choices, default=99)
 
-class VehicleFactor():
+class VehicleFactor(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     
@@ -3827,7 +3827,7 @@ class VehicleFactor():
     ]
     contributing_cause = models.PositiveSmallIntegerField(choices=contributing_cause_choices, default=0)
 
-class Maneuver(): 
+class Maneuver(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     
@@ -3846,14 +3846,93 @@ class Maneuver():
     ]
     driver_maneuvered_to_avoid = models.PositiveSmallIntegerField(choices=driver_maneuvered_to_avoid_choices, default=98)
 
-class Violation():
+class Violation(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
 
     # MVIOLATN VIOLATION D21
-    moving_violation
+    moving_violation_choices = [
+        (0, 'None'),
+        (1, 'Manslaughter or Homicide'),
+        (2, 'Willful Reckless Driving; Driving to Endanger; Negligent Driving'),
+        (3, 'Unsafe Reckless (Not Willful, Wanton Reckless) Driving'),
+        (4, 'Inattentive, Careless, Improper Driving, Driving Without Due Care'),
+        (5, 'Fleeing or Eluding Police'),
+        (6, 'Fail to Obey Police, Fireman, Authorized Person Directing Traffic'),
+        (7, 'Hit-And-Run, Fail to Stop After Crash'),
+        (8, 'Fail to Give Aid, Information, Wait for Police After Crash'),
+        (9, 'Serious Violation Resulting in Death'),
+        (10, 'Use of Telecommunications Device (Since 2015)'),
+        (11, 'Driving While Intoxicated (Alcohol or Drugs) or BAC Above Limit (Any Detectable BAC for CDLs)'),
+        (12, 'Driving While Impaired'),
+        (13, 'Driving Under Influence of Substance Not Intended to Intoxicate'),
+        (14, 'Drinking While Operating'),
+        (15, 'Illegal Possession of Alcohol or Drugs'),
+        (16, 'Driving With Detectable Alcohol'),
+        (18, 'Refusal to Submit to Chemical Test'),
+        (19, 'Alcohol, Drug or Impairment Violations Generally'),
+        (21, 'Racing'),
+        (22, 'Speeding (Above the Speed Limit)'),
+        (23, 'Speed Greater Than Reasonable and Prudent (Not Necessarily Over the Limit)'),
+        (24, 'Exceeding Special Speed Limit (for Trucks, Buses, Cycles, or on Bridge, in School Zone, etc.)'),
+        (25, 'Energy Speed (Exceeding 55 mph, Non-Pointable)'),
+        (26, 'Driving Too Slowly'),
+        (29, 'Speed-Related Violations Generally'),
+        (31, 'Fail to Stop for Red Signal'),
+        (32, 'Fail to Stop for Flashing Red'),
+        (33, 'Violation of Turn on Red (Fail to Stop and Yield, Yield to Pedestrians Before Turning)'),
+        (34, 'Fail to Obey Flashing Signal (Yellow or Red)'),
+        (35, 'Fail to Obey Signal Generally'),
+        (36, 'Violate RR Grade Crossing Device/Regulations'),
+        (37, 'Fail to Obey Stop Sign'),
+        (38, 'Fail to Obey Yield Sign'),
+        (39, 'Fail to Obey Traffic Control Device Generally'),
+        (41, 'Turn in Violation of Traffic Control (Disobey Signs, Turn Arrow or Pavement Markings; This Is Not a Right-on-Red violation)'),
+        (42, 'Improper Method and Position of Turn (Too Wide, Wrong Lane)'),
+        (43, 'Fail to Signal for Turn or Stop'),
+        (45, 'Fail to Yield to Emergency Vehicle'),
+        (46, 'Fail to Yield Generally'),
+        (48, 'Enter Intersection When Space Insufficient'),
+        (49, 'Turn, Yield, Signaling Violations Generally'),
+        (51, 'Driving Wrong Way on One-Way Road'),
+        (52, 'Driving on Left, Wrong Side of Road Generally'),
+        (53, 'Improper, Unsafe Passing'),
+        (54, 'Pass on Right (Drive off Pavement to Pass)'),
+        (55, 'Pass Stopped School Bus'),
+        (56, 'Fail to Give Way When Overtaken'),
+        (58, 'Following Too Closely'),
+        (59, 'Wrong Side, Passing, Following Violations Generally'),
+        (61, 'Unsafe or Prohibited Lane Change'),
+        (62, 'Improper Use of Lane (Enter of 3-Lane Road, HOV Designated Lane)'),
+        (63, 'Certain Traffic to Use Right Lane (Trucks, Slow Moving, etc.)'),
+        (66, 'Motorcycle Lane Violations (More Than Two per Lane, Riding Between Lanes, etc.)'),
+        (67, 'Motorcyclist Attached to Another Vehicle'),
+        (69, 'Lane Violations Generally'),
+        (71, 'Driving While License Withdrawn (Since 2014)'),
+        (72, 'Other Driver License Violations'),
+        (73, 'Commercial Driver Violations (Log Book, Hours, Permits Carried)'),
+        (74, 'Vehicle Registration Violations'),
+        (75, 'Fail to Carry Insurance Card'),
+        (76, 'Driving Uninsured Vehicle'),
+        (79, 'Non-Moving Violations Generally'),
+        (81, 'Lamp Violations'),
+        (82, 'Brake Violations'),
+        (83, 'Failure to Require Restraint Use (by Self or Passenger)'),
+        (84, 'Motorcycle Equipment Violations (Helmet, Special Equipment)'),
+        (85, 'Violation of Hazardous Cargo Regulations'),
+        (86, 'Size, Weight, Load Violations'),
+        (89, 'Equipment Violations Generally'),
+        (91, 'Parking'),
+        (92, 'Theft, Unauthorized Use of Motor Vehicle'),
+        (93, 'Driving Where Prohibited (Sidewalk, Limited Access, off Truck Route)'),
+        (95, 'No Driver Present/Unknown if Driver Present'),
+        (97, 'Not Reported'),
+        (98, 'Other Moving Violation'),
+        (99, 'Unknown Violations'),
+    ]
+    moving_violation = models.PositiveSmallIntegerField(choices=moving_violation_choices, default=0)
 
-class Vision():
+class Vision(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
 
@@ -3861,7 +3940,7 @@ class Vision():
     visibility
 
 
-class PersonRelatedFactor():
+class PersonRelatedFactor(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
@@ -3869,7 +3948,7 @@ class PersonRelatedFactor():
     # PERSONRF P24/NM26 
     person_related_factor
 
-class Drugs():
+class Drugs(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
@@ -3879,7 +3958,7 @@ class Drugs():
     # P19C/NM21C  DRUGRES
     drug_test_results
 
-class Race():
+class Race(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)

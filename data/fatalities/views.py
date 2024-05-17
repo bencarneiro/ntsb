@@ -3295,6 +3295,51 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "MANEUVER.MANEUVER"
         },
+    ],
+    # VIOLATION 
+    "violation.moving_violation": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 1996
+            },
+            "key": "VEHICLE.VIOL_CHG"
+        },
+        {
+            "range": {
+                "start": 1997,
+                "end": 2009
+            },
+            "key": "VEHICLE.VIOLCHG1"
+        },
+        {
+            "range": {
+                "start": 1997,
+                "end": 2009
+            },
+            "key": "VEHICLE.VIOLCHG2"
+        },
+        {
+            "range": {
+                "start": 1997,
+                "end": 2009
+            },
+            "key": "VEHICLE.VIOLCHG3"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "VIOLATN.MVIOLATN"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "VIOLATN.VIOLATION"
+        },
     ]
 
 }
