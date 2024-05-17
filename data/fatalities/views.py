@@ -3191,6 +3191,23 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "DAMAGE.DAMAGE"
         }
+    ],
+    #distracted
+    "driver_distracted.distracted_by": [
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "DAMAGE.MDRDSTRD"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "DAMAGE.DRDISTRACT"
+        }
     ]
 
 }

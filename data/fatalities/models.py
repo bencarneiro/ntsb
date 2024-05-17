@@ -3748,7 +3748,31 @@ class DriverDistracted(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     # MDRDSTRD DRDISTRACT PC16
-    distracted_by
+    distracted_by_choices = [
+        (0, 'Not Distracted'),
+        (3, 'By Other Occupant(s)'),
+        (4, 'By a Moving Object in Vehicle'),
+        (5, 'While Talking or Listening to Mobile Phone'),
+        (6, 'While Manipulating Mobile Phone'),
+        (7, 'While Adjusting Audio or Climate Controls'),
+        (9, 'While Using Other Component/Controls Integral to Vehicle'),
+        (10, 'While Using or Reaching for Device/Object Brought Into Vehicle'),
+        (12, 'Distracted by Outside Person, Object or Event'),
+        (13, 'Eating or Drinking'),
+        (14, 'Smoking Related'),
+        (15, 'Other Mobile Phone Related'),
+        (16, 'No Driver Present/Unknown if Driver Present'),
+        (17, 'Distraction/Inattention'),
+        (18, 'Distraction/Careless'),
+        (19, 'Careless/Inattentive'),
+        (92, 'Distraction (Distracted), Details Unknown'),
+        (93, 'Inattention (Inattentive), Details Unknown'),
+        (96, 'Not Reported'),
+        (97, 'Lost in Thought/Daydreaming'),
+        (98, 'Other Distraction'),
+        (99, 'Reported as Unknown if Distracted'),
+    ]
+    distracted_by = models.PositiveSmallIntegerField(choices=distracted_by_choices, default=99)
 
 class DriverImpaired:
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
