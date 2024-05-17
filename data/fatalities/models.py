@@ -3779,7 +3779,24 @@ class DriverImpaired:
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
 
     # DRIMPAIR D23
-    driver_impaired
+    driver_impaired_choices = [
+        (0, 'None/Apparently Normal'),
+        (1, 'Ill, Blackout'),
+        (2, 'Asleep or Fatigued'),
+        (3, 'Walking With a Cane or Crutches, etc.'),
+        (4, 'Paraplegic or in a Wheelchair'),
+        (5, 'Impaired Due to Previous Injury'),
+        (6, 'Deaf/Hard of Hearing'),
+        (7, 'Blind/Low Vision'),
+        (8, 'Emotional (Depressed, Angry, Disturbed,'),
+        (9, 'Under the Influence of Alcohol, Drugs, or'),
+        (10, 'Physical Impairment - No Details'),
+        (95, 'No Driver Present/Unknown if Driver'),
+        (96, 'Other Physical Impairment'),
+        (98, 'Not Reported'),
+        (99, 'Reported as Unknown if Impaired'),
+    ]
+    driver_impaired = models.PositiveSmallIntegerField(choices=driver_impaired_choices, default=99)
 
 class VehicleFactor():
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)

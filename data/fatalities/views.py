@@ -3109,7 +3109,7 @@ FARS_DATA_DICTIONARY = {
     ],
 
     #driverrf DRIVERRF
-
+    #  TODO if number #3 depression is selected, write a record to DriverImpaired
     "driver_related_factor.driver_related_factor": [
         {
             "range": {
@@ -3208,6 +3208,44 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "DAMAGE.DRDISTRACT"
         }
+    ],
+    #DRIMPAIR
+    "driver_impaired.driver_impaired": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.DR_CF1"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.DR_CF2"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.DR_CF3"
+        },
+        {
+            "range": {
+                "start": 2007,
+                "end": 2009
+            },
+            "key": "VEHICLE.DR_CF4"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "DRIMPAIR.DRIMPAIR"
+        },
     ]
 
 }
