@@ -3246,7 +3246,39 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "DRIMPAIR.DRIMPAIR"
         },
-    ]
+    ],
+    # # PC4 MFACTOR VEHICLECC
+    "vehicle_factor.contributing_cause":  [
+
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.VEH_CF1"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.VEH_CF2"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "FACTOR.MFACTOR"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "FACTOR.VEHICLECC"
+        }
+    ],
 
 }
 

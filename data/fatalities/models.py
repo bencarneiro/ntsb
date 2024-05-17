@@ -3803,7 +3803,29 @@ class VehicleFactor():
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     
     # PC4 MFACTOR VEHICLECC
-    contributing_cause
+    contributing_cause_choices = [
+        (0, 'None Noted'),
+        (1, 'Tires'),
+        (2, 'Brake System'),
+        (3, 'Steering'),
+        (4, 'Suspension'),
+        (5, 'Power Train'),
+        (6, 'Exhaust System'),
+        (7, 'Head Lights'),
+        (8, 'Signal Lights'),
+        (9, 'Other Lights'),
+        (10, 'Wipers'),
+        (11, 'Wheels'),
+        (12, 'Mirrors'),
+        (13, 'Windows/Windshield'),
+        (14, 'Body, Doors'),
+        (15, 'Truck Coupling/Trailer Hitch/Safety Chains'),
+        (16, 'Safety Systems'),
+        (17, 'Vehicle Contributing Factors - No Details'),
+        (97, 'Other'),
+        (99, 'Reported as Unknown'),
+    ]
+    contributing_cause = models.PositiveSmallIntegerField(choices=contributing_cause_choices, default=0)
 
 class Maneuver(): 
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
