@@ -3279,6 +3279,23 @@ FARS_DATA_DICTIONARY = {
             "key": "FACTOR.VEHICLECC"
         }
     ],
+    # MANEUVER 
+    "maneuver.driver_maneuvered_to_avoid": [
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "MANEUVER.MDRMANAV"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "MANEUVER.MANEUVER"
+        },
+    ]
 
 }
 

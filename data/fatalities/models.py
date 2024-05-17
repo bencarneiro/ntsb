@@ -3832,7 +3832,19 @@ class Maneuver():
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     
     # MDRMANAV MANEUVER PC15
-    driver_maneuvered_to_avoid
+    driver_maneuvered_to_avoid_choices = [
+        (0, 'Driver Did Not Maneuver to Avoid'),
+        (1, 'Object'),
+        (2, 'Poor Road Conditions (Puddle, Ice, Pothole, etc.)'),
+        (3, 'Live Animal'),
+        (4, 'Contact Motor Vehicle (in This Crash)'),
+        (5, 'Pedestrian, Pedalcyclist or Other Non-Motorist'),
+        (92, 'Phantom/Non-Contact Motor Vehicle'),
+        (95, 'No Driver Present/Unknown if Driver Present'),
+        (98, 'Not Reported'),
+        (99, 'Reported as Unknown'),
+    ]
+    driver_maneuvered_to_avoid = models.PositiveSmallIntegerField(choices=driver_maneuvered_to_avoid_choices, default=98)
 
 class Violation():
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
