@@ -3174,6 +3174,24 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "DRIVERRF.DRIVERRF"
         }
+    ],
+    # MDAREAS
+    "damage.area_of_impact": [
+        {
+            "range": {
+                "start": 2012,
+                "end": 2019
+            },
+            "key": "DAMAGE.MDAREAS"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "DAMAGE.DAMAGE"
+        }
     ]
+
 }
 

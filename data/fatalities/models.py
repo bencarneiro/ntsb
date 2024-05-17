@@ -3724,7 +3724,25 @@ class Damage(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     # MDAREAS DAMAGE  V34B
-    area_of_impact
+    area_of_impact_choices = [
+        (1, "1 O'Clock"),
+        (2, "2 O'Clock"),
+        (3, "3 O'Clock"),
+        (4, "4 O'Clock"),
+        (5, "5 O'Clock"),
+        (6, "6 O'Clock"),
+        (7, "7 O'Clock"),
+        (8, "8 O'Clock"),
+        (9, "9 O'Clock"),
+        (10, "10 O'Clock"),
+        (11, "11 O'Clock"),
+        (12, "12 O'Clock"),
+        (13, "Top"),
+        (14, "Undercarriage"),
+        (15, "No Damage"),
+        (99, "Damage Areas Unknown")
+    ]
+    area_of_impact = models.PositiveSmallIntegerField(choices=area_of_impact_choices, default=15)
 
 class DriverDistracted(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
