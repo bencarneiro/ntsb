@@ -912,7 +912,7 @@ FARS_DATA_DICTIONARY = {
                 "start": 2009,
                 "end": None
             },
-            "key": "ROLINLOC"
+            "key": "vehicle.ROLINLOC"
         }
     ],
     #v34A
@@ -3340,6 +3340,71 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "VIOLATN.VIOLATION"
         },
+    ],
+    "vision.visibility": [
+        {
+            "range": {
+                "start": 1982,
+                "end": 2008
+            },
+            "key": "VEHICLE.DR_CF1"
+        },
+        {
+            "range": {
+                "start": 1982,
+                "end": 2008
+            },
+            "key": "VEHICLE.DR_CF2"
+        },
+        {
+            "range": {
+                "start": 1982,
+                "end": 2008
+            },
+            "key": "VEHICLE.DR_CF3"
+        },
+        {
+            "range": {
+                "start": 1997,
+                "end": 2008
+            },
+            "key": "VEHICLE.DR_CF4"
+        },
+        {
+            "range": {
+                "start": 2009,
+                "end": 2009
+            },
+            "key": "VEHICLE.D_VISION1"
+        },
+        {
+            "range": {
+                "start": 2009,
+                "end": 2009
+            },
+            "key": "VEHICLE.D_VISION2"
+        },
+        {
+            "range": {
+                "start": 2009,
+                "end": 2009
+            },
+            "key": "VEHICLE.D_VISION3"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "VISION.MVISOBSC"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "VISION.VISION"
+        }
     ]
 
 }

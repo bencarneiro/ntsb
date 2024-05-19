@@ -3937,7 +3937,28 @@ class Vision(models.Model):
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
 
     # MVISOBSC VISION PC14
-    visibility
+    visibility_choices = [
+        (0, 'No Obstruction Noted'),
+        (1, 'Rain, Snow, Fog, Smoke, Sand, Dust'),
+        (2, 'Reflected Glare, Bright Sunlight, Headlights'),
+        (3, 'Curve, Hill, or Other Roadway Design Features'),
+        (4, 'Building, Billboard, or Other Structure'),
+        (5, 'Trees, Crops, Vegetation'),
+        (6, 'In-Transport Motor Vehicle (Including Load)'),
+        (7, 'Not In-Transport Motor Vehicle (Parked, Working)'),
+        (8, 'Splash or Spray of Passing Vehicle'),
+        (9, 'Inadequate Defrost or Defog System'),
+        (10, 'Inadequate Vehicle Lighting System'),
+        (11, 'Obstructing Interior to the Vehicle'),
+        (12, 'External Mirrors'),
+        (13, 'Broken or Improperly Cleaned Windshield'),
+        (14, 'Obstructing Angles on Vehicle'),
+        (95, 'No Driver Present/Unknown if Driver Present'),
+        (97, 'Vision Obscured - No Details'),
+        (98, 'Other Visual Obstruction'),
+        (99, 'Reported as Unknown'),
+    ]
+    visibility = models.PositiveSmallIntegerField(choices=visibility_choices, default=99)
 
 
 class PersonRelatedFactor(models.Model):
