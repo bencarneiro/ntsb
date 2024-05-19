@@ -3549,6 +3549,43 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "RACE.RACE"
         }
+    ],
+    "nonmotorist_contributing_circumstance.nonmotorist_contributing_circumstance": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "PERSON.P_CF1"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "PERSON.P_CF2"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "PERSON.P_CF3"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "NMCRASH.MTM_CRSH"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "NMCRASH.NMCC"
+        }
     ]
 
 }

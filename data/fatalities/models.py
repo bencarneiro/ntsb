@@ -4096,13 +4096,39 @@ class Race(models.Model):
     # ORDER
     order = models.PositiveSmallIntegerField(null=False, blank=False, default=1)
 
-class NonMotoristCrash(models.Model):
+class NonmotoristContributingCircumstance(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
 
     # NM14 MTM_CRSH NMCC
-    nonmotorist_contributing_circumstance
+    nonmotorist_contributing_circumstance_choices = [
+        (0, 'None Noted'),
+        (1, 'Dart-out - Visual Obstruction Noted'),
+        (2, 'Failure to Yield Right-Of-Way'),
+        (3, 'Failure to Obey Traffic Signs, Signals or Officer'),
+        (4, 'In Roadway Improperly (Standing, Lying, Working, Playing)'),
+        (5, 'Entering/Exiting Parked or Stopped Vehicle'),
+        (6, 'Inattentive (Talking, Eating, etc.)'),
+        (7, 'Improper Turn/Merge'),
+        (8, 'Improper Passing'),
+        (9, 'Wrong-Way Riding or Walking'),
+        (10, 'Riding on Wrong Side of Road'),
+        (11, 'Dash - Run, No Visual Obstruction Noted'),
+        (12, 'Improper Crossing of Roadway or Intersection (Jaywalking)'),
+        (13, 'Failing to Have Lights on When Required'),
+        (14, 'Operating Without Required Equipment'),
+        (15, 'Improper or Erratic Lane Changing'),
+        (16, 'Failure to Keep in Proper Lane or Running off Road'),
+        (17, 'Making Improper Entry to or Exit From Trafficway'),
+        (18, 'Operating in Other Erratic, Reckless, Careless or Negligent Manner'),
+        (19, 'Not Visible (Dark Clothing, No Lighting, etc.)'),
+        (20, 'Passing With Insufficient Distance or Inadequate Visibility or Failing to Yield to Overtaking Vehicle'),
+        (21, 'Other'),
+        (92, 'Contributing Circumstance - No Details'),
+        (99, 'Reported as Unknown'),
+    ]
+    nonmotorist_contributing_circumstance = models.PositiveSmallIntegerField(choices=nonmotorist_contributing_circumstance_choices, default=0)
 
 class NonmotoristDistracted(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
