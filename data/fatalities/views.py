@@ -3533,7 +3533,22 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "DRUGS.DRUGRES"
         }
-        
+    ],
+    "race.race": [
+        {
+            "range": {
+                "start": 1999,
+                "end": 2018
+            },
+            "key": "PERSON.RACE"
+        },
+        {
+            "range": {
+                "start": 2019,
+                "end": None
+            },
+            "key": "RACE.RACE"
+        }
     ]
 
 }
