@@ -3604,6 +3604,171 @@ FARS_DATA_DICTIONARY = {
             "key": "NMDISTRACT.NMDISTRACT"
         }
     ],
+    "nonmotorist_impaired.nonmotorist_impaired": [
+        {
+            "range": {
+                "start": 1982,
+                "end": 2009
+            },
+            "key": "PERSON.P_CF1"
+        },
+        {
+            "range": {
+                "start": 1982,
+                "end": 2009
+            },
+            "key": "PERSON.P_CF2"
+        },
+        {
+            "range": {
+                "start": 1982,
+                "end": 2009
+            },
+            "key": "PERSON.P_CF3"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "NMIMPAIR.NMIMPAIR"
+        },
+    ],
+    "nonmotorist_prior_action.nonmotorist_prior_action": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "PERSON.P_CF1"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "PERSON.P_CF2"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "PERSON.P_CF3"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "NMPRIOR.MPR_ACT"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "NMPRIOR.NMACTION"
+        },
+    ],
+    "safety_equipment.helmet": [
+        {
+            "range": {
+                "start": 2010,
+                "end": 2016
+            },
+            "key": "SAFETYEQ.MSAFEQMT"
+        },
+        {
+            "range": {
+                "start": 2017,
+                "end": None
+            },
+            "key": "SAFETYEQ.NMHELMET"
+        },
+    ],
+    "safety_equipment.pads": [
+        {
+            "range": {
+                "start": 2010,
+                "end": 2016
+            },
+            "key": "SAFETYEQ.MSAFEQMT"
+        },
+        {
+            "range": {
+                "start": 2017,
+                "end": None
+            },
+            "key": "SAFETYEQ.NMPROPAD"
+        },
+    ],
+    "safety_equipment.other_protective_equipment": [
+        {
+            "range": {
+                "start": 2010,
+                "end": 2016
+            },
+            "key": "SAFETYEQ.MSAFEQMT"
+        },
+        {
+            "range": {
+                "start": 2017,
+                "end": None
+            },
+            "key": "SAFETYEQ.NMOTHPRO"
+        },
+    ],
+    "safety_equipment.reflective_equipment": [
+        {
+            "range": {
+                "start": 2010,
+                "end": 2016
+            },
+            "key": "SAFETYEQ.MSAFEQMT"
+        },
+        {
+            "range": {
+                "start": 2017,
+                "end": None
+            },
+            "key": "SAFETYEQ.NMREFCLO"
+        },
+    ],
+    # NMLIGHT
+    "safety_equipment.lights": [
+        {
+            "range": {
+                "start": 2010,
+                "end": 2016
+            },
+            "key": "SAFETYEQ.MSAFEQMT"
+        },
+        {
+            "range": {
+                "start": 2017,
+                "end": None
+            },
+            "key": "SAFETYEQ.NMLIGHT"
+        },
+    ],
+    # NMOTHPRE 
+    "safety_equipment.other_preventative_equipment": [
+        # {
+        #     "range": {
+        #         "start": 2010,
+        #         "end": 2016
+        #     },
+        #     "key": "SAFETYEQ.MSAFEQMT"
+        # },
+        {
+            "range": {
+                "start": 2017,
+                "end": None
+            },
+            "key": "SAFETYEQ.NMOTHPRE"
+        },
+    ],
 
 }
 

@@ -4166,7 +4166,23 @@ class NonmotoristImpaired(models.Model):
     person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
 
     #NM17 NMIMPAIR
-    nonmotorist_impaired
+    nonmotorist_impaired_choices = [
+        (0, 'None/Apparently Normal'),
+        (1, 'Ill, Blackout'),
+        (2, 'Asleep or Fatigued'),
+        (3, 'Walking With a Cane or Crutches'),
+        (4, 'Paraplegic or in a Wheelchair'),
+        (5, 'Impaired Due to Previous Injury'),
+        (6, 'Deaf/Hard of Hearing'),
+        (7, 'Blind/Low Vision'),
+        (8, 'Emotional (Depressed, Angry, Disturbed, etc.)'),
+        (9, 'Under the Influence of Alcohol, Drugs, or Medication'),
+        (10, 'Physical Impairment - No Details'),
+        (96, 'Other Physical Impairment'),
+        (98, 'Not Reported'),
+        (99, 'Reported as Unknown if Impaired'),
+    ]
+    nonmotorist_impaired = models.PositiveSmallIntegerField(choices=nonmotorist_impaired_choices, default=0)
 
 class NonmotoristPriorAction(models.Model):
 
@@ -4175,25 +4191,47 @@ class NonmotoristPriorAction(models.Model):
     person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
 
     # MPR_ACT NMACTION NM13
-    nonmotorist_prior_action
+    nonmotorist_prior_action_choices = [
+        (1, 'Going to or From School (K-12)'),
+        (2, 'Waiting to Cross Roadway'),
+        (3, 'Crossing Roadway'),
+        (4, 'Jogging/Running'),
+        (5, 'Movement Along Roadway With Traffic (in or Adjacent to Travel Lane)'),
+        (6, 'Movement Along Roadway Against Traffic (in or Adjacent to Travel Lane)'),
+        (8, 'In Roadway-Other (Working, Playing, etc.)'),
+        (9, 'Stationary and Adjacent to Roadway (e.g., Shoulder, Median, Sidewalk)'),
+        (10, 'Working in Trafficway (Incident Response)'),
+        (11, 'Entering/Exiting a Parked or Stopped Vehicle'),
+        (12, 'Disabled Vehicle Related (Working on, Pushing, Leaving/Approaching)'),
+        (14, 'Other'),
+        (16, 'Movement Along Roadway - Direction Unknown (Since 2012)'),
+        (98, 'Not Reported'),
+        (99, 'Reported as Unknown'),
+    ]
+    nonmotorist_prior_action = models.PositiveSmallIntegerField(choices=nonmotorist_prior_action_choices, default=99)
 
 class SafetyEquipment(models.Model):
 
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
-
+    safety_equipment_choices = [
+        (1, "No"),
+        (2, "Yes"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ]
     # NM16A NMHELMET
-    helmet
+    helmet = models.PositiveSmallIntegerField(choices=safety_equipment_choices, default=8)
     # NM16B NMPROPAD
-    pads
+    pads = models.PositiveSmallIntegerField(choices=safety_equipment_choices, default=8)
     # NM16C NMOTHPRO
-    other_protective_equipment
+    other_protective_equipment = models.PositiveSmallIntegerField(choices=safety_equipment_choices, default=8)
     # NM16D NMREFCLO
-    reflective_equipment
+    reflective_equipment = models.PositiveSmallIntegerField(choices=safety_equipment_choices, default=8)
     # NM16E NMLIGHT
-    lights
+    lights = models.PositiveSmallIntegerField(choices=safety_equipment_choices, default=8)
     # NM16F NMOTHPRE
-    other_preventative_equipment
+    other_preventative_equipment = models.PositiveSmallIntegerField(choices=safety_equipment_choices, default=8)
 
 
