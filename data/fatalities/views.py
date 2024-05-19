@@ -3405,6 +3405,59 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "VISION.VISION"
         }
+    ],
+    # P_CF1 P_SF1
+    "person_related_factor.person_related_factor": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "PERSON.P_CF1"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "PERSON.P_CF2"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "PERSON.P_CF3"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "PERSON.P_SF1"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "PERSON.P_SF2"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": 2019
+            },
+            "key": "PERSON.P_SF3"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "PERSONRF.PERSONRF"
+        }
+
     ]
 
 }

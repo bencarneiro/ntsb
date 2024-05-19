@@ -3961,13 +3961,84 @@ class Vision(models.Model):
     visibility = models.PositiveSmallIntegerField(choices=visibility_choices, default=99)
 
 
+# Person-related factors for all drivers are coded 00. Person-related factors for non-drivers can
+# have non-zero values as listed below.
+# For 1975 to 1981 values 02 to 06 correspond to 01 to 05 for the 1982 to 2009 data. Values of 20
+# and higher correspond directly the same values for 1982 to 2009. 
+    
 class PersonRelatedFactor(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
 
     # PERSONRF P24/NM26 
-    person_related_factor
+    person_related_factor_choices = [
+        (0, 'None Noted'),
+        (5, 'Interfering With Driver*'),
+        (8, 'Person with an Intellectual, Cognitive, or Developmental Disability'),
+        (9, 'Construction/Maintenance/Utility Worker'),
+        (10, 'Alcohol and/or Drug Test Refused'),
+        (13, 'Motorized Wheelchair Rider**'),
+        (18, 'Mother of Dead Fetus/Mother of Infant Born Post-Crash'),
+        (21, 'Overloading or Improper Loading of Vehicle With Passengers or Cargo'),
+        (26, 'Following Improperly'),
+        (28, 'Improper Lane Usage*'),
+        (29, 'Intentional Illegal Driving on Road Shoulder, in Ditch, on Sidewalk, on Median*'),
+        (31, 'Default Code Used for Vehicle Numbering**'),
+        (32, 'Opening Vehicle Closure Into Moving Traffic or While Vehicle Is in Motion*'),
+        (33, 'Passing Where Prohibited by Posted Signs, Pavement Markings, or School Bus Displaying Warning Not to Pass*'),
+        (37, 'Traveling on Prohibited Trafficway'),
+        (40, 'Passing Through or Around Barrier Positioned to Prohibit or Channel Traffic'),
+        (41, 'Failure to Observe Warnings or Instructions on Vehicles Displaying Them'),
+        (42, 'Failure to Signal Intentions'),
+        (44, 'Driving Too Fast for Conditions or in Excess of Posted Maximum*'),
+        (45, 'Driving Less Than Posted Maximum*'),
+        (47, 'Making Right Turn From Left-Turn Lane, Left Turn From RightTurn Lane*'),
+        (51, 'Operator Inexperience'),
+        (52, 'Unfamiliar With Roadway'),
+        (53, 'Non-Motorist Previously Used a Motor Vehicle for Motion**'),
+        (54, 'Non-Motorist Attempting to Use a Motor Vehicle for Motion**'),
+        (55, 'Non-Motorist Attempting to Use or Previously Used a Motor Vehicle for Motion, Details Not Reported**'),
+        (56, 'Non-Operator Flees Scene'),
+        (57, 'Improper Tire Pressure'),
+        (59, 'Overcorrecting*'),
+        (60, 'Rain, Snow, Fog, Smoke, Sand, Dust'),
+        (61, 'Reflected Glare, Bright Sunlight, Headlights'),
+        (62, 'Curve, Hill, or Other Design Features (Including Traffic Signs, Embankment)'),
+        (63, 'Building, Billboard, Other Structures'),
+        (64, 'Trees, Crops, Vegetation'),
+        (65, 'Motor Vehicle (Including Load)'),
+        (66, 'Parked Vehicle'),
+        (67, 'Splash or Spray or Passing Vehicle'),
+        (68, 'Inadequate Lighting System'),
+        (69, 'Obstructing Angles on Vehicle'),
+        (70, 'Mirrors'),
+        (72, 'Other Visual Obstruction'),
+        (73, 'Severe Crosswind'),
+        (74, 'Wind From Passing Truck'),
+        (75, 'Slippery or Loose Surface'),
+        (76, 'Tire Blow-Out or Flat'),
+        (77, 'Debris or Objects in Road'),
+        (78, 'Ruts, Holes, Bumps in Road'),
+        (80, 'Vehicle in Road'),
+        (81, 'Phantom Vehicle'),
+        (82, 'Pedestrian, Pedalcyclist, or Other Non-Motorist'),
+        (83, 'Ice, Snow, Slush, Water, Sand, Dirt, Oil, Wet Leaves on Road'),
+        (87, 'Police or Law Enforcement Officer'),
+        (88, 'Seat Back Not in Normal Upright Position, Seat Back Reclined*'),
+        (89, 'Parked Motor Vehicle With Equipment Extending Into the Travel Lane'),
+        (90, 'Non-Motorist Pushing a Vehicle**'),
+        (91, 'Portable Electronic Devices'),
+        (92, 'Person in Ambulance Treatment Compartment*'),
+        (93, 'Non-Motorist Wearing Motorcycle Helmet**'),
+        (94, 'Emergency Medical Services Personnel'),
+        (95, 'Fire Personnel'),
+        (96, 'Tow Operator'),
+        (97, 'Transportation (Maintenance Workers, Safety Service Patrol Operators, etc.)'),
+        (100, 'Using a Shared Micromobility Device**'),
+        (101, 'Obstructed Sidewalk (for this Person)**')
+    ]
+    person_related_factor = models.PositiveSmallIntegerField(choices=person_related_factor_choices, default=0)
 
 class Drugs(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
