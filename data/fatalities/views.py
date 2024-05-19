@@ -3458,6 +3458,82 @@ FARS_DATA_DICTIONARY = {
             "key": "PERSONRF.PERSONRF"
         }
 
+    ],
+    "drugs.drug_test_type": [
+        {
+            "range": {
+                "start": 1991,
+                "end": 1992
+            },
+            "key": "PERSON.DRUGTEST"
+        },
+        {
+            "range": {
+                "start": 1993,
+                "end": 2017
+            },
+            "key": "PERSON.DRUGTST1"
+        },
+        {
+            "range": {
+                "start": 1993,
+                "end": 2017
+            },
+            "key": "PERSON.DRUGTST2"
+        },
+        {
+            "range": {
+                "start": 1993,
+                "end": 2017
+            },
+            "key": "PERSON.DRUGTST3"
+        },
+        {
+            "range": {
+                "start": 2018,
+                "end": None
+            },
+            "key": "DRUGS.DRUGSPEC"
+        }
+        
+    ],
+    "drugs.drug_test_results": [
+        {
+            "range": {
+                "start": 1991,
+                "end": 1992
+            },
+            "key": "PERSON.DRUGRES"
+        },
+        {
+            "range": {
+                "start": 1993,
+                "end": 2017
+            },
+            "key": "PERSON.DRUGRES1"
+        },
+        {
+            "range": {
+                "start": 1993,
+                "end": 2017
+            },
+            "key": "PERSON.DRUGRES2"
+        },
+        {
+            "range": {
+                "start": 1993,
+                "end": 2017
+            },
+            "key": "PERSON.DRUGRES3"
+        },
+        {
+            "range": {
+                "start": 2018,
+                "end": None
+            },
+            "key": "DRUGS.DRUGRES"
+        }
+        
     ]
 
 }

@@ -4041,14 +4041,28 @@ class PersonRelatedFactor(models.Model):
     person_related_factor = models.PositiveSmallIntegerField(choices=person_related_factor_choices, default=0)
 
 class Drugs(models.Model):
+    
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
     person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
 
     # P19/NM21 DRUGSPEC
-    drug_test_type
+    drug_test_type_choices = [
+        (0, 'Test Not Given'),
+        (1, 'Whole Blood'),
+        (2, 'Urine'),
+        (11, 'Blood Plasma/Serum'),
+        (12, 'Blood Clot'),
+        (13, 'Oral Fluids'),
+        (14, 'Vitreous'),
+        (15, 'Liver'),
+        (96, 'Not Reported'),
+        (97, 'Unknown Specimen'),
+        (98, 'Other Specimen'),
+        (99, 'Reported as Unknown if Tested'),
+    ]
     # P19C/NM21C  DRUGRES
-    drug_test_results
+    drug_test_results = models.PositiveIntegerField(null=False, blank=False)
 
 class Race(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
