@@ -3586,7 +3586,24 @@ FARS_DATA_DICTIONARY = {
             },
             "key": "NMCRASH.NMCC"
         }
-    ]
+    ],
+    # NM15 MNMDSTRD NMDISTRACT
+    "nonmotorist_distracted.nonmotorist_distracted_by": [
+        {
+            "range": {
+                "start": 2019,
+                "end": 2019
+            },
+            "key": "NMDISTRACT.MNMDSTRD"
+        },
+        {
+            "range": {
+                "start": 2020,
+                "end": None
+            },
+            "key": "NMDISTRACT.NMDISTRACT"
+        }
+    ],
 
 }
 

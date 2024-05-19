@@ -4136,7 +4136,29 @@ class NonmotoristDistracted(models.Model):
     person = models.ForeignKey(Person, null=True, Blank=True, on_delete = models.DO_NOTHING)
 
     # NM15 MNMDSTRD NMDISTRACT
-    nonmotorist_distracted
+    nonmotorist_distracted_by_choices = [
+        (0, 'Not Distracted'),
+        (2, 'By Other Non-Motorist(s)'),
+        (3, 'By a Driver or Occupant of a Motor Vehicle'),
+        (5, 'While Talking or Listening to Mobile Phone'),
+        (6, 'While Manipulating Mobile Phone'),
+        (7, 'Adjusting or Listening to Portable Audio Device (Other Than on a Mobile Phone)'),
+        (8, 'Adjusting, Talking to, or Manipulating Other Portable Electronic Device'),
+        (12, 'Distracted by Animal, Other Object, Event, or Activity'),
+        (13, 'Eating or Drinking'),
+        (14, 'Smoking Related'),
+        (15, 'Other Mobile Phone Related'),
+        (17, 'Distraction/Inattention'),
+        (18, 'Distraction/Careless'),
+        (19, 'Careless/Inattentive'),
+        (92, 'Distraction (Distracted), Details Unknown'),
+        (93, 'Inattention (Inattentive), Details Unknown'),
+        (96, 'Not Reported'),
+        (97, 'Lost in Thought/Daydreaming'),
+        (98, 'Other Distraction'),
+        (99, 'Reported as Unknown if Distracted'),
+    ]
+    nonmotorist_distracted_by = models.PositiveSmallIntegerField(choices=nonmotorist_distracted_by_choices, default=0)
 
 class NonmotoristImpaired(models.Model):
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
