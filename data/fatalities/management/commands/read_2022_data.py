@@ -55,12 +55,28 @@ class Command(BaseCommand):
             
             state = State.objects.get(id=csv['STATE'][x])
             if csv['COUNTY'][x] and csv['COUNTY'][x] not in {997, 998, 999}:
-                county = County.objects.get(state=state, county_id=csv['COUNTY'][x])
+                try:
+                    county = County.objects.get(state=state, county_id=csv['COUNTY'][x])
+                except:
+                    county = County(
+                        state=state, 
+                        county_id=csv['COUNTY'][x],
+                        name=csv['COUNTYNAME'][x]
+                    )
+                    county.save()
+
             else: 
                 county = None
             if csv['CITY'][x] and csv['CITY'][x] not in {9997, 9998, 9999}:
-                print(csv['CITY'][x])
-                city = City.objects.get(state=state, city_id=csv['CITY'][x])
+                try:
+                    city = City.objects.get(state=state, city_id=csv['CITY'][x])
+                except:
+                    city = City(
+                        state=state, 
+                        city_id=csv['CITY'][x],
+                        name=csv['CITYNAME'][x]
+                    )
+                    city.save()
             else: 
                 city = None
             data_to_save = {
