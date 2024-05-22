@@ -24,9 +24,8 @@ class County(models.Model):
         managed = True
 
 class City(models.Model):
-    city_id = models.PositiveIntegerField(primary_key=True)
+    city_id = models.PositiveIntegerField(null=False, blank=False)
     state = models.ForeignKey(State, on_delete=models.DO_NOTHING)
-    county = models.ForeignKey(County, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=512, null=False)
 
     class Meta:

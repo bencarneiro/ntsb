@@ -1,10 +1,12 @@
 from django.core.management.base import BaseCommand
 import pandas as pd
-from fatalities.models import State, County, City
+from fatalities.models import State, County, City, Accident
 
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
+
+        Accident.objects.all().delete()
         City.objects.all().delete()
         County.objects.all().delete()
         State.objects.all().delete()
@@ -27,14 +29,15 @@ class Command(BaseCommand):
                     name=cities['County Name'][x]
                 )
                 county.save()
-
-            city = City(
-                state=state,
-                county=county,
-                city_id=cities['City Code'][x],
-                name=cities['City Name'][x]
-            )
+            try:
+                city = City.objects.get(state=state, city_id=cities['City Code'][x])
+            except:
+                city = City(
+                    state=state,
+                    city_id=cities['City Code'][x],
+                    name=cities['City Name'][x]
+                )
             city.save()
-            print(f"saved {city.name}, {city.state.name} in {city.county.name} county")
+            print(f"saved {city.name}, {city.state.name} in {county.name} county")
             
             

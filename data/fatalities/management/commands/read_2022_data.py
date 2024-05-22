@@ -5,6 +5,7 @@ import pandas as pd
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
+        Accident.objects.all().delete()
         accident_model_fields = [
             'st_case',
             'number_of_persons_not_in_motor_vehicles',
@@ -50,17 +51,15 @@ class Command(BaseCommand):
             'fatalities'
         ]
         csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/accident.csv", encoding='latin-1')
-        for x in csv.head(30).index:
-            print(csv['STATE'][x])
-            print(csv['COUNTY'][x])
-            print(csv['CITY'][x])
+        for x in csv.index:
             
             state = State.objects.get(id=csv['STATE'][x])
-            if csv['COUNTY'][x]:
+            if csv['COUNTY'][x] and csv['COUNTY'][x] not in {997, 998, 999}:
                 county = County.objects.get(state=state, county_id=csv['COUNTY'][x])
             else: 
                 county = None
-            if csv['CITY'][x]:
+            if csv['CITY'][x] and csv['CITY'][x] not in {9997, 9998, 9999}:
+                print(csv['CITY'][x])
                 city = City.objects.get(state=state, city_id=csv['CITY'][x])
             else: 
                 city = None
