@@ -5,6 +5,7 @@ from django.contrib.gis.db import models as gismodels
 
 class State(models.Model):
     id = models.PositiveSmallIntegerField(primary_key=True)
+    short_name = models.CharField(max_length=16, null=True, blank=True)
     name = models.CharField(max_length=256, null=False)
 
     class Meta:
@@ -18,20 +19,22 @@ class County(models.Model):
     name = models.CharField(max_length=512, null=False)
 
     class Meta:
-        unique_together = [["state", "id"]]
+        unique_together = [["state", "county_id"]]
         db_table = "county"
         managed = True
 
 class City(models.Model):
-    id = models.PositiveIntegerField(primary_key=True)
+    city_id = models.PositiveIntegerField(primary_key=True)
     state = models.ForeignKey(State, on_delete=models.DO_NOTHING)
     county = models.ForeignKey(County, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=512, null=False)
 
     class Meta:
+        unique_together = [["state", "city_id"]]
         db_table = "city"
         managed = True
 
+# in a just world, I would name this model "Crash" but we do not live in a just world and I'm striving for code quality here over personal vendettas
 class Accident(models.Model):
     year = models.PositiveSmallIntegerField(null=False, blank=False)
     st_case = models.PositiveIntegerField(null=False)
@@ -388,10 +391,13 @@ class Accident(models.Model):
     #c101
     fatalities = models.PositiveSmallIntegerField(null=False, blank=False)
 
+    class Meta:
+        unique_together = [["year", "st_case"]]
+        db_table = "accident"
+        managed = True
 
 class Vehicle(models.Model):
-    id = models.PositiveBigIntegerField(primary_key=True)
-    accident = models.ForeignKey(Accident, on_delete=models.DO_NOTHING)
+    accident = models.ForeignKey(Accident, on_delete=models.CASCADE)
     vehicle_number = models.PositiveSmallIntegerField(null=False)
     #v4
     number_of_occupants = models.PositiveSmallIntegerField(null=True, blank=True)
@@ -1700,8 +1706,13 @@ class Vehicle(models.Model):
     ]
     crash_type = models.PositiveSmallIntegerField(choices = crash_type_choices, default=99)
 
+    class Meta:
+        unique_together = [["accident", "vehicle_number"]]
+        db_table = "vehicle"
+        managed = True
+
 class Person(models.Model):
-    accident = models.ForeignKey(Accident, on_delete=models.DO_NOTHING)
+    accident = models.ForeignKey(Accident, on_delete=models.CASCADE)
     vehicle = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.CASCADE)
     person_number = models.PositiveSmallIntegerField(null=False)
     # id = models.PositiveBigIntegerField(primary_key = True)
@@ -2042,10 +2053,15 @@ class Person(models.Model):
     ]
     hispanic = models.PositiveSmallIntegerField(choices=hispanic_choices, default=99)
 
+    class Meta:
+        unique_together = [["accident", "vehicle", "person_number"]]
+        db_table = "person"
+        managed = True
+
 # A class for parked cars involved with a given fatal crash
     
 class ParkedVehicle(models.Model):
-    accident = models.ForeignKey(Accident, on_delete=models.DO_NOTHING)
+    accident = models.ForeignKey(Accident, on_delete=models.CASCADE)
     vehicle_number = models.PositiveSmallIntegerField(null=False)
     #c4a #PVE_FORMS
     # number_of_vehicles_in_transit = models.PositiveSmallIntegerField(default=0)
@@ -2815,12 +2831,15 @@ class ParkedVehicle(models.Model):
     # V100
     combined_make_model_id = models.PositiveIntegerField(null=True, blank=True)
 
-
+    class Meta:
+        unique_together = [["accident", "vehicle_number"]]
+        db_table = "parked_vehicle"
+        managed = True
 
 class PedestrianType(models.Model):
-    accident = models.ForeignKey(Accident, null=False, on_delete=models.DO_NOTHING)
-    person = models.ForeignKey(Person, null=True, blank=True, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank=True, on_delete = models.DO_NOTHING)
+    # accident = models.ForeignKey(Accident, null=False, on_delete=models.DO_NOTHING)
+    person = models.OneToOneField(Person, on_delete = models.CASCADE)
+    # vehicle = models.ForeignKey(Vehicle, null=True, blank=True, on_delete = models.DO_NOTHING)
     #p5
     age = models.PositiveSmallIntegerField(null = True)
     #p6 
@@ -3210,12 +3229,17 @@ class PedestrianType(models.Model):
     ]
     bike_crash_group = models.PositiveSmallIntegerField(choices=bike_crash_group_choices, default=0)
 
+    class Meta:
+        db_table = "pedestrian_type"
+        managed = True
+
+
 class CrashEvent(models.Model):
-    accident = models.ForeignKey(Accident, null=False, on_delete=models.DO_NOTHING)
-    event_num = models.PositiveSmallIntegerField(null=False)
+    accident = models.ForeignKey(Accident, null=False, on_delete=models.CASCADE)
+    crash_event_number = models.PositiveSmallIntegerField(null=False)
     # VNUMBER1 c18a
-    vehicle_1 = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.DO_NOTHING, related_name="crash_event_vehicle_1")
-    vehicle_2 = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.DO_NOTHING, related_name="crash_event_vehicle_2")
+    vehicle_1 = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.CASCADE, related_name="crash_event_vehicle_1")
+    vehicle_2 = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.CASCADE, related_name="crash_event_vehicle_2")
     # C18B AOI1 
     area_of_impact_choices = [
         (0, "Non-Collision"),
@@ -3322,13 +3346,17 @@ class CrashEvent(models.Model):
         (99,'Unknown/Reported as Unknown (Since 2018)'),
     ]
     sequence_of_events = models.PositiveSmallIntegerField(choices=sequence_of_events_choices, default=98)
+    
+    class Meta:
+        unique_together = [["accident", "crash_event_number"]]
+        db_table = "crash_event"
+        managed = True
 
 class VehicleEvent(models.Model):
-    accident = models.ForeignKey(Accident, null=False, on_delete=models.DO_NOTHING)
-    event_number = models.PositiveSmallIntegerField(null=False)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete=models.CASCADE)
+    crash_event = models.ForeignKey(CrashEvent, null=False, blank=False, on_delete=models.CASCADE)
     vehicle_event_number = models.PositiveSmallIntegerField(null=False)
 
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete=models.DO_NOTHING)
     # VNUMBER1 C18A
     vehicle_1 = models.ForeignKey(Vehicle, null=True, blank = True, on_delete=models.DO_NOTHING, related_name="vehicle_event_vehicle_1")
     vehicle_2 = models.ForeignKey(Vehicle, null=True, blank = True, on_delete=models.DO_NOTHING, related_name="vehicle_event_vehicle_2")
@@ -3440,9 +3468,14 @@ class VehicleEvent(models.Model):
     ]
     sequence_of_events = models.PositiveSmallIntegerField(choices=sequence_of_events_choices, default=98)
     
+    class Meta:
+        unique_together = [["vehicle", "vehicle_event_number"]]
+        db_table = "vehicle_event"
+        managed = True
+
+
 class VehicleSequenceOfEvents(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=False, blank=False, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=False, blank=False, on_delete = models.CASCADE)
     vehicle_event_number = models.PositiveSmallIntegerField(null=False)
     # C18E AOI
     area_of_impact_choices = [
@@ -3550,9 +3583,14 @@ class VehicleSequenceOfEvents(models.Model):
     ]
     sequence_of_events = models.PositiveSmallIntegerField(choices=sequence_of_events_choices, default=98)
 
+    class Meta:
+        unique_together = [["vehicle", "vehicle_event_number"]]
+        db_table = "vehicle_sequence_of_events"
+        managed = True
+
 
 class CrashRelatedFactors(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.CASCADE)
     # CRASHRF C32
     crash_related_factor_choices = [
         (0, 'None Noted'),
@@ -3586,9 +3624,12 @@ class CrashRelatedFactors(models.Model):
     ]
     crash_related_factor = models.PositiveSmallIntegerField(choices=crash_related_factor_choices, default=0)
     
+    class Meta:
+        db_table = "crash_related_factor"
+        managed = True
 
 class Weather(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
+    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.CASCADE)
     #c26 weather
     atmospheric_condition_choices = [
         (1, "Clear"),
@@ -3607,9 +3648,12 @@ class Weather(models.Model):
     ]
     atmospheric_condition = models.PositiveSmallIntegerField(choices=atmospheric_condition_choices, default=98)
 
+    class Meta:
+        db_table = "weather"
+        managed = True
+
 class VehicleRelatedFactor(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, on_delete = models.CASCADE)
     # v41 VEHICLESF
     vehicle_related_factor_choices = [
         (0, 'None Noted'),
@@ -3627,9 +3671,12 @@ class VehicleRelatedFactor(models.Model):
     ]
     vehicle_related_factor = models.PositiveSmallIntegerField(choices=vehicle_related_factor_choices, default=0)
 
+    class Meta:
+        db_table = "vehicle_related_factor"
+        managed = True
+
 class ParkedVehicleRelatedFactor(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    parked_vehicle = models.ForeignKey(ParkedVehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    parked_vehicle = models.ForeignKey(ParkedVehicle, null=False, blank = False, on_delete = models.CASCADE)
     # v41 VEHICLESF
     parked_vehicle_related_factor_choices = [
         (0, 'None Noted'),
@@ -3647,9 +3694,12 @@ class ParkedVehicleRelatedFactor(models.Model):
     ]
     parked_vehicle_related_factor  = models.PositiveSmallIntegerField(choices=parked_vehicle_related_factor_choices, default=0)
 
+    class Meta:
+        db_table = "parked_vehicle_related_factor"
+        managed = True
+
 class DriverRelatedFactor(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
     # DRIVERRF D24
     driver_related_factor_choices = [
         (0, 'None Noted'),
@@ -3720,9 +3770,12 @@ class DriverRelatedFactor(models.Model):
         (97, 'Transportation (i.e., Maintenance Workers, Safety Service Patrol Operators, etc.)'),
     ]
 
+    class Meta:
+        db_table = "driver_related_factor"
+        managed = True
+
 class Damage(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=False, blank= False, on_delete = models.CASCADE)
     # MDAREAS DAMAGE  V34B
     area_of_impact_choices = [
         (1, "1 O'Clock"),
@@ -3744,9 +3797,13 @@ class Damage(models.Model):
     ]
     area_of_impact = models.PositiveSmallIntegerField(choices=area_of_impact_choices, default=15)
 
+    class Meta:
+        db_table = "damage"
+        managed = True
+
+
 class DriverDistracted(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
     # MDRDSTRD DRDISTRACT PC16
     distracted_by_choices = [
         (0, 'Not Distracted'),
@@ -3774,10 +3831,12 @@ class DriverDistracted(models.Model):
     ]
     distracted_by = models.PositiveSmallIntegerField(choices=distracted_by_choices, default=99)
 
-class DriverImpaired(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    class Meta:
+        db_table = "driver_distracted"
+        managed = True
 
+class DriverImpaired(models.Model):
+    vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
     # DRIMPAIR D23
     driver_impaired_choices = [
         (0, 'None/Apparently Normal'),
@@ -3798,10 +3857,13 @@ class DriverImpaired(models.Model):
     ]
     driver_impaired = models.PositiveSmallIntegerField(choices=driver_impaired_choices, default=99)
 
+    class Meta:
+        db_table = "driver_impaired"
+        managed = True
+
+
 class VehicleFactor(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
-    
+    vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
     # PC4 MFACTOR VEHICLECC
     contributing_cause_choices = [
         (0, 'None Noted'),
@@ -3827,10 +3889,13 @@ class VehicleFactor(models.Model):
     ]
     contributing_cause = models.PositiveSmallIntegerField(choices=contributing_cause_choices, default=0)
 
+    class Meta:
+        db_table = "vehicle_factor"
+        managed = True
+
+
 class Maneuver(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
-    
+    vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
     # MDRMANAV MANEUVER PC15
     driver_maneuvered_to_avoid_choices = [
         (0, 'Driver Did Not Maneuver to Avoid'),
@@ -3846,10 +3911,13 @@ class Maneuver(models.Model):
     ]
     driver_maneuvered_to_avoid = models.PositiveSmallIntegerField(choices=driver_maneuvered_to_avoid_choices, default=98)
 
-class Violation(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    class Meta:
+        db_table = "maneuver"
+        managed = True
 
+
+class Violation(models.Model):
+    vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
     # MVIOLATN VIOLATION D21
     moving_violation_choices = [
         (0, 'None'),
@@ -3932,9 +4000,13 @@ class Violation(models.Model):
     ]
     moving_violation = models.PositiveSmallIntegerField(choices=moving_violation_choices, default=0)
 
+    class Meta:
+        db_table = "violation"
+        managed = True
+
+
 class Vision(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
+    vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
 
     # MVISOBSC VISION PC14
     visibility_choices = [
@@ -3960,6 +4032,9 @@ class Vision(models.Model):
     ]
     visibility = models.PositiveSmallIntegerField(choices=visibility_choices, default=99)
 
+    class Meta:
+        db_table = "vision"
+        managed = True
 
 # Person-related factors for all drivers are coded 00. Person-related factors for non-drivers can
 # have non-zero values as listed below.
@@ -3967,9 +4042,7 @@ class Vision(models.Model):
 # and higher correspond directly the same values for 1982 to 2009. 
     
 class PersonRelatedFactor(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
-    person = models.ForeignKey(Person, null=True, blank=True, on_delete = models.DO_NOTHING)
+    person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
     # PERSONRF P24/NM26 
     person_related_factor_choices = [
@@ -4040,11 +4113,14 @@ class PersonRelatedFactor(models.Model):
     ]
     person_related_factor = models.PositiveSmallIntegerField(choices=person_related_factor_choices, default=0)
 
+    class Meta:
+        db_table = "person_related_factor"
+        managed = True
+
+
 class Drugs(models.Model):
 
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
-    person = models.ForeignKey(Person, null=True, blank=True, on_delete = models.DO_NOTHING)
+    person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
     # P19/NM21 DRUGSPEC
     drug_test_type_choices = [
@@ -4064,10 +4140,14 @@ class Drugs(models.Model):
     # P19C/NM21C  DRUGRES
     drug_test_results = models.PositiveIntegerField(null=False, blank=False)
 
+    class Meta:
+        db_table = "drugs"
+        managed = True
+
+
 class Race(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
-    person = models.ForeignKey(Person, null=True, blank=True, on_delete = models.DO_NOTHING)
+
+    person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
     # SP3A RACE
     race_choices = [
@@ -4096,10 +4176,14 @@ class Race(models.Model):
     # ORDER
     order = models.PositiveSmallIntegerField(null=False, blank=False, default=1)
 
+    class Meta:
+        db_table = "race"
+        managed = True
+
+
 class NonmotoristContributingCircumstance(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
-    person = models.ForeignKey(Person, null=True, blank=True, on_delete = models.DO_NOTHING)
+
+    person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
     # NM14 MTM_CRSH NMCC
     nonmotorist_contributing_circumstance_choices = [
@@ -4130,10 +4214,14 @@ class NonmotoristContributingCircumstance(models.Model):
     ]
     nonmotorist_contributing_circumstance = models.PositiveSmallIntegerField(choices=nonmotorist_contributing_circumstance_choices, default=0)
 
+    class Meta:
+        db_table = "nonmotorist_contributing_circumstance"
+        managed = True
+
+
 class NonmotoristDistracted(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
-    person = models.ForeignKey(Person, null=True, blank=True, on_delete = models.DO_NOTHING)
+
+    person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
     # NM15 MNMDSTRD NMDISTRACT
     nonmotorist_distracted_by_choices = [
@@ -4160,10 +4248,14 @@ class NonmotoristDistracted(models.Model):
     ]
     nonmotorist_distracted_by = models.PositiveSmallIntegerField(choices=nonmotorist_distracted_by_choices, default=0)
 
+    class Meta:
+        db_table = "nonmotorist_distracted"
+        managed = True
+
+
 class NonmotoristImpaired(models.Model):
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
-    person = models.ForeignKey(Person, null=True, blank=True, on_delete = models.DO_NOTHING)
+
+    person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
     #NM17 NMIMPAIR
     nonmotorist_impaired_choices = [
@@ -4184,11 +4276,14 @@ class NonmotoristImpaired(models.Model):
     ]
     nonmotorist_impaired = models.PositiveSmallIntegerField(choices=nonmotorist_impaired_choices, default=0)
 
+    class Meta:
+        db_table = "nonmotorist_impaired"
+        managed = True
+
+
 class NonmotoristPriorAction(models.Model):
 
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
-    person = models.ForeignKey(Person, null=True, blank=True, on_delete = models.DO_NOTHING)
+    person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
     # MPR_ACT NMACTION NM13
     nonmotorist_prior_action_choices = [
@@ -4210,11 +4305,14 @@ class NonmotoristPriorAction(models.Model):
     ]
     nonmotorist_prior_action = models.PositiveSmallIntegerField(choices=nonmotorist_prior_action_choices, default=99)
 
+    class Meta:
+        db_table = "nonmotorist_prior_action"
+        managed = True
+
+
 class SafetyEquipment(models.Model):
 
-    accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.DO_NOTHING)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete = models.DO_NOTHING)
-    person = models.ForeignKey(Person, null=True, blank=True, on_delete = models.DO_NOTHING)
+    person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
     safety_equipment_choices = [
         (1, "No"),
         (2, "Yes"),
@@ -4235,3 +4333,6 @@ class SafetyEquipment(models.Model):
     other_preventative_equipment = models.PositiveSmallIntegerField(choices=safety_equipment_choices, default=8)
 
 
+    class Meta:
+        db_table = "safety_equipment"
+        managed = True
