@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from fatalities.models import Accident
+from fatalities.models import Accident, City, County, State
 from fatalities.data_processing import get_data_source
 import pandas as pd
 
@@ -14,8 +14,6 @@ class Command(BaseCommand):
             'number_of_parked_vehicles',
             'number_of_persons_in_motor_vehicles',
             'number_of_persons_in_motor_vehicles_in_transport',
-            'county',
-            'city',
             'month',
             'day',
             'day_of_the_week',
@@ -53,7 +51,25 @@ class Command(BaseCommand):
         ]
         csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/accident.csv", encoding='latin-1')
         for x in csv.head(30).index:
-            data_to_save = {"year": 2022}
+            print(csv['STATE'][x])
+            print(csv['COUNTY'][x])
+            print(csv['CITY'][x])
+            
+            state = State.objects.get(id=csv['STATE'][x])
+            if csv['COUNTY'][x]:
+                county = County.objects.get(state=state, county_id=csv['COUNTY'][x])
+            else: 
+                county = None
+            if csv['CITY'][x]:
+                city = City.objects.get(state=state, city_id=csv['CITY'][x])
+            else: 
+                city = None
+            data_to_save = {
+                "year": 2022,
+                "state": state,
+                "county": county,
+                "city": city
+            }
             for model_field_name in accident_model_fields:
                 data_source = get_data_source("accident." + model_field_name, 2022)
                 csv_field_name = data_source.split(".")[1]

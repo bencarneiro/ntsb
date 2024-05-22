@@ -52,6 +52,7 @@ class Accident(models.Model):
     number_of_persons_in_motor_vehicles = models.PositiveSmallIntegerField(default=0)
     #c5a
     number_of_persons_in_motor_vehicles_in_transport = models.PositiveSmallIntegerField(default=0)
+    state = models.ForeignKey(State, null=True, blank=True, on_delete = models.DO_NOTHING)
     # C6 County COUNTY 40
     county = models.ForeignKey(County, null=True, blank=True, on_delete = models.DO_NOTHING)
     # C7 City CITY 41
