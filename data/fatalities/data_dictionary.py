@@ -1,4 +1,15 @@
 FARS_DATA_DICTIONARY = {
+    #C5
+    "accident.st_case": [
+
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "accident.ST_CASE"
+        }
+    ],
     #C3
     "accident.number_of_persons_not_in_motor_vehicles": [
         {
@@ -365,7 +376,7 @@ FARS_DATA_DICTIONARY = {
         }
     ],
     #c23
-    "accident.relationship_to_road": [
+    "accident.relation_to_road": [
         {
             "range": {
                 "start": 1975,
@@ -413,7 +424,7 @@ FARS_DATA_DICTIONARY = {
         }
     ],
     #C27
-    "accident.school_bus_involved": [
+    "accident.school_bus_related": [
         {
             "range": {
                 "start": 1977,
@@ -479,7 +490,7 @@ FARS_DATA_DICTIONARY = {
                 "start": 1987,
                 "end": None
             },
-            "key": "accident.HOSP_HOUR"
+            "key": "accident.HOSP_HR"
         }
     ],
     #c31B
@@ -489,7 +500,7 @@ FARS_DATA_DICTIONARY = {
                 "start": 1987,
                 "end": None
             },
-            "key": "accident.HOSP_MIN"
+            "key": "accident.HOSP_MN"
         }
     ],
     #C101

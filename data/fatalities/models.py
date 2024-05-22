@@ -93,8 +93,8 @@ class Accident(models.Model):
     hour = models.PositiveSmallIntegerField(null=True, blank=True)
     # C9B Minute of Crash MINUTE 44
 
-    hour = models.PositiveSmallIntegerField(null=True, blank=True)
-    datetime = models.DateTimeField(null=True, blank=True)
+    minute = models.PositiveSmallIntegerField(null=True, blank=True)
+    # datetime = models.DateTimeField(null=True, blank=True)
 
     #C10
     trafficway_identifier_1 = models.CharField(max_length=256, null=True, blank=True)
