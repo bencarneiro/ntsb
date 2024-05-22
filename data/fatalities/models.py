@@ -14,7 +14,7 @@ class State(models.Model):
 
 class County(models.Model):
     state = models.ForeignKey(State, null=False, blank=False, on_delete=models.DO_NOTHING)
-    id = models.PositiveIntegerField(null=False, blank=False)
+    county_id = models.PositiveIntegerField(null=False, blank=False)
     name = models.CharField(max_length=512, null=False)
 
     class Meta:
@@ -1971,7 +1971,7 @@ class Person(models.Model):
     #p100b
     lag_minutes = models.PositiveSmallIntegerField(null=True, blank=True)
     #NM4
-    vehicle_which_struck_non_motorist = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.DO_NOTHING)
+    vehicle_which_struck_non_motorist = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.DO_NOTHING, related_name="vehicle_which_struck_nonmotorist")
     #nm8
     non_motorist_device_type_choices = [
         (0, 'Not Applicable'),
@@ -3160,7 +3160,7 @@ class PedestrianType(models.Model):
         ('8', 'Not Applicable'),
         ('99', 'Unknown/Insufficient Information (Since 2017)'),
     ]
-    pedestrian_scenario = models.CharField(choices=pedestrian_scenario_choices, default=99)
+    pedestrian_scenario = models.CharField(choices=pedestrian_scenario_choices, default=99, max_length=16)
 
     # NM11-PB38 PEDCGP
     pedestrian_crash_group_choices = [
@@ -3214,8 +3214,8 @@ class CrashEvent(models.Model):
     accident = models.ForeignKey(Accident, null=False, on_delete=models.DO_NOTHING)
     event_num = models.PositiveSmallIntegerField(null=False)
     # VNUMBER1 c18a
-    vehicle_1 = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.DO_NOTHING)
-    vehicle_2 = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.DO_NOTHING)
+    vehicle_1 = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.DO_NOTHING, related_name="crash_event_vehicle_1")
+    vehicle_2 = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.DO_NOTHING, related_name="crash_event_vehicle_2")
     # C18B AOI1 
     area_of_impact_choices = [
         (0, "Non-Collision"),
@@ -3330,8 +3330,8 @@ class VehicleEvent(models.Model):
 
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete=models.DO_NOTHING)
     # VNUMBER1 C18A
-    vehicle_1 = models.ForeignKey(Vehicle, null=True, blank = True, on_delete=models.DO_NOTHING)
-    vehicle_2 = models.ForeignKey(Vehicle, null=True, blank = True, on_delete=models.DO_NOTHING)
+    vehicle_1 = models.ForeignKey(Vehicle, null=True, blank = True, on_delete=models.DO_NOTHING, related_name="vehicle_event_vehicle_1")
+    vehicle_2 = models.ForeignKey(Vehicle, null=True, blank = True, on_delete=models.DO_NOTHING, related_name="vehicle_event_vehicle_2")
     # C18B AOI1 
     area_of_impact_choices = [
         (0, "Non-Collision"),
