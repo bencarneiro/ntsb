@@ -75,13 +75,12 @@ WSGI_APPLICATION = "data.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME', 'ntsb'),
-        'USER': os.environ.get('DB_USER', 'root'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'woogifs'),
-        'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
-        'PORT': os.environ.get('DB_PORT', '3306'),
+    "default": {
+        "HOST": "localhost",
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "NAME": "crash",
+        "USER": "app",
+        "PASSWORD": "assword",
     },
 }
 
