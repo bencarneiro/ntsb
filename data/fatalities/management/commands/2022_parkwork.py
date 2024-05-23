@@ -1,0 +1,68 @@
+from django.core.management.base import BaseCommand
+from fatalities.models import ParkedVehicle, Accident
+from fatalities.data_processing import get_data_source
+import pandas as pd
+
+class Command(BaseCommand):
+    def handle(self, *args, **kwasrgs):
+        ParkedVehicle.objects.filter(accident__year=2022).delete()
+        vehicle_model_fields = [
+            'vehicle_number',
+            'first_harmful_event',
+            'manner_of_collision_of_first_harmful_event',
+            'number_of_occupants',
+            'unit_type',
+            'hit_and_run',
+            'registration_state',
+            'registered_vehicle_owner',
+            'vehicle_identification_number',
+            'vehicle_model_year',
+            'vpic_make',
+            'vpic_model',
+            'vpic_body_class',
+            'ncsa_make',
+            'ncsa_model',
+            'body_type',
+            'final_stage_body_class',
+            'gross_vehicle_weight_rating_lower',
+            'gross_vehicle_weight_rating_upper',
+            'vehicle_trailing',
+            'trailer_vin_1',
+            'trailer_vin_2',
+            'trailer_vin_3',
+            'trailer_weight_rating_1',
+            'trailer_weight_rating_2',
+            'trailer_weight_rating_3',
+            'motor_carrier_identification_number',
+            'vehicle_configuration',
+            'cargo_body_type',
+            'hazardous_material_placard',
+            'hazardous_material_id',
+            'hazardous_material_class_number',
+            'release_of_hazardous_material',
+            'bus_use',
+            'special_vehicle_use',
+            'emergency_vehicle_use',
+            'underride_override',
+            'initial_contact_point',
+            'extent_of_damage',
+            'vehicle_towed',
+            'most_harmful_event',
+            'fire_occurence',
+            'fatalities',
+            'combined_make_model_id'
+        ]
+        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/parkwork.csv", encoding='latin-1')
+        for x in csv.index:
+            accident = Accident.objects.get(year=2022, st_case=csv['ST_CASE'][x])
+            data_to_save = {
+                "accident": accident,
+                "hazardous_material_involvement": csv['HAZ_INV'][x] - 1
+            }
+            for model_field_name in vehicle_model_fields:
+                data_source = get_data_source("vehicle." + model_field_name, 2022)
+                csv_field_name = data_source.split(".")[1]
+                data_to_save[model_field_name] = csv[csv_field_name][x]
+            print(data_to_save)
+            ParkedVehicle.objects.create(**data_to_save)
+            # break

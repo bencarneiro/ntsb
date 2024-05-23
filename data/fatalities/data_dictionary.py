@@ -1916,6 +1916,22 @@ FARS_DATA_DICTIONARY = {
             "key": "person.HISPANIC"
         }
     ],
+    "parked_vehicle.vehicle_number": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 2009
+            },
+            "key": "VEHICLE.VEH_NO"
+        },
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "PARKWORK.VEH_NO"
+        }
+    ],
     # C19 
     "parked_vehicle.first_harmful_event": [
         {
