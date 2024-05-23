@@ -57,10 +57,10 @@ class Command(BaseCommand):
             accident = Accident.objects.get(year=2022, st_case=csv['ST_CASE'][x])
             data_to_save = {
                 "accident": accident,
-                "hazardous_material_involvement": csv['HAZ_INV'][x] - 1
+                "hazardous_material_involvement": csv['PHAZ_INV'][x] - 1
             }
             for model_field_name in vehicle_model_fields:
-                data_source = get_data_source("vehicle." + model_field_name, 2022)
+                data_source = get_data_source("parked_vehicle." + model_field_name, 2022)
                 csv_field_name = data_source.split(".")[1]
                 data_to_save[model_field_name] = csv[csv_field_name][x]
             print(data_to_save)

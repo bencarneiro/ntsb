@@ -2143,7 +2143,7 @@ FARS_DATA_DICTIONARY = {
     ],
     # V15 PMODEL
 
-    "parked_vehicle.ncsa_make": [
+    "parked_vehicle.ncsa_model": [
         {
             "range": {
                 "start": 1975,
@@ -2365,7 +2365,7 @@ FARS_DATA_DICTIONARY = {
                 "start": 2010,
                 "end": None
             },
-            "key": "PARKWORK.PHAZ_PLAC"
+            "key": "PARKWORK.PHAZPLAC"
         }
     ],
     "parked_vehicle.hazardous_material_id": [
