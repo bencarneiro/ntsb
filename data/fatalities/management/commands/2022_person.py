@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from fatalities.models import Vehicle, Accident, Person
+from fatalities.models import Vehicle, Accident, Person, ParkedVehicle
 from fatalities.data_processing import get_data_source
 import pandas as pd
 
@@ -53,6 +53,11 @@ class Command(BaseCommand):
             except:
                 vehicle = None
             data_to_save['vehicle'] = vehicle
+            try:
+                parked_vehicle = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv['VEH_NO'][x])
+            except:
+                parked_vehicle = None
+            data_to_save['parked_vehicle'] = parked_vehicle
 
             try: 
                 vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv['STR_VEH'][x])

@@ -1711,353 +1711,6 @@ class Vehicle(models.Model):
         db_table = "vehicle"
         managed = True
 
-class Person(models.Model):
-    accident = models.ForeignKey(Accident, on_delete=models.CASCADE)
-    vehicle = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.CASCADE)
-    person_number = models.PositiveSmallIntegerField(null=False)
-    # id = models.PositiveBigIntegerField(primary_key = True)
-    
-    #p5
-    age = models.PositiveSmallIntegerField(null = True)
-    #p6 
-    sex_choices = [
-        (1, "Male"),
-        (2, "Female"),
-        (8, "Not Reported"),
-        (9, "Reported as Unknown")
-    ]
-    sex = models.PositiveSmallIntegerField(choices=sex_choices, default=8)
-    #p7 PER_TYP
-    person_type_choices = [
-        (1, 'Driver of a Motor Vehicle In-Transport'),
-        (2, 'Passenger of a Motor Vehicle In-Transport'),
-        (3, 'Occupant of a Motor Vehicle Not In-Transport'),
-        (4, 'Occupant of a Non-Motor Vehicle Transport Device'),
-        (5, 'Pedestrian'),
-        (6, 'Bicyclist'),
-        (7, 'Other Pedalcyclist'),
-        (8, 'Person on Personal Conveyance'),
-        (9, 'Unknown Occupant Type in a Motor Vehicle In Transport'),
-        (10, 'Person In/On a Building'),
-        (19, 'Unknown Type of Non-Motorist'),
-    ]
-    person_type = models.PositiveSmallIntegerField(choices=person_type_choices, default=9)
-    #p8 injury_severity
-    injury_severity_choices = [
-        (0, 'No Apparent Injury (O)'),
-        (1, 'Possible Injury (C)'),
-        (2, 'Suspected Minor Injury (B)'),
-        (3, 'Suspected Serious Injury (A)'),
-        (4, 'Fatal Injury (K)'),
-        (5, 'Injured, Severity Unknown (U) (Since 1978)'),
-        (6, 'Died Prior to Crash'),
-        (9, 'Unknown/Not Reported')
-    ]
-    injury_severity = models.PositiveSmallIntegerField(choices=injury_severity_choices, default=9)
-
-    #p9 seating position
-    seating_position_choices = [
-        (0, 'Not a Motor Vehicle Occupant (2005-Later)'),
-        (11, "Front Seat, Left Side (Driver's Side)"),
-        (12, 'Front Seat, Middle'),
-        (13, 'Front Seat, Right Side'),
-        (18, 'Front Seat, Other'),
-        (19, 'Front Seat, Unknown'),
-        (21, 'Second Seat, Left Side'),
-        (22, 'Second Seat, Middle'),
-        (23, 'Second Seat, Right Side'),
-        (28, 'Second Seat, Other'),
-        (29, 'Second Seat, Unknown'),
-        (31, 'Third Seat, Left Side'),
-        (32, 'Third Seat, Middle'),
-        (33, 'Third Seat, Right Side'),
-        (38, 'Third Seat, Other'),
-        (39, 'Third Seat, Unknown'),
-        (41, 'Fourth Seat, Left Side'),
-        (42, 'Fourth Seat, Middle'),
-        (43, 'Fourth Seat, Right Side'),
-        (48, 'Fourth Seat, Other'),
-        (49, 'Fourth Seat, Unknown'),
-        (50, 'Sleeper Section of Cab (Truck)'),
-        (51, 'Other Passenger in Enclosed Passenger or Cargo Area (Since 2009)'),
-        (52, 'Other Passenger in Unenclosed Passenger or Cargo Area'),
-        (53, 'Other Passenger in Passenger or Cargo Area, Unknown Whether or Not Enclosed'),
-        (54, 'Trailing Unit'),
-        (55, 'Riding on Vehicle Exterior'),
-        (56, 'Appended to a Motor Vehicle for Motion'),
-        (98, 'Not Reported'),
-        (99, 'Unknown/Reported as Unknown (Since 2018)'),
-    ]
-    seating_position = models.PositiveSmallIntegerField(choices=seating_position_choices, default=98)
-    #P10A restraint system use
-    restraint_system_use_choices = [
-        (1, 'Shoulder Belt Only Used'),
-        (2, 'Lap Belt Only Used'),
-        (3, 'Shoulder and Lap Belt Used'),
-        (4, 'Child Restraint - Type Unknown'),
-        (8, 'Restraint Used - Type Unknown'),
-        (10, 'Child Restraint System - Forward Facing (Since 2008)'),
-        (11, 'Child Restraint System - Rear Facing (Since 2008)'),
-        (12, 'Booster Seat'),
-        (20, 'None Used/Not Applicable'),
-        (96, 'Not a Motor Vehicle Occupant'),
-        (97, 'Other'),
-        (98, 'Not Reported'),
-        (99, 'Unknown/Reported as Unknown (Since 2018)'),
-    ]
-    restraint_system_use = models.PositiveSmallIntegerField(choices=restraint_system_use_choices, default=98)
-    #P10B restraint system misuse
-    restraint_system_misuse_choices = [
-        (0, "No Indication of Misuse"),
-        (1, "Yes, Indication of Misuse"),
-        (7, "None Used/Not Applicable"),
-        (8, "Not a Motor Vehicle Occupant")
-    ]
-    restraint_system_misuse = models.PositiveSmallIntegerField(choices=restraint_system_misuse_choices, default=7)
-    
-    # P11A Helmet Use 
-    helmet_use_choices = [
-        (5, 'DOT-Compliant Motorcycle Helmet'),
-        (16, 'Helmet, Other than DOT-Compliant Motorcycle Helmet'),
-        (17, 'No Helmet'),
-        (19, 'Helmet, Unknown if DOT-Compliant'),
-        (20, 'Not Applicable'),
-        (96, 'Not a Motor Vehicle Occupant'),
-        (98, 'Not Reported'),
-        (99, 'Unknown/Reported as Unknown if Helmet Worn'),
-    ]
-    helmet_use = models.PositiveSmallIntegerField(choices=helmet_use_choices, default=98)
-    #p11b
-    helmet_misuse = models.PositiveSmallIntegerField(choices=restraint_system_misuse_choices, default=7)
-
-    # p12
-    airbag_deployed_choices = [
-        (1, 'Deployed - Front'),
-        (2, 'Deployed - Side (Door, Seat Back)'),
-        (3, 'Deployed - Curtain (Roof)'),
-        (7, 'Deployed - Other (Knee, Air Belt, etc.)'),
-        (8, 'Deployed - Combination'),
-        (9, 'Deployment - Unknown Location'),
-        (20, 'Not Deployed'),
-        (97, 'Not a Motor Vehicle Occupant'),
-        (98, 'Not Reported'),
-        (99, 'Reported as Deployment Unknown'),
-    ]
-    airbag_deployed = models.PositiveSmallIntegerField(choices=airbag_deployed_choices, default=98)
-    # p13
-    ejection_choices = [
-        (0, "Not Ejected"),
-        (1, "Totally Ejected"),
-        (2, "Partially Ejected"),
-        (3, "Ejected - Unknown Degree (Since 2008)"),
-        (7, "Not Reported"),
-        (8, "Not Applicable"),
-        (9, "Reported as Unknown if Ejected")
-    ]
-    ejection = models.PositiveSmallIntegerField(choices=ejection_choices, default=8)
-    # p14 ejectionpath
-    ejection_path_choices = [
-        (0, 'Ejection Path Not Applicable'),
-        (1, 'Through Side Door Opening'),
-        (2, 'Through Side Window'),
-        (3, 'Through Windshield'),
-        (4, 'Through Back Window'),
-        (5, 'Through Back Door/Tailgate Opening'),
-        (6, 'Through Roof Opening (Sun Roof, Convertible Top Down)'),
-        (7, 'Through Roof (Convertible Top Up)'),
-        (8, 'Other Path (e.g., Back of Pickup Truck)'),
-        (9, 'Ejection Path Unknown'),
-    ]
-    ejection_path = models.PositiveSmallIntegerField(choices=ejection_path_choices, default=0)
-    #p15
-    extrication_choices = [
-        (0, "Not Extricated/Not Applicable"),
-        (1, "Extricated"),
-        (9, "Unknown")
-    ]
-    extrication = models.PositiveSmallIntegerField(choices=extrication_choices, default=9)
-    #p16
-    police_reported_alcohol_involvement_choices = [
-        (0, "No (Alcohol Not Involved)"),
-        (1, "Yes (Alcohol Involved)"),
-        (8, "Not Reported"),
-        (9, "Reported as Unknown")
-    ]
-    police_reported_alcohol_involvement = models.PositiveSmallIntegerField(choices=police_reported_alcohol_involvement_choices, default=8)
-    
-    #p17A
-    alcohol_test_given_choices = [
-        (0, "Test Not Given"),
-        (2, "Test Given"),
-        (8, "Not Reported"),
-        (9, "Reported as Unknown if Tested ")
-    ]
-    alcohol_test_given = models.PositiveSmallIntegerField(choices=alcohol_test_given_choices, default=8)
-    #p17B
-    alcohol_test_type_choices = [
-        (0, 'Not Tested for Alcohol'),
-        (1, 'Blood Test'),
-        (2, 'Breath Test (AC)'),
-        (3, 'Urine'),
-        (4, 'Vitreous'),
-        (5, 'Blood Plasma/Serum'),
-        (6, 'Blood Clot'),
-        (7, 'Liver'),
-        (8, 'Other Test Type'),
-        (10, 'Preliminary Breath Test (PBT)'),
-        (11, 'Breath Test, Unknown Type'),
-        (95, 'Not Reported'),
-        (98, 'Unknown Test Type (Since 2009)'),
-        (99, 'Reported as Unknown if Tested')
-    ]
-    alcohol_test_type = models.PositiveSmallIntegerField(choices=alcohol_test_type_choices, default=95)
-    #p17C
-    alcohol_test_result = models.PositiveSmallIntegerField(null=True, blank=True)
-    #p18
-    police_reported_drug_involvement_choices = [
-        (0, "No (Drugs Not Involved)"),
-        (1, "Yes (Drugs Involved)"),
-        (8, "Not Reported"),
-        (9, "Reported as Unknown")
-    ]
-    police_reported_drug_involvement = models.PositiveSmallIntegerField(choices=police_reported_drug_involvement_choices, default=8)
-    #p19A
-    drug_tested_choices = [
-        (0, "Test Not Given"),
-        (2, "Test Given"),
-        (8, "Not Reported"),
-        (9, "Reported as Unknown if Tested")
-    ]
-    drug_tested = models.PositiveSmallIntegerField(choices=drug_tested_choices, default=8)
-    
-    #p20
-    transported_to_medical_facility_by_choices = [
-        (0, 'Not Transported for Treatment'),
-        (1, 'EMS Air'),
-        (2, 'Law Enforcement'),
-        (3, 'EMS Unknown Mode'),
-        (4, 'Transported Unknown Source'),
-        (5, 'EMS Ground'),
-        (6, 'Other'),
-        (8, 'Not Reported'),
-        (9, 'Reported as Unknown')
-    ]
-    transported_to_medical_facility_by = models.PositiveSmallIntegerField(choices=transported_to_medical_facility_by_choices, default=8)
-    #p21
-    died_en_route_choices = [
-        (0, "Not Applicable"),
-        (7, "Died at Scene"),
-        (8, "Died En Route"),
-        (9, "Unknown")
-    ]
-    died_en_route = models.PositiveSmallIntegerField(choices=died_en_route_choices, default=0)
-    #p22a
-    month_of_death_choices = [
-        (1, "January"), 
-        (2, "February"), 
-        (3, "March"), 
-        (4, "April"), 
-        (5, "May"), 
-        (6, "June"), 
-        (7, "July"), 
-        (8, "August"), 
-        (9, "September"), 
-        (10, "October"), 
-        (11, "November"), 
-        (12, "December"), 
-        (88, "Not Applicable (Non-Fatal)"),
-        (99, "Unknown")
-    ]
-    month_of_death = models.PositiveSmallIntegerField(choices=month_of_death_choices)
-    #p22b
-    day_of_death = models.PositiveSmallIntegerField(null=True, blank=True)
-    #p22c
-    year_of_death = models.PositiveSmallIntegerField(null=True, blank=True)
-    #p23A
-    hour_of_death = models.IntegerField(null=True, blank=True)
-    #p23B
-    minute_of_death = models.IntegerField(null=True, blank=True)
-    #p100a
-    lag_hours = models.PositiveSmallIntegerField(null=True, blank=True)
-    #p100b
-    lag_minutes = models.PositiveSmallIntegerField(null=True, blank=True)
-    #NM4
-    vehicle_which_struck_non_motorist = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.DO_NOTHING, related_name="vehicle_which_struck_nonmotorist")
-    #nm8
-    non_motorist_device_type_choices = [
-        (0, 'Not Applicable'),
-        (1, 'Ridden Animal, Animal Drawn Conveyance, or Trailer'),
-        (2, 'Railway Vehicle or Road Vehicle on Rails'),
-        (3, 'Bicycle'),
-        (4, 'Other Pedalcycle'),
-        (5, 'Mobility Aid Device'),
-        (6, 'Skates'),
-        (7, 'Non-Self-Balancing Board (Skateboard)'),
-        (8, 'Self-Balancing Board'),
-        (9, 'Standing or Seated Scooter'),
-        (97, 'Personal Conveyance, Other'),
-        (98, 'Personal Conveyance, Unknown Type'),
-        (99, 'Unknown Type of Non-Motorist'),
-    ]
-    non_motorist_device_type = models.PositiveSmallIntegerField(choices=non_motorist_device_type_choices, default=0)
-    #nm9
-    non_motorist_device_motorization_choices = [
-        (0, "Not Applicable"),
-        (1, "Not Motorized"),
-        (2, "Motorized"),
-        (3, "Unknown/Not Reported if Motorized"),
-        (9, "Unknown Type of Non-Motorist")
-    ]
-    non_motorist_device_motorization = models.PositiveSmallIntegerField(choices=non_motorist_device_motorization_choices, default=0)
-    #nm10
-    non_motorist_location_choices = [
-        (0, 'Occupant of a Motor Vehicle (Includes Railway Train Occupants Since 2006)'),
-        (1, 'At Intersection-In Marked Crosswalk'),
-        (2, 'At Intersection-Unmarked/Unknown if Marked Crosswalk'),
-        (3, 'At Intersection-Not in Crosswalk'),
-        (9, 'At Intersection-Unknown Location'),
-        (10, 'Not at Intersection-In Marked Crosswalk'),
-        (11, 'Non at Intersection-On Roadway, Not in Marked Crosswalk'),
-        (13, 'Not at Intersection-On Roadway, Crosswalk Availability Unknown'),
-        (14, 'Parking Lane/Zone'),
-        (16, 'Bicycle Lane'),
-        (20, 'Shoulder/Roadside'),
-        (21, 'Sidewalk'),
-        (22, 'Median/Crossing Island'),
-        (23, 'Driveway Access'),
-        (24, 'Shared-Use Path'),
-        (25, 'Non-Trafficway Area'),
-        (28, 'Other'),
-        (98, 'Not Reported'),
-        (99, 'Reported as Unknown Location'),
-    ]
-    non_motorist_location = models.PositiveSmallIntegerField(choices=non_motorist_location_choices, default=0)
-    #sp2 
-    at_work_choices = [
-        (0, "No"),
-        (1, "Yes"),
-        (8, "Not Aplicable"),
-        (9, "Unknown")
-    ]
-    at_work = models.PositiveSmallIntegerField(choices=at_work_choices, default=9)
-    hispanic_choices = [
-        (0, 'Not a Fatality (Not Applicable)'),
-        (1, 'Mexican'),
-        (2, 'Puerto Rican'),
-        (3, 'Cuban'),
-        (4, 'Central or South American'),
-        (5, 'European Spanish (Since 2000)'),
-        (6, 'Hispanic, Origin Not Specified or Other Origin'),
-        (7, 'Non-Hispanic'),
-        (99, 'Unknown')
-    ]
-    hispanic = models.PositiveSmallIntegerField(choices=hispanic_choices, default=99)
-
-    class Meta:
-        unique_together = [["accident", "vehicle", "person_number"]]
-        db_table = "person"
-        managed = True
-
 # A class for parked cars involved with a given fatal crash
     
 class ParkedVehicle(models.Model):
@@ -2835,6 +2488,358 @@ class ParkedVehicle(models.Model):
         unique_together = [["accident", "vehicle_number"]]
         db_table = "parked_vehicle"
         managed = True
+
+
+
+class Person(models.Model):
+    accident = models.ForeignKey(Accident, on_delete=models.CASCADE)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.CASCADE)
+    parked_vehicle = models.ForeignKey(ParkedVehicle, null=True, blank=True, on_delete=models.CASCADE)
+    person_number = models.PositiveSmallIntegerField(null=False)
+    # id = models.PositiveBigIntegerField(primary_key = True)
+    
+    #p5
+    age = models.PositiveSmallIntegerField(null = True)
+    #p6 
+    sex_choices = [
+        (1, "Male"),
+        (2, "Female"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ]
+    sex = models.PositiveSmallIntegerField(choices=sex_choices, default=8)
+    #p7 PER_TYP
+    person_type_choices = [
+        (1, 'Driver of a Motor Vehicle In-Transport'),
+        (2, 'Passenger of a Motor Vehicle In-Transport'),
+        (3, 'Occupant of a Motor Vehicle Not In-Transport'),
+        (4, 'Occupant of a Non-Motor Vehicle Transport Device'),
+        (5, 'Pedestrian'),
+        (6, 'Bicyclist'),
+        (7, 'Other Pedalcyclist'),
+        (8, 'Person on Personal Conveyance'),
+        (9, 'Unknown Occupant Type in a Motor Vehicle In Transport'),
+        (10, 'Person In/On a Building'),
+        (19, 'Unknown Type of Non-Motorist'),
+    ]
+    person_type = models.PositiveSmallIntegerField(choices=person_type_choices, default=9)
+    #p8 injury_severity
+    injury_severity_choices = [
+        (0, 'No Apparent Injury (O)'),
+        (1, 'Possible Injury (C)'),
+        (2, 'Suspected Minor Injury (B)'),
+        (3, 'Suspected Serious Injury (A)'),
+        (4, 'Fatal Injury (K)'),
+        (5, 'Injured, Severity Unknown (U) (Since 1978)'),
+        (6, 'Died Prior to Crash'),
+        (9, 'Unknown/Not Reported')
+    ]
+    injury_severity = models.PositiveSmallIntegerField(choices=injury_severity_choices, default=9)
+
+    #p9 seating position
+    seating_position_choices = [
+        (0, 'Not a Motor Vehicle Occupant (2005-Later)'),
+        (11, "Front Seat, Left Side (Driver's Side)"),
+        (12, 'Front Seat, Middle'),
+        (13, 'Front Seat, Right Side'),
+        (18, 'Front Seat, Other'),
+        (19, 'Front Seat, Unknown'),
+        (21, 'Second Seat, Left Side'),
+        (22, 'Second Seat, Middle'),
+        (23, 'Second Seat, Right Side'),
+        (28, 'Second Seat, Other'),
+        (29, 'Second Seat, Unknown'),
+        (31, 'Third Seat, Left Side'),
+        (32, 'Third Seat, Middle'),
+        (33, 'Third Seat, Right Side'),
+        (38, 'Third Seat, Other'),
+        (39, 'Third Seat, Unknown'),
+        (41, 'Fourth Seat, Left Side'),
+        (42, 'Fourth Seat, Middle'),
+        (43, 'Fourth Seat, Right Side'),
+        (48, 'Fourth Seat, Other'),
+        (49, 'Fourth Seat, Unknown'),
+        (50, 'Sleeper Section of Cab (Truck)'),
+        (51, 'Other Passenger in Enclosed Passenger or Cargo Area (Since 2009)'),
+        (52, 'Other Passenger in Unenclosed Passenger or Cargo Area'),
+        (53, 'Other Passenger in Passenger or Cargo Area, Unknown Whether or Not Enclosed'),
+        (54, 'Trailing Unit'),
+        (55, 'Riding on Vehicle Exterior'),
+        (56, 'Appended to a Motor Vehicle for Motion'),
+        (98, 'Not Reported'),
+        (99, 'Unknown/Reported as Unknown (Since 2018)'),
+    ]
+    seating_position = models.PositiveSmallIntegerField(choices=seating_position_choices, default=98)
+    #P10A restraint system use
+    restraint_system_use_choices = [
+        (1, 'Shoulder Belt Only Used'),
+        (2, 'Lap Belt Only Used'),
+        (3, 'Shoulder and Lap Belt Used'),
+        (4, 'Child Restraint - Type Unknown'),
+        (8, 'Restraint Used - Type Unknown'),
+        (10, 'Child Restraint System - Forward Facing (Since 2008)'),
+        (11, 'Child Restraint System - Rear Facing (Since 2008)'),
+        (12, 'Booster Seat'),
+        (20, 'None Used/Not Applicable'),
+        (96, 'Not a Motor Vehicle Occupant'),
+        (97, 'Other'),
+        (98, 'Not Reported'),
+        (99, 'Unknown/Reported as Unknown (Since 2018)'),
+    ]
+    restraint_system_use = models.PositiveSmallIntegerField(choices=restraint_system_use_choices, default=98)
+    #P10B restraint system misuse
+    restraint_system_misuse_choices = [
+        (0, "No Indication of Misuse"),
+        (1, "Yes, Indication of Misuse"),
+        (7, "None Used/Not Applicable"),
+        (8, "Not a Motor Vehicle Occupant")
+    ]
+    restraint_system_misuse = models.PositiveSmallIntegerField(choices=restraint_system_misuse_choices, default=7)
+    
+    # P11A Helmet Use 
+    helmet_use_choices = [
+        (5, 'DOT-Compliant Motorcycle Helmet'),
+        (16, 'Helmet, Other than DOT-Compliant Motorcycle Helmet'),
+        (17, 'No Helmet'),
+        (19, 'Helmet, Unknown if DOT-Compliant'),
+        (20, 'Not Applicable'),
+        (96, 'Not a Motor Vehicle Occupant'),
+        (98, 'Not Reported'),
+        (99, 'Unknown/Reported as Unknown if Helmet Worn'),
+    ]
+    helmet_use = models.PositiveSmallIntegerField(choices=helmet_use_choices, default=98)
+    #p11b
+    helmet_misuse = models.PositiveSmallIntegerField(choices=restraint_system_misuse_choices, default=7)
+
+    # p12
+    airbag_deployed_choices = [
+        (1, 'Deployed - Front'),
+        (2, 'Deployed - Side (Door, Seat Back)'),
+        (3, 'Deployed - Curtain (Roof)'),
+        (7, 'Deployed - Other (Knee, Air Belt, etc.)'),
+        (8, 'Deployed - Combination'),
+        (9, 'Deployment - Unknown Location'),
+        (20, 'Not Deployed'),
+        (97, 'Not a Motor Vehicle Occupant'),
+        (98, 'Not Reported'),
+        (99, 'Reported as Deployment Unknown'),
+    ]
+    airbag_deployed = models.PositiveSmallIntegerField(choices=airbag_deployed_choices, default=98)
+    # p13
+    ejection_choices = [
+        (0, "Not Ejected"),
+        (1, "Totally Ejected"),
+        (2, "Partially Ejected"),
+        (3, "Ejected - Unknown Degree (Since 2008)"),
+        (7, "Not Reported"),
+        (8, "Not Applicable"),
+        (9, "Reported as Unknown if Ejected")
+    ]
+    ejection = models.PositiveSmallIntegerField(choices=ejection_choices, default=8)
+    # p14 ejectionpath
+    ejection_path_choices = [
+        (0, 'Ejection Path Not Applicable'),
+        (1, 'Through Side Door Opening'),
+        (2, 'Through Side Window'),
+        (3, 'Through Windshield'),
+        (4, 'Through Back Window'),
+        (5, 'Through Back Door/Tailgate Opening'),
+        (6, 'Through Roof Opening (Sun Roof, Convertible Top Down)'),
+        (7, 'Through Roof (Convertible Top Up)'),
+        (8, 'Other Path (e.g., Back of Pickup Truck)'),
+        (9, 'Ejection Path Unknown'),
+    ]
+    ejection_path = models.PositiveSmallIntegerField(choices=ejection_path_choices, default=0)
+    #p15
+    extrication_choices = [
+        (0, "Not Extricated/Not Applicable"),
+        (1, "Extricated"),
+        (9, "Unknown")
+    ]
+    extrication = models.PositiveSmallIntegerField(choices=extrication_choices, default=9)
+    #p16
+    police_reported_alcohol_involvement_choices = [
+        (0, "No (Alcohol Not Involved)"),
+        (1, "Yes (Alcohol Involved)"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ]
+    police_reported_alcohol_involvement = models.PositiveSmallIntegerField(choices=police_reported_alcohol_involvement_choices, default=8)
+    
+    #p17A
+    alcohol_test_given_choices = [
+        (0, "Test Not Given"),
+        (2, "Test Given"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown if Tested ")
+    ]
+    alcohol_test_given = models.PositiveSmallIntegerField(choices=alcohol_test_given_choices, default=8)
+    #p17B
+    alcohol_test_type_choices = [
+        (0, 'Not Tested for Alcohol'),
+        (1, 'Blood Test'),
+        (2, 'Breath Test (AC)'),
+        (3, 'Urine'),
+        (4, 'Vitreous'),
+        (5, 'Blood Plasma/Serum'),
+        (6, 'Blood Clot'),
+        (7, 'Liver'),
+        (8, 'Other Test Type'),
+        (10, 'Preliminary Breath Test (PBT)'),
+        (11, 'Breath Test, Unknown Type'),
+        (95, 'Not Reported'),
+        (98, 'Unknown Test Type (Since 2009)'),
+        (99, 'Reported as Unknown if Tested')
+    ]
+    alcohol_test_type = models.PositiveSmallIntegerField(choices=alcohol_test_type_choices, default=95)
+    #p17C
+    alcohol_test_result = models.PositiveSmallIntegerField(null=True, blank=True)
+    #p18
+    police_reported_drug_involvement_choices = [
+        (0, "No (Drugs Not Involved)"),
+        (1, "Yes (Drugs Involved)"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown")
+    ]
+    police_reported_drug_involvement = models.PositiveSmallIntegerField(choices=police_reported_drug_involvement_choices, default=8)
+    #p19A
+    drug_tested_choices = [
+        (0, "Test Not Given"),
+        (2, "Test Given"),
+        (8, "Not Reported"),
+        (9, "Reported as Unknown if Tested")
+    ]
+    drug_tested = models.PositiveSmallIntegerField(choices=drug_tested_choices, default=8)
+    
+    #p20
+    transported_to_medical_facility_by_choices = [
+        (0, 'Not Transported for Treatment'),
+        (1, 'EMS Air'),
+        (2, 'Law Enforcement'),
+        (3, 'EMS Unknown Mode'),
+        (4, 'Transported Unknown Source'),
+        (5, 'EMS Ground'),
+        (6, 'Other'),
+        (8, 'Not Reported'),
+        (9, 'Reported as Unknown')
+    ]
+    transported_to_medical_facility_by = models.PositiveSmallIntegerField(choices=transported_to_medical_facility_by_choices, default=8)
+    #p21
+    died_en_route_choices = [
+        (0, "Not Applicable"),
+        (7, "Died at Scene"),
+        (8, "Died En Route"),
+        (9, "Unknown")
+    ]
+    died_en_route = models.PositiveSmallIntegerField(choices=died_en_route_choices, default=0)
+    #p22a
+    month_of_death_choices = [
+        (1, "January"), 
+        (2, "February"), 
+        (3, "March"), 
+        (4, "April"), 
+        (5, "May"), 
+        (6, "June"), 
+        (7, "July"), 
+        (8, "August"), 
+        (9, "September"), 
+        (10, "October"), 
+        (11, "November"), 
+        (12, "December"), 
+        (88, "Not Applicable (Non-Fatal)"),
+        (99, "Unknown")
+    ]
+    month_of_death = models.PositiveSmallIntegerField(choices=month_of_death_choices)
+    #p22b
+    day_of_death = models.PositiveSmallIntegerField(null=True, blank=True)
+    #p22c
+    year_of_death = models.PositiveSmallIntegerField(null=True, blank=True)
+    #p23A
+    hour_of_death = models.IntegerField(null=True, blank=True)
+    #p23B
+    minute_of_death = models.IntegerField(null=True, blank=True)
+    #p100a
+    lag_hours = models.PositiveSmallIntegerField(null=True, blank=True)
+    #p100b
+    lag_minutes = models.PositiveSmallIntegerField(null=True, blank=True)
+    #NM4
+    vehicle_which_struck_non_motorist = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.DO_NOTHING, related_name="vehicle_which_struck_nonmotorist")
+    #nm8
+    non_motorist_device_type_choices = [
+        (0, 'Not Applicable'),
+        (1, 'Ridden Animal, Animal Drawn Conveyance, or Trailer'),
+        (2, 'Railway Vehicle or Road Vehicle on Rails'),
+        (3, 'Bicycle'),
+        (4, 'Other Pedalcycle'),
+        (5, 'Mobility Aid Device'),
+        (6, 'Skates'),
+        (7, 'Non-Self-Balancing Board (Skateboard)'),
+        (8, 'Self-Balancing Board'),
+        (9, 'Standing or Seated Scooter'),
+        (97, 'Personal Conveyance, Other'),
+        (98, 'Personal Conveyance, Unknown Type'),
+        (99, 'Unknown Type of Non-Motorist'),
+    ]
+    non_motorist_device_type = models.PositiveSmallIntegerField(choices=non_motorist_device_type_choices, default=0)
+    #nm9
+    non_motorist_device_motorization_choices = [
+        (0, "Not Applicable"),
+        (1, "Not Motorized"),
+        (2, "Motorized"),
+        (3, "Unknown/Not Reported if Motorized"),
+        (9, "Unknown Type of Non-Motorist")
+    ]
+    non_motorist_device_motorization = models.PositiveSmallIntegerField(choices=non_motorist_device_motorization_choices, default=0)
+    #nm10
+    non_motorist_location_choices = [
+        (0, 'Occupant of a Motor Vehicle (Includes Railway Train Occupants Since 2006)'),
+        (1, 'At Intersection-In Marked Crosswalk'),
+        (2, 'At Intersection-Unmarked/Unknown if Marked Crosswalk'),
+        (3, 'At Intersection-Not in Crosswalk'),
+        (9, 'At Intersection-Unknown Location'),
+        (10, 'Not at Intersection-In Marked Crosswalk'),
+        (11, 'Non at Intersection-On Roadway, Not in Marked Crosswalk'),
+        (13, 'Not at Intersection-On Roadway, Crosswalk Availability Unknown'),
+        (14, 'Parking Lane/Zone'),
+        (16, 'Bicycle Lane'),
+        (20, 'Shoulder/Roadside'),
+        (21, 'Sidewalk'),
+        (22, 'Median/Crossing Island'),
+        (23, 'Driveway Access'),
+        (24, 'Shared-Use Path'),
+        (25, 'Non-Trafficway Area'),
+        (28, 'Other'),
+        (98, 'Not Reported'),
+        (99, 'Reported as Unknown Location'),
+    ]
+    non_motorist_location = models.PositiveSmallIntegerField(choices=non_motorist_location_choices, default=0)
+    #sp2 
+    at_work_choices = [
+        (0, "No"),
+        (1, "Yes"),
+        (8, "Not Aplicable"),
+        (9, "Unknown")
+    ]
+    at_work = models.PositiveSmallIntegerField(choices=at_work_choices, default=9)
+    hispanic_choices = [
+        (0, 'Not a Fatality (Not Applicable)'),
+        (1, 'Mexican'),
+        (2, 'Puerto Rican'),
+        (3, 'Cuban'),
+        (4, 'Central or South American'),
+        (5, 'European Spanish (Since 2000)'),
+        (6, 'Hispanic, Origin Not Specified or Other Origin'),
+        (7, 'Non-Hispanic'),
+        (99, 'Unknown')
+    ]
+    hispanic = models.PositiveSmallIntegerField(choices=hispanic_choices, default=99)
+
+    class Meta:
+        unique_together = [["accident", "vehicle", "person_number"]]
+        db_table = "person"
+        managed = True
+
+
 
 class PedestrianType(models.Model):
     # accident = models.ForeignKey(Accident, null=False, on_delete=models.DO_NOTHING)

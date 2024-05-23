@@ -2809,7 +2809,7 @@ FARS_DATA_DICTIONARY = {
         }
     ],
     # NM11-PB38B
-    "pedestrian_type.bicycle_crash_group": [
+    "pedestrian_type.bike_crash_group": [
         {
             "range": {
                 "start": 2014,
