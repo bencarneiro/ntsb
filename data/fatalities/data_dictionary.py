@@ -1529,6 +1529,17 @@ FARS_DATA_DICTIONARY = {
         }
     ],
 
+
+    # p5 nm5 
+    "person.person_number":[
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "person.PER_NO"
+        }
+    ],
     # p5 nm5 
     "person.age":[
         {
@@ -1573,7 +1584,7 @@ FARS_DATA_DICTIONARY = {
         }
     ],
     # p9 SEAT_POS
-    "person.seat_position":[
+    "person.seating_position":[
         {
             "range": {
                 "start": 1975,
@@ -1637,7 +1648,7 @@ FARS_DATA_DICTIONARY = {
         }
     ],
     #p12 AIR_BAG
-    "person.air_bag": [
+    "person.airbag_deployed": [
         {
             "range": {
                 "start": 1991,
@@ -1707,7 +1718,7 @@ FARS_DATA_DICTIONARY = {
         }
     ],
     #p17C
-    "person.alcohol_test_results": [
+    "person.alcohol_test_result": [
         {
             "range": {
                 "start": 1975,
@@ -1835,7 +1846,7 @@ FARS_DATA_DICTIONARY = {
                 "start": 1975,
                 "end": None
             },
-            "key": "person.LAG_MNS"
+            "key": "person.LAG_MINS"
         }
     ],
     #NM4 N_MOT_NO STR_VEH
@@ -1896,7 +1907,7 @@ FARS_DATA_DICTIONARY = {
         }
     ],
     # SP3B HISPANIC
-    "person.hipsanic": [
+    "person.hispanic": [
         {
             "range": {
                 "start": 1999,
