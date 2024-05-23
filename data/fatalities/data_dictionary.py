@@ -516,6 +516,16 @@ FARS_DATA_DICTIONARY = {
 
     # VEHICLES
 
+    # VEH_NO
+    "vehicle.vehicle_number": [
+        {
+            "range": {
+                "start": 1975,
+                "end": None
+            },
+            "key": "vehicle.VEH_NO"
+        }
+    ],
     # V4
     "vehicle.number_of_occupants": [
         {
@@ -579,7 +589,7 @@ FARS_DATA_DICTIONARY = {
     ],
 
     # V10
-    "vehicle.model_year": [
+    "vehicle.vehicle_model_year": [
         {
             "range": {
                 "start": 1975,
@@ -886,7 +896,7 @@ FARS_DATA_DICTIONARY = {
         }
     ],
     #v31
-    "vehicle.under_override": [
+    "vehicle.underride_override": [
                                
         {
             "range": {
@@ -1407,7 +1417,7 @@ FARS_DATA_DICTIONARY = {
         }
     ],
     # pc11
-    "vehicle.roadway_surface_conditions": [
+    "vehicle.roadway_surface_condition": [
         {
             "range": {
                 "start": 1975,
@@ -1494,7 +1504,7 @@ FARS_DATA_DICTIONARY = {
                 "start": 2010,
                 "end": None
             },
-            "key": "vehicle.P_CRASH4"
+            "key": "vehicle.PCRASH4"
         }
     ], 
     # pc22
@@ -1504,7 +1514,7 @@ FARS_DATA_DICTIONARY = {
                 "start": 2010,
                 "end": None
             },
-            "key": "vehicle.P_CRASH5"
+            "key": "vehicle.PCRASH5"
         }
     ],
 

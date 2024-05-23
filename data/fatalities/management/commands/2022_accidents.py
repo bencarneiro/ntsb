@@ -5,7 +5,7 @@ import pandas as pd
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        Accident.objects.all().delete()
+        Accident.objects.filter(year=2022).delete()
         accident_model_fields = [
             'st_case',
             'number_of_persons_not_in_motor_vehicles',

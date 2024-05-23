@@ -494,7 +494,7 @@ class Vehicle(models.Model):
     #v10 
     vehicle_model_year = models.PositiveSmallIntegerField(null=True, blank=True)
     # V11
-    vpic_make = models.PositiveSmallIntegerField(null=True, blank=True)
+    vpic_make = models.PositiveIntegerField(null=True, blank=True)
     # V12
     vpic_model = models.PositiveIntegerField(null=True, blank=True)
     # V13

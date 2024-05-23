@@ -6,7 +6,7 @@ import json
 import folium
 
 def crashes(request):
-    deaths = Accident.objects.filter(state_id=48, county__county_id__in=[453,491, 209, 51, 53,21])
+    deaths = Accident.objects.filter(state_id=53, county__county_id__in=[33,61])
 
     feature_collection = """
         { "type": "FeatureCollection",
