@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 import pandas as pd
-from fatalities.models import DriverRelatedFactor, Accident, Vehicle
+from fatalities.models import DriverRelatedFactor, Vehicle
 
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):

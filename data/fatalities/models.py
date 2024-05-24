@@ -3786,7 +3786,7 @@ class DriverRelatedFactor(models.Model):
         managed = True
 
 class Damage(models.Model):
-    vehicle = models.ForeignKey(Vehicle, null=False, blank= False, on_delete = models.CASCADE)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank= True, on_delete = models.CASCADE)
     # MDAREAS DAMAGE  V34B
     area_of_impact_choices = [
         (1, "1 O'Clock"),
