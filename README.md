@@ -5,6 +5,12 @@ here are links to the meaning of all the 1s and 0s in the spreadsheets
 https://crashstats.nhtsa.dot.gov/#!/DocumentTypeList/23
 
 
-Here is the Bona fide Guide
-
-https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/813417
+In order for the import scripts to run correctly, they need to be in this order
+accident
+vehicle
+parkwork
+person
+pbtype
+cevent
+crashrf
+weather
