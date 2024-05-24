@@ -3779,6 +3779,7 @@ class DriverRelatedFactor(models.Model):
         (96, 'Tow Operator'),
         (97, 'Transportation (i.e., Maintenance Workers, Safety Service Patrol Operators, etc.)'),
     ]
+    driver_related_factor = models.PositiveSmallIntegerField(choices=driver_related_factor_choices, default=0)
 
     class Meta:
         db_table = "driver_related_factor"
