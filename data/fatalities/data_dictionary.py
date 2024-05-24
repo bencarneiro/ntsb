@@ -2818,6 +2818,16 @@ FARS_DATA_DICTIONARY = {
             "key": "PBTYPE.BIKECGP"
         }
     ],
+    "crash_event.crash_event_number": [
+
+        {
+            "range": {
+                "start": 2010,
+                "end": None
+            },
+            "key": "CEVENT.EVENTNUM"
+        }
+    ],
     # C18A VNUMBER1
     "crash_event.vehicle_1": [
         {

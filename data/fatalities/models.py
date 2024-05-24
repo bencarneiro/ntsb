@@ -3245,6 +3245,8 @@ class CrashEvent(models.Model):
     # VNUMBER1 c18a
     vehicle_1 = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.CASCADE, related_name="crash_event_vehicle_1")
     vehicle_2 = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.CASCADE, related_name="crash_event_vehicle_2")
+    parked_vehicle_1 = models.ForeignKey(ParkedVehicle, null=True, blank=True, on_delete=models.CASCADE, related_name="crash_event_parked_vehicle_1")
+    parked_vehicle_2 = models.ForeignKey(ParkedVehicle, null=True, blank=True, on_delete=models.CASCADE, related_name="crash_event_parked_vehicle_2")
     # C18B AOI1 
     area_of_impact_choices = [
         (0, "Non-Collision"),
@@ -3365,6 +3367,8 @@ class VehicleEvent(models.Model):
     # VNUMBER1 C18A
     vehicle_1 = models.ForeignKey(Vehicle, null=True, blank = True, on_delete=models.DO_NOTHING, related_name="vehicle_event_vehicle_1")
     vehicle_2 = models.ForeignKey(Vehicle, null=True, blank = True, on_delete=models.DO_NOTHING, related_name="vehicle_event_vehicle_2")
+    parked_vehicle_1 = models.ForeignKey(ParkedVehicle, null=True, blank = True, on_delete=models.DO_NOTHING, related_name="parked_vehicle_event_vehicle_1")
+    parked_vehicle_2 = models.ForeignKey(ParkedVehicle, null=True, blank = True, on_delete=models.DO_NOTHING, related_name="parked_vehicle_event_vehicle_2")
     # C18B AOI1 
     area_of_impact_choices = [
         (0, "Non-Collision"),
@@ -3480,7 +3484,8 @@ class VehicleEvent(models.Model):
 
 
 class VehicleSequenceOfEvents(models.Model):
-    vehicle = models.ForeignKey(Vehicle, null=False, blank=False, on_delete = models.CASCADE)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank=True, on_delete = models.CASCADE)
+    parked_vehicle = models.ForeignKey(ParkedVehicle, null=True, blank=True, on_delete = models.CASCADE)
     vehicle_event_number = models.PositiveSmallIntegerField(null=False)
     # C18E AOI
     area_of_impact_choices = [
