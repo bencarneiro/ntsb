@@ -4148,6 +4148,7 @@ class Drugs(models.Model):
         (98, 'Other Specimen'),
         (99, 'Reported as Unknown if Tested'),
     ]
+    drug_test_type = models.PositiveSmallIntegerField(choices=drug_test_type_choices, default=0)
     # P19C/NM21C  DRUGRES
     drug_test_results = models.PositiveIntegerField(null=False, blank=False)
 
