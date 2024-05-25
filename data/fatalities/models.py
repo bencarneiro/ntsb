@@ -4183,6 +4183,7 @@ class Race(models.Model):
         (98, 'Other Race'),
         (99, 'Unknown'),
     ]
+    race = models.PositiveSmallIntegerField(choices=race_choices, default=0)
     # SP3AA MULTRACE
     is_multiple_races = models.BooleanField(default=False)
     # ORDER
