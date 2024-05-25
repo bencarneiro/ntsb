@@ -4179,6 +4179,7 @@ class Race(models.Model):
         (58, 'Guamanian or Chamorro'),
         (68, 'Other Asian or Pacific Islander'),
         (78, 'Asian or Pacific Islander, No Specific (Individual) Race'),
+        (96, 'Redacted'),
         (97, 'Multiple Races, Unspecified'),
         (98, 'Other Race'),
         (99, 'Unknown'),

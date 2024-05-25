@@ -18,5 +18,8 @@ class Command(BaseCommand):
             data_to_save['race'] = csv['RACE'][x]
             data_to_save['is_multiple_races'] = csv['MULTRACE'][x]
             data_to_save['order'] = csv['ORDER'][x]
+            if csv['RACE'][x] == 96:
+                data_to_save['order'] = 1
+                data_to_save['is_multiple_races'] = 0
             print(data_to_save)
             Race.objects.create(**data_to_save)
