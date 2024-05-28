@@ -1,6 +1,16 @@
 from django.db import models
 from django.contrib.gis.db import models as gismodels
 
+
+
+class NonMotoristManager(models.Manager):
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(vehicle__vehicle_number__isnull=True)  # Literal is not good
+    
+
+
 # Create your models here.
 
 class State(models.Model):
@@ -2833,6 +2843,8 @@ class Person(models.Model):
         (99, 'Unknown')
     ]
     hispanic = models.PositiveSmallIntegerField(choices=hispanic_choices, default=99)
+    objects = models.Manager()  # The default manager.
+    nonmotorists = NonMotoristManager()
 
     class Meta:
         unique_together = [["accident", "vehicle", "person_number"]]
