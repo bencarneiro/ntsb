@@ -123,8 +123,6 @@ class VehicleSchema(Schema):
     id: int = Field(None, alias='vehicle_number')
     number_of_occupants: int
     fatalities: int
-    hit_and_run_id: int = Field(..., alias='hit_and_run')
-    hit_and_run_name: str = Field(..., alias='get_hit_and_run_display')
     hit_and_run_id: int = Field(..., alias='hit_and_run')	
     hit_and_run_name: str = Field(..., alias='get_hit_and_run_display')
     registration_state_id: int = Field(..., alias='registration_state')	
@@ -135,8 +133,6 @@ class VehicleSchema(Schema):
     vehicle_model_year: int
     vpic_make: int
     vpic_model: int
-        
-        
     vpic_body_class_id: int = Field(..., alias='vpic_body_class')	
     vpic_body_class_name: str = Field(..., alias='get_vpic_body_class_display')
     ncsa_make_id: int = Field(..., alias='ncsa_make')	
@@ -169,8 +165,6 @@ class VehicleSchema(Schema):
     cargo_body_type_id: int = Field(..., alias='cargo_body_type')	
     cargo_body_type_name: str = Field(..., alias='get_cargo_body_type_display')
     hazardous_material_involvement: bool
-
-
     hazardous_material_placard_id: int = Field(..., alias='hazardous_material_placard')	
     hazardous_material_placard_name: str = Field(..., alias='get_hazardous_material_placard_display')
     hazardous_material_id: int
@@ -206,7 +200,7 @@ class VehicleSchema(Schema):
     automated_driving_system_level_name: str = Field(..., alias='get_automated_driving_system_level_display')
     automated_driving_system_engaged_id: int = Field(..., alias='automated_driving_system_engaged')	
     automated_driving_system_engaged_name: str = Field(..., alias='get_automated_driving_system_engaged_display')
-    combined_make_model_id: int
+    combined_make_model_id: int = Field(None, alias="combined_make_model_id")
         
     driver_drinking_id: int = Field(..., alias='driver_drinking')	
     driver_drinking_name: str = Field(..., alias='get_driver_drinking_display')
@@ -288,10 +282,88 @@ class ParkedVehicleRelatedFactorSchema(Schema):
     id: int = Field(..., alias='parked_vehicle_related_factor')
     factor: str = Field(..., alias='get_parked_vehicle_related_factor_display')
 
+
 class ParkedVehicleSchema(Schema):
     id: int = Field(None, alias='vehicle_number')
+    fatalities: int
+    unit_type_id: int = Field(..., alias="unit_type")
+    unit_type_name: str = Field(..., alias="get_unit_type_display")
+    first_harmful_event_id: int = Field(..., alias="first_harmful_event")
+    first_harmful_event_name: str = Field(..., alias='get_first_harmful_event_display')
+    manner_of_collision_of_first_harmful_event_id: int = Field(..., alias="manner_of_collision_of_first_harmful_event")
+    manner_of_collision_of_first_harmful_event_name: str = Field(..., alias="get_manner_of_collision_of_first_harmful_event_display")
+    hit_and_run_id: int = Field(..., alias='hit_and_run')	
+    hit_and_run_name: str = Field(..., alias='get_hit_and_run_display')
+    registration_state_id: int = Field(..., alias='registration_state')	
+    registration_state_name: str = Field(..., alias='get_registration_state_display')
+    registered_vehicle_owner_id: int = Field(..., alias='registered_vehicle_owner')	
+    registered_vehicle_owner_name: str = Field(..., alias='get_registered_vehicle_owner_display')
+    vehicle_identification_number: str
+    vehicle_model_year: int
+    vpic_make: int
+    vpic_model: int
+
+    vpic_body_class_id: int = Field(..., alias='vpic_body_class')	
+    vpic_body_class_name: str = Field(..., alias='get_vpic_body_class_display')
+    ncsa_make_id: int = Field(..., alias='ncsa_make')	
+    ncsa_make_name: str = Field(..., alias='get_ncsa_make_display')
+    ncsa_model_id: int = Field(..., alias='ncsa_model')
+    body_type_id: int = Field(..., alias='body_type')	
+    body_type_name: str = Field(..., alias='get_body_type_display')
+    final_stage_body_class_id: int = Field(..., alias='final_stage_body_class')	
+    final_stage_body_class_name: str = Field(..., alias='get_final_stage_body_class_display')
+    gross_vehicle_weight_rating_lower_id: int = Field(..., alias='gross_vehicle_weight_rating_lower')	
+    gross_vehicle_weight_rating_lower_name: str = Field(..., alias='get_gross_vehicle_weight_rating_lower_display')
+    gross_vehicle_weight_rating_upper_id: int = Field(..., alias='gross_vehicle_weight_rating_upper')	
+    gross_vehicle_weight_rating_upper_name: str = Field(..., alias='get_gross_vehicle_weight_rating_upper_display')
+    vehicle_trailing_id: int = Field(..., alias='vehicle_trailing')	
+    vehicle_trailing_name: str = Field(..., alias='get_vehicle_trailing_display')
+
+    trailer_vin_1: str
+    trailer_vin_2: str
+    trailer_vin_3: str
+    trailer_weight_rating_1_id: int = Field(..., alias='trailer_weight_rating_1')	
+    trailer_weight_rating_1_name: str = Field(..., alias='get_trailer_weight_rating_1_display')
+    trailer_weight_rating_2_id: int = Field(..., alias='trailer_weight_rating_2')	
+    trailer_weight_rating_2_name: str = Field(..., alias='get_trailer_weight_rating_2_display')
+    trailer_weight_rating_3_id: int = Field(..., alias='trailer_weight_rating_3')	
+    trailer_weight_rating_3_name: str = Field(..., alias='get_trailer_weight_rating_3_display')
+    motor_carrier_identification_number: int
+    vehicle_configuration_id: int = Field(..., alias='vehicle_configuration')	
+    vehicle_configuration_name: str = Field(..., alias='get_vehicle_configuration_display')
+    cargo_body_type_id: int = Field(..., alias='cargo_body_type')	
+    cargo_body_type_name: str = Field(..., alias='get_cargo_body_type_display')
+    hazardous_material_involvement: bool
+    hazardous_material_placard_id: int = Field(..., alias='hazardous_material_placard')	
+    hazardous_material_placard_name: str = Field(..., alias='get_hazardous_material_placard_display')
+    hazardous_material_id: int
+    hazardous_material_class_number_id: int = Field(..., alias='hazardous_material_class_number')	
+    hazardous_material_class_number_name: str = Field(..., alias='get_hazardous_material_class_number_display')
+    release_of_hazardous_material_id: int = Field(..., alias='release_of_hazardous_material')	
+    release_of_hazardous_material_name: str = Field(..., alias='get_release_of_hazardous_material_display')
+    bus_use_id: int = Field(..., alias='bus_use')	
+    bus_use_name: str = Field(..., alias='get_bus_use_display')
+    special_vehicle_use_id: int = Field(..., alias='special_vehicle_use')	
+    special_vehicle_use_name: str = Field(..., alias='get_special_vehicle_use_display')
+    emergency_vehicle_use_id: int = Field(..., alias='emergency_vehicle_use')	
+    emergency_vehicle_use_name: str = Field(..., alias='get_emergency_vehicle_use_display')
+    
+    underride_override_id: int = Field(..., alias='underride_override')	
+    underride_override_name: str = Field(..., alias='get_underride_override_display')
+    initial_contact_point_id: int = Field(..., alias='initial_contact_point')	
+    initial_contact_point_name: str = Field(..., alias='get_initial_contact_point_display')
+    extent_of_damage_id: int = Field(..., alias='extent_of_damage')	
+    extent_of_damage_name: str = Field(..., alias='get_extent_of_damage_display')
+    vehicle_towed_id: int = Field(..., alias='vehicle_towed')	
+    vehicle_towed_name: str = Field(..., alias='get_vehicle_towed_display')
+    most_harmful_event_id: int = Field(..., alias='most_harmful_event')	
+    most_harmful_event_name: str = Field(..., alias='get_most_harmful_event_display')
+    fire_occurence: bool
+    combined_make_model: int = Field(None, alias="combined_make_model_id")
     persons: List[ParkedVehiclePersonSchema] = Field(..., alias='person_set')
     parked_vehicle_related_factors: List[ParkedVehicleRelatedFactorSchema] = Field(..., alias='parkedvehiclerelatedfactor_set')
+    number_of_occupants: int
+    
 
 class CrashEventSchema(Schema):
     crash_event_number: int
