@@ -166,17 +166,92 @@ class WeatherSchema(Schema):
     id: int = Field(..., alias='atmospheric_condition')
     weather: str = Field(..., alias='get_atmospheric_condition_display')
 
+# class RouteSigningSchema(Schema):
+
 
 class AccidentSchema(Schema):
+    st_case: int
+    fatalities: int
     state: StateSchema
     county: CountySchema
-    st_case: int
+    number_of_vehicles: int = Field(0, alias="number_of_vehicles")
+    number_of_vehicles_in_transport: int = Field(0, alias="number_of_vehicles_in_transit")
+    number_of_parked_vehicles: int = Field(0, alias="number_of_parked_vehicles")
+    number_of_persons_in_motor_vehicles: int = Field(0, alias="number_of_persons_in_motor_vehicles")
+    number_of_persons_in_motor_vehicles_in_transport: int = Field(0, alias="number_of_persons_in_motor_vehicles_in_transport")
+    number_of_nonmotorists: int = Field(0, alias="number_of_persons_not_in_motor_vehicles")
+    number_of_nonmotorists_and_parkers: int = Field(0, alias="number_of_persons_not_in_motor_vehicles_in_transport")
+
+
+    trafficway_identifier_1: str
+    trafficway_identifier_2: str
+
+    route_signing_id: int = Field(..., alias='route_signing')
+    route_signing_name: str = Field(..., alias='get_route_signing_display')
+    rural_urban_id: int = Field(..., alias='rural_urban')
+    rural_urban_name: str = Field(..., alias='get_rural_urban_display')
+    functional_system_id: int = Field(..., alias='functional_system')
+    functional_system_name: str = Field(..., alias='get_functional_system_display')
+    road_owner_id: int = Field(..., alias='road_owner')
+    road_owner_name: str = Field(..., alias='get_road_owner_display')
+    national_highway_system_id: int = Field(..., alias="national_highway_system")
+    national_highway_system_name: str = Field(..., alias='get_national_highway_system_display')
+    special_jurisdiction_id: int = Field(..., alias="special_jurisdiction")
+    special_jurisdiction_name: str = Field(..., alias='get_special_jurisdiction_display')
+    milepoint: int = Field(None, alias="milepoint")
+    first_harmful_event_id: int = Field(..., alias="first_harmful_event")
+    first_harmful_event_name: str = Field(..., alias='get_first_harmful_event_display')
+    manner_of_collision_of_first_harmful_event_id: int = Field(..., alias="manner_of_collision_of_first_harmful_event")
+    manner_of_collision_of_first_harmful_event_name: str = Field(..., alias="get_manner_of_collision_of_first_harmful_event_display")
+    at_intersection_id: int = Field(..., alias="at_intersection")
+    at_intersection_name: str = Field(..., alias="get_at_intersection_display")
+
+
+    relation_to_junction_id: int = Field(..., alias="relation_to_junction")
+    relation_to_junction_name: str = Field(..., alias="get_relation_to_junction_display")
+    type_of_intersection_id: int = Field(..., alias="type_of_intersection")
+    type_of_intersection_name: str = Field(..., alias="get_type_of_intersection_display")
+    relation_to_road_id: int = Field(..., alias="relation_to_road")
+    relation_to_road_name: str = Field(..., alias="get_relation_to_road_display")
+    work_zone_id: int = Field(..., alias="work_zone")
+    work_zone_name: str = Field(..., alias="get_work_zone_display")
+    light_condition_id: int = Field(..., alias="light_condition")
+    light_condition_name: str = Field(..., alias="get_light_condition_display")
+    atmospheric_condition_id: int = Field(..., alias="atmospheric_condition")
+    atmospheric_condition_name: str = Field(..., alias="get_atmospheric_condition_display")
+    school_bus_related: bool
+    rail_grade_crossing_identifier: int
+    ems_notified_hour: int
+    ems_notified_minute: int
+    ems_arrived_hour: int
+    ems_arrived_minute: int
+    arrived_at_hospital_hour: int
+    arrived_at_hospital_minute: int
+
+
     vehicles: List[VehicleSchema] = Field(..., alias='vehicle_set')
     parked_vehicles: List[ParkedVehicleSchema] = Field(..., alias='parkedvehicle_set')
     nonmotorists: List[NonMotoristSchema] = Field(..., alias='person_set')
     crash_events: list[CrashEventSchema] = Field(..., alias='crashevent_set')
     crash_related_factors: list[CrashRelatedFactorSchema] = Field(..., alias='crashrelatedfactors_set')
     weather: list[WeatherSchema] = Field(..., alias='weather_set')
+
+
+# Extra accident fields which aren't in the schema yet
+    
+#  'city_id': None,
+#  'month': 2,
+#  'day': 4,
+#  'day_of_the_week': 6,
+#  'year': 2022,
+#  'hour': 11,
+#  'minute': None,
+    
+#  'latitude': Decimal('34.8465861'),
+#  'longitude': Decimal('-86.5714361'),
+#  'exact_location': None,
+#  'exact_location_best_guess': None,
+    
 
 
 
