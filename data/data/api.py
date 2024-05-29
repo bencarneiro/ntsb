@@ -9,6 +9,29 @@ from django.db.models import Q
 
 api = NinjaAPI()
 
+class StateSchema(Schema):
+    id: int
+    name: str
+
+class CountySchema(Schema):
+    id: int
+    name: str
+
+class DrugsSchema(Schema):
+    id: int = Field(None, alias="drug_test_type")
+    drug_test_given: str = Field(None, alias="get_drug_test_type_display")
+    drug_test_result: int = Field(None, alias="drug_test_results")
+
+class RaceSchema(Schema):
+    id: int = Field(None, alias="race")
+    race: str = Field(None, alias="get_race_display")
+    is_multiple_races: int = Field(None, alias="is_multiple_races")
+    order: int = Field(None, alias="order")
+
+class PersonRelatedFactorSchema(Schema):
+    id: int = Field(None, alias="person_related_factor")
+    factor: str = Field(None, alias="get_person_related_factor_display")
+# 
 class PedestrianTypeSchema(Schema):
     person_type_id: int = Field(None, alias='person_type')
     person_type: str = Field(None, alias='get_person_type_diplay')
@@ -48,12 +71,21 @@ class NonMotoristSchema(Schema):
     impairments: List[NonmotoristImpairedSchema] = Field(None, alias="nonmotoristimpaired_set")
     distractions: List[NonmotoristDistractedSchema] = Field(None, alias="nonmotoristdistracted_set")
     prior_actions: List[NonmotoristPriorActionSchema] = Field(None, alias="nonmotoristprioraction_set")
+    drugs: list[DrugsSchema] = Field(None, alias="drugs_set")
+    race: list[RaceSchema] = Field(None, alias="race_set")
+    person_related_factors: list[PersonRelatedFactorSchema] = Field(None, alias="personrelatedfactor_set")
 
-class VehiclePersonSchema(Schema):\
+class VehiclePersonSchema(Schema):
     id: int = Field(..., alias='person_number')
+    drugs: list[DrugsSchema] = Field(None, alias="drugs_set")
+    race: list[RaceSchema] = Field(None, alias="race_set")
+    person_related_factors: list[PersonRelatedFactorSchema] = Field(None, alias="personrelatedfactor_set")
 
 class ParkedVehiclePersonSchema(Schema):
     id: int = Field(..., alias='person_number')
+    drugs: list[DrugsSchema] = Field(None, alias="drugs_set")
+    race: list[RaceSchema] = Field(None, alias="race_set")
+    person_related_factors: list[PersonRelatedFactorSchema] = Field(None, alias="personrelatedfactor_set")
 
 class VehicleRelatedFactorSchema(Schema):
     id: int = Field(..., alias='vehicle_related_factor')
@@ -136,7 +168,8 @@ class WeatherSchema(Schema):
 
 
 class AccidentSchema(Schema):
-    id: int
+    state: StateSchema
+    county: CountySchema
     st_case: int
     vehicles: List[VehicleSchema] = Field(..., alias='vehicle_set')
     parked_vehicles: List[ParkedVehicleSchema] = Field(..., alias='parkedvehicle_set')
