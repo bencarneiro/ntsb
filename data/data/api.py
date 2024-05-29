@@ -20,9 +20,50 @@ class VehiclePersonSchema(Schema):\
 class ParkedVehiclePersonSchema(Schema):
     id: int = Field(..., alias='person_number')
 
+class VehicleRelatedFactorSchema(Schema):
+    id: int = Field(..., alias='vehicle_related_factor')
+    factor: str = Field(..., alias='get_vehicle_related_factor_display')
+
+
+class DriverRelatedFactorSchema(Schema):
+    id: int = Field(..., alias='driver_related_factor')
+    factor: str = Field(..., alias='get_driver_related_factor_display')
+    
+class DamageSchema(Schema):
+    id: int = Field(..., alias='area_of_impact')
+    area_of_impact: str = Field(..., alias='get_area_of_impact_display')
+
+class DriverDistractedSchema(Schema):
+    id: int = Field(..., alias='distracted_by')
+    distracted_by: str = Field(..., alias='get_distracted_by_display')
+
+class DriverImpairedSchema(Schema):
+    id: int = Field(..., alias='driver_impaired')
+    driver_impaired: str = Field(..., alias='get_driver_impaired_display')
+
+class VehicleFactorSchema(Schema):
+    id: int = Field(..., alias='contributing_cause')
+    contributing_cause: str = Field(..., alias='get_contributing_cause_display')
+
+class ManeuverSchema(Schema):
+    id: int = Field(..., alias='driver_maneuvered_to_avoid')
+    name: str = Field(..., alias='get_driver_maneuvered_to_avoid_display')
+
+class ViolationSchema(Schema):
+    id: int = Field(..., alias='moving_violation')
+    moving_violation: str = Field(..., alias='get_moving_violation_display')
+
 class VehicleSchema(Schema):
     id: int = Field(None, alias='vehicle_number')
     persons: List[VehiclePersonSchema] = Field(..., alias='person_set')
+    vehicle_related_factors: List[VehicleRelatedFactorSchema] = Field(..., alias='vehiclerelatedfactor_set')
+    driver_related_factors: List[DriverRelatedFactorSchema] = Field(..., alias='driverrelatedfactor_set')
+    damages: List[DamageSchema] = Field(..., alias='damage_set')
+    distractions: List[DriverDistractedSchema] = Field(..., alias='driverdistracted_set')
+    driver_impaired: List[DriverImpairedSchema] = Field(..., alias='driverimpaired_set')
+    vehicle_factors: List[VehicleFactorSchema] = Field(..., alias='vehiclefactor_set')
+    maneuvers: List[ManeuverSchema] = Field(..., alias='maneuver_set')
+    moving_violations: List[ViolationSchema] = Field(..., alias='violation_set')
 
 class ParkedVehicleSchema(Schema):
     id: int = Field(None, alias='vehicle_number')
@@ -52,7 +93,6 @@ class WeatherSchema(Schema):
 
     id: int = Field(..., alias='atmospheric_condition')
     weather: str = Field(..., alias='get_atmospheric_condition_display')
-
 
 
 class AccidentSchema(Schema):
