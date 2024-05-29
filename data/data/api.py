@@ -9,10 +9,45 @@ from django.db.models import Q
 
 api = NinjaAPI()
 
+class PedestrianTypeSchema(Schema):
+    person_type_id: int = Field(None, alias='person_type')
+    person_type: str = Field(None, alias='get_person_type_diplay')
+
+class SafetyEquipmentSchema(Schema): 
+    helmet: str = Field(None, alias='get_helmet_display')
+    helmet_id: int = Field(None, alias='helmet')
+    pads: str = Field(None, alias='get_pads_display')
+    pads_id: int = Field(None, alias='pads')
+
+class NonmotoristContributingCircumstanceSchema(Schema):
+    id: int = Field(None, alias="nonmotorist_contributing_circumstance")
+    contributing_cause: str = Field(None, alias="get_nonmotorist_contributing_circumstance_display")
+
+class NonmotoristImpairedSchema(Schema):
+    id: int = Field(None, alias="nonmotorist_impaired")
+    impairment: str = Field(None, alias="get_nonmotorist_impaired_display")
+
+
+class NonmotoristDistractedSchema(Schema):
+    id: int = Field(None, alias="nonmotorist_distracted_by")
+    distraction: str = Field(None, alias="get_nonmotorist_distracted_by_display")
+
+
+class NonmotoristPriorActionSchema(Schema):
+    id: int = Field(None, alias="nonmotorist_prior_action")
+    action: str = Field(None, alias="get_nonmotorist_prior_action_display")
+
+
 
 class NonMotoristSchema(Schema):
     vehicle_id: int = Field(0, alias='vehicle.vehicle_number')
     id: int = Field(..., alias='person_number')
+    pedestrian_type: PedestrianTypeSchema = Field(None, alias='pedestriantype')
+    safety_equipment: SafetyEquipmentSchema = Field(None, alias='safetyequipment')
+    contributing_circumstances: List[NonmotoristContributingCircumstanceSchema] = Field(None, alias="nonmotoristcontributingcircumstance_set")
+    impairments: List[NonmotoristImpairedSchema] = Field(None, alias="nonmotoristimpaired_set")
+    distractions: List[NonmotoristDistractedSchema] = Field(None, alias="nonmotoristdistracted_set")
+    prior_actions: List[NonmotoristPriorActionSchema] = Field(None, alias="nonmotoristprioraction_set")
 
 class VehiclePersonSchema(Schema):\
     id: int = Field(..., alias='person_number')
@@ -23,7 +58,6 @@ class ParkedVehiclePersonSchema(Schema):
 class VehicleRelatedFactorSchema(Schema):
     id: int = Field(..., alias='vehicle_related_factor')
     factor: str = Field(..., alias='get_vehicle_related_factor_display')
-
 
 class DriverRelatedFactorSchema(Schema):
     id: int = Field(..., alias='driver_related_factor')
@@ -65,9 +99,15 @@ class VehicleSchema(Schema):
     maneuvers: List[ManeuverSchema] = Field(..., alias='maneuver_set')
     moving_violations: List[ViolationSchema] = Field(..., alias='violation_set')
 
+
+class ParkedVehicleRelatedFactorSchema(Schema):
+    id: int = Field(..., alias='parked_vehicle_related_factor')
+    factor: str = Field(..., alias='get_parked_vehicle_related_factor_display')
+
 class ParkedVehicleSchema(Schema):
     id: int = Field(None, alias='vehicle_number')
     persons: List[ParkedVehiclePersonSchema] = Field(..., alias='person_set')
+    parked_vehicle_related_factors: List[ParkedVehicleRelatedFactorSchema] = Field(..., alias='parkedvehiclerelatedfactor_set')
 
 class CrashEventSchema(Schema):
     crash_event_number: int
