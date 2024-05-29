@@ -72,10 +72,28 @@ class PedestrianTypeSchema(Schema):
 
 
 class SafetyEquipmentSchema(Schema): 
-    helmet: str = Field(None, alias='get_helmet_display')
     helmet_id: int = Field(None, alias='helmet')
-    pads: str = Field(None, alias='get_pads_display')
+    helmet_name: str = Field(None, alias='get_helmet_display')
     pads_id: int = Field(None, alias='pads')
+    pads_name: str = Field(None, alias='get_pads_display')
+    other_protective_equipment_id: int = Field(None, alias='other_protective_equipment')
+    other_protective_equipment_name: str = Field(None, alias='get_other_protective_equipment_display')
+    reflective_equipment_id: int = Field(None, alias='reflective_equipment')
+    reflective_equipment_name: str = Field(None, alias='get_reflective_equipment_display')
+    lights_id: int = Field(None, alias='lights')
+    lights_name: str = Field(None, alias='get_lights_display')
+    other_preventative_equipment_id: int = Field(None, alias='other_preventative_equipment')
+    other_preventative_equipment_name: str = Field(None, alias='get_other_preventative_equipment_display')
+
+    # other_protective_equipment = models.PositiveSmallIntegerField(choices=safety_equipment_choices, default=8)
+    # # NM16D NMREFCLO
+    # reflective_equipment = models.PositiveSmallIntegerField(choices=safety_equipment_choices, default=8)
+    # # NM16E NMLIGHT
+    # lights = models.PositiveSmallIntegerField(choices=safety_equipment_choices, default=8)
+    # # NM16F NMOTHPRE
+    # other_preventative_equipment = models.PositiveSmallIntegerField(choices=safety_equipment_choices, default=8)
+
+
 
 class NonmotoristContributingCircumstanceSchema(Schema):
     id: int = Field(None, alias="nonmotorist_contributing_circumstance")
@@ -593,7 +611,7 @@ class CrashEventSchema(Schema):
     sequence_of_events: int
     sequence_of_events_display: str =  Field(..., alias='get_sequence_of_events_display')
     area_of_impact_2: int
-    area_of_impact_2_display: str = Field(..., alias='get_area_of_impact_1_display')
+    area_of_impact_2_display: str = Field(..., alias='get_area_of_impact_2_display')
     
 
 class CrashRelatedFactorSchema(Schema):
