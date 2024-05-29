@@ -4,7 +4,6 @@ from django.contrib.gis.db import models as gismodels
 
 
 class NonMotoristManager(models.Manager):
-
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(vehicle__vehicle_number__isnull=True)  # Literal is not good
@@ -2502,6 +2501,9 @@ class ParkedVehicle(models.Model):
 
 
 class Person(models.Model):
+    def __nonmotorists__(self):
+        return self.filter(vehicle__vehicle_number__isnull=True)
+    
     accident = models.ForeignKey(Accident, on_delete=models.CASCADE)
     vehicle = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.CASCADE)
     parked_vehicle = models.ForeignKey(ParkedVehicle, null=True, blank=True, on_delete=models.CASCADE)
