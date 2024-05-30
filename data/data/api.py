@@ -1,9 +1,10 @@
 from ninja import NinjaAPI
 from typing import List
-from ninja import Schema, Field
+from ninja import Schema, Field, FilterSchema, Query
 from fatalities.models import Accident, Person, Vehicle
 from ninja.pagination import paginate
 from django.db.models import Q
+from typing import Optional
 
 
 
@@ -63,7 +64,7 @@ class PedestrianTypeSchema(Schema):
     motorist_maneuver_name: str = Field(None, alias='get_motorist_maneuver_display')
     intersection_leg_id: int = Field(None, alias='intersection_leg')
     intersection_leg_name: str = Field(None, alias='get_intersection_leg_display')
-    pedestrian_scenario_id: int = Field(None, alias='pedestrian_scenario')
+    pedestrian_scenario_id: str = Field(None, alias='pedestrian_scenario')
     pedestrian_scenario_name: str = Field(None, alias='get_pedestrian_scenario_display')
     pedestrian_crash_group_id: int = Field(None, alias='pedestrian_crash_group')
     pedestrian_crash_group_name: str = Field(None, alias='get_pedestrian_crash_group_display')
@@ -713,12 +714,62 @@ class AccidentSchema(Schema):
     
 
 
+class AccidentFilterSchema(FilterSchema):
+    state_id: Optional[int] = None
+    year: Optional[int] = None
+    year__lt: Optional[int] = None
+    year__gt: Optional[int] = None
+    fatalities: Optional[int] = None
+    fatalities__lt: Optional[int] = None
+    fatalities__gt: Optional[int] = None
+    number_of_persons_not_in_motor_vehicles: Optional[int] = None
+    number_of_persons_not_in_motor_vehicles__lt: Optional[int] = None
+    number_of_persons_not_in_motor_vehicles__gt: Optional[int] = None
+    number_of_persons_not_in_motor_vehicles_in_transport: Optional[int] = None
+    number_of_persons_not_in_motor_vehicles_in_transport__lt: Optional[int] = None
+    number_of_persons_not_in_motor_vehicles_in_transport__gt: Optional[int] = None
+    number_of_vehicles: Optional[int] = None
+    number_of_vehicles__lt: Optional[int] = None
+    number_of_vehicles__gt: Optional[int] = None
+    number_of_vehicles_in_transit: Optional[int] = None
+    number_of_vehicles_in_transit__lt: Optional[int] = None
+    number_of_vehicles_in_transit__gt: Optional[int] = None
+    number_of_parked_vehicles: Optional[int] = None
+    number_of_parked_vehicles__lt: Optional[int] = None
+    number_of_parked_vehicles__gt: Optional[int] = None
+    number_of_persons_in_motor_vehicles: Optional[int] = None
+    number_of_persons_in_motor_vehicles__lt: Optional[int] = None
+    number_of_persons_in_motor_vehicles__gt: Optional[int] = None
+    number_of_persons_in_motor_vehicles_in_transport: Optional[int] = None
+    number_of_persons_in_motor_vehicles_in_transport__lt: Optional[int] = None
+    number_of_persons_in_motor_vehicles_in_transport__gt: Optional[int] = None
+    month: Optional[int] = None
+    day: Optional[int] = None
+    day_of_the_week: Optional[int] = None
+    route_signing: Optional[int] = None
+    rural_urban: Optional[int] = None
+    functional_system: Optional[int] = None
+    road_owner: Optional[int] = None
+    national_highway_system: Optional[int] = None
+    special_jurisdiction: Optional[int] = None
+    first_harmful_event: Optional[int] = None
+    manner_of_collision_of_first_harmful_event: Optional[int] = None
+    at_intersection: Optional[int] = None
+    relation_to_junction: Optional[int] = None
+    type_of_intersection: Optional[int] = None
+    relation_to_road: Optional[int] = None
+    work_zone: Optional[int] = None
+    light_condition: Optional[int] = None
+    atmospheric_condition: Optional[int] = None
+    school_bus_related: Optional[bool] = None
+    rail_grade_crossing_identifier: Optional[int] = None
 
 
 @api.get("/accidents", response=List[AccidentSchema])
 @paginate
-def tasks(request):
+def accidents_list(request, filters: AccidentFilterSchema = Query(...)):
     queryset = Accident.objects.order_by("st_case")
+    queryset = filters.filter(queryset)
     return list(queryset)
 
 @api.get("/hello")
