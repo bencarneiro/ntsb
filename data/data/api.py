@@ -5,7 +5,7 @@ from fatalities.models import Accident, Person, Vehicle
 from ninja.pagination import paginate
 from django.db.models import Q
 from typing import Optional
-
+from datetime import datetime
 
 
 api = NinjaAPI()
@@ -635,11 +635,15 @@ class WeatherSchema(Schema):
 
 class AccidentSchema(Schema):
     st_case: int
-    minute: int
     fatalities: int
     state: StateSchema
     county: CountySchema
     city: CitySchema = Field(None, alias="city")
+    month: int
+    day: int
+    hour: int
+    minute: int
+    datetime: datetime
     latitude: float
     longitude: float
     number_of_vehicles: int = Field(0, alias="number_of_vehicles")
@@ -728,6 +732,8 @@ class AccidentFilterSchema(FilterSchema):
     year: Optional[int] = None
     year__lt: Optional[int] = None
     year__gt: Optional[int] = None
+    datetime__lt: Optional[datetime] = None
+    datetime__gt: Optional[datetime] = None
     fatalities: Optional[int] = None
     fatalities__lt: Optional[int] = None
     fatalities__gt: Optional[int] = None
