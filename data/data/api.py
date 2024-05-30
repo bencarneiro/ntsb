@@ -6,6 +6,9 @@ from ninja.pagination import paginate
 from django.db.models import Q
 from typing import Optional
 from datetime import datetime
+from django.contrib.gis.db.models.functions import Distance
+
+from django.contrib.gis.geos import Point
 
 
 api = NinjaAPI()
@@ -785,6 +788,20 @@ class AccidentFilterSchema(FilterSchema):
 def accidents_list(request, filters: AccidentFilterSchema = Query(...)):
     queryset = Accident.objects.order_by("st_case")
     queryset = filters.filter(queryset)
+    return list(queryset)
+
+
+@api.get("/accidents_by_location", response=List[AccidentSchema])
+@paginate
+def accidents_by_loction(request):
+    try:
+        search_location = Point(float(request.GET['lat']), float(request.GET['lon']), srid=4326)
+    except:
+        return list()
+    queryset = Accident.objects.annotate(
+        distance=Distance('location', search_location)
+    ).order_by('st_case')
+    
     return list(queryset)
 
 @api.get("/hello")

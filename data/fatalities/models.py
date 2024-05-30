@@ -197,7 +197,7 @@ class Accident(models.Model):
     #c17
     latitude = models.DecimalField(null=True, blank=True, decimal_places=7, max_digits=10)
     longitude = models.DecimalField(null=True, blank=True, decimal_places=7, max_digits=10)
-    location = gismodels.PointField(null=True, blank=True)
+    location = gismodels.PointField(null=True, blank=True, geography=True)
     location_is_estimated = models.BooleanField(default=True)
     
     #c19
