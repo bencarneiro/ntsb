@@ -20,6 +20,7 @@ class Command(BaseCommand):
             'day_of_the_week',
             'year',
             'hour',
+            'minute',
             'trafficway_identifier_1',
             'trafficway_identifier_2',
             'route_signing',

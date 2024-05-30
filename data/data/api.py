@@ -18,6 +18,10 @@ class CountySchema(Schema):
     id: int
     name: str
 
+class CitySchema(Schema):
+    id: int = Field(None, alias="id")
+    name: str = Field(None, alias="name")
+
 class DrugsSchema(Schema):
     id: int = Field(None, alias="drug_test_type")
     drug_test_given: str = Field(None, alias="get_drug_test_type_display")
@@ -631,9 +635,11 @@ class WeatherSchema(Schema):
 
 class AccidentSchema(Schema):
     st_case: int
+    minute: int
     fatalities: int
     state: StateSchema
     county: CountySchema
+    city: CitySchema = Field(None, alias="city")
     latitude: float
     longitude: float
     number_of_vehicles: int = Field(0, alias="number_of_vehicles")
@@ -693,7 +699,7 @@ class AccidentSchema(Schema):
 
     vehicles: List[VehicleSchema] = Field(..., alias='vehicle_set')
     parked_vehicles: List[ParkedVehicleSchema] = Field(..., alias='parkedvehicle_set')
-    nonmotorists: List[NonMotoristSchema] = Field(..., alias='person_set')
+    nonmotorists: List[NonMotoristSchema] = Field(..., alias='nonmotorist_set')
     crash_events: list[CrashEventSchema] = Field(..., alias='crashevent_set')
     crash_related_factors: list[CrashRelatedFactorSchema] = Field(..., alias='crashrelatedfactors_set')
     weather: list[WeatherSchema] = Field(..., alias='weather_set')
@@ -718,6 +724,7 @@ class AccidentSchema(Schema):
 
 class AccidentFilterSchema(FilterSchema):
     state_id: Optional[int] = None
+    county_id: Optional[int] = None
     year: Optional[int] = None
     year__lt: Optional[int] = None
     year__gt: Optional[int] = None

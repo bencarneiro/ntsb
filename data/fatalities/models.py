@@ -3,13 +3,6 @@ from django.contrib.gis.db import models as gismodels
 
 
 
-class NonMotoristManager(models.Manager):
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(vehicle__vehicle_number__isnull=True)  # Literal is not good
-    
-
-
 # Create your models here.
 
 class State(models.Model):
@@ -101,8 +94,8 @@ class Accident(models.Model):
     # C9A Hour of Crash HOUR 44
     hour = models.PositiveSmallIntegerField(null=True, blank=True)
     # C9B Minute of Crash MINUTE 44
-
     minute = models.PositiveSmallIntegerField(null=True, blank=True)
+
     datetime = models.DateTimeField(null=True, blank=True)
     datetime_is_estimated = models.BooleanField(default=True)
 
@@ -401,6 +394,9 @@ class Accident(models.Model):
     arrived_at_hospital_minute = models.PositiveSmallIntegerField(null=True, blank=True)
     #c101
     fatalities = models.PositiveSmallIntegerField(null=False, blank=False)
+
+    def nonmotorist_set(self):
+        return self.person_set.filter(vehicle__vehicle_number__isnull=True, parked_vehicle__vehicle_number__isnull=True)
 
     class Meta:
         unique_together = [["year", "st_case"]]
@@ -2847,8 +2843,6 @@ class Person(models.Model):
         (99, 'Unknown')
     ]
     hispanic = models.PositiveSmallIntegerField(choices=hispanic_choices, default=99)
-    objects = models.Manager()  # The default manager.
-    nonmotorists = NonMotoristManager()
 
     class Meta:
         unique_together = [["accident", "vehicle", "person_number"]]
