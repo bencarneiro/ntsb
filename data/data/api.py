@@ -634,6 +634,8 @@ class AccidentSchema(Schema):
     fatalities: int
     state: StateSchema
     county: CountySchema
+    latitude: float
+    longitude: float
     number_of_vehicles: int = Field(0, alias="number_of_vehicles")
     number_of_vehicles_in_transport: int = Field(0, alias="number_of_vehicles_in_transit")
     number_of_parked_vehicles: int = Field(0, alias="number_of_parked_vehicles")

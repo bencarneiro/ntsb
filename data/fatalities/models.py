@@ -103,7 +103,8 @@ class Accident(models.Model):
     # C9B Minute of Crash MINUTE 44
 
     minute = models.PositiveSmallIntegerField(null=True, blank=True)
-    # datetime = models.DateTimeField(null=True, blank=True)
+    datetime = models.DateTimeField(null=True, blank=True)
+    datetime_is_estimated = models.BooleanField(default=True)
 
     #C10
     trafficway_identifier_1 = models.CharField(max_length=256, null=True, blank=True)
@@ -203,8 +204,9 @@ class Accident(models.Model):
     #c17
     latitude = models.DecimalField(null=True, blank=True, decimal_places=7, max_digits=10)
     longitude = models.DecimalField(null=True, blank=True, decimal_places=7, max_digits=10)
-    exact_location = gismodels.PointField(null=True, blank=True)
-    exact_location_best_guess = gismodels.PointField(null=True, blank=True)
+    location = gismodels.PointField(null=True, blank=True)
+    location_is_estimated = models.BooleanField(default=True)
+    
     #c19
     first_harmful_event_options = [
         (1, 'Rollover/Overturn'),
