@@ -1,7 +1,7 @@
 from ninja import NinjaAPI
 from typing import List
 from ninja import Schema, Field, FilterSchema, Query
-from fatalities.models import Accident, Person, Vehicle
+from fatalities.models import Accident, ParkedVehicle, Person, Vehicle
 from ninja.pagination import paginate
 from django.db.models import Q
 from typing import Optional
@@ -804,6 +804,63 @@ class PersonFilterSchema(FilterSchema):
     pedestriantype__pedestrian_crash_group: Optional[int] = None
     pedestriantype__bike_crash_group: Optional[int] = None
 
+class ParkedVehicleFilterSchema(FilterSchema):
+    vehicle_number: Optional[int] = None	
+    vehicle_number__gt: Optional[int] = None	
+    vehicle_number__lt: Optional[int] = None
+    number_of_occupants: Optional[int] = None	
+    number_of_occupants__gt: Optional[int] = None	
+    number_of_occupants__lt: Optional[int] = None
+    hit_and_run: Optional[int] = None		
+    registration_state: Optional[int] = None		
+    registered_vehicle_owner: Optional[int] = None	
+    vehicle_identification_number: Optional[str] = None
+    vehicle_model_year: Optional[int] = None	
+    vehicle_model_year__gt: Optional[int] = None	
+    vehicle_model_year__lt: Optional[int] = None
+    vpic_make: Optional[int] = None		
+    vpic_model: Optional[int] = None		
+    vpic_body_class: Optional[int] = None		
+    ncsa_make: Optional[int] = None		
+    ncsa_model: Optional[int] = None		
+    body_type: Optional[int] = None		
+    final_stage_body_class: Optional[int] = None		
+    gross_vehicle_weight_rating_lower: Optional[int] = None		
+    gross_vehicle_weight_rating_upper: Optional[int] = None		
+    vehicle_trailing: Optional[int] = None		
+    trailer_vin_1: Optional[str] = None
+    trailer_vin_2: Optional[str] = None
+    trailer_vin_3: Optional[str] = None	
+    trailer_weight_rating_1: Optional[int] = None
+    trailer_weight_rating_2: Optional[int] = None
+    trailer_weight_rating_3: Optional[int] = None
+    motor_carrier_identification_number: Optional[int] = None
+    vehicle_configuration: Optional[int] = None		
+    cargo_body_type: Optional[int] = None		
+    hazardous_material_involvement: Optional[bool] = None		
+    hazardous_material_placard: Optional[int] = None		
+    hazardous_material_id: Optional[int] = None		
+    hazardous_material_class_number: Optional[int] = None		
+    release_of_hazardous_material: Optional[int] = None		
+    bus_use: Optional[int] = None		
+    special_vehicle_use: Optional[int] = None		
+    emergency_vehicle_use: Optional[int] = None		
+    travel_speed: Optional[int] = None	
+    travel_speed__gt: Optional[int] = None	
+    travel_speed__lt: Optional[int] = None
+    underride_override: Optional[int] = None		
+    rollover: Optional[int] = None		
+    rollover_location: Optional[int] = None		
+    initial_contact_point: Optional[int] = None		
+    extent_of_damage: Optional[int] = None		
+    vehicle_towed: Optional[int] = None		
+    most_harmful_event: Optional[int] = None		
+    fire_occurence: Optional[bool] = None		
+    combined_make_model_id: Optional[int] = None		
+    fatalities: Optional[int] = None	
+    fatalities__gt: Optional[int] = None	
+    fatalities__lt: Optional[int] = None	
+
 
 
 class VehicleFilterSchema(FilterSchema):
@@ -979,6 +1036,14 @@ def accidents_list(request, filters: AccidentFilterSchema = Query(...)):
 @paginate
 def vehicle_list(request, filters: VehicleFilterSchema = Query(...)):
     queryset = Vehicle.objects.order_by("accident__st_case")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+
+@api.get("/parked_vehicles", response=List[ParkedVehicleSchema])
+@paginate
+def parked_vehicle_list(request, filters: ParkedVehicleFilterSchema = Query(...)):
+    queryset = ParkedVehicle.objects.order_by("accident__st_case")
     queryset = filters.filter(queryset)
     return list(queryset)
 
