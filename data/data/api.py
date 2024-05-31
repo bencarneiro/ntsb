@@ -7,6 +7,9 @@ from django.db.models import Q
 from typing import Optional
 from datetime import datetime
 
+from django.contrib.gis.measure import D
+from django.contrib.gis.db.models.functions import Distance
+
 from django.contrib.gis.geos import Point
 
 
@@ -401,7 +404,7 @@ class VehicleSchema(Schema):
     trailer_weight_rating_3_name: str = Field(..., alias='get_trailer_weight_rating_3_display')
     jackknife_id: int = Field(..., alias='jackknife')	
     jackknife_name: str = Field(..., alias='get_jackknife_display')
-    motor_carrier_identification_number: int
+    motor_carrier_identification_number: str
     vehicle_configuration_id: int = Field(..., alias='vehicle_configuration')	
     vehicle_configuration_name: str = Field(..., alias='get_vehicle_configuration_display')
     cargo_body_type_id: int = Field(..., alias='cargo_body_type')	
@@ -570,7 +573,7 @@ class ParkedVehicleSchema(Schema):
     trailer_weight_rating_2_name: str = Field(..., alias='get_trailer_weight_rating_2_display')
     trailer_weight_rating_3_id: int = Field(..., alias='trailer_weight_rating_3')	
     trailer_weight_rating_3_name: str = Field(..., alias='get_trailer_weight_rating_3_display')
-    motor_carrier_identification_number: int
+    motor_carrier_identification_number: str
     vehicle_configuration_id: int = Field(..., alias='vehicle_configuration')	
     vehicle_configuration_name: str = Field(..., alias='get_vehicle_configuration_display')
     cargo_body_type_id: int = Field(..., alias='cargo_body_type')	
@@ -709,6 +712,111 @@ class AccidentSchema(Schema):
     crash_related_factors: list[CrashRelatedFactorSchema] = Field(..., alias='crashrelatedfactors_set')
     weather: list[WeatherSchema] = Field(..., alias='weather_set')
 
+class VehicleFilterSchema(FilterSchema):
+    vehicle_number: Optional[int] = None	
+    vehicle_number__gt: Optional[int] = None	
+    vehicle_number__lt: Optional[int] = None
+    number_of_occupants: Optional[int] = None	
+    number_of_occupants__gt: Optional[int] = None	
+    number_of_occupants__lt: Optional[int] = None
+    hit_and_run: Optional[int] = None		
+    registration_state: Optional[int] = None		
+    registered_vehicle_owner: Optional[int] = None	
+    vehicle_identification_number: Optional[str] = None
+    vehicle_model_year: Optional[int] = None	
+    vehicle_model_year__gt: Optional[int] = None	
+    vehicle_model_year__lt: Optional[int] = None
+    vpic_make: Optional[int] = None		
+    vpic_model: Optional[int] = None		
+    vpic_body_class: Optional[int] = None		
+    ncsa_make: Optional[int] = None		
+    ncsa_model: Optional[int] = None		
+    body_type: Optional[int] = None		
+    final_stage_body_class: Optional[int] = None		
+    gross_vehicle_weight_rating_lower: Optional[int] = None		
+    gross_vehicle_weight_rating_upper: Optional[int] = None		
+    vehicle_trailing: Optional[int] = None		
+    trailer_vin_1: Optional[str] = None
+    trailer_vin_2: Optional[str] = None
+    trailer_vin_3: Optional[str] = None	
+    trailer_weight_rating_1: Optional[int] = None
+    trailer_weight_rating_2: Optional[int] = None
+    trailer_weight_rating_3: Optional[int] = None
+    jackknife: Optional[int] = None
+    motor_carrier_identification_number: Optional[int] = None
+    vehicle_configuration: Optional[int] = None		
+    cargo_body_type: Optional[int] = None		
+    hazardous_material_involvement: Optional[bool] = None		
+    hazardous_material_placard: Optional[int] = None		
+    hazardous_material_id: Optional[int] = None		
+    hazardous_material_class_number: Optional[int] = None		
+    release_of_hazardous_material: Optional[int] = None		
+    bus_use: Optional[int] = None		
+    special_vehicle_use: Optional[int] = None		
+    emergency_vehicle_use: Optional[int] = None		
+    travel_speed: Optional[int] = None	
+    travel_speed__gt: Optional[int] = None	
+    travel_speed__lt: Optional[int] = None
+    underride_override: Optional[int] = None		
+    rollover: Optional[int] = None		
+    rollover_location: Optional[int] = None		
+    initial_contact_point: Optional[int] = None		
+    extent_of_damage: Optional[int] = None		
+    vehicle_towed: Optional[int] = None		
+    most_harmful_event: Optional[int] = None		
+    fire_occurence: Optional[bool] = None		
+    automated_driving_system_present: Optional[int] = None		
+    automated_driving_system_level: Optional[int] = None		
+    automated_driving_system_engaged: Optional[int] = None		
+    combined_make_model_id: Optional[int] = None		
+    fatalities: Optional[int] = None	
+    fatalities__gt: Optional[int] = None	
+    fatalities__lt: Optional[int] = None
+    driver_drinking: Optional[int] = None		
+    driver_present: Optional[int] = None		
+    drivers_license_state: Optional[int] = None		
+    driver_zip_code: Optional[int] = None		
+    non_cdl_license_type: Optional[int] = None		
+    non_cdl_license_status: Optional[int] = None		
+    cdl_license_status: Optional[int] = None		
+    cdl_endorsements: Optional[int] = None		
+    license_compliance_with_class_of_vehicle: Optional[int] = None		
+    compliance_with_license_restrictions: Optional[int] = None		
+    driver_height: Optional[int] = None	
+    driver_height__gt: Optional[int] = None	
+    driver_height__lt: Optional[int] = None
+    driver_weight: Optional[int] = None	
+    driver_weight__gt: Optional[int] = None	
+    driver_weight__lt: Optional[int] = None
+    previous_recorded_crashes: Optional[int] = None		
+    previous_bac_suspensions_underage: Optional[int] = None		
+    previous_bac_suspensions: Optional[int] = None		
+    previous_other_suspensions: Optional[int] = None		
+    previous_dwi_convictions: Optional[int] = None		
+    previous_speeding_convictions: Optional[int] = None		
+    previous_other_moving_violations: Optional[int] = None		
+    month_of_oldest_violation: Optional[int] = None		
+    year_of_oldest_violation: Optional[int] = None		
+    month_of_newest_violation: Optional[int] = None		
+    year_of_newest_violation: Optional[int] = None		
+    speeding_related: Optional[int] = None		
+    trafficway_description: Optional[int] = None		
+    total_lanes_in_roadway: Optional[int] = None		
+    speed_limit: Optional[int] = None	
+    speed_limit__gt: Optional[int] = None	
+    speed_limit__lt: Optional[int] = None
+    roadway_alignment: Optional[int] = None		
+    roadway_grade: Optional[int] = None		
+    roadway_surface_type: Optional[int] = None		
+    roadway_surface_condition: Optional[int] = None		
+    traffic_control_device: Optional[int] = None		
+    traffic_control_device_functioning: Optional[int] = None		
+    pre_event_movement: Optional[int] = None		
+    critical_precrash_event: Optional[int] = None		
+    attempted_avoidance_maneuver: Optional[int] = None		
+    precrash_stability: Optional[int] = None		
+    preimpact_location: Optional[int] = None		
+    crash_type: Optional[int] = None		
 
 class AccidentFilterSchema(FilterSchema):
     state_id: Optional[int] = None
@@ -771,9 +879,15 @@ def accidents_list(request, filters: AccidentFilterSchema = Query(...)):
     queryset = filters.filter(queryset)
     return list(queryset)
 
-from geopy import distance
-from django.contrib.gis.measure import D
-from django.contrib.gis.db.models.functions import Distance
+
+
+@api.get("/vehicles", response=List[VehicleSchema])
+@paginate
+def vehicle_list(request, filters: VehicleFilterSchema = Query(...)):
+    queryset = Vehicle.objects.order_by("accident__st_case")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
 # from django.contrib.gis.measure import Distance as DistanceClass
 
 @api.get("/accidents_by_location", response=List[AccidentSchema])
