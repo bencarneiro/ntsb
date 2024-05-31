@@ -46,13 +46,18 @@ class Accident(models.Model):
     #c4
     number_of_vehicles = models.PositiveSmallIntegerField(default=0)
     #c4a
-    number_of_vehicles_in_transit = models.PositiveSmallIntegerField(default=0)
+    number_of_vehicles_in_transport = models.PositiveSmallIntegerField(default=0)
     #c4b
     number_of_parked_vehicles = models.PositiveSmallIntegerField(default=0)
     #c5
     number_of_persons_in_motor_vehicles = models.PositiveSmallIntegerField(default=0)
     #c5a
     number_of_persons_in_motor_vehicles_in_transport = models.PositiveSmallIntegerField(default=0)
+
+    @property
+    def number_of_persons_in_parked_vehicles(self):
+        return self.number_of_persons_in_motor_vehicles - self.number_of_persons_in_motor_vehicles_in_transport
+    
     state = models.ForeignKey(State, null=True, blank=True, on_delete = models.DO_NOTHING)
     # C6 County COUNTY 40
     county = models.ForeignKey(County, null=True, blank=True, on_delete = models.DO_NOTHING)
@@ -3255,6 +3260,24 @@ class CrashEvent(models.Model):
     vehicle_2 = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.CASCADE, related_name="crash_event_vehicle_2")
     parked_vehicle_1 = models.ForeignKey(ParkedVehicle, null=True, blank=True, on_delete=models.CASCADE, related_name="crash_event_parked_vehicle_1")
     parked_vehicle_2 = models.ForeignKey(ParkedVehicle, null=True, blank=True, on_delete=models.CASCADE, related_name="crash_event_parked_vehicle_2")
+
+    @property
+    def vehicle_id_1(self):
+        if self.vehicle_1.vehicle_number:
+            return self.vehicle_1.vehicle_number
+        if self.parked_vehicle_1.vehicle_number:
+            return self.parked_vehicle_1.vehicle_number
+        return None
+    
+    @property
+    def vehicle_id_2(self):
+        print(self.__dict__)
+        if self.vehicle_2.vehicle_number:
+            return self.vehicle_2.vehicle_number
+        if self.parked_vehicle_2.vehicle_number:
+            return self.parked_vehicle_2.vehicle_number
+        return None
+    
     # C18B AOI1 
     area_of_impact_choices = [
         (0, "Non-Collision"),

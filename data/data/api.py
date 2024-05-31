@@ -609,10 +609,8 @@ class ParkedVehicleSchema(Schema):
 
 class CrashEventSchema(Schema):
     crash_event_number: int
-    vehicle_1: int = Field(None, alias='vehicle_1.vehicle_number')
-    parked_vehicle_1: int = Field(None, alias='parked_vehicle_1.vehicle_number')
-    vehicle_2: int = Field(None, alias='vehicle_2.vehicle_number')
-    parked_vehicle_2: int = Field(None, alias='parked_vehicle_2.vehicle_number')
+    vehicle_1: int = Field(None, alias='vehicle_id_1')
+    vehicle_2: int = Field(None, alias='vehicle_id_2')
     area_of_impact_1: int
     area_of_impact_1_display: str = Field(..., alias='get_area_of_impact_1_display')
     sequence_of_events: int
@@ -649,12 +647,13 @@ class AccidentSchema(Schema):
     latitude: float
     longitude: float
     number_of_vehicles: int = Field(0, alias="number_of_vehicles")
-    number_of_vehicles_in_transport: int = Field(0, alias="number_of_vehicles_in_transit")
+    number_of_vehicles_in_transport: int = Field(0, alias="number_of_vehicles_in_transport")
     number_of_parked_vehicles: int = Field(0, alias="number_of_parked_vehicles")
     number_of_persons_in_motor_vehicles: int = Field(0, alias="number_of_persons_in_motor_vehicles")
     number_of_persons_in_motor_vehicles_in_transport: int = Field(0, alias="number_of_persons_in_motor_vehicles_in_transport")
+    number_of_persons_in_parked_vehicles: int = Field(0, alias="number_of_persons_in_parked_vehicles")
     number_of_nonmotorists: int = Field(0, alias="number_of_persons_not_in_motor_vehicles")
-    number_of_nonmotorists_and_parkers: int = Field(0, alias="number_of_persons_not_in_motor_vehicles_in_transport")
+    number_of_persons_not_in_motor_vehicles_in_transport: int = Field(0, alias="number_of_persons_not_in_motor_vehicles_in_transport")
 
 
     trafficway_identifier_1: str
@@ -731,9 +730,9 @@ class AccidentFilterSchema(FilterSchema):
     number_of_vehicles: Optional[int] = None
     number_of_vehicles__lt: Optional[int] = None
     number_of_vehicles__gt: Optional[int] = None
-    number_of_vehicles_in_transit: Optional[int] = None
-    number_of_vehicles_in_transit__lt: Optional[int] = None
-    number_of_vehicles_in_transit__gt: Optional[int] = None
+    number_of_vehicles_in_transport: Optional[int] = None
+    number_of_vehicles_in_transport__lt: Optional[int] = None
+    number_of_vehicles_in_transport__gt: Optional[int] = None
     number_of_parked_vehicles: Optional[int] = None
     number_of_parked_vehicles__lt: Optional[int] = None
     number_of_parked_vehicles__gt: Optional[int] = None

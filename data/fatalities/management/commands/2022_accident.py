@@ -11,7 +11,7 @@ class Command(BaseCommand):
             'number_of_persons_not_in_motor_vehicles',
             'number_of_persons_not_in_motor_vehicles_in_transport',
             'number_of_vehicles',
-            'number_of_vehicles_in_transit',
+            'number_of_vehicles_in_transport',
             'number_of_parked_vehicles',
             'number_of_persons_in_motor_vehicles',
             'number_of_persons_in_motor_vehicles_in_transport',
