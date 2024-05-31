@@ -534,7 +534,7 @@ class ParkedVehicleSchema(Schema):
     unit_type_id: int = Field(..., alias="unit_type")
     unit_type_name: str = Field(..., alias="get_unit_type_display")
     first_harmful_event_id: int = Field(..., alias="first_harmful_event")
-    first_harmful_event_name: str = Field(..., alias='get_first_harmful_event_display')
+    first_harmful_event_name: str = Field(None, alias='get_first_harmful_event_display')
     manner_of_collision_of_first_harmful_event_id: int = Field(..., alias="manner_of_collision_of_first_harmful_event")
     manner_of_collision_of_first_harmful_event_name: str = Field(..., alias="get_manner_of_collision_of_first_harmful_event_display")
     hit_and_run_id: int = Field(..., alias='hit_and_run')	
@@ -696,7 +696,7 @@ class AccidentSchema(Schema):
     atmospheric_condition_id: int = Field(..., alias="atmospheric_condition")
     atmospheric_condition_name: str = Field(..., alias="get_atmospheric_condition_display")
     school_bus_related: bool
-    rail_grade_crossing_identifier: int
+    rail_grade_crossing_identifier: str
     ems_notified_hour: int
     ems_notified_minute: int
     ems_arrived_hour: int
@@ -869,7 +869,7 @@ class AccidentFilterSchema(FilterSchema):
     light_condition: Optional[int] = None
     atmospheric_condition: Optional[int] = None
     school_bus_related: Optional[bool] = None
-    rail_grade_crossing_identifier: Optional[int] = None
+    rail_grade_crossing_identifier: Optional[str] = None
 
 
 @api.get("/accidents", response=List[AccidentSchema])
@@ -905,6 +905,18 @@ def accidents_by_loction(request, filters: AccidentFilterSchema = Query(...)):
 
     queryset = filters.filter(queryset)
     return list(queryset)
+
+
+@api.get("/accidents_by_vehicle", response=List[AccidentSchema])
+@paginate
+def accidents_by_vehicle(request, filters: VehicleFilterSchema = Query(...)):
+    queryset = Vehicle.objects.order_by("accident__st_case")
+    queryset = filters.filter(queryset)
+    listo = list(queryset.values_list("accident_id", flat=True))
+    print(listo)
+    new_qs = Accident.objects.filter(id__in=listo)
+    # new_queryset = 
+    return list(new_qs)
 
 @api.get("/hello")
 def hello(request):
