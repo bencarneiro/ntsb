@@ -41,7 +41,7 @@ FARS_DATA_DICTIONARY = {
         }
     ],
     #C4A
-    "accident.number_of_vehicles_in_transit": [
+    "accident.number_of_vehicles_in_transport": [
 
         {
             "range": {
