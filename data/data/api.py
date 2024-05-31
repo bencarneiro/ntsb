@@ -712,6 +712,100 @@ class AccidentSchema(Schema):
     crash_related_factors: list[CrashRelatedFactorSchema] = Field(..., alias='crashrelatedfactors_set')
     weather: list[WeatherSchema] = Field(..., alias='weather_set')
 
+class PersonFilterSchema(FilterSchema):
+    id: Optional[int] = None	
+    id__gt: Optional[int] = None	
+    id__lt: Optional[int] = None	
+    accident_id: Optional[int] = None	
+    accident_id__gt: Optional[int] = None	
+    accident_id__lt: Optional[int] = None	
+    vehicle_id: Optional[int] = None	
+    vehicle_id__gt: Optional[int] = None	
+    vehicle_id__lt: Optional[int] = None	
+    parked_vehicle_id: Optional[int] = None	
+    parked_vehicle_id__gt: Optional[int] = None	
+    parked_vehicle_id__lt: Optional[int] = None	
+    person_number: Optional[int] = None	
+    person_number__gt: Optional[int] = None	
+    person_number__lt: Optional[int] = None	
+    age: Optional[int] = None	
+    age__gt: Optional[int] = None	
+    age__lt: Optional[int] = None	
+    sex: Optional[int] = None			
+    person_type: Optional[int] = None			
+    injury_severity: Optional[int] = None			
+    seating_position: Optional[int] = None			
+    restraint_system_use: Optional[int] = None			
+    restraint_system_misuse: Optional[int] = None			
+    helmet_use: Optional[int] = None			
+    helmet_misuse: Optional[int] = None			
+    airbag_deployed: Optional[int] = None			
+    ejection: Optional[int] = None			
+    ejection_path: Optional[int] = None			
+    extrication: Optional[int] = None			
+    police_reported_alcohol_involvement: Optional[int] = None			
+    alcohol_test_given: Optional[int] = None			
+    alcohol_test_type: Optional[int] = None			
+    alcohol_test_result: Optional[int] = None	
+    alcohol_test_result__gt: Optional[int] = None	
+    alcohol_test_result__lt: Optional[int] = None	
+    police_reported_drug_involvement: Optional[int] = None			
+    drug_tested: Optional[int] = None			
+    transported_to_medical_facility_by: Optional[int] = None			
+    died_en_route: Optional[int] = None			
+    month_of_death: Optional[int] = None	
+    month_of_death__gt: Optional[int] = None	
+    month_of_death__lt: Optional[int] = None	
+    day_of_death: Optional[int] = None	
+    day_of_death__gt: Optional[int] = None	
+    day_of_death__lt: Optional[int] = None	
+    year_of_death: Optional[int] = None	
+    year_of_death__gt: Optional[int] = None	
+    year_of_death__lt: Optional[int] = None	
+    hour_of_death: Optional[int] = None	
+    hour_of_death__gt: Optional[int] = None	
+    hour_of_death__lt: Optional[int] = None	
+    minute_of_death: Optional[int] = None	
+    minute_of_death__gt: Optional[int] = None	
+    minute_of_death__lt: Optional[int] = None	
+    lag_hours: Optional[int] = None	
+    lag_hours__gt: Optional[int] = None	
+    lag_hours__lt: Optional[int] = None	
+    lag_minutes: Optional[int] = None	
+    lag_minutes__gt: Optional[int] = None	
+    lag_minutes__lt: Optional[int] = None	
+    vehicle_which_struck_non_motorist_id: Optional[int] = None			
+    non_motorist_device_type: Optional[int] = None			
+    non_motorist_device_motorization: Optional[int] = None			
+    non_motorist_location: Optional[int] = None			
+    at_work: Optional[int] = None			
+    hispanic: Optional[int] = None		
+    safetyequipment__helmet: Optional[int] = None
+    safetyequipment__pads: Optional[int] = None
+    safetyequipment__other_protective_equipment: Optional[int] = None
+    safetyequipment__reflective_equipment: Optional[int] = None
+    safetyequipment__lights: Optional[int] = None
+    safetyequipment__other_preventative_equipment: Optional[int] = None
+    pedestriantype__sidewalk_present: Optional[int] = None
+    pedestriantype__in_school_zone: Optional[int] = None
+    pedestriantype__pedestrian_crash_type: Optional[int] = None
+    pedestriantype__marked_crosswalk_present: Optional[int] = None
+    pedestriantype__bicycle_crash_type: Optional[int] = None
+    pedestriantype__pedestrian_location: Optional[int] = None
+    pedestriantype__bicycle_location: Optional[int] = None
+    pedestriantype__pedestrian_position: Optional[int] = None
+    pedestriantype__bicycle_position: Optional[int] = None
+    pedestriantype__pedestrian_direction: Optional[int] = None
+    pedestriantype__bicycle_direction: Optional[int] = None
+    pedestriantype__motorist_direction: Optional[int] = None
+    pedestriantype__motorist_maneuver: Optional[int] = None
+    pedestriantype__intersection_leg: Optional[int] = None
+    pedestriantype__pedestrian_scenario: Optional[int] = None
+    pedestriantype__pedestrian_crash_group: Optional[int] = None
+    pedestriantype__bike_crash_group: Optional[int] = None
+
+
+
 class VehicleFilterSchema(FilterSchema):
     vehicle_number: Optional[int] = None	
     vehicle_number__gt: Optional[int] = None	
@@ -888,6 +982,14 @@ def vehicle_list(request, filters: VehicleFilterSchema = Query(...)):
     queryset = filters.filter(queryset)
     return list(queryset)
 
+
+@api.get("/persons", response=List[NonMotoristSchema])
+@paginate
+def person_list(request, filters: PersonFilterSchema = Query(...)):
+    queryset = Person.objects.order_by("accident__st_case")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
 # from django.contrib.gis.measure import Distance as DistanceClass
 
 @api.get("/accidents_by_location", response=List[AccidentSchema])
@@ -913,7 +1015,7 @@ def accidents_by_vehicle(request, filters: VehicleFilterSchema = Query(...)):
     queryset = Vehicle.objects.order_by("accident__st_case")
     queryset = filters.filter(queryset)
     listo = list(queryset.values_list("accident_id", flat=True))
-    print(listo)
+    # print(listo)
     new_qs = Accident.objects.filter(id__in=listo)
     # new_queryset = 
     return list(new_qs)
