@@ -3271,7 +3271,6 @@ class CrashEvent(models.Model):
     
     @property
     def vehicle_id_2(self):
-        print(self.__dict__)
         if self.vehicle_2.vehicle_number:
             return self.vehicle_2.vehicle_number
         if self.parked_vehicle_2.vehicle_number:
