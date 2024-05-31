@@ -6,7 +6,6 @@ from ninja.pagination import paginate
 from django.db.models import Q
 from typing import Optional
 from datetime import datetime
-from django.contrib.gis.db.models.functions import Distance
 
 from django.contrib.gis.geos import Point
 
@@ -790,18 +789,41 @@ def accidents_list(request, filters: AccidentFilterSchema = Query(...)):
     queryset = filters.filter(queryset)
     return list(queryset)
 
+from geopy import distance
+from django.contrib.gis.measure import D
+from django.contrib.gis.db.models.functions import Distance
+# from django.contrib.gis.measure import Distance as DistanceClass
 
 @api.get("/accidents_by_location", response=List[AccidentSchema])
 @paginate
 def accidents_by_loction(request):
     try:
-        search_location = Point(float(request.GET['lat']), float(request.GET['lon']), srid=4326)
+        search_location = Point(x=float(request.GET['lat']), y=float(request.GET['lon']), srid=4326)
+        radius_in_miles = float(request.GET['radius'])
     except:
         return list()
+
     queryset = Accident.objects.annotate(
         distance=Distance('location', search_location)
-    ).order_by('st_case')
+    ).order_by('distance').filter(location__distance_lte=(search_location, D(mi=radius_in_miles)))
+
+    # for q in queryset:
+    #     print(q.location.x)
+    #     print(q.location.y)
+    #     print(search_location.x)
+    #     print(search_location.y)
+    #     print(q.distance.mi)
+    #     print(distance.distance((search_location.x, search_location.y), (q.location.x, q.location.y)).miles)
     
+
+
+    # queryset = Accident.objects.annotate(
+    #     distance=Distance('location', search_location)
+    # ).order_by('distance').filter(location__distance_lte=(search_location, D(mi=radius_in_miles)))
+    # for q in queryset:
+    #     print(q.location)
+    #     # print(q.location.latitude)
+    #     print(q.distance.mi)
     return list(queryset)
 
 @api.get("/hello")
