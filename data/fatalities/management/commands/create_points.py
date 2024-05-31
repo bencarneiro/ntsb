@@ -8,7 +8,7 @@ def get_point(lat, lon):
     if lat in {Decimal('77.7777000'), Decimal('88.8888000'), Decimal('99.9999000')} or lon in {Decimal('77.7777000'), Decimal('88.8888000'), Decimal('99.9999000')}:
         return None
     else:
-        return Point(x=float(lat), y=float(lon), srid=4326)
+        return Point(x=float(lon), y=float(lat), srid=4326)
     
 
     

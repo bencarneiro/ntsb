@@ -711,23 +711,6 @@ class AccidentSchema(Schema):
     weather: list[WeatherSchema] = Field(..., alias='weather_set')
 
 
-# Extra accident fields which aren't in the schema yet
-    
-#  'city_id': None,
-#  'month': 2,
-#  'day': 4,
-#  'day_of_the_week': 6,
-#  'year': 2022,
-#  'hour': 11,
-#  'minute': None,
-    
-#  'latitude': Decimal('34.8465861'),
-#  'longitude': Decimal('-86.5714361'),
-#  'exact_location': None,
-#  'exact_location_best_guess': None,
-    
-
-
 class AccidentFilterSchema(FilterSchema):
     state_id: Optional[int] = None
     county_id: Optional[int] = None
@@ -796,9 +779,9 @@ from django.contrib.gis.db.models.functions import Distance
 
 @api.get("/accidents_by_location", response=List[AccidentSchema])
 @paginate
-def accidents_by_loction(request):
+def accidents_by_loction(request, filters: AccidentFilterSchema = Query(...)):
     try:
-        search_location = Point(x=float(request.GET['lat']), y=float(request.GET['lon']), srid=4326)
+        search_location = Point(x=float(request.GET['lon']), y=float(request.GET['lat']), srid=4326)
         radius_in_miles = float(request.GET['radius'])
     except:
         return list()
@@ -807,23 +790,7 @@ def accidents_by_loction(request):
         distance=Distance('location', search_location)
     ).order_by('distance').filter(location__distance_lte=(search_location, D(mi=radius_in_miles)))
 
-    # for q in queryset:
-    #     print(q.location.x)
-    #     print(q.location.y)
-    #     print(search_location.x)
-    #     print(search_location.y)
-    #     print(q.distance.mi)
-    #     print(distance.distance((search_location.x, search_location.y), (q.location.x, q.location.y)).miles)
-    
-
-
-    # queryset = Accident.objects.annotate(
-    #     distance=Distance('location', search_location)
-    # ).order_by('distance').filter(location__distance_lte=(search_location, D(mi=radius_in_miles)))
-    # for q in queryset:
-    #     print(q.location)
-    #     # print(q.location.latitude)
-    #     print(q.distance.mi)
+    queryset = filters.filter(queryset)
     return list(queryset)
 
 @api.get("/hello")
