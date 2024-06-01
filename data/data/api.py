@@ -11,6 +11,7 @@ from django.contrib.gis.measure import D
 from django.contrib.gis.db.models.functions import Distance
 
 from django.contrib.gis.geos import Point
+from django.shortcuts import get_object_or_404
 
 
 api = NinjaAPI()
@@ -127,7 +128,8 @@ class NonmotoristPriorActionSchema(Schema):
 
 class NonMotoristSchema(Schema):
     vehicle_id: int = Field(0, alias='vehicle.vehicle_number')
-    id: int = Field(..., alias='person_number')
+    id: int
+    person_number: int = Field(..., alias='person_number')
 
     age: int	
     sex_id: int = Field(..., alias="sex")
@@ -642,6 +644,7 @@ class WeatherSchema(Schema):
 
 
 class AccidentSchema(Schema):
+    id: int
     st_case: int
     fatalities: int
     state: StateSchema
@@ -1117,6 +1120,11 @@ def accidents_list(request, filters: AccidentFilterSchema = Query(...)):
     queryset = filters.filter(queryset)
     return list(queryset)
 
+@api.get("/accidents/{accident_id}", response=AccidentSchema)
+def get_employee(request, accident_id: int):
+    accident = get_object_or_404(Accident, id=accident_id)
+    return accident
+
 
 
 @api.get("/vehicles", response=List[VehicleSchema])
@@ -1126,6 +1134,10 @@ def vehicle_list(request, filters: VehicleFilterSchema = Query(...)):
     queryset = filters.filter(queryset)
     return list(queryset)
 
+@api.get("/vehicles/{vehicle_id}", response=VehicleSchema)
+def get_employee(request, vehicle_id: int):
+    vehicle = get_object_or_404(Vehicle, id=vehicle_id)
+    return vehicle
 
 @api.get("/parked_vehicles", response=List[ParkedVehicleSchema])
 @paginate
@@ -1134,6 +1146,10 @@ def parked_vehicle_list(request, filters: ParkedVehicleFilterSchema = Query(...)
     queryset = filters.filter(queryset)
     return list(queryset)
 
+@api.get("/parked_vehicles/{vehicle_id}", response=ParkedVehicleSchema)
+def get_employee(request, vehicle_id: int):
+    vehicle = get_object_or_404(ParkedVehicle, id=vehicle_id)
+    return vehicle
 
 @api.get("/persons", response=List[NonMotoristSchema])
 @paginate
@@ -1141,6 +1157,11 @@ def person_list(request, filters: PersonFilterSchema = Query(...)):
     queryset = Person.objects.order_by("accident__st_case")
     queryset = filters.filter(queryset)
     return list(queryset)
+
+@api.get("/persons/{person_id}", response=NonMotoristSchema)
+def get_employee(request, person_id: int):
+    person = get_object_or_404(Person, id=person_id)
+    return person
 
 @api.get("/crash_events", response=List[CrashEventSchema])
 @paginate
@@ -1153,7 +1174,6 @@ def crash_event_list(request, filters: CrashEventFilterSchema = Query(...)):
     return list(queryset)
 
 
-# from django.contrib.gis.measure import Distance as DistanceClass
 
 @api.get("/accidents_by_location", response=List[AccidentSchema])
 @paginate
