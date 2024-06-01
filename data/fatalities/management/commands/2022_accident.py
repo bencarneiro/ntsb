@@ -53,7 +53,13 @@ class Command(BaseCommand):
         ]
         csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/accident.csv", encoding='latin-1')
         for x in csv.index:
-            
+
+            st_case = str(csv['ST_CASE'][x])
+            if len(st_case) == 5:
+                st_case = "0" + st_case
+            primary_key = f"2022{st_case}"
+            # print(f"saving data for accident #{primary_key}")
+
             state = State.objects.get(id=csv['STATE'][x])
             if csv['COUNTY'][x] and csv['COUNTY'][x] not in {997, 998, 999}:
                 try:
@@ -81,6 +87,7 @@ class Command(BaseCommand):
             else: 
                 city = None
             data_to_save = {
+                "id": primary_key,
                 "year": 2022,
                 "state": state,
                 "county": county,
