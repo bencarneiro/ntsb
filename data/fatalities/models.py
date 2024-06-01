@@ -16,6 +16,7 @@ class State(models.Model):
 
 
 class County(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     state = models.ForeignKey(State, null=False, blank=False, on_delete=models.DO_NOTHING)
     county_id = models.PositiveIntegerField(null=False, blank=False)
     name = models.CharField(max_length=512, null=False)
@@ -26,6 +27,7 @@ class County(models.Model):
         managed = True
 
 class City(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     city_id = models.PositiveIntegerField(null=False, blank=False)
     state = models.ForeignKey(State, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=512, null=False)
@@ -37,6 +39,7 @@ class City(models.Model):
 
 # in a just world, I would name this model "Crash" but we do not live in a just world and I'm striving for code quality here over personal vendettas
 class Accident(models.Model):
+    id = models.PositiveBigIntegerField(primary_key = True)
     year = models.PositiveSmallIntegerField(null=False, blank=False)
     st_case = models.PositiveIntegerField(null=False)
     #c3
@@ -265,7 +268,7 @@ class Accident(models.Model):
         (98, 'Harmful Event, Details Not Reported (Since 2019)'),
         (99, 'Reported as Unknown')
     ]
-    first_harmful_event = models.PositiveSmallIntegerField(choices=first_harmful_event_options, default=98)
+    first_harmful_event = models.PositiveSmallIntegerField(choices=first_harmful_event_options, default=99)
     #c20
     manner_of_collision_of_first_harmful_event_options = [
         (0,'First Harmful Event was Not a Collision with Motor Vehicle In-Transport'),
@@ -414,6 +417,7 @@ class Accident(models.Model):
         managed = True
 
 class Vehicle(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     accident = models.ForeignKey(Accident, on_delete=models.CASCADE)
     vehicle_number = models.PositiveSmallIntegerField(null=False)
     #v4
@@ -424,7 +428,7 @@ class Vehicle(models.Model):
         (1, "Hit and Run"),
         (9, "Unknown")
     ]
-    hit_and_run = models.PositiveSmallIntegerField(choices=hit_and_run_choices, default=0) 
+    hit_and_run = models.PositiveSmallIntegerField(choices=hit_and_run_choices, default=9) 
     #v7 
     registration_state_choices = [
         (0, "Not Applicable"),
@@ -801,8 +805,8 @@ class Vehicle(models.Model):
         (98, 'Not Reported'),
         (99, 'Reported as Unknown')
     ]
-    gross_vehicle_weight_rating_lower = models.PositiveSmallIntegerField(choices = weight_rating_choices, default = 99)
-    gross_vehicle_weight_rating_upper = models.PositiveSmallIntegerField(choices = weight_rating_choices, default = 99)
+    gross_vehicle_weight_rating_lower = models.PositiveSmallIntegerField(choices = weight_rating_choices, default = 98)
+    gross_vehicle_weight_rating_upper = models.PositiveSmallIntegerField(choices = weight_rating_choices, default = 98)
     #v19 
     vehicle_trailing_choices = [
         (0, 'No Trailers'),
@@ -815,7 +819,7 @@ class Vehicle(models.Model):
         (7, 'Trailing Unit Other than a Trailer or Another Motor Vehicle'),
         (9, 'Unknown')
     ]
-    vehicle_trailing = models.PositiveSmallIntegerField(choices=vehicle_trailing_choices, default=0)
+    vehicle_trailing = models.PositiveSmallIntegerField(choices=vehicle_trailing_choices, default=9)
     #V20
     trailer_vin_1= models.CharField(max_length=32, null=True, blank=True)
     trailer_vin_2= models.CharField(max_length=32, null=True, blank=True)
@@ -835,9 +839,9 @@ class Vehicle(models.Model):
         (98, 'Not Reported'),
         (99, 'Reported as Unknown')
     ]
-    trailer_weight_rating_1 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=0)
-    trailer_weight_rating_2 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=0)
-    trailer_weight_rating_3 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=0)
+    trailer_weight_rating_1 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=98)
+    trailer_weight_rating_2 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=98)
+    trailer_weight_rating_3 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=98)
     #v22 
     jackknife_choices = [
         (0, "Not an Articulated Vehicle"),
@@ -902,7 +906,7 @@ class Vehicle(models.Model):
         (2, "Yes"),
         (8, "Not Reported")
     ]
-    hazardous_material_placard = models.PositiveSmallIntegerField(choices=placard_choices, default=0)
+    hazardous_material_placard = models.PositiveSmallIntegerField(choices=placard_choices, default=8)
     # V26C - HAZ_ID
     hazardous_material_id = models.IntegerField(null=True, blank=True)
     # v26D HAZ_CNO
@@ -919,7 +923,7 @@ class Vehicle(models.Model):
         (9, "Miscellaneous"),
         (88, "Not Reported")
     ]
-    hazardous_material_class_number = models.PositiveSmallIntegerField(choices=hazardous_material_class_number_choices, default=0)
+    hazardous_material_class_number = models.PositiveSmallIntegerField(choices=hazardous_material_class_number_choices, default=88)
     # v26E HAZ_REL
     release_of_hazardous_material_choices = [
         (0, "Not Applicable"),
@@ -927,7 +931,7 @@ class Vehicle(models.Model):
         (2, "Yes"),
         (8, "Not Reported")
     ]
-    release_of_hazardous_material = models.PositiveSmallIntegerField(choices=release_of_hazardous_material_choices, default=0)
+    release_of_hazardous_material = models.PositiveSmallIntegerField(choices=release_of_hazardous_material_choices, default=8)
     #v27 
     bus_use_choices = [
         (0, "Not a Bus"),
@@ -942,7 +946,7 @@ class Vehicle(models.Model):
         (99, "Reported as Unknown")
 
     ]
-    bus_use = models.PositiveSmallIntegerField(choices=bus_use_choices, default=0)
+    bus_use = models.PositiveSmallIntegerField(choices=bus_use_choices, default=98)
     #v28
     special_vehicle_use_choices = [
         (0, 'No Special Use Noted'),
@@ -977,7 +981,7 @@ class Vehicle(models.Model):
         (8, 'Not Reported'),
         (9, 'Reported as Unknown')
     ]
-    emergency_vehicle_use = models.PositiveSmallIntegerField(choices=emergency_vehicle_use_choices, default=0)
+    emergency_vehicle_use = models.PositiveSmallIntegerField(choices=emergency_vehicle_use_choices, default=8)
     #v30
     travel_speed = models.PositiveSmallIntegerField(null=True, blank=True)
     #v31
@@ -989,14 +993,14 @@ class Vehicle(models.Model):
         (8, "Not Reported"),
         (9, "Reported as Unknown")
     ]
-    underride_override = models.PositiveSmallIntegerField(choices=underride_override_choices, default=0)
+    underride_override = models.PositiveSmallIntegerField(choices=underride_override_choices, default=8)
     #v32 
     rollover_choices = [
         (0, "No Rollover"),
         (3, "Rollover"),
         (8, "Not Applicable")
     ]
-    rollover = models.PositiveSmallIntegerField(choices=rollover_choices, default=0)
+    rollover = models.PositiveSmallIntegerField(choices=rollover_choices, default=8)
     #v33 
     rollover_location_choices = [
         (0, "No Rollover"),
@@ -1010,7 +1014,7 @@ class Vehicle(models.Model):
         (8, "Not Applicable"),
         (9, "Unknown")
     ]
-    rollover_location = models.PositiveSmallIntegerField(choices=rollover_location_choices, default=0)
+    rollover_location = models.PositiveSmallIntegerField(choices=rollover_location_choices, default=9)
     #V34A
     initial_contact_point_choices = [
         (0, "Non-Collision"),
@@ -1122,7 +1126,7 @@ class Vehicle(models.Model):
         (98, 'Harmful Event, Details Not Reported (Since 2019)'),
         (99, 'Unknown / Reported as Unknown (Since 2018)')
     ]
-    most_harmful_event = models.PositiveSmallIntegerField(choices=most_harmful_event_choices, default=98)
+    most_harmful_event = models.PositiveSmallIntegerField(choices=most_harmful_event_choices, default=99)
     #v39
     fire_occurence = models.BooleanField(default=False)
     #v40a
@@ -1731,6 +1735,7 @@ class Vehicle(models.Model):
 # A class for parked cars involved with a given fatal crash
     
 class ParkedVehicle(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     accident = models.ForeignKey(Accident, on_delete=models.CASCADE)
     vehicle_number = models.PositiveSmallIntegerField(null=False)
     #c4a #PVE_FORMS
@@ -1794,7 +1799,7 @@ class ParkedVehicle(models.Model):
         (98, 'Harmful Event, Details Not Reported (Since 2019)'),
         (99, 'Reported as Unknown')
     ]
-    first_harmful_event = models.PositiveSmallIntegerField(choices=first_harmful_event_options, default=98)
+    first_harmful_event = models.PositiveSmallIntegerField(choices=first_harmful_event_options, default=99)
     # c20 PMAN_COLL
     manner_of_collision_of_first_harmful_event_options = [
         (0,'First Harmful Event was Not a Collision with Motor Vehicle In-Transport'),
@@ -1809,7 +1814,7 @@ class ParkedVehicle(models.Model):
         (98,'Not Reported'),
         (99,'Reported as Unknown')
     ]
-    manner_of_collision_of_first_harmful_event = models.PositiveSmallIntegerField(choices=manner_of_collision_of_first_harmful_event_options, default=98)
+    manner_of_collision_of_first_harmful_event = models.PositiveSmallIntegerField(choices=manner_of_collision_of_first_harmful_event_options, default=99)
     #v4 PNUMOCCS
     number_of_occupants = models.PositiveSmallIntegerField(null=True, blank=True)
     #v5 PTYPE
@@ -1825,7 +1830,7 @@ class ParkedVehicle(models.Model):
         (1, "Hit and Run"),
         (9, "Unknown")
     ]
-    hit_and_run = models.PositiveSmallIntegerField(choices=hit_and_run_choices, default=0) 
+    hit_and_run = models.PositiveSmallIntegerField(choices=hit_and_run_choices, default=9) 
     
     #v7 
     registration_state_choices = [
@@ -2203,8 +2208,8 @@ class ParkedVehicle(models.Model):
         (98, 'Not Reported'),
         (99, 'Reported as Unknown')
     ]
-    gross_vehicle_weight_rating_lower = models.PositiveSmallIntegerField(choices = weight_rating_choices, default = 99)
-    gross_vehicle_weight_rating_upper = models.PositiveSmallIntegerField(choices = weight_rating_choices, default = 99)
+    gross_vehicle_weight_rating_lower = models.PositiveSmallIntegerField(choices = weight_rating_choices, default = 98)
+    gross_vehicle_weight_rating_upper = models.PositiveSmallIntegerField(choices = weight_rating_choices, default = 98)
     #v19 
     vehicle_trailing_choices = [
         (0, 'No Trailers'),
@@ -2217,7 +2222,7 @@ class ParkedVehicle(models.Model):
         (7, 'Trailing Unit Other than a Trailer or Another Motor Vehicle'),
         (9, 'Unknown')
     ]
-    vehicle_trailing = models.PositiveSmallIntegerField(choices=vehicle_trailing_choices, default=0)
+    vehicle_trailing = models.PositiveSmallIntegerField(choices=vehicle_trailing_choices, default=9)
     #V20
     trailer_vin_1= models.CharField(max_length=32, null=True, blank=True)
     trailer_vin_2= models.CharField(max_length=32, null=True, blank=True)
@@ -2237,9 +2242,9 @@ class ParkedVehicle(models.Model):
         (98, 'Not Reported'),
         (99, 'Reported as Unknown')
     ]
-    trailer_weight_rating_1 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=0)
-    trailer_weight_rating_2 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=0)
-    trailer_weight_rating_3 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=0)
+    trailer_weight_rating_1 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=98)
+    trailer_weight_rating_2 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=98)
+    trailer_weight_rating_3 = models.PositiveSmallIntegerField(choices=trailer_weight_rating_choices, default=98)
     
     #V23
     motor_carrier_identification_number = models.CharField(max_length=32, null=True, blank=True)
@@ -2296,7 +2301,7 @@ class ParkedVehicle(models.Model):
         (2, "Yes"),
         (8, "Not Reported")
     ]
-    hazardous_material_placard = models.PositiveSmallIntegerField(choices=placard_choices, default=0)
+    hazardous_material_placard = models.PositiveSmallIntegerField(choices=placard_choices, default=8)
     # V26C - HAZ_ID
     hazardous_material_id = models.IntegerField(null=True, blank=True)
     # v26D HAZ_CNO
@@ -2313,7 +2318,7 @@ class ParkedVehicle(models.Model):
         (9, "Miscellaneous"),
         (88, "Not Reported")
     ]
-    hazardous_material_class_number = models.PositiveSmallIntegerField(choices=hazardous_material_class_number_choices, default=0)
+    hazardous_material_class_number = models.PositiveSmallIntegerField(choices=hazardous_material_class_number_choices, default=88)
     # v26E HAZ_REL
     release_of_hazardous_material_choices = [
         (0, "Not Applicable"),
@@ -2321,7 +2326,7 @@ class ParkedVehicle(models.Model):
         (2, "Yes"),
         (8, "Not Reported")
     ]
-    release_of_hazardous_material = models.PositiveSmallIntegerField(choices=release_of_hazardous_material_choices, default=0)
+    release_of_hazardous_material = models.PositiveSmallIntegerField(choices=release_of_hazardous_material_choices, default=8)
     #v27 
     bus_use_choices = [
         (0, "Not a Bus"),
@@ -2336,7 +2341,7 @@ class ParkedVehicle(models.Model):
         (99, "Reported as Unknown")
 
     ]
-    bus_use = models.PositiveSmallIntegerField(choices=bus_use_choices, default=0)
+    bus_use = models.PositiveSmallIntegerField(choices=bus_use_choices, default=98)
     #v28
     special_vehicle_use_choices = [
         (0, 'No Special Use Noted'),
@@ -2359,7 +2364,7 @@ class ParkedVehicle(models.Model):
         (24, 'Truck Operating With Crash Attenuator Equipment'),
         (99, 'Reported as Unknown (since 2018)')
     ]
-    special_vehicle_use = models.PositiveSmallIntegerField(choices=special_vehicle_use_choices, default=0)
+    special_vehicle_use = models.PositiveSmallIntegerField(choices=special_vehicle_use_choices, default=99)
     #v29
     emergency_vehicle_use_choices = [
         (0, 'Not Applicable'),
@@ -2371,7 +2376,7 @@ class ParkedVehicle(models.Model):
         (8, 'Not Reported'),
         (9, 'Reported as Unknown')
     ]
-    emergency_vehicle_use = models.PositiveSmallIntegerField(choices=emergency_vehicle_use_choices, default=0)
+    emergency_vehicle_use = models.PositiveSmallIntegerField(choices=emergency_vehicle_use_choices, default=8)
     #v31
     underride_override_choices = [
         (0, "No Underride or Override"),
@@ -2381,7 +2386,7 @@ class ParkedVehicle(models.Model):
         (8, "Not Reported"),
         (9, "Reported as Unknown")
     ]
-    underride_override = models.PositiveSmallIntegerField(choices=underride_override_choices, default=0)
+    underride_override = models.PositiveSmallIntegerField(choices=underride_override_choices, default=8)
     #V34A
     initial_contact_point_choices = [
         (0, "Non-Collision"),
@@ -2509,6 +2514,7 @@ class ParkedVehicle(models.Model):
 
 
 class Person(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     def __nonmotorists__(self):
         return self.filter(vehicle__vehicle_number__isnull=True)
     
@@ -2862,6 +2868,7 @@ class Person(models.Model):
 
 
 class PedestrianType(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     person = models.OneToOneField(Person, on_delete = models.CASCADE)
     #p5
     age = models.PositiveSmallIntegerField(null = True)
@@ -3202,7 +3209,7 @@ class PedestrianType(models.Model):
         ('8', 'Not Applicable'),
         ('99', 'Unknown/Insufficient Information (Since 2017)'),
     ]
-    pedestrian_scenario = models.CharField(choices=pedestrian_scenario_choices, default=99, max_length=16)
+    pedestrian_scenario = models.CharField(choices=pedestrian_scenario_choices, default="99", max_length=16)
 
     # NM11-PB38 PEDCGP
     pedestrian_crash_group_choices = [
@@ -3258,6 +3265,7 @@ class PedestrianType(models.Model):
 
 
 class CrashEvent(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     accident = models.ForeignKey(Accident, null=False, on_delete=models.CASCADE)
     crash_event_number = models.PositiveSmallIntegerField(null=False)
     # VNUMBER1 c18a
@@ -3396,6 +3404,7 @@ class CrashEvent(models.Model):
         managed = True
 
 class VehicleEvent(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     vehicle = models.ForeignKey(Vehicle, null=True, blank = True, on_delete=models.CASCADE)
     crash_event = models.ForeignKey(CrashEvent, null=False, blank=False, on_delete=models.CASCADE)
     vehicle_event_number = models.PositiveSmallIntegerField(null=False)
@@ -3521,6 +3530,7 @@ class VehicleEvent(models.Model):
 
 
 class VehicleSequenceOfEvents(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     vehicle = models.ForeignKey(Vehicle, null=True, blank=True, on_delete = models.CASCADE)
     parked_vehicle = models.ForeignKey(ParkedVehicle, null=True, blank=True, on_delete = models.CASCADE)
     vehicle_event_number = models.PositiveSmallIntegerField(null=False)
@@ -3638,6 +3648,7 @@ class VehicleSequenceOfEvents(models.Model):
 
 
 class CrashRelatedFactors(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.CASCADE)
     # CRASHRF C32
     crash_related_factor_choices = [
@@ -3677,6 +3688,7 @@ class CrashRelatedFactors(models.Model):
         managed = True
 
 class Weather(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     accident = models.ForeignKey(Accident, null=False, blank=False, on_delete = models.CASCADE)
     #c26 weather
     atmospheric_condition_choices = [
@@ -3701,6 +3713,7 @@ class Weather(models.Model):
         managed = True
 
 class VehicleRelatedFactor(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     vehicle = models.ForeignKey(Vehicle, on_delete = models.CASCADE)
     # v41 VEHICLESF
     vehicle_related_factor_choices = [
@@ -3724,6 +3737,7 @@ class VehicleRelatedFactor(models.Model):
         managed = True
 
 class ParkedVehicleRelatedFactor(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     parked_vehicle = models.ForeignKey(ParkedVehicle, null=False, blank = False, on_delete = models.CASCADE)
     # v41 VEHICLESF
     parked_vehicle_related_factor_choices = [
@@ -3747,6 +3761,7 @@ class ParkedVehicleRelatedFactor(models.Model):
         managed = True
 
 class DriverRelatedFactor(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
     # DRIVERRF D24
     driver_related_factor_choices = [
@@ -3824,6 +3839,7 @@ class DriverRelatedFactor(models.Model):
         managed = True
 
 class Damage(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     vehicle = models.ForeignKey(Vehicle, null=True, blank= True, on_delete = models.CASCADE)
     # MDAREAS DAMAGE  V34B
     area_of_impact_choices = [
@@ -3844,7 +3860,7 @@ class Damage(models.Model):
         (15, "No Damage"),
         (99, "Damage Areas Unknown")
     ]
-    area_of_impact = models.PositiveSmallIntegerField(choices=area_of_impact_choices, default=15)
+    area_of_impact = models.PositiveSmallIntegerField(choices=area_of_impact_choices, default=99)
 
     class Meta:
         db_table = "damage"
@@ -3852,6 +3868,7 @@ class Damage(models.Model):
 
 
 class DriverDistracted(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
     # MDRDSTRD DRDISTRACT PC16
     distracted_by_choices = [
@@ -3885,6 +3902,7 @@ class DriverDistracted(models.Model):
         managed = True
 
 class DriverImpaired(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
     # DRIMPAIR D23
     driver_impaired_choices = [
@@ -3912,6 +3930,7 @@ class DriverImpaired(models.Model):
 
 
 class VehicleFactor(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
     # PC4 MFACTOR VEHICLECC
     contributing_cause_choices = [
@@ -3936,7 +3955,7 @@ class VehicleFactor(models.Model):
         (97, 'Other'),
         (99, 'Reported as Unknown'),
     ]
-    contributing_cause = models.PositiveSmallIntegerField(choices=contributing_cause_choices, default=0)
+    contributing_cause = models.PositiveSmallIntegerField(choices=contributing_cause_choices, default=99)
 
     class Meta:
         db_table = "vehicle_factor"
@@ -3944,6 +3963,7 @@ class VehicleFactor(models.Model):
 
 
 class Maneuver(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
     # MDRMANAV MANEUVER PC15
     driver_maneuvered_to_avoid_choices = [
@@ -3966,6 +3986,7 @@ class Maneuver(models.Model):
 
 
 class Violation(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
     # MVIOLATN VIOLATION D21
     moving_violation_choices = [
@@ -4055,6 +4076,7 @@ class Violation(models.Model):
 
 
 class Vision(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     vehicle = models.ForeignKey(Vehicle, null=False, blank = False, on_delete = models.CASCADE)
 
     # MVISOBSC VISION PC14
@@ -4091,6 +4113,7 @@ class Vision(models.Model):
 # and higher correspond directly the same values for 1982 to 2009. 
     
 class PersonRelatedFactor(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
     person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
     # PERSONRF P24/NM26 
@@ -4168,6 +4191,7 @@ class PersonRelatedFactor(models.Model):
 
 
 class Drugs(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
 
     person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
@@ -4196,6 +4220,7 @@ class Drugs(models.Model):
 
 
 class Race(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
 
     person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
@@ -4234,6 +4259,7 @@ class Race(models.Model):
 
 
 class NonmotoristContributingCircumstance(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
 
     person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
@@ -4264,7 +4290,7 @@ class NonmotoristContributingCircumstance(models.Model):
         (92, 'Contributing Circumstance - No Details'),
         (99, 'Reported as Unknown'),
     ]
-    nonmotorist_contributing_circumstance = models.PositiveSmallIntegerField(choices=nonmotorist_contributing_circumstance_choices, default=0)
+    nonmotorist_contributing_circumstance = models.PositiveSmallIntegerField(choices=nonmotorist_contributing_circumstance_choices, default=99)
 
     class Meta:
         db_table = "nonmotorist_contributing_circumstance"
@@ -4272,6 +4298,7 @@ class NonmotoristContributingCircumstance(models.Model):
 
 
 class NonmotoristDistracted(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
 
     person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
@@ -4298,7 +4325,7 @@ class NonmotoristDistracted(models.Model):
         (98, 'Other Distraction'),
         (99, 'Reported as Unknown if Distracted'),
     ]
-    nonmotorist_distracted_by = models.PositiveSmallIntegerField(choices=nonmotorist_distracted_by_choices, default=0)
+    nonmotorist_distracted_by = models.PositiveSmallIntegerField(choices=nonmotorist_distracted_by_choices, default=99)
 
     class Meta:
         db_table = "nonmotorist_distracted"
@@ -4306,6 +4333,7 @@ class NonmotoristDistracted(models.Model):
 
 
 class NonmotoristImpaired(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
 
     person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
@@ -4326,7 +4354,7 @@ class NonmotoristImpaired(models.Model):
         (98, 'Not Reported'),
         (99, 'Reported as Unknown if Impaired'),
     ]
-    nonmotorist_impaired = models.PositiveSmallIntegerField(choices=nonmotorist_impaired_choices, default=0)
+    nonmotorist_impaired = models.PositiveSmallIntegerField(choices=nonmotorist_impaired_choices, default=98)
 
     class Meta:
         db_table = "nonmotorist_impaired"
@@ -4334,6 +4362,7 @@ class NonmotoristImpaired(models.Model):
 
 
 class NonmotoristPriorAction(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
 
     person = models.ForeignKey(Person, null=False, blank=False, on_delete = models.CASCADE)
 
@@ -4355,7 +4384,7 @@ class NonmotoristPriorAction(models.Model):
         (98, 'Not Reported'),
         (99, 'Reported as Unknown'),
     ]
-    nonmotorist_prior_action = models.PositiveSmallIntegerField(choices=nonmotorist_prior_action_choices, default=99)
+    nonmotorist_prior_action = models.PositiveSmallIntegerField(choices=nonmotorist_prior_action_choices, default=98)
 
     class Meta:
         db_table = "nonmotorist_prior_action"
@@ -4363,6 +4392,7 @@ class NonmotoristPriorAction(models.Model):
 
 
 class SafetyEquipment(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True)
 
     person = models.OneToOneField(Person, null=False, blank=False, on_delete = models.CASCADE)
     safety_equipment_choices = [
