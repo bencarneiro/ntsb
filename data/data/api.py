@@ -717,6 +717,16 @@ class AccidentSchema(Schema):
     crash_related_factors: list[CrashRelatedFactorSchema] = Field(..., alias='crashrelatedfactors_set')
     weather: list[WeatherSchema] = Field(..., alias='weather_set')
 
+class ShortAccidentSchema(Schema):
+    id: int
+    st_case: int
+    fatalities: int
+    latitude: float
+    longitude: float
+    data: str
+
+
+
 class PersonFilterSchema(FilterSchema):
     id: Optional[int] = None	
     id__gt: Optional[int] = None	
@@ -1162,16 +1172,15 @@ def accidents_by_loction(request, filters: AccidentFilterSchema = Query(...)):
     return list(queryset)
 
 
-@api.get("/accidents_by_vehicle", response=List[AccidentSchema])
+@api.get("/accidents_by_vehicle", response=List[ShortAccidentSchema])
 @paginate
 def accidents_by_vehicle(request, filters: VehicleFilterSchema = Query(...)):
     queryset = Vehicle.objects.order_by("accident__st_case")
     queryset = filters.filter(queryset)
     listo = list(queryset.values_list("accident_id", flat=True))
-    # print(listo)
     new_qs = Accident.objects.filter(id__in=listo)
-    # new_queryset = 
     return list(new_qs)
+
 
 @api.get("/hello")
 def hello(request):

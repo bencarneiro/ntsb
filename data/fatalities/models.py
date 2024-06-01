@@ -404,6 +404,10 @@ class Accident(models.Model):
     def nonmotorist_set(self):
         return self.person_set.filter(vehicle__vehicle_number__isnull=True, parked_vehicle__vehicle_number__isnull=True)
 
+    @property
+    def data(self):
+        return f"/accidents/{self.id}"
+    
     class Meta:
         unique_together = [["year", "st_case"]]
         db_table = "accident"
