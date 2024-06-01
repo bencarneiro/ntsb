@@ -339,7 +339,11 @@ class VehicleRelatedFactorSchema(Schema):
 class DriverRelatedFactorSchema(Schema):
     id: int = Field(..., alias='driver_related_factor')
     factor: str = Field(..., alias='get_driver_related_factor_display')
-    
+
+class VisionSchema(Schema):
+    id: int = Field(..., alias='visibility')
+    vision: str = Field(..., alias='get_visibility_display')
+
 class DamageSchema(Schema):
     id: int = Field(..., alias='area_of_impact')
     area_of_impact: str = Field(..., alias='get_area_of_impact_display')
@@ -522,6 +526,7 @@ class VehicleSchema(Schema):
     vehicle_factors: List[VehicleFactorSchema] = Field(..., alias='vehiclefactor_set')
     maneuvers: List[ManeuverSchema] = Field(..., alias='maneuver_set')
     moving_violations: List[ViolationSchema] = Field(..., alias='violation_set')
+    vision: List[VisionSchema] = Field(..., alias='vision_set')
 
 class ParkedVehicleRelatedFactorSchema(Schema):
     id: int = Field(..., alias='parked_vehicle_related_factor')
@@ -1030,6 +1035,68 @@ class CrashEventFilterSchema(FilterSchema):
     crash_event_number__lt: Optional[int] = None
     crash_event_number__gt: Optional[int] = None
     sequence_of_events: Optional[int] = None
+
+class WeatherFilterSchema(FilterSchema):
+    weather: Optional[int] = None
+
+class CrashRelatedFactorFilterSchema(FilterSchema):
+    crash_related_factor: Optional[int] = None
+
+class DamageFilterSchema(FilterSchema):
+    area_of_impact: Optional[int] = None
+    
+class DriverRelatedFactorFilterSchema(FilterSchema):
+    driver_related_factor: Optional[int] = None
+    
+class DriverDistractedFilterSchema(FilterSchema):
+    distracted_by: Optional[int] = None
+    
+class DriverImpairedFilterSchema(FilterSchema):
+    driver_impaired: Optional[int] = None
+    
+class VehicleFactorFilterSchema(FilterSchema):
+    contributing_cause: Optional[int] = None
+    
+class ManeuverFilterSchema(FilterSchema):
+    driver_maneuvered_to_avoid: Optional[int] = None
+    
+class VehicleRelatedFactorFilterSchema(FilterSchema):
+    vehicle_related_factor: Optional[int] = None
+    
+class ViolationFilterSchema(FilterSchema):
+    moving_violation: Optional[int] = None
+
+class VisionFilterSchema(FilterSchema):
+    vision: Optional[int] = None
+    
+
+class DrugsFilterSchema(FilterSchema):
+    drug_test_type: Optional[int] = None
+    drug_test_result: Optional[int] = None
+    drug_test_result__lt: Optional[int] = None
+    drug_test_result__gt: Optional[int] = None
+
+class RaceFilterSchema(FilterSchema):
+    race: Optional[int] = None
+    is_multiple_races: Optional[int] = None
+    order: Optional[int] = None
+
+class PersonRelatedFactorFilterSchema(FilterSchema):
+    person_related_factor: Optional[int] = None
+    
+class NonmotoristContributingCircumstanceFilterSchema(FilterSchema):
+    nonmotorist_contributing_circumstance: Optional[int] = None
+
+class NonmotoristImpairedFilterSchema(FilterSchema):
+    nonmotorist_impaired: Optional[int] = None
+
+
+class NonmotoristDistractedFilterSchema(FilterSchema):
+    nonmotorist_distracted_by: Optional[int] = None
+
+
+class NonmotoristPriorActionFilterSchema(FilterSchema):
+    nonmotorist_prior_action: Optional[int] = None
 
 
 
