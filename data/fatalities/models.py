@@ -412,6 +412,10 @@ class Accident(models.Model):
         return f"/accidents/{self.id}"
     
     class Meta:
+        indexes = [
+            models.Index(fields=["id"]),
+            models.Index(fields=["datetime"]),
+        ]
         unique_together = [["year", "st_case"]]
         db_table = "accident"
         managed = True
