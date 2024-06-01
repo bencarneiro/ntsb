@@ -5,7 +5,7 @@ from fatalities.models import ParkedVehicleRelatedFactor, Accident, ParkedVehicl
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
         ParkedVehicleRelatedFactor.objects.filter(parked_vehicle__accident__year=2022).delete()
-        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/pvehiclesf.csv", encoding='latin-1')
+        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/FARS2022NationalCSV/pvehiclesf.csv", encoding='latin-1')
         for x in csv.index:
             print(csv['ST_CASE'][x])
             print(csv['VEH_NO'][x])

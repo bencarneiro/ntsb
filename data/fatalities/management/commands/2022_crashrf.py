@@ -5,7 +5,7 @@ from fatalities.models import CrashRelatedFactors, Accident
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
         CrashRelatedFactors.objects.filter(accident__year=2022).delete()
-        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/crashrf.csv", encoding='latin-1')
+        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/FARS2022NationalCSV/crashrf.csv", encoding='latin-1')
         for x in csv.index:
             
             accident = Accident.objects.get(st_case=csv['ST_CASE'][x])

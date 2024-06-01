@@ -8,7 +8,7 @@ from django.db.models import Q
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
         Drugs.objects.filter(person__accident__year=2022).delete()
-        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/drugs.csv", encoding='latin-1')
+        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/FARS2022NationalCSV/drugs.csv", encoding='latin-1')
         for x in csv.index:
             if csv['VEH_NO'][x] == 0:
                 person = Person.objects.get(accident__year=2022, person_number=csv['PER_NO'][x], accident__st_case=csv['ST_CASE'][x], vehicle__vehicle_number__isnull=True, parked_vehicle__vehicle_number__isnull=True)

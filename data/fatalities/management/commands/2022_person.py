@@ -42,7 +42,7 @@ class Command(BaseCommand):
             'at_work',
             'hispanic'
         ]
-        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/person.csv", encoding='latin-1', low_memory=False).fillna(0)
+        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/FARS2022NationalCSV/person.csv", encoding='latin-1', low_memory=False).fillna(0)
         for x in csv.index:
             
             st_case = str(csv['ST_CASE'][x])
@@ -58,7 +58,7 @@ class Command(BaseCommand):
             
             accident = Accident.objects.get(st_case=csv['ST_CASE'][x])
             data_to_save = {
-                "id": primary_key,
+                "id": primary_key
                 "accident": accident,
             }
             try:

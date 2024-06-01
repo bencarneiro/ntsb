@@ -52,7 +52,7 @@ class Command(BaseCommand):
             'fatalities',
             'combined_make_model_id'
         ]
-        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/parkwork.csv", encoding='latin-1')
+        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/FARS2022NationalCSV/parkwork.csv", encoding='latin-1')
         for x in csv.index:
 
             st_case = str(csv['ST_CASE'][x])

@@ -29,7 +29,7 @@ class Command(BaseCommand):
             'pedestrian_crash_group',
             'bike_crash_group'
         ]
-        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/pbtype.csv", encoding='latin-1')
+        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/FARS2022NationalCSV/pbtype.csv", encoding='latin-1')
         for x in csv.index:
             print(f"crash : {csv['ST_CASE'][x]} ----vehicle {csv['VEH_NO'][x]} --- person {csv['PER_NO'][x]}")
             if csv['VEH_NO'][x] == 0:

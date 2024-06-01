@@ -92,7 +92,7 @@ class Command(BaseCommand):
             'preimpact_location',
             'crash_type'
         ]
-        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/vehicle.csv", encoding='latin-1')
+        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/FARS2022NationalCSV/vehicle.csv", encoding='latin-1')
         for x in csv.index:
 
             st_case = str(csv['ST_CASE'][x])

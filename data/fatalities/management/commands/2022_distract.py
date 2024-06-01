@@ -5,7 +5,7 @@ from fatalities.models import DriverDistracted, Vehicle
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
         DriverDistracted.objects.filter(vehicle__accident__year=2022).delete()
-        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/distract.csv", encoding='latin-1')
+        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/FARS2022NationalCSV/distract.csv", encoding='latin-1')
         for x in csv.index:
             vehicle = Vehicle.objects.get(year=2022, accident__st_case=csv['ST_CASE'][x], vehicle_number=csv['VEH_NO'][x])
 
