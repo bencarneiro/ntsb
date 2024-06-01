@@ -7,8 +7,21 @@ class Command(BaseCommand):
         DriverDistracted.objects.filter(vehicle__accident__year=2022).delete()
         csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/distract.csv", encoding='latin-1')
         for x in csv.index:
-            vehicle = Vehicle.objects.get(accident__st_case=csv['ST_CASE'][x], vehicle_number=csv['VEH_NO'][x])
-            data_to_save = {"vehicle": vehicle}
+            vehicle = Vehicle.objects.get(year=2022, accident__st_case=csv['ST_CASE'][x], vehicle_number=csv['VEH_NO'][x])
+
+            st_case = str(csv['ST_CASE'][x])
+            if len(st_case) == 5:
+                st_case = "0" + st_case
+            veh_no = str(csv['VEH_NO'][x])
+            while len(veh_no) < 3:
+                veh_no = "0" + veh_no
+            number_saved = len(DriverDistracted.objects.filter(vehicle=vehicle))
+            new_distraction_id = str(number_saved + 1)
+            while len(new_distraction_id) < 3:
+                new_distraction_id = "0" + new_distraction_id
+            primary_key = f"2022{st_case}{veh_no}{new_distraction_id}"
+
+            data_to_save = {"vehicle": vehicle, "id": primary_key}
             data_to_save['distracted_by'] = csv['DRDISTRACT'][x]
             print(data_to_save)
             DriverDistracted.objects.create(**data_to_save)

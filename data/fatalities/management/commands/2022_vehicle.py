@@ -94,8 +94,18 @@ class Command(BaseCommand):
         ]
         csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/vehicle.csv", encoding='latin-1')
         for x in csv.index:
+
+            st_case = str(csv['ST_CASE'][x])
+            if len(st_case) == 5:
+                st_case = "0" + st_case
+            veh_no = str(csv['VEH_NO'][x])
+            while len(veh_no) < 3:
+                veh_no = "0" + veh_no
+            primary_key = f"2022{st_case}{veh_no}"
+            
             accident = Accident.objects.get(st_case=csv['ST_CASE'][x])
             data_to_save = {
+                "id": primary_key,
                 "accident": accident,
                 "hazardous_material_involvement": csv['HAZ_INV'][x] - 1
             }

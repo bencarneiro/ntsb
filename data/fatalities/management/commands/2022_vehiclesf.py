@@ -8,7 +8,19 @@ class Command(BaseCommand):
         csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/vehiclesf.csv", encoding='latin-1')
         for x in csv.index:
             vehicle = Vehicle.objects.get(accident__year=2022, accident__st_case=csv['ST_CASE'][x], vehicle_number=csv['VEH_NO'][x])
+            st_case = str(csv['ST_CASE'][x])
+            if len(st_case) == 5:
+                st_case = "0" + st_case
+            veh_no = str(csv['VEH_NO'][x])
+            while len(veh_no) < 3:
+                veh_no = "0" + veh_no
+            number_saved = len(VehicleRelatedFactor.objects.filter(vehicle=vehicle))
+            new_factor_id = str(number_saved + 1)
+            while len(new_factor_id) < 3:
+                new_factor_id = "0" + new_factor_id
+            primary_key = f"2022{st_case}{veh_no}{new_factor_id}"
             data_to_save = {
+                "id": primary_key,
                 "vehicle": vehicle,
                 "vehicle_related_factor": csv['VEHICLESF'][x]
             }
