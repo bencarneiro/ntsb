@@ -17,16 +17,16 @@ from django.shortcuts import get_object_or_404
 api = NinjaAPI()
 
 class StateSchema(Schema):
-    state: int
-    state__display: str
+    id: int
+    name: str
 
 class CountySchema(Schema):
-    county: int
-    county__display: str
+    id: int
+    name: str
 
 class CitySchema(Schema):
-    city: int = Field(None, alias="id")
-    city__display: str = Field(None, alias="name")
+    id: int = Field(None, alias="id")
+    name: str = Field(None, alias="name")
 
 class DrugsSchema(Schema):
     drug_test_given: int = Field(None, alias="drug_test_type")

@@ -17,7 +17,7 @@ class Command(BaseCommand):
             veh_no = str(csv['VEH_NO'][x])
             while len(veh_no) < 3:
                 veh_no = "0" + veh_no
-            per_no = str(csv['ST_CASE'][x])
+            per_no = str(csv['PER_NO'][x])
             while len(per_no) < 3:
                 per_no = "0" + per_no
             number_saved = len(NonmotoristContributingCircumstance.objects.filter(person=person))
