@@ -1,7 +1,7 @@
 from ninja import NinjaAPI
 from typing import List
 from ninja import Schema, Field, FilterSchema, Query
-from fatalities.models import Accident, ParkedVehicle, Person, Vehicle
+from fatalities.models import Accident, CrashEvent, ParkedVehicle, Person, Vehicle
 from ninja.pagination import paginate
 from django.db.models import Q
 from typing import Optional
@@ -1022,6 +1022,16 @@ class AccidentFilterSchema(FilterSchema):
     school_bus_related: Optional[bool] = None
     rail_grade_crossing_identifier: Optional[str] = None
 
+class CrashEventFilterSchema(FilterSchema):
+    accident_id: Optional[int] = None
+    accident_id__lt: Optional[int] = None
+    accident_id__gt: Optional[int] = None
+    crash_event_number: Optional[int] = None
+    crash_event_number__lt: Optional[int] = None
+    crash_event_number__gt: Optional[int] = None
+    sequence_of_events: Optional[int] = None
+
+
 
 @api.get("/accidents", response=List[AccidentSchema])
 @paginate
@@ -1054,6 +1064,17 @@ def person_list(request, filters: PersonFilterSchema = Query(...)):
     queryset = Person.objects.order_by("accident__st_case")
     queryset = filters.filter(queryset)
     return list(queryset)
+
+@api.get("/crash_events", response=List[CrashEventSchema])
+@paginate
+def crash_event_list(request, filters: CrashEventFilterSchema = Query(...)):
+
+    queryset = CrashEvent.objects.order_by("accident__st_case")
+    if "vehicle" in request.GET and request.GET['vehicle']:
+        queryset = queryset.filter(Q(vehicle_1_id=request.GET['vehicle']) | Q(vehicle_2_id=request.GET['vehicle']) | Q(parked_vehicle_1_id=request.GET['vehicle']) | Q(parked_vehicle_2_id=request.GET['vehicle']))
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
 
 # from django.contrib.gis.measure import Distance as DistanceClass
 
