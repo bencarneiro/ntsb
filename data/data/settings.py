@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-$@0+!h+srs+u_q&2k98050j!8=ym=w(%^+b+6(&c1z=ui(6)94
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "127.0.0.1:8000", "roadway.report", "www.roadway.report"]
 
 
 # Application definition
