@@ -8,7 +8,18 @@ class Command(BaseCommand):
         csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/weather.csv", encoding='latin-1')
         for x in csv.index:
             accident = Accident.objects.get(st_case=csv['ST_CASE'][x])
+
+            st_case = str(csv['ST_CASE'][x])
+            if len(st_case) == 5:
+                st_case = "0" + st_case
+            number_of_saved_weathers = len(Weather.objects.filter(accident=accident))
+            new_weather_id = str(number_of_saved_weathers + 1)
+            while len(new_weather_id) < 3:
+                new_weather_id = "0" + new_weather_id
+            primary_key = f"2022{st_case}{new_weather_id}"
+
             data_to_save = {
+                "id": primary_key,
                 "accident": accident,
                 "atmospheric_condition": csv['WEATHER'][x]
             }

@@ -58,6 +58,7 @@ class Command(BaseCommand):
             
             accident = Accident.objects.get(st_case=csv['ST_CASE'][x])
             data_to_save = {
+                "id": primary_key,
                 "accident": accident,
             }
             try:
