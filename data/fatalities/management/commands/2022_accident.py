@@ -61,11 +61,22 @@ class Command(BaseCommand):
             # print(f"saving data for accident #{primary_key}")
 
             state = State.objects.get(id=csv['STATE'][x])
+            state_code = str(csv['STATE'][x])
+            while len(state_code) > 2:
+                state_code = "0" + state_code
+            county_code = str(csv['COUNTY'][x])
+            while len(county_code) > 3:
+                county_code = "0" + county_code
+            city_code = str(csv['CITY'][x])
+            while len(city_code) > 4:
+                city_code = "0" + city_code
+
             if csv['COUNTY'][x] and csv['COUNTY'][x] not in {997, 998, 999}:
                 try:
                     county = County.objects.get(state=state, county_id=csv['COUNTY'][x])
                 except:
                     county = County(
+                        id=f"{state_code}{county_code}",
                         state=state, 
                         county_id=csv['COUNTY'][x],
                         name=csv['COUNTYNAME'][x]
@@ -79,6 +90,7 @@ class Command(BaseCommand):
                     city = City.objects.get(state=state, city_id=csv['CITY'][x])
                 except:
                     city = City(
+                        id=f"{state_code}{city_code}",
                         state=state, 
                         city_id=csv['CITY'][x],
                         name=csv['CITYNAME'][x]
