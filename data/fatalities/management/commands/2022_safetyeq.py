@@ -10,6 +10,7 @@ class Command(BaseCommand):
         for x in csv.index:
             person = Person.objects.get(accident__year=2022, person_number=csv['PER_NO'][x], accident__st_case=csv['ST_CASE'][x], vehicle__vehicle_number__isnull=True, parked_vehicle__vehicle_number__isnull=True)
             data_to_save = {
+                "id": person.id,
                 "person": person,
                 "helmet": csv['NMHELMET'][x],
                 "pads": csv['NMPROPAD'][x],

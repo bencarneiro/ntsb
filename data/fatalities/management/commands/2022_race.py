@@ -14,7 +14,23 @@ class Command(BaseCommand):
                 person = Person.objects.get(accident__year=2022, person_number=csv['PER_NO'][x], accident__st_case=csv['ST_CASE'][x], vehicle__vehicle_number__isnull=True, parked_vehicle__vehicle_number__isnull=True)
             else:
                 person = Person.objects.get(Q(accident__year=2022), Q(person_number=csv['PER_NO'][x]),  Q(accident__st_case=csv['ST_CASE'][x]), Q(vehicle__vehicle_number=csv['VEH_NO'][x])|Q(parked_vehicle__vehicle_number=csv['VEH_NO'][x]))
-            data_to_save = {"person": person}
+            
+            st_case = str(csv['ST_CASE'][x])
+            if len(st_case) == 5:
+                st_case = "0" + st_case
+            veh_no = str(csv['VEH_NO'][x])
+            while len(veh_no) < 3:
+                veh_no = "0" + veh_no
+            per_no = str(csv['ST_CASE'][x])
+            while len(per_no) < 3:
+                per_no = "0" + per_no
+            number_saved = len(Race.objects.filter(person=person))
+            new_race_id = str(number_saved + 1)
+            while len(new_race_id) < 3:
+                new_race_id = "0" + new_race_id
+            primary_key = f"2022{st_case}{veh_no}{per_no}{new_race_id}"
+            
+            data_to_save = {"id": primary_key, "person": person}
             data_to_save['race'] = csv['RACE'][x]
             data_to_save['is_multiple_races'] = csv['MULTRACE'][x]
             data_to_save['order'] = csv['ORDER'][x]

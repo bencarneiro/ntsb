@@ -35,9 +35,10 @@ class Command(BaseCommand):
             if csv['VEH_NO'][x] == 0:
                 person = Person.objects.get(accident__year=2022, person_number=csv['PER_NO'][x], accident__st_case=csv['ST_CASE'][x], vehicle__vehicle_number__isnull=True, parked_vehicle__vehicle_number__isnull=True)
             else:
-                q = Q(income__gte=5000) | Q(income__isnull=True)
+                # q = Q(income__gte=5000) | Q(income__isnull=True)
                 person = Person.objects.get(Q(accident__year=2022), Q(person_number=csv['PER_NO'][x]),  Q(accident__st_case=csv['ST_CASE'][x]), Q(vehicle__vehicle_number=csv['VEH_NO'][x])|Q(parked_vehicle__vehicle_number=csv['VEH_NO'][x]))
             data_to_save = {
+                "id": person.id,
                 "person": person,
             }
             for model_field_name in model_fields:
