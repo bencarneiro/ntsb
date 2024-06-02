@@ -8,7 +8,7 @@ class Command(BaseCommand):
         DriverDistracted.objects.filter(vehicle__accident__year=2022).delete()
         csv = pd.read_csv(f"{CSV_PATH}2022/FARS2022NationalCSV/distract.csv", encoding='latin-1')
         for x in csv.index:
-            vehicle = Vehicle.objects.get(year=2022, accident__st_case=csv['ST_CASE'][x], vehicle_number=csv['VEH_NO'][x])
+            vehicle = Vehicle.objects.get(accident__year=2022, accident__st_case=csv['ST_CASE'][x], vehicle_number=csv['VEH_NO'][x])
 
             st_case = str(csv['ST_CASE'][x])
             if len(st_case) == 5:
