@@ -15,4 +15,4 @@ https://crashstats.nhtsa.dot.gov/#!/DocumentTypeList/23
 
 In order for the import scripts to run correctly, they need to be in this order - This applies to any year of data importing
 
-accident, vehicle, parkwork, person, pbtype, cevent, crashrf, weather, vehiclesf, pvehiclesf, driverrf, damage, distract, drimpair, factor, maneuver, violatn, vision, personrf, drugs, race, nmcrash, nmimpair, nmdistract, nmprior, safetyeq
+accident, create_datetimes, create_points, vehicle, parkwork, person, pbtype, cevent, crashrf, weather, vehiclesf, pvehiclesf, driverrf, damage, distract, drimpair, factor, maneuver, violatn, vision, personrf, drugs, race, nmcrash, nmimpair, nmdistract, nmprior, safetyeq
