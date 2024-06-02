@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from data.settings import CSV_PATH
 from fatalities.models import Accident, City, County, State
 from fatalities.data_processing import get_data_source
 import pandas as pd
@@ -51,7 +52,7 @@ class Command(BaseCommand):
             'arrived_at_hospital_minute',
             'fatalities'
         ]
-        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/FARS2022NationalCSV/accident.csv", encoding='latin-1')
+        csv = pd.read_csv(f"{CSV_PATH}2022/FARS2022NationalCSV/accident.csv", encoding='latin-1')
         for x in csv.index:
 
             st_case = str(csv['ST_CASE'][x])

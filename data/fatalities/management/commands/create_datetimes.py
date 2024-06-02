@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from data.settings import CSV_PATH
 import pandas as pd
 from fatalities.models import Accident
 

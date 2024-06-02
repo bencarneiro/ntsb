@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "127.0.0.1:8000", "roadway.report", "www.roadway.report"]
 
+CSV_PATH = os.environ.get("CSV_PATH", "/home/tonydeals/app/ntsb/data/csvs/")
 
 # Application definition
 

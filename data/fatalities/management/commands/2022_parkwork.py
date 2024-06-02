@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from data.settings import CSV_PATH
 from fatalities.models import ParkedVehicle, Accident
 from fatalities.data_processing import get_data_source
 import pandas as pd
@@ -52,7 +53,7 @@ class Command(BaseCommand):
             'fatalities',
             'combined_make_model_id'
         ]
-        csv = pd.read_csv("/home/tonydeals/app/ntsb/data/csvs/2022/FARS2022NationalCSV/parkwork.csv", encoding='latin-1')
+        csv = pd.read_csv(f"{CSV_PATH}2022/FARS2022NationalCSV/parkwork.csv", encoding='latin-1')
         for x in csv.index:
 
             st_case = str(csv['ST_CASE'][x])
