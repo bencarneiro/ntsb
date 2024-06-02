@@ -404,7 +404,7 @@ class VehicleSchema(Schema):
     trailer_weight_rating_3__display: str = Field(..., alias='get_trailer_weight_rating_3_display')
     jackknife: int = Field(..., alias='jackknife')	
     jackknife__display: str = Field(..., alias='get_jackknife_display')
-    motor_carrierentification_number: str
+    motor_carrier_identification_number: str
     vehicle_configuration: int = Field(..., alias='vehicle_configuration')	
     vehicle_configuration__display: str = Field(..., alias='get_vehicle_configuration_display')
     cargo_body_type: int = Field(..., alias='cargo_body_type')	
@@ -412,7 +412,7 @@ class VehicleSchema(Schema):
     hazardous_material_involvement: bool
     hazardous_material_placard: int = Field(..., alias='hazardous_material_placard')	
     hazardous_material_placard__display: str = Field(..., alias='get_hazardous_material_placard_display')
-    hazardous_material: int
+    hazardous_material_id: int
     hazardous_material_class_number: int = Field(..., alias='hazardous_material_class_number')	
     hazardous_material_class_number__display: str = Field(..., alias='get_hazardous_material_class_number_display')
     release_of_hazardous_material: int = Field(..., alias='release_of_hazardous_material')	
@@ -574,7 +574,7 @@ class ParkedVehicleSchema(Schema):
     trailer_weight_rating_2__display: str = Field(..., alias='get_trailer_weight_rating_2_display')
     trailer_weight_rating_3: int = Field(..., alias='trailer_weight_rating_3')	
     trailer_weight_rating_3__display: str = Field(..., alias='get_trailer_weight_rating_3_display')
-    motor_carrierentification_number: str
+    motor_carrier_identification_number: str
     vehicle_configuration: int = Field(..., alias='vehicle_configuration')	
     vehicle_configuration__display: str = Field(..., alias='get_vehicle_configuration_display')
     cargo_body_type: int = Field(..., alias='cargo_body_type')	
@@ -582,7 +582,7 @@ class ParkedVehicleSchema(Schema):
     hazardous_material_involvement: bool
     hazardous_material_placard: int = Field(..., alias='hazardous_material_placard')	
     hazardous_material_placard__display: str = Field(..., alias='get_hazardous_material_placard_display')
-    hazardous_material: int
+    hazardous_material_id: int
     hazardous_material_class_number: int = Field(..., alias='hazardous_material_class_number')	
     hazardous_material_class_number__display: str = Field(..., alias='get_hazardous_material_class_number_display')
     release_of_hazardous_material: int = Field(..., alias='release_of_hazardous_material')	
