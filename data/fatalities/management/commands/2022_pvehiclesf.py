@@ -17,7 +17,7 @@ class Command(BaseCommand):
             veh_no = str(csv['VEH_NO'][x])
             while len(veh_no) < 3:
                 veh_no = "0" + veh_no
-            number_saved = len(ParkedVehicleRelatedFactor.objects.filter(vehicle=parked_vehicle))
+            number_saved = len(ParkedVehicleRelatedFactor.objects.filter(parked_vehicle=parked_vehicle))
             new_factor_id = str(number_saved + 1)
             while len(new_factor_id) < 3:
                 new_factor_id = "0" + new_factor_id

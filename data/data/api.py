@@ -1115,7 +1115,7 @@ def accidents_list(request, filters: AccidentFilterSchema = Query(...)):
     return list(queryset)
 
 @api.get("/accidents/{accident_id}", response=AccidentSchema)
-def get_employee(request, accident_id: int):
+def get_accident(request, accident_id: int):
     accident = get_object_or_404(Accident, id=accident_id)
     return accident
 
@@ -1129,7 +1129,7 @@ def vehicle_list(request, filters: VehicleFilterSchema = Query(...)):
     return list(queryset)
 
 @api.get("/vehicles/{vehicle_id}", response=VehicleSchema)
-def get_employee(request, vehicle_id: int):
+def get_vehicle(request, vehicle_id: int):
     vehicle = get_object_or_404(Vehicle, id=vehicle_id)
     return vehicle
 
@@ -1141,7 +1141,7 @@ def parked_vehicle_list(request, filters: ParkedVehicleFilterSchema = Query(...)
     return list(queryset)
 
 @api.get("/parked_vehicles/{vehicle_id}", response=ParkedVehicleSchema)
-def get_employee(request, vehicle_id: int):
+def get_parked_vehicle(request, vehicle_id: int):
     vehicle = get_object_or_404(ParkedVehicle, id=vehicle_id)
     return vehicle
 
@@ -1153,7 +1153,7 @@ def person_list(request, filters: PersonFilterSchema = Query(...)):
     return list(queryset)
 
 @api.get("/persons/{person_id}", response=NonMotoristSchema)
-def get_employee(request, person_id: int):
+def get_person(request, person_id: int):
     person = get_object_or_404(Person, id=person_id)
     return person
 
