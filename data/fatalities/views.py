@@ -17,7 +17,7 @@ def crashes(request):
             feature = f"""
                 {{ "type": "Feature",
                     "geometry": {{"type": "Point", "coordinates": [{death.longitude}, {death.latitude}]}},
-                    "properties": {{"fatalities": "{death.fatalities}"}}
+                    "properties": {{"fatalities": "{death.fatalities}", "datetime": "{death.datetime}"}}
                 }},"""
             feature_collection += feature
     feature_collection = feature_collection[:-1]
@@ -27,7 +27,7 @@ def crashes(request):
     loady_loads = json.loads(feature_collection)
     m = folium.Map(location=[30.297370913553245, -97.7313631855747], zoom_start=12)
     tooltip = folium.GeoJsonTooltip(
-        fields=["fatalities"],
+        fields=["fatalities", "datetime"],
         # aliases=["State:", "2015 Median Income(USD):", "Median % Change:"],
         # localize=True,
         # sticky=False,
