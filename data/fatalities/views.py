@@ -6,7 +6,7 @@ import json
 import folium
 
 def crashes(request):
-    deaths = Accident.objects.filter(state_id=53, county__county_id__in=[33,61])
+    deaths = Accident.objects.filter(state_id=48, county_id__in=[48453])
 
     feature_collection = """
         { "type": "FeatureCollection",
@@ -26,7 +26,21 @@ def crashes(request):
     print(feature_collection)
     loady_loads = json.loads(feature_collection)
     m = folium.Map(location=[30.297370913553245, -97.7313631855747], zoom_start=12)
-    folium.GeoJson(loady_loads, name="geojson", tooltip="").add_to(m)
+    tooltip = folium.GeoJsonTooltip(
+        fields=["fatalities"],
+        # aliases=["State:", "2015 Median Income(USD):", "Median % Change:"],
+        # localize=True,
+        # sticky=False,
+        # labels=True,
+        # style="""
+        #     background-color: #F0EFEF;
+        #     border: 2px solid black;
+        #     border-radius: 3px;
+        #     box-shadow: 3px;
+        # """,
+        # max_width=800,
+    )
+    folium.GeoJson(loady_loads, name="geojson", tooltip=tooltip).add_to(m)
     
     m = m._repr_html_()
     context = {"map": m}
