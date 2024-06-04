@@ -2777,6 +2777,7 @@ class Person(models.Model):
         (11, "November"), 
         (12, "December"), 
         (88, "Not Applicable (Non-Fatal)"),
+        (97, "Redacted"),
         (99, "Unknown")
     ]
     month_of_death = models.PositiveSmallIntegerField(choices=month_of_death_choices)
@@ -2847,6 +2848,7 @@ class Person(models.Model):
     at_work_choices = [
         (0, "No"),
         (1, "Yes"),
+        (7, "Redacted"),
         (8, "Not Aplicable"),
         (9, "Unknown")
     ]
@@ -2860,6 +2862,7 @@ class Person(models.Model):
         (5, 'European Spanish (Since 2000)'),
         (6, 'Hispanic, Origin Not Specified or Other Origin'),
         (7, 'Non-Hispanic'),
+        (97, "Redacted"),
         (99, 'Unknown')
     ]
     hispanic = models.PositiveSmallIntegerField(choices=hispanic_choices, default=99)
