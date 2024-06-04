@@ -29,13 +29,13 @@ api = NinjaAPI(docs = Redoc(),
 
 @api.get("/accidents", response=List[AccidentSchema])
 @paginate
-def accidents_list(request, filters: AccidentFilterSchema = Query(...)):
+def accident_list(request, filters: AccidentFilterSchema = Query(...)):
     queryset = Accident.objects.order_by("st_case")
     queryset = filters.filter(queryset)
     return list(queryset)
 
 @api.get("/accidents/{accident_id}", response=AccidentSchema)
-def get_accident(request, accident_id: int):
+def accident_by_id(request, accident_id: int):
     accident = get_object_or_404(Accident, id=accident_id)
     return accident
 
@@ -44,7 +44,7 @@ def get_accident(request, accident_id: int):
 @api.get("/vehicles", response=List[VehicleSchema])
 @paginate
 def vehicle_list(request, filters: VehicleFilterSchema = Query(...)):
-    queryset = Vehicle.objects.order_by("accident__st_case")
+    queryset = Vehicle.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
     return list(queryset)
 
@@ -56,19 +56,19 @@ def get_vehicle(request, vehicle_id: int):
 @api.get("/parked_vehicles", response=List[ParkedVehicleSchema])
 @paginate
 def parked_vehicle_list(request, filters: ParkedVehicleFilterSchema = Query(...)):
-    queryset = ParkedVehicle.objects.order_by("accident__st_case")
+    queryset = ParkedVehicle.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
     return list(queryset)
 
 @api.get("/parked_vehicles/{vehicle_id}", response=ParkedVehicleSchema)
 def get_parked_vehicle(request, vehicle_id: int):
-    vehicle = get_object_or_404(ParkedVehicle, id=vehicle_id)
-    return vehicle
+    parked_vehicle = get_object_or_404(ParkedVehicle, id=vehicle_id)
+    return parked_vehicle
 
 @api.get("/persons", response=List[NonMotoristSchema])
 @paginate
 def person_list(request, filters: PersonFilterSchema = Query(...)):
-    queryset = Person.objects.order_by("accident__st_case")
+    queryset = Person.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
     return list(queryset)
 
@@ -81,11 +81,57 @@ def get_person(request, person_id: int):
 @paginate
 def crash_event_list(request, filters: CrashEventFilterSchema = Query(...)):
 
-    queryset = CrashEvent.objects.order_by("accident__st_case")
+    queryset = CrashEvent.objects.order_by("accident__id")
     if "vehicle" in request.GET and request.GET['vehicle']:
         queryset = queryset.filter(Q(vehicle_1_id=request.GET['vehicle']) | Q(vehicle_2_id=request.GET['vehicle']) | Q(parked_vehicle_1_id=request.GET['vehicle']) | Q(parked_vehicle_2_id=request.GET['vehicle']))
     queryset = filters.filter(queryset)
     return list(queryset)
+
+@api.get("/crash_events/{crash_event_id}", response=NonMotoristSchema)
+def crash_event_by_id(request, crash_event_id: int):
+    crashevent = get_object_or_404(CrashEvent, id=crash_event_id)
+    return crashevent
+
+
+@api.get("/damages", response=List[DamageSchema])
+@paginate
+def damage_list(request, filters: DamageFilterSchema = Query(...)):
+    queryset = Damage.objects.order_by("vehicle__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/damages/{damage_id}", response=DamageSchema)
+def damage_by_id(request, damage_id: int):
+    damage = get_object_or_404(Damage, id=damage_id)
+    return damage
+
+
+
+@api.get("/distractions", response=List[DriverDistractedSchema])
+@paginate
+def distraction_list(request, filters: DamageFilterSchema = Query(...)):
+    queryset = DriverDistracted.objects.order_by("vehicle__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/distractions/{distraction_id}", response=DriverDistractedSchema)
+def distraction_by_id(request, distraction_id: int):
+    distraction = get_object_or_404(DriverDistracted, id=distraction_id)
+    return distraction
+
+
+@api.get("/driver_impairments", response=List[DriverImpairedSchema])
+@paginate
+def driver_impairment_list(request, filters: DriverImpairedFilterSchema = Query(...)):
+    queryset = DriverImpaired.objects.order_by("vehicle__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/driver_impairments/{driver_impairment_id}", response=DriverImpairedSchema)
+def distraction_by_id(request, driver_impairment_id: int):
+    impairment = get_object_or_404(DriverImpaired, id=driver_impairment_id)
+    return impairment
+
 
 
 
@@ -106,58 +152,68 @@ def accidents_by_loction(request, filters: AccidentFilterSchema = Query(...)):
     return list(queryset)
 
 
-@api.get("/accidents_by_vehicle", response=List[AccidentSchema])
+@api.get("/accidents_by_vehicle_field", response=List[AccidentSchema])
 @paginate
 def accidents_by_vehicle(request, filters: VehicleFilterSchema = Query(...)):
-    queryset = Vehicle.objects.order_by("accident__st_case")
+    queryset = Vehicle.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
     listo = list(queryset.values_list("accident_id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_parked_vehicle", response=List[AccidentSchema])
+@api.get("/accidents_by_parked_vehicle_field", response=List[AccidentSchema])
 @paginate
 def accidents_by_parked_vehicle(request, filters: ParkedVehicleFilterSchema = Query(...)):
-    queryset = ParkedVehicle.objects.order_by("accident__st_case")
+    queryset = ParkedVehicle.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
     listo = list(queryset.values_list("accident_id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_person", response=List[AccidentSchema])
+@api.get("/accidents_by_person_field", response=List[AccidentSchema])
 @paginate
 def accidents_by_person(request, filters: PersonFilterSchema = Query(...)):
-    queryset = Person.objects.order_by("accident__st_case")
+    queryset = Person.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
     listo = list(queryset.values_list("accident_id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_crash_event", response=List[AccidentSchema])
+@api.get("/accidents_by_crash_event_field", response=List[AccidentSchema])
 @paginate
 def accidents_by_crash_event(request, filters: CrashEventFilterSchema = Query(...)):
-    queryset = CrashEvent.objects.order_by("accident__st_case")
+    queryset = CrashEvent.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
     listo = list(queryset.values_list("accident_id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_weather", response=List[AccidentSchema])
+@api.get("/accidents_by_weather_field", response=List[AccidentSchema])
 @paginate
 def accidents_by_weather(request, filters: WeatherFilterSchema = Query(...)):
-    queryset = Weather.objects.order_by("accident__st_case")
+    queryset = Weather.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
     listo = list(queryset.values_list("accident_id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
 
-@api.get("/accidents_by_crash_related_factor", response=List[AccidentSchema])
+@api.get("/accidents_by_crash_related_factor_field", response=List[AccidentSchema])
 @paginate
 def accidents_by_crash_related_factor(request, filters: CrashRelatedFactorFilterSchema = Query(...)):
-    queryset = CrashRelatedFactors.objects.order_by("accident__st_case")
+    queryset = CrashRelatedFactors.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
     listo = list(queryset.values_list("accident_id", flat=True))
+    new_qs = Accident.objects.filter(id__in=listo)
+    return list(new_qs)
+
+
+@api.get("/accidents_by_damage_field", response=List[AccidentSchema])
+@paginate
+def accidents_by_crash_related_factor(request, filters: DamageFilterSchema = Query(...)):
+    queryset = Damage.objects.order_by("vehicle__accident__st_case")
+    queryset = filters.filter(queryset)
+    listo = list(queryset.values_list("vehicle__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 

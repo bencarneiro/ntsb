@@ -95,6 +95,55 @@ class PersonFilterSchema(FilterSchema):
     pedestriantype__pedestrian_scenario: Optional[int] = None
     pedestriantype__pedestrian_crash_group: Optional[int] = None
     pedestriantype__bike_crash_group: Optional[int] = None
+    
+    accident__state_id: Optional[int] = None
+    accident__county_id: Optional[int] = None
+    accident__year: Optional[int] = None
+    accident__year__lt: Optional[int] = None
+    accident__year__gt: Optional[int] = None
+    accident__datetime__lt: Optional[datetime] = None
+    accident__datetime__gt: Optional[datetime] = None
+    accident__number_of_persons_not_in_motor_vehicles: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles__lt: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles__gt: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles_in_transport: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles_in_transport__lt: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles_in_transport__gt: Optional[int] = None
+    accident__number_of_vehicles: Optional[int] = None
+    accident__number_of_vehicles__lt: Optional[int] = None
+    accident__number_of_vehicles__gt: Optional[int] = None
+    accident__number_of_vehicles_in_transport: Optional[int] = None
+    accident__number_of_vehicles_in_transport__lt: Optional[int] = None
+    accident__number_of_vehicles_in_transport__gt: Optional[int] = None
+    accident__number_of_parked_vehicles: Optional[int] = None
+    accident__number_of_parked_vehicles__lt: Optional[int] = None
+    accident__number_of_parked_vehicles__gt: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles__lt: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles__gt: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles_in_transport: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles_in_transport__lt: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles_in_transport__gt: Optional[int] = None
+    accident__month: Optional[int] = None
+    accident__day: Optional[int] = None
+    accident__day_of_the_week: Optional[int] = None
+    accident__route_signing: Optional[int] = None
+    accident__rural_urban: Optional[int] = None
+    accident__functional_system: Optional[int] = None
+    accident__road_owner: Optional[int] = None
+    accident__national_highway_system: Optional[int] = None
+    accident__special_jurisdiction: Optional[int] = None
+    accident__first_harmful_event: Optional[int] = None
+    accident__manner_of_collision_of_first_harmful_event: Optional[int] = None
+    accident__at_intersection: Optional[int] = None
+    accident__relation_to_junction: Optional[int] = None
+    accident__type_of_intersection: Optional[int] = None
+    accident__relation_to_road: Optional[int] = None
+    accident__work_zone: Optional[int] = None
+    accident__light_condition: Optional[int] = None
+    accident__atmospheric_condition: Optional[int] = None
+    accident__school_bus_related: Optional[bool] = None
+    accident__rail_grade_crossing_identifier: Optional[str] = None
 
 class ParkedVehicleFilterSchema(FilterSchema):
     vehicle_number: Optional[int] = None	
@@ -136,10 +185,7 @@ class ParkedVehicleFilterSchema(FilterSchema):
     release_of_hazardous_material: Optional[int] = None		
     bus_use: Optional[int] = None		
     special_vehicle_use: Optional[int] = None		
-    emergency_vehicle_use: Optional[int] = None		
-    travel_speed: Optional[int] = None	
-    travel_speed__gt: Optional[int] = None	
-    travel_speed__lt: Optional[int] = None
+    emergency_vehicle_use: Optional[int] = None	
     underride_override: Optional[int] = None		
     rollover: Optional[int] = None		
     rollover_location: Optional[int] = None		
@@ -152,10 +198,60 @@ class ParkedVehicleFilterSchema(FilterSchema):
     fatalities: Optional[int] = None	
     fatalities__gt: Optional[int] = None	
     fatalities__lt: Optional[int] = None	
+    
+    accident__state_id: Optional[int] = None
+    accident__county_id: Optional[int] = None
+    accident__year: Optional[int] = None
+    accident__year__lt: Optional[int] = None
+    accident__year__gt: Optional[int] = None
+    accident__datetime__lt: Optional[datetime] = None
+    accident__datetime__gt: Optional[datetime] = None
+    accident__number_of_persons_not_in_motor_vehicles: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles__lt: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles__gt: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles_in_transport: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles_in_transport__lt: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles_in_transport__gt: Optional[int] = None
+    accident__number_of_vehicles: Optional[int] = None
+    accident__number_of_vehicles__lt: Optional[int] = None
+    accident__number_of_vehicles__gt: Optional[int] = None
+    accident__number_of_vehicles_in_transport: Optional[int] = None
+    accident__number_of_vehicles_in_transport__lt: Optional[int] = None
+    accident__number_of_vehicles_in_transport__gt: Optional[int] = None
+    accident__number_of_parked_vehicles: Optional[int] = None
+    accident__number_of_parked_vehicles__lt: Optional[int] = None
+    accident__number_of_parked_vehicles__gt: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles__lt: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles__gt: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles_in_transport: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles_in_transport__lt: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles_in_transport__gt: Optional[int] = None
+    accident__month: Optional[int] = None
+    accident__day: Optional[int] = None
+    accident__day_of_the_week: Optional[int] = None
+    accident__route_signing: Optional[int] = None
+    accident__rural_urban: Optional[int] = None
+    accident__functional_system: Optional[int] = None
+    accident__road_owner: Optional[int] = None
+    accident__national_highway_system: Optional[int] = None
+    accident__special_jurisdiction: Optional[int] = None
+    accident__first_harmful_event: Optional[int] = None
+    accident__manner_of_collision_of_first_harmful_event: Optional[int] = None
+    accident__at_intersection: Optional[int] = None
+    accident__relation_to_junction: Optional[int] = None
+    accident__type_of_intersection: Optional[int] = None
+    accident__relation_to_road: Optional[int] = None
+    accident__work_zone: Optional[int] = None
+    accident__light_condition: Optional[int] = None
+    accident__atmospheric_condition: Optional[int] = None
+    accident__school_bus_related: Optional[bool] = None
+    accident__rail_grade_crossing_identifier: Optional[str] = None
 
 
 
 class VehicleFilterSchema(FilterSchema):
+
     vehicle_number: Optional[int] = None	
     vehicle_number__gt: Optional[int] = None	
     vehicle_number__lt: Optional[int] = None
@@ -259,7 +355,56 @@ class VehicleFilterSchema(FilterSchema):
     attempted_avoidance_maneuver: Optional[int] = None		
     precrash_stability: Optional[int] = None		
     preimpact_location: Optional[int] = None		
-    crash_type: Optional[int] = None		
+    crash_type: Optional[int] = None	
+    
+    accident__state_id: Optional[int] = None
+    accident__county_id: Optional[int] = None
+    accident__year: Optional[int] = None
+    accident__year__lt: Optional[int] = None
+    accident__year__gt: Optional[int] = None
+    accident__datetime__lt: Optional[datetime] = None
+    accident__datetime__gt: Optional[datetime] = None
+    accident__number_of_persons_not_in_motor_vehicles: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles__lt: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles__gt: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles_in_transport: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles_in_transport__lt: Optional[int] = None
+    accident__number_of_persons_not_in_motor_vehicles_in_transport__gt: Optional[int] = None
+    accident__number_of_vehicles: Optional[int] = None
+    accident__number_of_vehicles__lt: Optional[int] = None
+    accident__number_of_vehicles__gt: Optional[int] = None
+    accident__number_of_vehicles_in_transport: Optional[int] = None
+    accident__number_of_vehicles_in_transport__lt: Optional[int] = None
+    accident__number_of_vehicles_in_transport__gt: Optional[int] = None
+    accident__number_of_parked_vehicles: Optional[int] = None
+    accident__number_of_parked_vehicles__lt: Optional[int] = None
+    accident__number_of_parked_vehicles__gt: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles__lt: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles__gt: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles_in_transport: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles_in_transport__lt: Optional[int] = None
+    accident__number_of_persons_in_motor_vehicles_in_transport__gt: Optional[int] = None
+    accident__month: Optional[int] = None
+    accident__day: Optional[int] = None
+    accident__day_of_the_week: Optional[int] = None
+    accident__route_signing: Optional[int] = None
+    accident__rural_urban: Optional[int] = None
+    accident__functional_system: Optional[int] = None
+    accident__road_owner: Optional[int] = None
+    accident__national_highway_system: Optional[int] = None
+    accident__special_jurisdiction: Optional[int] = None
+    accident__first_harmful_event: Optional[int] = None
+    accident__manner_of_collision_of_first_harmful_event: Optional[int] = None
+    accident__at_intersection: Optional[int] = None
+    accident__relation_to_junction: Optional[int] = None
+    accident__type_of_intersection: Optional[int] = None
+    accident__relation_to_road: Optional[int] = None
+    accident__work_zone: Optional[int] = None
+    accident__light_condition: Optional[int] = None
+    accident__atmospheric_condition: Optional[int] = None
+    accident__school_bus_related: Optional[bool] = None
+    accident__rail_grade_crossing_identifier: Optional[str] = None	
 
 class AccidentFilterSchema(FilterSchema):
     state_id: Optional[int] = None
@@ -324,7 +469,7 @@ class CrashEventFilterSchema(FilterSchema):
     sequence_of_events: Optional[int] = None
 
 class WeatherFilterSchema(FilterSchema):
-    weather: Optional[int] = None
+    atmospheric_condition: Optional[int] = None
 
 class CrashRelatedFactorFilterSchema(FilterSchema):
     crash_related_factor: Optional[int] = None

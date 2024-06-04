@@ -401,11 +401,11 @@ class VehicleSchema(Schema):
     driver_related_factors: List[DriverRelatedFactorSchema] = Field(..., alias='driverrelatedfactor_set')
     damages: List[DamageSchema] = Field(..., alias='damage_set')
     distractions: List[DriverDistractedSchema] = Field(..., alias='driverdistracted_set')
-    driver_impaired: List[DriverImpairedSchema] = Field(..., alias='driverimpaired_set')
+    driver_impairments: List[DriverImpairedSchema] = Field(..., alias='driverimpaired_set')
     vehicle_factors: List[VehicleFactorSchema] = Field(..., alias='vehiclefactor_set')
     maneuvers: List[ManeuverSchema] = Field(..., alias='maneuver_set')
     moving_violations: List[ViolationSchema] = Field(..., alias='violation_set')
-    vision: List[VisionSchema] = Field(..., alias='vision_set')
+    visibility_obstructions: List[VisionSchema] = Field(..., alias='vision_set')
 
 class ParkedVehicleRelatedFactorSchema(Schema):
     id: int
