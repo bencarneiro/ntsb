@@ -1,6 +1,6 @@
 from ninja import NinjaAPI
 from typing import List
-from ninja import Schema, Field, FilterSchema, Query
+from ninja import Schema, Field, FilterSchema, Query, Redoc
 from .response_schemas import *
 from .filter_schemas import *
 from fatalities.models import *
@@ -14,9 +14,17 @@ from django.contrib.gis.db.models.functions import Distance
 
 from django.contrib.gis.geos import Point
 from django.shortcuts import get_object_or_404
+# from ninja import 
 
 
-api = NinjaAPI()
+api = NinjaAPI(docs = Redoc(),
+   openapi_extra={
+       "info": {
+           "termsOfService": "https://github.com/bencarneiro/ntsb",
+       }
+   },
+   title="Roadway Report",
+   description="This is a free API which returns data on ALL traffic fatalities in the USA. The database currently contains a complete dataset for 2022, and I will be importing 1975-2021 in the coming months.    Check out the [github](https://github.com/bencarneiro/ntsb)")
 
 
 @api.get("/accidents", response=List[AccidentSchema])
@@ -146,7 +154,7 @@ def accidents_by_weather(request, filters: WeatherFilterSchema = Query(...)):
 
 @api.get("/accidents_by_crash_related_factor", response=List[AccidentSchema])
 @paginate
-def accidents_by_weather(request, filters: CrashRelatedFactorFilterSchema = Query(...)):
+def accidents_by_crash_related_factor(request, filters: CrashRelatedFactorFilterSchema = Query(...)):
     queryset = CrashRelatedFactors.objects.order_by("accident__st_case")
     queryset = filters.filter(queryset)
     listo = list(queryset.values_list("accident_id", flat=True))
@@ -647,43 +655,20 @@ def hispanic_choices(request):
 #### OTHER OTHER OTHER
 
 
-@api.get("/area_of_impact_choices", response=List[Tuple])
-def area_of_impact_choices(request):
-    return list(CrashEvent.area_of_impact_choices)
-    
 
 @api.get("/sequence_of_events_choices", response=List[Tuple])
 def sequence_of_events_choices(request):
     return list(CrashEvent.sequence_of_events_choices)
     
 
-@api.get("/crash_related_factor_choices", response=List[Tuple])
-def crash_related_factor_choices(request):
-    return list(CrashRelatedFactors.crash_related_factor_choices)
-    
-
-@api.get("/atmospheric_condition_choices", response=List[Tuple])
-def atmospheric_condition_choices(request):
-    return list(Weather.atmospheric_condition_choices)
-
 @api.get("/area_of_impact_choices", response=List[Tuple])
 def area_of_impact_choices(request):
     return list(CrashEvent.area_of_impact_choices)
     
 
-@api.get("/sequence_of_events_choices", response=List[Tuple])
-def sequence_of_events_choices(request):
-    return list(CrashEvent.sequence_of_events_choices)
-    
-
 @api.get("/crash_related_factor_choices", response=List[Tuple])
 def crash_related_factor_choices(request):
     return list(CrashRelatedFactors.crash_related_factor_choices)
-    
-
-@api.get("/atmospheric_condition_choices", response=List[Tuple])
-def atmospheric_condition_choices(request):
-    return list(Weather.atmospheric_condition_choices)
     
 
 
@@ -699,11 +684,6 @@ def vehicle_related_factor_choices(request):
 @api.get("/driver_related_factor_choices", response=List[Tuple])
 def driver_related_factor_choices(request):
     return list(DriverRelatedFactor.driver_related_factor_choices)
-    
-
-@api.get("/area_of_impact_choices", response=List[Tuple])
-def area_of_impact_choices(request):
-    return list(Damage.area_of_impact_choices)
     
 
 @api.get("/distracted_by_choices", response=List[Tuple])
@@ -772,50 +752,39 @@ def nonmotorist_prior_action_choices(request):
     
 
 @api.get("/helmet_choices", response=List[Tuple])
-def safety_equipment_choices(request):
+def helmet_choices(request):
     return list(SafetyEquipment.safety_equipment_choices)
 
 
 @api.get("/pads_choices", response=List[Tuple])
-def safety_equipment_choices(request):
+def pads_choices(request):
     return list(SafetyEquipment.safety_equipment_choices)
 
 
 @api.get("/other_protective_equipment_choices", response=List[Tuple])
-def safety_equipment_choices(request):
+def other_protective_equipment_choices(request):
     return list(SafetyEquipment.safety_equipment_choices)
 
 
 @api.get("/other_preventative_equipment_choices", response=List[Tuple])
-def safety_equipment_choices(request):
+def other_preventative_equipment_choices(request):
     return list(SafetyEquipment.safety_equipment_choices)
 
 
 @api.get("/lights_choices", response=List[Tuple])
-def safety_equipment_choices(request):
+def lights_choices(request):
     return list(SafetyEquipment.safety_equipment_choices)
 
 
 
 @api.get("/reflective_equipment_choices", response=List[Tuple])
-def safety_equipment_choices(request):
+def reflective_equipment_choices(request):
     return list(SafetyEquipment.safety_equipment_choices)
 
 @api.get("/safety_equipment_choices", response=List[Tuple])
 def safety_equipment_choices(request):
     return list(SafetyEquipment.safety_equipment_choices)
     
-
-@api.get("/sex_choices", response=List[Tuple])
-def sex_choices(request):
-    return list(PedestrianType.sex_choices)
-    
-
-@api.get("/person_type_choices", response=List[Tuple])
-def person_type_choices(request):
-    return list(PedestrianType.person_type_choices)
-    
-
 @api.get("/marked_crosswalk_present_choices", response=List[Tuple])
 def marked_crosswalk_present_choices(request):
     return list(PedestrianType.marked_crosswalk_present_choices)
