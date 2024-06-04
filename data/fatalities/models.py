@@ -67,7 +67,7 @@ class Accident(models.Model):
     # C7 City CITY 41
     city = models.ForeignKey(City, null=True, blank=True, on_delete=models.DO_NOTHING)
     # C8A Month of Crash MONTH 42
-    months = [
+    month_choices = [
         (1, "January"), 
         (2, "February"), 
         (3, "March"), 
@@ -82,11 +82,11 @@ class Accident(models.Model):
         (12, "December"), 
         (99, "Unknown")
     ]
-    month = models.PositiveSmallIntegerField(choices=months, default=99)
+    month = models.PositiveSmallIntegerField(choices=month_choices, default=99)
     # C8B Day of Crash DAY 42
     day = models.PositiveSmallIntegerField(null=True, blank=True)
     # C8C Day of Week DAY_WEEK 43
-    days_of_the_week = [
+    day_of_the_week_choices = [
         (1, "Sunday"), 
         (2, "Monday"), 
         (3, "Tuesday"), 
@@ -96,7 +96,7 @@ class Accident(models.Model):
         (7, "Saturday"), 
         (99, "Unknown")
     ]
-    day_of_the_week = models.PositiveSmallIntegerField(choices=days_of_the_week, default=99)
+    day_of_the_week = models.PositiveSmallIntegerField(choices=day_of_the_week_choices, default=99)
     # C8D Year of Crash YEAR 43
     year = models.PositiveSmallIntegerField(null=False, blank=False)
     # C9A Hour of Crash HOUR 44
@@ -111,7 +111,7 @@ class Accident(models.Model):
     trafficway_identifier_1 = models.CharField(max_length=256, null=True, blank=True)
     trafficway_identifier_2 = models.CharField(max_length=256, null=True, blank=True)
     #c11
-    route_signing_types = [
+    route_signing_choices = [
         (1, "Interstate"),
         (2, "U.S. Highway"),
         (3, "State Highway"),
@@ -122,7 +122,7 @@ class Accident(models.Model):
         (8, "Other"),
         (9, "Unknown"),
     ]
-    route_signing = models.PositiveSmallIntegerField(choices=route_signing_types, default=9)
+    route_signing = models.PositiveSmallIntegerField(choices=route_signing_choices, default=9)
     #C12A
     rural_urban_choices = [
         (1, "Rural"),
@@ -209,7 +209,7 @@ class Accident(models.Model):
     location_is_estimated = models.BooleanField(default=True)
     
     #c19
-    first_harmful_event_options = [
+    first_harmful_event_choices = [
         (1, 'Rollover/Overturn'),
         (2, 'Fire/Explosion'),
         (3, 'Immersion or Partial Immersion (Since 2012)'),
@@ -268,9 +268,9 @@ class Accident(models.Model):
         (98, 'Harmful Event, Details Not Reported (Since 2019)'),
         (99, 'Reported as Unknown')
     ]
-    first_harmful_event = models.PositiveSmallIntegerField(choices=first_harmful_event_options, default=99)
+    first_harmful_event = models.PositiveSmallIntegerField(choices=first_harmful_event_choices, default=99)
     #c20
-    manner_of_collision_of_first_harmful_event_options = [
+    manner_of_collision_of_first_harmful_event_choices = [
         (0,'First Harmful Event was Not a Collision with Motor Vehicle In-Transport'),
         (1,'Front-to-Rear'),
         (2,'Front-to-Front'),
@@ -283,19 +283,19 @@ class Accident(models.Model):
         (98,'Not Reported'),
         (99,'Reported as Unknown')
     ]
-    manner_of_collision_of_first_harmful_event = models.PositiveSmallIntegerField(choices=manner_of_collision_of_first_harmful_event_options, default=98)
+    manner_of_collision_of_first_harmful_event = models.PositiveSmallIntegerField(choices=manner_of_collision_of_first_harmful_event_choices, default=98)
     #c21B RELJCT1
-    at_intersection_options = [
+    at_intersection_choices = [
         (0, "No"),
         (1, "Yes"),
         (8, "Not Reported"),
         (9, "Reported as Unknown")
     ]
     
-    at_intersection = models.PositiveSmallIntegerField(choices=at_intersection_options, default=8)
+    at_intersection = models.PositiveSmallIntegerField(choices=at_intersection_choices, default=8)
 #      2010- 2018- 
     #c23
-    relation_to_junction_options = [
+    relation_to_junction_choices = [
         (1,'Non-Junction'),
         (2,'Intersection'),
         (3,'Intersection Related'),
@@ -312,9 +312,9 @@ class Accident(models.Model):
         (98,'Not Reported'),
         (99,'Reported as Unknown')
     ]
-    relation_to_junction = models.PositiveSmallIntegerField(choices=relation_to_junction_options, default=98)
+    relation_to_junction = models.PositiveSmallIntegerField(choices=relation_to_junction_choices, default=98)
     #c22
-    type_of_intersection_options = [
+    type_of_intersection_choices = [
         (1, "Not an Intersection"),
         (2, "Four-Way Intersection"),
         (3, "T-Intersection"),
@@ -327,9 +327,9 @@ class Accident(models.Model):
         (98, "Not Reported"),
         (99, "Reported as Unknown")
     ]
-    type_of_intersection = models.PositiveSmallIntegerField(choices=type_of_intersection_options, default=98)
+    type_of_intersection = models.PositiveSmallIntegerField(choices=type_of_intersection_choices, default=98)
     #c23
-    relation_to_road_options = [
+    relation_to_road_choices = [
         (1,'On Roadway'),
         (2,'On Shoulder'),
         (3,'On Median'),
@@ -344,9 +344,9 @@ class Accident(models.Model):
         (98,'Not Reported'),
         (99,'Reported as Unknown')
     ]
-    relation_to_road = models.PositiveSmallIntegerField(choices=relation_to_road_options, default=98)
+    relation_to_road = models.PositiveSmallIntegerField(choices=relation_to_road_choices, default=98)
     #c24
-    work_zone_options = [
+    work_zone_choices = [
         (0, "None"),
         (1, "Construction"),
         (2, "Maintenance"),
@@ -354,9 +354,9 @@ class Accident(models.Model):
         (4, "Work Zone, Type Unknown")
 
     ]
-    work_zone = models.PositiveSmallIntegerField(choices=work_zone_options, default=0)
+    work_zone = models.PositiveSmallIntegerField(choices=work_zone_choices, default=0)
     #c25
-    light_condition_options = [
+    light_condition_choices = [
         (1,'Daylight'),
         (2,'Dark - Not Lighted'),
         (3,'Dark - Lighted'),
@@ -367,9 +367,9 @@ class Accident(models.Model):
         (8,'Not Reported'),
         (9,'Reported as Unknown')
     ]
-    light_condition = models.PositiveSmallIntegerField(choices=light_condition_options, default=8) 
+    light_condition = models.PositiveSmallIntegerField(choices=light_condition_choices, default=8) 
     #c26
-    atmospheric_condition_options = [
+    atmospheric_condition_choices = [
         (1,'Clear'),
         (2,'Rain'),
         (3,'Sleet, Hail'),
@@ -384,7 +384,7 @@ class Accident(models.Model):
         (98,'Not Reported'),
         (99,'Unknown/')
     ]
-    atmospheric_condition = models.PositiveSmallIntegerField(choices=atmospheric_condition_options, default=98) 
+    atmospheric_condition = models.PositiveSmallIntegerField(choices=atmospheric_condition_choices, default=98) 
     #c27
     school_bus_related = models.BooleanField(null=False, blank=False, default=0)
     #c28
@@ -1745,7 +1745,7 @@ class ParkedVehicle(models.Model):
     #c4a #PVE_FORMS
     # number_of_vehicles_in_transit = models.PositiveSmallIntegerField(default=0)
     #c19 PHARM_EV
-    first_harmful_event_options = [
+    first_harmful_event_choices = [
         (1, 'Rollover/Overturn'),
         (2, 'Fire/Explosion'),
         (3, 'Immersion or Partial Immersion (Since 2012)'),
@@ -1803,9 +1803,9 @@ class ParkedVehicle(models.Model):
         (98, 'Harmful Event, Details Not Reported (Since 2019)'),
         (99, 'Reported as Unknown')
     ]
-    first_harmful_event = models.PositiveSmallIntegerField(choices=first_harmful_event_options, default=99)
+    first_harmful_event = models.PositiveSmallIntegerField(choices=first_harmful_event_choices, default=99)
     # c20 PMAN_COLL
-    manner_of_collision_of_first_harmful_event_options = [
+    manner_of_collision_of_first_harmful_event_choices = [
         (0,'First Harmful Event was Not a Collision with Motor Vehicle In-Transport'),
         (1,'Front-to-Rear'),
         (2,'Front-to-Front'),
@@ -1818,7 +1818,7 @@ class ParkedVehicle(models.Model):
         (98,'Not Reported'),
         (99,'Reported as Unknown')
     ]
-    manner_of_collision_of_first_harmful_event = models.PositiveSmallIntegerField(choices=manner_of_collision_of_first_harmful_event_options, default=99)
+    manner_of_collision_of_first_harmful_event = models.PositiveSmallIntegerField(choices=manner_of_collision_of_first_harmful_event_choices, default=99)
     #v4 PNUMOCCS
     number_of_occupants = models.PositiveSmallIntegerField(null=True, blank=True)
     #v5 PTYPE
