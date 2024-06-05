@@ -15,7 +15,11 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+STATIC_ROOT=os.environ.get("STATIC_ROOT", "/var/www/static")
+STATICFILES_DIRS = [
+    "/home/tonydeals/app/ntsb/data/fatalities/templates/static",
+#     "/var/www/static/",
+]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 

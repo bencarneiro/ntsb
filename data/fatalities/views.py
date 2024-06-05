@@ -2,11 +2,16 @@ from django.shortcuts import render, redirect
 from django.contrib.gis.geos import GEOSGeometry
 from fatalities.models import Accident
 from django.http import JsonResponse
-import json
-import folium
+# import json
+# import folium
+from django.views.generic.base import RedirectView
+
 
 def crashes(request):
     return redirect("/v1/docs")
+
+
+favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
     # deaths = Accident.objects.filter(state_id=48, county_id__in=[48453])
 
     # feature_collection = """

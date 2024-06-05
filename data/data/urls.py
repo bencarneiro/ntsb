@@ -14,13 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from fatalities.views import crashes
+from django.urls import path, re_path
+from fatalities.views import crashes, favicon_view
 from .api import api
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", crashes, name="home"),
     path("v1/", api.urls),
-]
+    re_path(r'^favicon\.ico$', favicon_view),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
