@@ -1,4 +1,4 @@
-# [roadway.report](https:roadway.report)
+# [roadway.report](https://roadway.report)
 
 This repo powers [roadway.report](https://roadway.report), a web application in-development which will serve data on any traffic death in the USA since 1975
 
