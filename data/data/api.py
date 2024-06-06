@@ -87,7 +87,7 @@ def crash_event_list(request, filters: CrashEventFilterSchema = Query(...)):
     queryset = filters.filter(queryset)
     return list(queryset)
 
-@api.get("/crash_events/{crash_event_id}", response=NonMotoristSchema)
+@api.get("/crash_events/{crash_event_id}", response=CrashEventSchema)
 def crash_event_by_id(request, crash_event_id: int):
     crashevent = get_object_or_404(CrashEvent, id=crash_event_id)
     return crashevent
@@ -142,7 +142,7 @@ def vehicle_factor_list(request, filters: VehicleFactorFilterSchema = Query(...)
 
 @api.get("/vehicle_factors/{vehicle_factor_id}", response=VehicleFactorSchema)
 def vehicle_factor_by_id(request, vehicle_factor_id: int):
-    factor = get_object_or_404(DriverImpaired, id=vehicle_factor_id)
+    factor = get_object_or_404(VehicleFactor, id=vehicle_factor_id)
     return factor
 
 
@@ -228,10 +228,12 @@ def parked_vehicle_related_factor_by_id(request, parked_vehicle_related_factor_i
     vrf = get_object_or_404(ParkedVehicleRelatedFactor, id=parked_vehicle_related_factor_id)
     return vrf
 
+
+
 @api.get("/drugs", response=List[DrugsSchema])
 @paginate
 def drugs_list(request, filters: DrugsFilterSchema = Query(...)):
-    queryset = Drugs.objects.order_by("person__accident_id")
+    queryset = Drugs.objects.order_by("person__accident__id")
     queryset = filters.filter(queryset)
     return list(queryset)
 

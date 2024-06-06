@@ -1,8 +1,17 @@
+import decimal
 from ninja import Schema, Field
 
 from datetime import datetime
 
 from typing import List
+
+from pydantic import (
+    BaseModel,
+    NegativeInt,
+    NonNegativeInt,
+    NonPositiveInt,
+    PositiveInt
+)
 
 class ChoiceSchema(Schema):
     id: int
@@ -21,20 +30,20 @@ class CitySchema(Schema):
     name: str = Field(None, alias="name")
 
 class DrugsSchema(Schema):
-    id: int
+    id: decimal.Decimal = Field(..., alias="id")
     drug_test_given: int = Field(None, alias="drug_test_type")
     drug_test_given__display: str = Field(None, alias="get_drug_test_type_display")
     drug_test_result: int = Field(None, alias="drug_test_results")
 
 class RaceSchema(Schema):
-    id: int
+    id: decimal.Decimal = Field(..., alias="id")
     race: int = Field(None, alias="race")
     race__display: str = Field(None, alias="get_race_display")
     is_multiple_races: int = Field(None, alias="is_multiple_races")
     order: int = Field(None, alias="order")
 
 class PersonRelatedFactorSchema(Schema):
-    id: int
+    id: decimal.Decimal = Field(..., alias="id")
     person_related_factor: int = Field(None, alias="person_related_factor")
     person_related_factor__display: str = Field(None, alias="get_person_related_factor_display")
 # 
@@ -104,24 +113,24 @@ class SafetyEquipmentSchema(Schema):
 
 
 class NonmotoristContributingCircumstanceSchema(Schema):
-    id: int
+    id: decimal.Decimal = Field(..., alias="id")
     nonmotorist_contributing_circumstance: int  = Field(None, alias="nonmotorist_contributing_circumstance")
     nonmotorist_contributing_circumstance__display: str = Field(None, alias="get_nonmotorist_contributing_circumstance_display")
 
 class NonmotoristImpairedSchema(Schema):
-    id: int 
+    id: decimal.Decimal = Field(..., alias="id")
     nonmotorist_impaired: int = Field(None, alias="nonmotorist_impaired")
     nonmotorist_impaired__display: str = Field(None, alias="get_nonmotorist_impaired_display")
 
 
 class NonmotoristDistractedSchema(Schema):
-    id: int 
+    id: decimal.Decimal = Field(..., alias="id")
     nonmotorist_distracted_by: int = Field(None, alias="nonmotorist_distracted_by")
     nonmotorist_distracted_by__display: str = Field(None, alias="get_nonmotorist_distracted_by_display")
 
 
 class NonmotoristPriorActionSchema(Schema):
-    id: int
+    id: decimal.Decimal = Field(..., alias="id")
     nonmotorist_prior_action: int = Field(None, alias="nonmotorist_prior_action")
     nonmotorist_prior_action__display: str = Field(None, alias="get_nonmotorist_prior_action_display")
 
