@@ -54,7 +54,7 @@ favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 def map(request):
     # deaths = Accident.objects.filter(state_id=48, county_id__in=[48453])
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
-        return "Required Parameters are lat, lon, radius"
+        return redirect("/map?lat=37.8011&lon=-122.3267&radius=25")
     try:
         search_location = Point(x=float(request.GET['lon']), y=float(request.GET['lat']), srid=4326)
         radius_in_miles = float(request.GET['radius'])
@@ -84,7 +84,9 @@ def map(request):
 
     print(feature_collection)
     loady_loads = json.loads(feature_collection)
-    m = folium.Map(location=[death.latitude, death.longitude], zoom_start=8)
+    m = folium.Map(location=[request.GET['lat'], request.GET['lon']], zoom_start=11).add_child(
+        folium.ClickForMarker("<a target='_blank' href='/map?lat=${lat}&lon=${lng}&radius=25'>RELOAD MAP AT THIS POINT</a>")
+    )
 
     popup = folium.GeoJsonPopup(
         fields=["fatalities", "datetime", "details"]
