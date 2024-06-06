@@ -155,7 +155,7 @@ def maneuver_list(request, filters: ManeuverFilterSchema = Query(...)):
     return list(queryset)
 
 @api.get("/maneuvers/{maneuver_id}", response=ManeuverSchema)
-def vmaneuver_by_id(request, maneuver_id: int):
+def maneuver_by_id(request, maneuver_id: int):
     maneuver = get_object_or_404(Maneuver, id=maneuver_id)
     return maneuver
 
@@ -172,6 +172,154 @@ def moving_violation_list(request, filters: ViolationFilterSchema = Query(...)):
 def moving_violation_by_id(request, moving_violation_id: int):
     violation = get_object_or_404(Violation, id=moving_violation_id)
     return violation
+
+
+@api.get("/vision_obstructions", response=List[VisionSchema])
+@paginate
+def vision_obstruction_list(request, filters: VisionFilterSchema = Query(...)):
+    queryset = Vision.objects.order_by("vehicle__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/vision_obstructions/{vision_obstruction_id}", response=VisionSchema)
+def vision_obstruction_by_id(request, vision_obstruction_id: int):
+    vision = get_object_or_404(Vision, id=vision_obstruction_id)
+    return vision
+
+
+
+@api.get("/vehicle_related_factors", response=List[VehicleRelatedFactorSchema])
+@paginate
+def vehicle_related_factor_list(request, filters: VehicleRelatedFactorFilterSchema = Query(...)):
+    queryset = VehicleRelatedFactor.objects.order_by("vehicle__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/vehicle_related_factors/{vehicle_related_factor_id}", response=VehicleRelatedFactorSchema)
+def vehicle_related_factor_by_id(request, vehicle_related_factor_id: int):
+    vrf = get_object_or_404(VehicleRelatedFactor, id=vehicle_related_factor_id)
+    return vrf
+
+
+
+
+@api.get("/driver_related_factors", response=List[DriverRelatedFactorSchema])
+@paginate
+def driver_related_factor_list(request, filters: DriverRelatedFactorFilterSchema = Query(...)):
+    queryset = DriverRelatedFactor.objects.order_by("vehicle__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/driver_related_factors/{driver_related_factor_id}", response=DriverRelatedFactorSchema)
+def driver_related_factor_by_id(request, driver_related_factor_id: int):
+    drf = get_object_or_404(DriverRelatedFactor, id=driver_related_factor_id)
+    return drf
+
+
+@api.get("/parked_vehicle_related_factors", response=List[ParkedVehicleRelatedFactorSchema])
+@paginate
+def parked_vehicle_related_factor_list(request, filters: ParkedVehicleRelatedFactorFilterSchema = Query(...)):
+    queryset = ParkedVehicleRelatedFactor.objects.order_by("parked_vehicle__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/parked_vehicle_related_factors/{parked_vehicle_related_factor_id}", response=ParkedVehicleRelatedFactorSchema)
+def parked_vehicle_related_factor_by_id(request, parked_vehicle_related_factor_id: int):
+    vrf = get_object_or_404(ParkedVehicleRelatedFactor, id=parked_vehicle_related_factor_id)
+    return vrf
+
+@api.get("/drugs", response=List[DrugsSchema])
+@paginate
+def drugs_list(request, filters: DrugsFilterSchema = Query(...)):
+    queryset = Drugs.objects.order_by("person__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/drugs/{drugs_id}", response=DrugsSchema)
+def drugs_by_id(request, drugs_id: int):
+    drugs = get_object_or_404(Drugs, id=drugs_id)
+    return drugs
+
+@api.get("/race", response=List[RaceSchema])
+@paginate
+def race_list(request, filters: RaceFilterSchema = Query(...)):
+    queryset = Race.objects.order_by("person__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/race/{race_id}", response=RaceSchema)
+def race_by_id(request, race_id: int):
+    race = get_object_or_404(Race, id=race_id)
+    return race
+
+
+@api.get("/person_related_factors", response=List[PersonRelatedFactorSchema])
+@paginate
+def person_related_factor_list(request, filters: PersonRelatedFactorFilterSchema = Query(...)):
+    queryset = PersonRelatedFactor.objects.order_by("person__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/person_related_factors/{person_related_factor_id}", response=PersonRelatedFactorSchema)
+def person_related_factor_by_id(request, person_related_factor_id: int):
+    prf = get_object_or_404(PersonRelatedFactor, id=person_related_factor_id)
+    return prf
+
+
+
+@api.get("/nonmotorist_impairments", response=List[NonmotoristImpairedSchema])
+@paginate
+def nonmotorist_impairment_list(request, filters: NonmotoristImpairedFilterSchema = Query(...)):
+    queryset = NonmotoristImpaired.objects.order_by("person__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/nonmotorist_impairments/{nonmotorist_impairment_id}", response=NonmotoristImpairedSchema)
+def nonmotorist_impairment_by_id(request, nonmotorist_impairment_id: int):
+    nmimpair = get_object_or_404(NonmotoristImpaired, id=nonmotorist_impairment_id)
+    return nmimpair
+
+
+
+@api.get("/nonmotorist_prior_actions", response=List[NonmotoristPriorActionSchema])
+@paginate
+def nonmotorist_prior_action_list(request, filters: NonmotoristPriorActionFilterSchema = Query(...)):
+    queryset = NonmotoristPriorAction.objects.order_by("person__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/nonmotorist_prior_actions/{nonmotorist_prior_action_id}", response=NonmotoristPriorActionSchema)
+def nonmotorist_prior_action_by_id(request, nonmotorist_prior_action_id: int):
+    nmprior = get_object_or_404(NonmotoristPriorAction, id=nonmotorist_prior_action_id)
+    return nmprior
+
+
+
+@api.get("/nonmotorist_contributing_circumstances", response=List[NonmotoristContributingCircumstanceSchema])
+@paginate
+def race_list(request, filters: NonmotoristContributingCircumstanceFilterSchema = Query(...)):
+    queryset = NonmotoristContributingCircumstance.objects.order_by("person__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/nonmotorist_contributing_circumstances/{nonmotorist_contributing_circumstance_id}", response=NonmotoristContributingCircumstanceSchema)
+def race_by_id(nonmotorist_contributing_circumstance_id, race_id: int):
+    race = get_object_or_404(NonmotoristContributingCircumstance, id=nonmotorist_contributing_circumstance_id)
+    return race
+
+
+@api.get("/race", response=List[RaceSchema])
+@paginate
+def race_list(request, filters: RaceFilterSchema = Query(...)):
+    queryset = Race.objects.order_by("person__accident_id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/race/{race_id}", response=RaceSchema)
+def race_by_id(request, race_id: int):
+    race = get_object_or_404(Race, id=race_id)
+    return race
+
 
 
 

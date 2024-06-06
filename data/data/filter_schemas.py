@@ -494,6 +494,9 @@ class ManeuverFilterSchema(FilterSchema):
     
 class VehicleRelatedFactorFilterSchema(FilterSchema):
     vehicle_related_factor: Optional[int] = None
+
+class ParkedVehicleRelatedFactorFilterSchema(FilterSchema):
+    parked_vehicle_related_factor: Optional[int] = None
     
 class ViolationFilterSchema(FilterSchema):
     moving_violation: Optional[int] = None

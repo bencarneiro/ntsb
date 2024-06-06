@@ -21,21 +21,25 @@ class CitySchema(Schema):
     name: str = Field(None, alias="name")
 
 class DrugsSchema(Schema):
+    id: int
     drug_test_given: int = Field(None, alias="drug_test_type")
     drug_test_given__display: str = Field(None, alias="get_drug_test_type_display")
     drug_test_result: int = Field(None, alias="drug_test_results")
 
 class RaceSchema(Schema):
+    id: int
     race: int = Field(None, alias="race")
     race__display: str = Field(None, alias="get_race_display")
     is_multiple_races: int = Field(None, alias="is_multiple_races")
     order: int = Field(None, alias="order")
 
 class PersonRelatedFactorSchema(Schema):
+    id: int
     person_related_factor: int = Field(None, alias="person_related_factor")
     person_related_factor__display: str = Field(None, alias="get_person_related_factor_display")
 # 
 class PedestrianTypeSchema(Schema):
+    id: int
     person_type: int = Field(None, alias='person_type')
     person_type__display: str = Field(None, alias='get_person_type_display')
     marked_crosswalk_present: int = Field(None, alias='marked_crosswalk_present')
@@ -75,6 +79,7 @@ class PedestrianTypeSchema(Schema):
 
 
 class SafetyEquipmentSchema(Schema): 
+    id: int
     helmet: int = Field(None, alias='helmet')
     helmet__display: str = Field(None, alias='get_helmet_display')
     pads: int = Field(None, alias='pads')
@@ -99,22 +104,26 @@ class SafetyEquipmentSchema(Schema):
 
 
 class NonmotoristContributingCircumstanceSchema(Schema):
-    id: int = Field(None, alias="nonmotorist_contributing_circumstance")
-    contributing_cause: str = Field(None, alias="get_nonmotorist_contributing_circumstance_display")
+    id: int
+    nonmotorist_contributing_circumstance: int  = Field(None, alias="nonmotorist_contributing_circumstance")
+    nonmotorist_contributing_circumstance__display: str = Field(None, alias="get_nonmotorist_contributing_circumstance_display")
 
 class NonmotoristImpairedSchema(Schema):
-    id: int = Field(None, alias="nonmotorist_impaired")
-    impairment: str = Field(None, alias="get_nonmotorist_impaired_display")
+    id: int 
+    nonmotorist_impaired: int = Field(None, alias="nonmotorist_impaired")
+    nonmotorist_impaired__display: str = Field(None, alias="get_nonmotorist_impaired_display")
 
 
 class NonmotoristDistractedSchema(Schema):
-    id: int = Field(None, alias="nonmotorist_distracted_by")
-    distraction: str = Field(None, alias="get_nonmotorist_distracted_by_display")
+    id: int 
+    nonmotorist_distracted_by: int = Field(None, alias="nonmotorist_distracted_by")
+    nonmotorist_distracted_by__display: str = Field(None, alias="get_nonmotorist_distracted_by_display")
 
 
 class NonmotoristPriorActionSchema(Schema):
-    id: int = Field(None, alias="nonmotorist_prior_action")
-    action: str = Field(None, alias="get_nonmotorist_prior_action_display")
+    id: int
+    nonmotorist_prior_action: int = Field(None, alias="nonmotorist_prior_action")
+    nonmotorist_prior_action__display: str = Field(None, alias="get_nonmotorist_prior_action_display")
 
 
 class PersonSchema(Schema):
