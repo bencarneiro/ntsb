@@ -1,6 +1,6 @@
-from ninja import NinjaAPI
+
 from typing import List
-from ninja import Schema, Field, FilterSchema, Query, Redoc
+from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
 from .response_schemas import *
 from .filter_schemas import *
 from fatalities.models import *
@@ -74,7 +74,7 @@ def geojson_accident_list(request, filters: AccidentFilterSchema = Query(...)):
     return {"features": queryset}
 
 @api.get("/accidents_geojson/{accident_id}", response=FeatureSchema)
-def accident_by_id(request, accident_id: int):
+def geojson_accident_by_id(request, accident_id: int):
     accident = get_object_or_404(Accident, id=accident_id)
     return accident
 
