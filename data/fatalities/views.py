@@ -10,6 +10,8 @@ from django.views.generic.base import RedirectView
 def crashes(request):
     return redirect("/v1/docs")
 
+def schema(request):
+    return render(request, "schema.html", context={})
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
     # deaths = Accident.objects.filter(state_id=48, county_id__in=[48453])
