@@ -334,10 +334,16 @@ def accidents_by_loction(request, filters: AccidentLocationFilterSchema = Query(
         radius_in_miles = float(request.GET['radius'])
     except:
         return list()
+
     queryset = Accident.objects.annotate(
         distance=Distance('location', search_location)
     ).order_by('distance').filter(location__distance_lte=(search_location, D(mi=radius_in_miles)))
-    queryset = filters.filter(queryset)
+    qe = filters.get_filter_expression()
+    q = Q()
+    for param in qe.deconstruct()[1]:
+        if param[0] not in {'lat', 'lon', 'radius'}:
+            q &= Q((param[0], param[1]))
+    queryset = queryset.filter(q)
     return list(queryset)
 
 

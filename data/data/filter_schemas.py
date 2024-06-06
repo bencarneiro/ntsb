@@ -580,6 +580,9 @@ class VehicleFilterSchema(FilterSchema):
     accident__rail_grade_crossing_identifier: Optional[str] = None	
 
 class AccidentLocationFilterSchema(FilterSchema):
+    lat: float
+    lon: float
+    radius: int
     state_id: Optional[int] = None
     county_id: Optional[int] = None
     year: Optional[int] = None
