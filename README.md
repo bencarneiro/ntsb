@@ -3,7 +3,7 @@
 This repo powers [roadway.report](https://roadway.report), a web application in-development which will serve data on any traffic death in the USA since 1975
 
 I want people to build nice, interactive maps ontop of these APIS. This can support a nationwide vision-zero viewer
-Here's a crummy [proof of concept](https://roadway.report/home)
+Here's a crummy [proof of concept](https://roadway.report/map)
 
 The data was interpreted mostly from [this manual](https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/813556), published by the NHTSA
 
