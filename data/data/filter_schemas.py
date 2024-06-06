@@ -97,6 +97,9 @@ class PersonFilterSchema(FilterSchema):
     pedestriantype__pedestrian_crash_group: Optional[int] = None
     pedestriantype__bike_crash_group: Optional[int] = None
 
+    vehicle__id: Optional[int] = None
+    vehicle__id__gt: Optional[int] = None
+    vehicle__id__lt: Optional[int] = None    
     vehicle__vehicle_number: Optional[int] = None
     vehicle__vehicle_number__gt: Optional[int] = None
     vehicle__vehicle_number__lt: Optional[int] = None
@@ -416,7 +419,9 @@ class ParkedVehicleFilterSchema(FilterSchema):
 
 
 class VehicleFilterSchema(FilterSchema):
-
+    id: Optional[int] = None	
+    id__lt: Optional[int] = None	
+    id__gt: Optional[int] = None	
     vehicle_number: Optional[int] = None	
     vehicle_number__gt: Optional[int] = None	
     vehicle_number__lt: Optional[int] = None
@@ -807,6 +812,9 @@ class CrashRelatedFactorFilterSchema(FilterSchema):
 class DamageFilterSchema(FilterSchema):
     area_of_impact: Optional[int] = None
 
+    vehicle__id: Optional[int] = None
+    vehicle__id__gt: Optional[int] = None
+    vehicle__id__lt: Optional[int] = None    
     vehicle__vehicle_number: Optional[int] = None
     vehicle__vehicle_number__gt: Optional[int] = None
     vehicle__vehicle_number__lt: Optional[int] = None
@@ -967,6 +975,9 @@ class DamageFilterSchema(FilterSchema):
 class DriverRelatedFactorFilterSchema(FilterSchema):
     driver_related_factor: Optional[int] = None
 
+    vehicle__id: Optional[int] = None
+    vehicle__id__gt: Optional[int] = None
+    vehicle__id__lt: Optional[int] = None    
     vehicle__vehicle_number: Optional[int] = None
     vehicle__vehicle_number__gt: Optional[int] = None
     vehicle__vehicle_number__lt: Optional[int] = None
@@ -1127,6 +1138,9 @@ class DriverRelatedFactorFilterSchema(FilterSchema):
 class DriverDistractedFilterSchema(FilterSchema):
     distracted_by: Optional[int] = None
 
+    vehicle__id: Optional[int] = None
+    vehicle__id__gt: Optional[int] = None
+    vehicle__id__lt: Optional[int] = None
     vehicle__vehicle_number: Optional[int] = None
     vehicle__vehicle_number__gt: Optional[int] = None
     vehicle__vehicle_number__lt: Optional[int] = None
@@ -1287,6 +1301,9 @@ class DriverDistractedFilterSchema(FilterSchema):
 class DriverImpairedFilterSchema(FilterSchema):
     driver_impaired: Optional[int] = None
 
+    vehicle__id: Optional[int] = None
+    vehicle__id__gt: Optional[int] = None
+    vehicle__id__lt: Optional[int] = None    
     vehicle__vehicle_number: Optional[int] = None
     vehicle__vehicle_number__gt: Optional[int] = None
     vehicle__vehicle_number__lt: Optional[int] = None
@@ -1447,6 +1464,9 @@ class DriverImpairedFilterSchema(FilterSchema):
 class VehicleFactorFilterSchema(FilterSchema):
     contributing_cause: Optional[int] = None
 
+    vehicle__id: Optional[int] = None
+    vehicle__id__gt: Optional[int] = None
+    vehicle__id__lt: Optional[int] = None    
     vehicle__vehicle_number: Optional[int] = None
     vehicle__vehicle_number__gt: Optional[int] = None
     vehicle__vehicle_number__lt: Optional[int] = None
@@ -1607,6 +1627,9 @@ class VehicleFactorFilterSchema(FilterSchema):
 class ManeuverFilterSchema(FilterSchema):
     driver_maneuvered_to_avoid: Optional[int] = None
 
+    vehicle__id: Optional[int] = None
+    vehicle__id__gt: Optional[int] = None
+    vehicle__id__lt: Optional[int] = None    
     vehicle__vehicle_number: Optional[int] = None
     vehicle__vehicle_number__gt: Optional[int] = None
     vehicle__vehicle_number__lt: Optional[int] = None
@@ -1767,6 +1790,9 @@ class ManeuverFilterSchema(FilterSchema):
 class VehicleRelatedFactorFilterSchema(FilterSchema):
     vehicle_related_factor: Optional[int] = None
 
+    vehicle__id: Optional[int] = None
+    vehicle__id__gt: Optional[int] = None
+    vehicle__id__lt: Optional[int] = None    
     vehicle__vehicle_number: Optional[int] = None
     vehicle__vehicle_number__gt: Optional[int] = None
     vehicle__vehicle_number__lt: Optional[int] = None
@@ -1927,6 +1953,9 @@ class VehicleRelatedFactorFilterSchema(FilterSchema):
 class ParkedVehicleRelatedFactorFilterSchema(FilterSchema):
     parked_vehicle_related_factor: Optional[int] = None
 
+    parked_vehicle__id: Optional[int] = None
+    parked_vehicle__id__gt: Optional[int] = None
+    parked_vehicle__id__lt: Optional[int] = None
     parked_vehicle__vehicle_number: Optional[int] = None
     parked_vehicle__vehicle_number__gt: Optional[int] = None
     parked_vehicle__vehicle_number__lt: Optional[int] = None
@@ -2036,6 +2065,9 @@ class ParkedVehicleRelatedFactorFilterSchema(FilterSchema):
 class ViolationFilterSchema(FilterSchema):
     moving_violation: Optional[int] = None
 
+    vehicle__id: Optional[int] = None
+    vehicle__id__gt: Optional[int] = None
+    vehicle__id__lt: Optional[int] = None    
     vehicle__vehicle_number: Optional[int] = None
     vehicle__vehicle_number__gt: Optional[int] = None
     vehicle__vehicle_number__lt: Optional[int] = None
@@ -2196,6 +2228,9 @@ class ViolationFilterSchema(FilterSchema):
 class VisionFilterSchema(FilterSchema):
     vision: Optional[int] = None
 
+    vehicle__id: Optional[int] = None
+    vehicle__id__gt: Optional[int] = None
+    vehicle__id__lt: Optional[int] = None    
     vehicle__vehicle_number: Optional[int] = None
     vehicle__vehicle_number__gt: Optional[int] = None
     vehicle__vehicle_number__lt: Optional[int] = None
@@ -2450,6 +2485,9 @@ class DrugsFilterSchema(FilterSchema):
     person__pedestriantype__pedestrian_scenario: Optional[int] = None
     person__pedestriantype__pedestrian_crash_group: Optional[int] = None
     person__pedestriantype__bike_crash_group: Optional[int] = None
+    person__vehicle__id: Optional[int] = None
+    person__vehicle__id__gt: Optional[int] = None
+    person__vehicle__id__lt: Optional[int] = None
     person__vehicle__vehicle_number: Optional[int] = None
     person__vehicle__vehicle_number__gt: Optional[int] = None
     person__vehicle__vehicle_number__lt: Optional[int] = None
@@ -2554,6 +2592,9 @@ class DrugsFilterSchema(FilterSchema):
     person__vehicle__precrash_stability: Optional[int] = None
     person__vehicle__preimpact_location: Optional[int] = None
     person__vehicle__crash_type: Optional[int] = None
+    person__parked_vehicle__id: Optional[int] = None
+    person__parked_vehicle__id__gt: Optional[int] = None
+    person__parked_vehicle__id__lt: Optional[int] = None
     person__parked_vehicle__vehicle_number: Optional[int] = None
     person__parked_vehicle__vehicle_number__gt: Optional[int] = None
     person__parked_vehicle__vehicle_number__lt: Optional[int] = None
@@ -2752,6 +2793,9 @@ class RaceFilterSchema(FilterSchema):
     person__pedestriantype__pedestrian_scenario: Optional[int] = None
     person__pedestriantype__pedestrian_crash_group: Optional[int] = None
     person__pedestriantype__bike_crash_group: Optional[int] = None
+    person__vehicle__id: Optional[int] = None
+    person__vehicle__id__gt: Optional[int] = None
+    person__vehicle__id__lt: Optional[int] = None
     person__vehicle__vehicle_number: Optional[int] = None
     person__vehicle__vehicle_number__gt: Optional[int] = None
     person__vehicle__vehicle_number__lt: Optional[int] = None
@@ -2856,6 +2900,9 @@ class RaceFilterSchema(FilterSchema):
     person__vehicle__precrash_stability: Optional[int] = None
     person__vehicle__preimpact_location: Optional[int] = None
     person__vehicle__crash_type: Optional[int] = None
+    person__parked_vehicle__id: Optional[int] = None
+    person__parked_vehicle__id__gt: Optional[int] = None
+    person__parked_vehicle__id__lt: Optional[int] = None
     person__parked_vehicle__vehicle_number: Optional[int] = None
     person__parked_vehicle__vehicle_number__gt: Optional[int] = None
     person__parked_vehicle__vehicle_number__lt: Optional[int] = None
@@ -3052,6 +3099,9 @@ class PersonRelatedFactorFilterSchema(FilterSchema):
     person__pedestriantype__pedestrian_scenario: Optional[int] = None
     person__pedestriantype__pedestrian_crash_group: Optional[int] = None
     person__pedestriantype__bike_crash_group: Optional[int] = None
+    person__vehicle__id: Optional[int] = None
+    person__vehicle__id__gt: Optional[int] = None
+    person__vehicle__id__lt: Optional[int] = None
     person__vehicle__vehicle_number: Optional[int] = None
     person__vehicle__vehicle_number__gt: Optional[int] = None
     person__vehicle__vehicle_number__lt: Optional[int] = None
@@ -3156,6 +3206,9 @@ class PersonRelatedFactorFilterSchema(FilterSchema):
     person__vehicle__precrash_stability: Optional[int] = None
     person__vehicle__preimpact_location: Optional[int] = None
     person__vehicle__crash_type: Optional[int] = None
+    person__parked_vehicle__id: Optional[int] = None
+    person__parked_vehicle__id__gt: Optional[int] = None
+    person__parked_vehicle__id__lt: Optional[int] = None
     person__parked_vehicle__vehicle_number: Optional[int] = None
     person__parked_vehicle__vehicle_number__gt: Optional[int] = None
     person__parked_vehicle__vehicle_number__lt: Optional[int] = None
