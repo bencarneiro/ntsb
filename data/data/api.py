@@ -24,7 +24,7 @@ api = NinjaAPI(docs = Redoc(),
        }
    },
    title="Roadway Report",
-   description="This is a free API which returns data on ALL traffic fatalities in the USA. The database currently contains a complete dataset for 2022, and I will be importing 1975-2021 in the coming months.    Check out the [github](https://github.com/bencarneiro/ntsb)")
+   description="This is a free API which returns data on ALL traffic fatalities in the USA. The database currently contains a complete dataset for 2022, and I will be importing 1975-2021 in the coming months.    Check out the [github](https://github.com/bencarneiro/ntsb) --- or click around on the [test map](/map)")
 
 
 @api.get("/accidents", response=List[AccidentSchema])
