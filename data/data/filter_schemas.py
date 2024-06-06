@@ -311,6 +311,12 @@ class PersonFilterSchema(FilterSchema):
     accident__rail_grade_crossing_identifier: Optional[str] = None
 
 class ParkedVehicleFilterSchema(FilterSchema):
+    id: Optional[int] = None	
+    id__lt: Optional[int] = None	
+    id__gt: Optional[int] = None	
+    accident_id: Optional[int] = None	
+    accident_id__lt: Optional[int] = None	
+    accident_id__gt: Optional[int] = None	
     vehicle_number: Optional[int] = None	
     vehicle_number__gt: Optional[int] = None	
     vehicle_number__lt: Optional[int] = None
@@ -527,6 +533,9 @@ class VehicleFilterSchema(FilterSchema):
     preimpact_location: Optional[int] = None		
     crash_type: Optional[int] = None	
     
+    accident__id: Optional[int] = None
+    accident__id__lt: Optional[int] = None
+    accident__id__gt: Optional[int] = None
     accident__state_id: Optional[int] = None
     accident__county_id: Optional[int] = None
     accident__year: Optional[int] = None
@@ -583,6 +592,9 @@ class AccidentLocationFilterSchema(FilterSchema):
     lat: float
     lon: float
     radius: int
+    id: Optional[int] = None
+    id__lt: Optional[int] = None
+    id__gt: Optional[int] = None
     state_id: Optional[int] = None
     county_id: Optional[int] = None
     year: Optional[int] = None
@@ -636,6 +648,9 @@ class AccidentLocationFilterSchema(FilterSchema):
     rail_grade_crossing_identifier: Optional[str] = None
 
 class AccidentFilterSchema(FilterSchema):
+    id: Optional[int] = None
+    id__lt: Optional[int] = None
+    id__gt: Optional[int] = None
     state_id: Optional[int] = None
     county_id: Optional[int] = None
     year: Optional[int] = None
@@ -692,14 +707,14 @@ class AccidentFilterSchema(FilterSchema):
 
 
 class CrashEventFilterSchema(FilterSchema):
-    accident_id: Optional[int] = None
-    accident_id__lt: Optional[int] = None
-    accident_id__gt: Optional[int] = None
     crash_event_number: Optional[int] = None
     crash_event_number__lt: Optional[int] = None
     crash_event_number__gt: Optional[int] = None
     sequence_of_events: Optional[int] = None
 
+    accident__id: Optional[int] = None
+    accident__id__lt: Optional[int] = None
+    accident__id__gt: Optional[int] = None
     accident__state_id: Optional[int] = None
     accident__county_id: Optional[int] = None
     accident__year: Optional[int] = None
@@ -755,6 +770,9 @@ class CrashEventFilterSchema(FilterSchema):
 class WeatherFilterSchema(FilterSchema):
     atmospheric_condition: Optional[int] = None
 
+    accident__id: Optional[int] = None
+    accident__id__lt: Optional[int] = None
+    accident__id__gt: Optional[int] = None
     accident__state_id: Optional[int] = None
     accident__county_id: Optional[int] = None
     accident__year: Optional[int] = None
@@ -810,6 +828,9 @@ class WeatherFilterSchema(FilterSchema):
 class CrashRelatedFactorFilterSchema(FilterSchema):
     crash_related_factor: Optional[int] = None
 
+    accident__id: Optional[int] = None
+    accident__id__lt: Optional[int] = None
+    accident__id__gt: Optional[int] = None
     accident__state_id: Optional[int] = None
     accident__county_id: Optional[int] = None
     accident__year: Optional[int] = None
@@ -976,6 +997,9 @@ class DamageFilterSchema(FilterSchema):
     vehicle__preimpact_location: Optional[int] = None
     vehicle__crash_type: Optional[int] = None
     ## Accident level filters
+    vehicle__accident__id: Optional[int] = None
+    vehicle__accident__id__lt: Optional[int] = None
+    vehicle__accident__id__gt: Optional[int] = None
     vehicle__accident__state_id: Optional[int] = None
     vehicle__accident__county_id: Optional[int] = None
     vehicle__accident__year: Optional[int] = None
@@ -1139,6 +1163,9 @@ class DriverRelatedFactorFilterSchema(FilterSchema):
     vehicle__preimpact_location: Optional[int] = None
     vehicle__crash_type: Optional[int] = None
     ## Accident level filters
+    vehicle__accident__id: Optional[int] = None
+    vehicle__accident__id__lt: Optional[int] = None
+    vehicle__accident__id__gt: Optional[int] = None
     vehicle__accident__state_id: Optional[int] = None
     vehicle__accident__county_id: Optional[int] = None
     vehicle__accident__year: Optional[int] = None
@@ -1302,6 +1329,9 @@ class DriverDistractedFilterSchema(FilterSchema):
     vehicle__preimpact_location: Optional[int] = None
     vehicle__crash_type: Optional[int] = None
     ## Accident level filters
+    vehicle__accident__id: Optional[int] = None
+    vehicle__accident__id__lt: Optional[int] = None
+    vehicle__accident__id__gt: Optional[int] = None
     vehicle__accident__state_id: Optional[int] = None
     vehicle__accident__county_id: Optional[int] = None
     vehicle__accident__year: Optional[int] = None
@@ -1465,6 +1495,9 @@ class DriverImpairedFilterSchema(FilterSchema):
     vehicle__preimpact_location: Optional[int] = None
     vehicle__crash_type: Optional[int] = None
     ## Accident level filters
+    vehicle__accident__id: Optional[int] = None
+    vehicle__accident__id__lt: Optional[int] = None
+    vehicle__accident__id__gt: Optional[int] = None
     vehicle__accident__state_id: Optional[int] = None
     vehicle__accident__county_id: Optional[int] = None
     vehicle__accident__year: Optional[int] = None
@@ -1628,6 +1661,9 @@ class VehicleFactorFilterSchema(FilterSchema):
     vehicle__preimpact_location: Optional[int] = None
     vehicle__crash_type: Optional[int] = None
     ## Accident level filters
+    vehicle__accident__id: Optional[int] = None
+    vehicle__accident__id__lt: Optional[int] = None
+    vehicle__accident__id__gt: Optional[int] = None
     vehicle__accident__state_id: Optional[int] = None
     vehicle__accident__county_id: Optional[int] = None
     vehicle__accident__year: Optional[int] = None
@@ -1791,6 +1827,9 @@ class ManeuverFilterSchema(FilterSchema):
     vehicle__preimpact_location: Optional[int] = None
     vehicle__crash_type: Optional[int] = None
     ## Accident level filters
+    vehicle__accident__id: Optional[int] = None
+    vehicle__accident__id__lt: Optional[int] = None
+    vehicle__accident__id__gt: Optional[int] = None
     vehicle__accident__state_id: Optional[int] = None
     vehicle__accident__county_id: Optional[int] = None
     vehicle__accident__year: Optional[int] = None
@@ -1954,6 +1993,9 @@ class VehicleRelatedFactorFilterSchema(FilterSchema):
     vehicle__preimpact_location: Optional[int] = None
     vehicle__crash_type: Optional[int] = None
     ## Accident level filters
+    vehicle__accident__id: Optional[int] = None
+    vehicle__accident__id__lt: Optional[int] = None
+    vehicle__accident__id__gt: Optional[int] = None
     vehicle__accident__state_id: Optional[int] = None
     vehicle__accident__county_id: Optional[int] = None
     vehicle__accident__year: Optional[int] = None
@@ -2065,6 +2107,9 @@ class ParkedVehicleRelatedFactorFilterSchema(FilterSchema):
     parked_vehicle__fatalities__gt: Optional[int] = None
     parked_vehicle__fatalities__lt: Optional[int] = None
 
+    parked_vehicle__accident__id: Optional[int] = None
+    parked_vehicle__accident__id__lt: Optional[int] = None
+    parked_vehicle__accident__id__gt: Optional[int] = None
     parked_vehicle__accident__state_id: Optional[int] = None
     parked_vehicle__accident__county_id: Optional[int] = None
     parked_vehicle__accident__year: Optional[int] = None
@@ -2229,6 +2274,9 @@ class ViolationFilterSchema(FilterSchema):
     vehicle__preimpact_location: Optional[int] = None
     vehicle__crash_type: Optional[int] = None
     ## Accident level filters
+    vehicle__accident__id: Optional[int] = None
+    vehicle__accident__id__lt: Optional[int] = None
+    vehicle__accident__id__gt: Optional[int] = None
     vehicle__accident__state_id: Optional[int] = None
     vehicle__accident__county_id: Optional[int] = None
     vehicle__accident__year: Optional[int] = None
@@ -2392,6 +2440,9 @@ class VisionFilterSchema(FilterSchema):
     vehicle__preimpact_location: Optional[int] = None
     vehicle__crash_type: Optional[int] = None
     ## Accident level filters
+    vehicle__accident__id: Optional[int] = None
+    vehicle__accident__id__lt: Optional[int] = None
+    vehicle__accident__id__gt: Optional[int] = None
     vehicle__accident__state_id: Optional[int] = None
     vehicle__accident__county_id: Optional[int] = None
     vehicle__accident__year: Optional[int] = None
@@ -2703,6 +2754,9 @@ class DrugsFilterSchema(FilterSchema):
     person__parked_vehicle__fatalities: Optional[int] = None
     person__parked_vehicle__fatalities__gt: Optional[int] = None
     person__parked_vehicle__fatalities__lt: Optional[int] = None
+    person__accident__id: Optional[int] = None
+    person__accident__id__lt: Optional[int] = None
+    person__accident__id__gt: Optional[int] = None
     person__accident__state_id: Optional[int] = None
     person__accident__county_id: Optional[int] = None
     person__accident__year: Optional[int] = None
@@ -3011,6 +3065,9 @@ class RaceFilterSchema(FilterSchema):
     person__parked_vehicle__fatalities: Optional[int] = None
     person__parked_vehicle__fatalities__gt: Optional[int] = None
     person__parked_vehicle__fatalities__lt: Optional[int] = None
+    person__accident__id: Optional[int] = None
+    person__accident__id__lt: Optional[int] = None
+    person__accident__id__gt: Optional[int] = None
     person__accident__state_id: Optional[int] = None
     person__accident__county_id: Optional[int] = None
     person__accident__year: Optional[int] = None
@@ -3317,6 +3374,9 @@ class PersonRelatedFactorFilterSchema(FilterSchema):
     person__parked_vehicle__fatalities: Optional[int] = None
     person__parked_vehicle__fatalities__gt: Optional[int] = None
     person__parked_vehicle__fatalities__lt: Optional[int] = None
+    person__accident__id: Optional[int] = None
+    person__accident__id__lt: Optional[int] = None
+    person__accident__id__gt: Optional[int] = None
     person__accident__state_id: Optional[int] = None
     person__accident__county_id: Optional[int] = None
     person__accident__year: Optional[int] = None
@@ -3461,6 +3521,9 @@ class NonmotoristContributingCircumstanceFilterSchema(FilterSchema):
     person__pedestriantype__pedestrian_scenario: Optional[int] = None
     person__pedestriantype__pedestrian_crash_group: Optional[int] = None
     person__pedestriantype__bike_crash_group: Optional[int] = None
+    person__accident__id: Optional[int] = None
+    person__accident__id__lt: Optional[int] = None
+    person__accident__id__gt: Optional[int] = None
     person__accident__state_id: Optional[int] = None
     person__accident__county_id: Optional[int] = None
     person__accident__year: Optional[int] = None
@@ -3605,6 +3668,9 @@ class NonmotoristImpairedFilterSchema(FilterSchema):
     person__pedestriantype__pedestrian_scenario: Optional[int] = None
     person__pedestriantype__pedestrian_crash_group: Optional[int] = None
     person__pedestriantype__bike_crash_group: Optional[int] = None
+    person__accident__id: Optional[int] = None
+    person__accident__id__lt: Optional[int] = None
+    person__accident__id__gt: Optional[int] = None
     person__accident__state_id: Optional[int] = None
     person__accident__county_id: Optional[int] = None
     person__accident__year: Optional[int] = None
@@ -3750,6 +3816,9 @@ class NonmotoristDistractedFilterSchema(FilterSchema):
     person__pedestriantype__pedestrian_scenario: Optional[int] = None
     person__pedestriantype__pedestrian_crash_group: Optional[int] = None
     person__pedestriantype__bike_crash_group: Optional[int] = None
+    person__accident__id: Optional[int] = None
+    person__accident__id__lt: Optional[int] = None
+    person__accident__id__gt: Optional[int] = None
     person__accident__state_id: Optional[int] = None
     person__accident__county_id: Optional[int] = None
     person__accident__year: Optional[int] = None
@@ -3895,6 +3964,9 @@ class NonmotoristPriorActionFilterSchema(FilterSchema):
     person__pedestriantype__pedestrian_scenario: Optional[int] = None
     person__pedestriantype__pedestrian_crash_group: Optional[int] = None
     person__pedestriantype__bike_crash_group: Optional[int] = None
+    person__accident__id: Optional[int] = None
+    person__accident__id__lt: Optional[int] = None
+    person__accident__id__gt: Optional[int] = None
     person__accident__state_id: Optional[int] = None
     person__accident__county_id: Optional[int] = None
     person__accident__year: Optional[int] = None
