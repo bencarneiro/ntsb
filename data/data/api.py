@@ -40,6 +40,19 @@ def accident_by_id(request, accident_id: int):
     return accident
 
 
+@api.get("/accidents_geojson", response=list[FeatureSchema])
+@paginate
+def accident_list(request, filters: AccidentFilterSchema = Query(...)):
+    queryset = Accident.objects.order_by("id")
+    queryset = filters.filter(queryset)
+    return list(queryset)
+
+@api.get("/test/{accident_id}", response=FeatureSchema)
+def accident_by_id(request, accident_id: int):
+    accident = get_object_or_404(Accident, id=accident_id)
+    return accident
+
+
 
 
 @api.get("/accidents_by_location", response=List[AccidentSchema])

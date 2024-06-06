@@ -39,6 +39,10 @@ class City(models.Model):
 
 # in a just world, I would name this model "Crash" but we do not live in a just world and I'm striving for code quality here over personal vendettas
 class Accident(models.Model):
+    def accident(self):
+        return self
+    def coordinates(self):
+        return [self.longitude, self.latitude]
     id = models.PositiveBigIntegerField(primary_key = True)
     year = models.PositiveSmallIntegerField(null=False, blank=False)
     st_case = models.PositiveIntegerField(null=False)
