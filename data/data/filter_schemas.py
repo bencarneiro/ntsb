@@ -2330,7 +2330,7 @@ class ViolationFilterSchema(FilterSchema):
     vehicle__accident__rail_grade_crossing_identifier: Optional[str] = None
 
 class VisionFilterSchema(FilterSchema):
-    vision: Optional[int] = None
+    visibility: Optional[int] = None
 
     vehicle__id: Optional[int] = None
     vehicle__id__gt: Optional[int] = None

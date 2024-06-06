@@ -423,7 +423,7 @@ class VehicleSchema(Schema):
     vehicle_factors: List[VehicleFactorSchema] = Field(..., alias='vehiclefactor_set')
     maneuvers: List[ManeuverSchema] = Field(..., alias='maneuver_set')
     moving_violations: List[ViolationSchema] = Field(..., alias='violation_set')
-    visibility_obstructions: List[VisionSchema] = Field(..., alias='vision_set')
+    vision_obstructions: List[VisionSchema] = Field(..., alias='vision_set')
 
 class ParkedVehicleRelatedFactorSchema(Schema):
     id: int
