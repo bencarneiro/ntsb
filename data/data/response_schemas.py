@@ -31,8 +31,8 @@ class CitySchema(Schema):
 
 class DrugsSchema(Schema):
     id: decimal.Decimal = Field(..., alias="id")
-    drug_test_given: int = Field(None, alias="drug_test_type")
-    drug_test_given__display: str = Field(None, alias="get_drug_test_type_display")
+    drug_test_type: int = Field(None, alias="drug_test_type")
+    drug_test_type__display: str = Field(None, alias="get_drug_test_type_display")
     drug_test_result: int = Field(None, alias="drug_test_results")
 
 class RaceSchema(Schema):
