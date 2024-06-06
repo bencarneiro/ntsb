@@ -106,7 +106,6 @@ def damage_by_id(request, damage_id: int):
     return damage
 
 
-
 @api.get("/distractions", response=List[DriverDistractedSchema])
 @paginate
 def distraction_list(request, filters: DamageFilterSchema = Query(...)):
@@ -299,28 +298,28 @@ def nonmotorist_prior_action_by_id(request, nonmotorist_prior_action_id: int):
 
 @api.get("/nonmotorist_contributing_circumstances", response=List[NonmotoristContributingCircumstanceSchema])
 @paginate
-def race_list(request, filters: NonmotoristContributingCircumstanceFilterSchema = Query(...)):
+def nonmotorist_contributing_circumstance_list(request, filters: NonmotoristContributingCircumstanceFilterSchema = Query(...)):
     queryset = NonmotoristContributingCircumstance.objects.order_by("person__accident_id")
     queryset = filters.filter(queryset)
     return list(queryset)
 
 @api.get("/nonmotorist_contributing_circumstances/{nonmotorist_contributing_circumstance_id}", response=NonmotoristContributingCircumstanceSchema)
-def race_by_id(nonmotorist_contributing_circumstance_id, race_id: int):
-    race = get_object_or_404(NonmotoristContributingCircumstance, id=nonmotorist_contributing_circumstance_id)
-    return race
+def nonmotorist_contributing_circumstance_by_id(request, nonmotorist_contributing_circumstance_id: int):
+    nmcc = get_object_or_404(NonmotoristContributingCircumstance, id=nonmotorist_contributing_circumstance_id)
+    return nmcc
 
 
-@api.get("/race", response=List[RaceSchema])
+@api.get("/nonmotorist_distractions", response=List[NonmotoristDistractedSchema])
 @paginate
-def race_list(request, filters: RaceFilterSchema = Query(...)):
-    queryset = Race.objects.order_by("person__accident_id")
+def nonmotorist_distraction_list(request, filters: NonmotoristDistractedFilterSchema = Query(...)):
+    queryset = NonmotoristDistracted.objects.order_by("person__accident_id")
     queryset = filters.filter(queryset)
     return list(queryset)
 
-@api.get("/race/{race_id}", response=RaceSchema)
-def race_by_id(request, race_id: int):
-    race = get_object_or_404(Race, id=race_id)
-    return race
+@api.get("/nonmotorist_distractions/{nonmotorist_distraction_id}", response=NonmotoristDistractedSchema)
+def nonmotorist_distraction_by_id(request, nonmotorist_distraction_id: int):
+    nmdistract = get_object_or_404(NonmotoristDistracted, id=nonmotorist_distraction_id)
+    return nmdistract
 
 
 
