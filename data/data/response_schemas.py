@@ -626,3 +626,23 @@ class ShortAccidentSchema(Schema):
     latitude: float
     longitude: float
     data: str
+
+class GeometrySchema(Schema):
+    type: str = Field("Point", alias="not_applicable")
+    coordinates: list[float] = Field(..., alias="coordinates")
+
+class FeatureSchema(Schema): 
+    type: str = Field("Feature", alias="not_applicable")
+    properties: AccidentSchema
+    geometry: GeometrySchema
+
+    @staticmethod
+    def resolve_geometry(self):
+        return self
+    @staticmethod
+    def resolve_properties(self):
+        return self
+
+class FeatureCollectionSchema(Schema):
+    type: str = Field("FeatureCollection", alias="not_applicable")
+    features: list[FeatureSchema]

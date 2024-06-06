@@ -1,6 +1,6 @@
-from ninja import NinjaAPI
+
 from typing import List
-from ninja import Schema, Field, FilterSchema, Query, Redoc
+from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
 from .response_schemas import *
 from .filter_schemas import *
 from fatalities.models import *
@@ -38,7 +38,6 @@ def accident_list(request, filters: AccidentFilterSchema = Query(...)):
 def accident_by_id(request, accident_id: int):
     accident = get_object_or_404(Accident, id=accident_id)
     return accident
-
 
 
 
@@ -1272,3 +1271,44 @@ def pedestrian_crash_group_choices(request):
 @api.get("/bike_crash_group_choices", response=List[Tuple])
 def bike_crash_group_choices(request):
     return list(PedestrianType.bike_crash_group_choices)
+
+
+
+@api.get("/accidents_by_location_geojson", response=FeatureCollectionSchema)
+def accidents_by_loction(request, filters: AccidentLocationFilterSchema = Query(...)):
+    if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
+        return "Required Parameters are lat, lon, radius"
+    try:
+        search_location = Point(x=float(request.GET['lon']), y=float(request.GET['lat']), srid=4326)
+        radius_in_miles = float(request.GET['radius'])
+    except:
+        return list()
+
+    queryset = Accident.objects.annotate(
+        distance=Distance('location', search_location)
+    ).order_by('distance').filter(location__distance_lte=(search_location, D(mi=radius_in_miles)))
+    qe = filters.get_filter_expression()
+    q = Q()
+    for param in qe.deconstruct()[1]:
+        if param[0] not in {'lat', 'lon', 'radius'}:
+            q &= Q((param[0], param[1]))
+    queryset = queryset.filter(q)
+    if len(queryset) > 5000:
+        queryset = queryset[:5000]
+    return {"features": queryset}
+
+
+@api.get("/accidents_geojson", response=FeatureCollectionSchema)
+def geojson_accident_list(request, filters: AccidentFilterSchema = Query(...)):
+    queryset = Accident.objects.order_by("id")
+    queryset = filters.filter(queryset)
+    if len(queryset) > 5000:
+        queryset = queryset[:5000]
+    return {"features": queryset}
+
+@api.get("/accidents_geojson/{accident_id}", response=FeatureSchema)
+def geojson_accident_by_id(request, accident_id: int):
+    accident = get_object_or_404(Accident, id=accident_id)
+    return accident
+
+
