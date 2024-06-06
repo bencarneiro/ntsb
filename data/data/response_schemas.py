@@ -633,9 +633,16 @@ class GeometrySchema(Schema):
 
 class FeatureSchema(Schema): 
     type: str = Field("Feature", alias="not_applicable")
-    properties: AccidentSchema = Field(..., alias="accident")
-    geometry: GeometrySchema = Field(..., alias="accident")
+    properties: AccidentSchema
+    geometry: GeometrySchema
+
+    @staticmethod
+    def resolve_geometry(self):
+        return self
+    @staticmethod
+    def resolve_properties(self):
+        return self
 
 class FeatureCollectionSchema(Schema):
     type: str = Field("FeatureCollection", alias="not_applicable")
-    features: list[FeatureSchema] = Field(..., alias="accident")
+    features: list[FeatureSchema]
