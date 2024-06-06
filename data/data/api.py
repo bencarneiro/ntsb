@@ -326,17 +326,17 @@ def nonmotorist_distraction_by_id(request, nonmotorist_distraction_id: int):
 
 @api.get("/accidents_by_location", response=List[AccidentSchema])
 @paginate
-def accidents_by_loction(request, filters: AccidentFilterSchema = Query(...)):
+def accidents_by_loction(request, filters: AccidentLocationFilterSchema = Query(...)):
+    if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
+        return "Required Parameters are lat, lon, radius"
     try:
         search_location = Point(x=float(request.GET['lon']), y=float(request.GET['lat']), srid=4326)
         radius_in_miles = float(request.GET['radius'])
     except:
         return list()
-
     queryset = Accident.objects.annotate(
         distance=Distance('location', search_location)
     ).order_by('distance').filter(location__distance_lte=(search_location, D(mi=radius_in_miles)))
-
     queryset = filters.filter(queryset)
     return list(queryset)
 
