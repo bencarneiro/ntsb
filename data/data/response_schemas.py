@@ -633,6 +633,7 @@ class GeometrySchema(Schema):
     coordinates: list[float] = Field(..., alias="coordinates")
 
 class FeatureSchema(Schema): 
+    id: int
     type: str = Field("Feature", alias="not_applicable")
     properties: AccidentSchema
     geometry: GeometrySchema
