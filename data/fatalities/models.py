@@ -2541,6 +2541,7 @@ class Person(models.Model):
     sex_choices = [
         (1, "Male"),
         (2, "Female"),
+        (3, "Other"),
         (8, "Not Reported"),
         (9, "Reported as Unknown")
     ]
@@ -2890,6 +2891,7 @@ class PedestrianType(models.Model):
     sex_choices = [
         (1, "Male"),
         (2, "Female"),
+        (3, "Other"),
         (8, "Not Reported"),
         (9, "Reported as Unknown")
     ]

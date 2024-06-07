@@ -20,6 +20,11 @@ def crashes(request):
 def schema(request):
     return render(request, "schema.html", context={})
 
+def leaflet(request):
+    if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
+        return redirect("/leaflet?lat=37.8011&lon=-122.3267&radius=15")
+    return render(request, "leaflet.html", context={})
+
 def home(request):
     context = {
         "url": "/"

@@ -1275,7 +1275,7 @@ def bike_crash_group_choices(request):
 
 
 @api.get("/accidents_by_location_geojson", response=FeatureCollectionSchema)
-def accidents_by_loction(request, filters: AccidentLocationFilterSchema = Query(...)):
+def geojson_accidents_by_loction(request, filters: AccidentLocationFilterSchema = Query(...)):
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
         return "Required Parameters are lat, lon, radius"
     try:
