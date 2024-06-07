@@ -618,6 +618,7 @@ class AccidentSchema(Schema):
     crash_events: list[CrashEventSchema] = Field(..., alias='crashevent_set')
     crash_related_factors: list[CrashRelatedFactorSchema] = Field(..., alias='crashrelatedfactors_set')
     weather: list[WeatherSchema] = Field(..., alias='weather_set')
+    link: str
 
 class ShortAccidentSchema(Schema):
     id: int
