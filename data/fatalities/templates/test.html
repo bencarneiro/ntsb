@@ -20,7 +20,7 @@
     // map.locate({setView: true})
     var layerGroup = new L.LayerGroup();
 
-
+    
     map.locate({setView: true, watch: true}) /* This will return map so you can do chaining */
         .on('locationfound', async function(e){
 
@@ -39,7 +39,6 @@
 
                 )
             );
-            map.setZoom(11)
             // var marker = L.marker([e.latitude, e.longitude]).bindPopup('Your are here :)');
             // var circle = L.circle([e.latitude, e.longitude], e.accuracy/2, {
             //     weight: 1,
@@ -53,7 +52,6 @@
        .on('locationerror', function(e){
             console.log(e);
             alert("Location access denied.");
-            map.setView([lat, lon], 11);
         });
     
 
