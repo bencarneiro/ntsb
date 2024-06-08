@@ -25,7 +25,7 @@ def get_client_ip(request):
 
 
 def crashes(request):
-    return redirect("/testmap")
+    return redirect("/map")
 
 def schema(request):
     return render(request, "schema.html", context={})
@@ -55,7 +55,7 @@ def testmap(request):
     return render(request, "leaflet.html", context={})
 
 
-def test(request):
+def map(request):
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
         ip = get_client_ip(request)
         print(ip)
@@ -63,12 +63,12 @@ def test(request):
             g = GeoIP2()
             country = g.country(ip)
             if country['country_code'] != "US":
-                return redirect("/test?lat=37.8011&lon=-122.3267&radius=15")
+                return redirect("/map?lat=37.8011&lon=-122.3267&radius=15")
             coordinates = g.lat_lon(ip)
-            return redirect(f"/test?lat={coordinates[0]}&lon={coordinates[1]}&radius=15")
+            return redirect(f"/map?lat={coordinates[0]}&lon={coordinates[1]}&radius=15")
         except Exception as e:
             print(e)
-            return redirect("/test?lat=37.8011&lon=-122.3267&radius=15")
+            return redirect("/map?lat=37.8011&lon=-122.3267&radius=15")
         
         
     return render(request, "test.html", context={})
@@ -104,7 +104,7 @@ favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
     # return list(queryset)
 
 
-def map(request):
+def folium_map(request):
     # deaths = Accident.objects.filter(state_id=48, county_id__in=[48453])
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
         return redirect("/map?lat=37.8011&lon=-122.3267&radius=25")
