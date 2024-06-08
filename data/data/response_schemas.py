@@ -622,11 +622,12 @@ class AccidentSchema(Schema):
 
 class ShortAccidentSchema(Schema):
     id: int
+    datetime: datetime
     st_case: int
     fatalities: int
     latitude: float
     longitude: float
-    data: str
+    link: str
 
 class GeometrySchema(Schema):
     type: str = Field("Point", alias="not_applicable")
@@ -648,3 +649,21 @@ class FeatureSchema(Schema):
 class FeatureCollectionSchema(Schema):
     type: str = Field("FeatureCollection", alias="not_applicable")
     features: list[FeatureSchema]
+
+
+class ShortFeatureSchema(Schema): 
+    id: int
+    type: str = Field("Feature", alias="not_applicable")
+    properties: ShortAccidentSchema
+    geometry: GeometrySchema
+
+    @staticmethod
+    def resolve_geometry(self):
+        return self
+    @staticmethod
+    def resolve_properties(self):
+        return self
+
+class ShortFeatureCollectionSchema(Schema):
+    type: str = Field("FeatureCollection", alias="not_applicable")
+    features: list[ShortFeatureSchema]
