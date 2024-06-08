@@ -13,6 +13,16 @@ from django.contrib.gis.measure import D
 from django.contrib.gis.db.models.functions import Distance
 from data.filter_schemas import AccidentLocationFilterSchema
 from django.db.models import Q
+from django.contrib.gis.geoip2 import GeoIP2
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 
 def crashes(request):
     return redirect("/leaflet")
@@ -23,6 +33,25 @@ def schema(request):
 def leaflet(request):
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
         return redirect("/leaflet?lat=37.8011&lon=-122.3267&radius=15")
+    return render(request, "leaflet.html", context={})
+
+
+def test_leaflet(request):
+    if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
+        ip = get_client_ip(request)
+        print(ip)
+        g = GeoIP2()
+        try:
+            country = g.country(ip)
+            if country['country_code'] != "US":
+                return redirect("/testmap?lat=37.8011&lon=-122.3267&radius=15")
+            coordinates = g.lat_lon(ip)
+            return redirect(f"/testmap?lat={coordinates[1]}&lon={coordinates[0]}&radius=15")
+        except Exception as e:
+            print(e)
+            return redirect("/testmap?lat=37.8011&lon=-122.3267&radius=15")
+        
+        
     return render(request, "leaflet.html", context={})
 
 def home(request):
