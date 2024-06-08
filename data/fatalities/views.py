@@ -49,7 +49,7 @@ def test_leaflet(request):
             if country['country_code'] != "US":
                 return redirect("/testmap?lat=37.8011&lon=-122.3267&radius=15")
             coordinates = g.lat_lon(ip)
-            return redirect(f"/testmap?lat={coordinates[1]}&lon={coordinates[0]}&radius=15")
+            return redirect(f"/testmap?lat={coordinates[0]}&lon={coordinates[1]}&radius=15")
         except Exception as e:
             print(e)
             return redirect("/testmap?lat=37.8011&lon=-122.3267&radius=15")
