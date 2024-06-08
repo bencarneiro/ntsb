@@ -25,7 +25,7 @@ def get_client_ip(request):
 
 
 def crashes(request):
-    return redirect("/leaflet")
+    return redirect("/testmap")
 
 def schema(request):
     return render(request, "schema.html", context={})
@@ -42,9 +42,6 @@ def test_leaflet(request):
         print(ip)
         try:
             g = GeoIP2()
-        except Exception as e:
-            print(e)
-        try:
             country = g.country(ip)
             if country['country_code'] != "US":
                 return redirect("/testmap?lat=37.8011&lon=-122.3267&radius=15")
