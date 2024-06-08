@@ -39,6 +39,8 @@
 
                 )
             );
+
+            map.setView([e.latitude, e.longitude], 11);
             // var marker = L.marker([e.latitude, e.longitude]).bindPopup('Your are here :)');
             // var circle = L.circle([e.latitude, e.longitude], e.accuracy/2, {
             //     weight: 1,
@@ -49,9 +51,26 @@
             // map.addLayer(marker);
             // map.addLayer(circle);
         })
-       .on('locationerror', function(e){
+       .on('locationerror', async function(e){
             console.log(e);
             alert("Location access denied.");
+
+            const json = await load_shapefile(lon, lat);
+            layerGroup.addLayer(
+                L.geoJson(
+                    json,
+                    {
+                        onEachFeature: function (feature, layer) {
+                            layer.bindPopup(
+                                `<h1>${feature.properties.fatalities} Death(s)</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+                                
+                            );
+                        }
+                    }
+
+                )
+            );
+            map.setView([lat, lon], 11);
         });
     
 
@@ -70,20 +89,20 @@
 
         layerGroup.addTo(map);
 
-        layerGroup.addLayer(
-            L.geoJson(
-                json,
-                {
-                    onEachFeature: function (feature, layer) {
-                        layer.bindPopup(
-                            `<h1>${feature.properties.fatalities} Death(s)</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+        // layerGroup.addLayer(
+        //     L.geoJson(
+        //         json,
+        //         {
+        //             onEachFeature: function (feature, layer) {
+        //                 layer.bindPopup(
+        //                     `<h1>${feature.properties.fatalities} Death(s)</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
                             
-                        );
-                    }
-                }
+        //                 );
+        //             }
+        //         }
 
-            )
-        );
+        //     )
+        // );
     //   L.geoJson(json).addTo(map);
     }
 
