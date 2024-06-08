@@ -1,0 +1,122 @@
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+
+<body>
+  <div id="my_map" style="height: 100%"></div>
+  <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const lat = urlParams.get('lat')
+    const lon = urlParams.get('lon')
+    const radius = urlParams.get('radius')
+    const map = L.map('my_map')
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    // map.setView([lat, lon], 11);
+    // map.locate({setView: true})
+    map.locate({setView: true, watch: true}) /* This will return map so you can do chaining */
+        .on('locationfound', async function(e){
+
+            const json = await load_shapefile(e.longitude, e.latitude);
+            layerGroup.addLayer(
+                L.geoJson(
+                    json,
+                    {
+                        onEachFeature: function (feature, layer) {
+                            layer.bindPopup(
+                                `<h1>${feature.properties.fatalities} Death(s)</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+                                
+                            );
+                        }
+                    }
+
+                )
+            );
+            // var marker = L.marker([e.latitude, e.longitude]).bindPopup('Your are here :)');
+            // var circle = L.circle([e.latitude, e.longitude], e.accuracy/2, {
+            //     weight: 1,
+            //     color: 'blue',
+            //     fillColor: '#cacaca',
+            //     fillOpacity: 0.2
+            // });
+            // map.addLayer(marker);
+            // map.addLayer(circle);
+        })
+       .on('locationerror', function(e){
+            console.log(e);
+            alert("Location access denied.");
+        });
+    
+    var layerGroup = new L.LayerGroup();
+
+    async function load_shapefile(lon, lat) {
+      let url = `/v1/accidents_by_location_geojson?lat=${lat}&lon=${lon}&radius=15`;
+      const response = await fetch(url)
+      const shape_obj = await response.json();
+      console.log(shape_obj);
+      return shape_obj;
+    }
+
+    async function main() {
+
+    // var layerGroup = new L.LayerGroup();
+      const json = await load_shapefile(lon, lat);
+
+        layerGroup.addTo(map);
+
+        layerGroup.addLayer(
+            L.geoJson(
+                json,
+                {
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(
+                            `<h1>${feature.properties.fatalities} Death(s)</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+                            
+                        );
+                    }
+                }
+
+            )
+        );
+    //   L.geoJson(json).addTo(map);
+    }
+
+    main();
+    async function onMapClick(e) {
+        // alert("You clicked the map at " + e.latlng);
+        console.log(e.latlng.lat)
+        console.log(e.latlng.lng)
+        console.log("HIIIII")
+        map.eachLayer(function (layer) {
+            console.log(layer)
+        });
+        layerGroup.clearLayers()
+        // map.removeLayer(layerGroup);
+
+        const json = await load_shapefile(e.latlng.lng, e.latlng.lat);
+        layerGroup.addLayer(
+            L.geoJson(
+                json,
+                {
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(
+                            `<h1>${feature.properties.fatalities} Death(s)</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+                            
+                        );
+                    }
+                }
+
+            )
+        );
+        
+    }
+    map.on('click', onMapClick);
+
+  </script>
+</body>
+
+</html>
