@@ -25,7 +25,7 @@ def get_client_ip(request):
 
 
 def crashes(request):
-    return redirect("/map")
+    return redirect("/testmap")
 
 def schema(request):
     return render(request, "schema.html", context={})
