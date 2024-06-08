@@ -27,6 +27,8 @@ STATICFILES_DIRS = [
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-$@0+!h+srs+u_q&2k98050j!8=ym=w(%^+b+6(&c1z=ui(6)94"
 
+GEOIP_PATH = os.environ.get("GEOIP_PATH", "/home/tonydeals/geo")
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (bool(int(os.environ.get('DEBUG',1))))
 

@@ -40,7 +40,10 @@ def test_leaflet(request):
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
         ip = get_client_ip(request)
         print(ip)
-        g = GeoIP2()
+        try:
+            g = GeoIP2()
+        except Exception as e:
+            print(e)
         try:
             country = g.country(ip)
             if country['country_code'] != "US":
