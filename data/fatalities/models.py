@@ -3313,6 +3313,22 @@ class CrashEvent(models.Model):
         return None
     
     @property
+    def vehicle_number_1(self):
+        if self.vehicle_1.vehicle_number:
+            return self.vehicle_1.vehicle_number
+        if self.parked_vehicle_1.vehicle_number:
+            return self.parked_vehicle_1.vehicle_number
+        return None
+    
+    @property
+    def vehicle_number_2(self):
+        if self.vehicle_2:
+            return self.vehicle_2.vehicle_number
+        if self.parked_vehicle_2:
+            return self.parked_vehicle_2.vehicle_number
+        return None
+    
+    @property
     def vehicle_id_2(self):
         if self.vehicle_2.id:
             return self.vehicle_2.id
