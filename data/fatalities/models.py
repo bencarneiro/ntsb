@@ -44,7 +44,7 @@ class Accident(models.Model):
     def coordinates(self):
         return [self.longitude, self.latitude]
     def link(self):
-        return f"<a target='_blank' href='https://roadway.report/v1/accidents/{self.id}'>Details Here</a>"
+        return f"<a target='_blank' href='/accidents/{self.id}'>Details Here</a>"
     
     id = models.PositiveBigIntegerField(primary_key = True)
     year = models.PositiveSmallIntegerField(null=False, blank=False)

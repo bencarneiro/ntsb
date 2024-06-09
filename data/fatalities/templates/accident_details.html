@@ -5,7 +5,6 @@
 #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
 }
 
 #customers td, #customers th {
@@ -529,6 +528,17 @@
 
     {% for crf in accident.crashrelatedfactors_set.all %}
     <tr><td>{{crf.get_crash_related_factor_display}} </td></tr>
+    {%endfor%}
+    </table>
+
+    <h1>Weather</h1>
+    <table id="customers">
+        <tr>
+          <th>Weather</th>
+        </tr>
+
+    {% for crf in accident.weather_set.all %}
+    <tr><td>{{crf.get_atmospheric_condition_display}} </td></tr>
     {%endfor%}
     </table>
 
