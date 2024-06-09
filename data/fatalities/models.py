@@ -2875,6 +2875,20 @@ class Person(models.Model):
     ]
     hispanic = models.PositiveSmallIntegerField(choices=hispanic_choices, default=99)
 
+    def vehicle_or_parked_vehicle_id(self):
+        if self.vehicle:
+            return self.vehicle.id
+        if self.parked_vehicle:
+            return self.parked_vehicle.id
+        return None
+
+    def vehicle_or_parked_vehicle_number(self):
+        if self.vehicle:
+            return self.vehicle.vehicle_number
+        if self.parked_vehicle:
+            return self.parked_vehicle.vehicle_number
+        return None
+
     class Meta:
         unique_together = [["accident", "vehicle", "person_number"]]
         db_table = "person"

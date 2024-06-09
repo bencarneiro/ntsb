@@ -151,3 +151,7 @@ def folium_map(request):
     context = {"map": m}
     return render(request, "map.html", context=context)
     # return JsonResponse(loady_loads, safe=False)
+
+def accident_summary(request, **kwargs):
+    a = Accident.objects.get(id=kwargs['id'])
+    return render(request, "accident_details.html", {"accident": a})
