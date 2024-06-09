@@ -5,7 +5,7 @@
 #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 50%;
+  width: 100%;
 }
 
 #customers td, #customers th {
@@ -271,6 +271,33 @@
 <tr><td>Pre-impact Location</td><td> {{vehicle.get_preimpact_location_display}} </td></tr>
 
 <tr><td>Crash Type</td><td> {{vehicle.get_crash_type_display}} </td></tr>
+{%for vrf in vehicle.vehiclerelatedfactor_set.all %}
+<tr><td>Vehicle Related Factor</td><td> {{vrf.get_vehicle_related_factor_display}} </td></tr>
+{%endfor%}
+{%for vrf in vehicle.driverrelatedfactor_set.all %}
+<tr><td>Driver Related Factor</td><td> {{vrf.get_driver_related_factor_display}} </td></tr>
+{%endfor%}
+{%for vrf in vehicle.vision_set.all %}
+<tr><td>Visibility Obstructions</td><td> {{vrf.get_visibility_display}} </td></tr>
+{%endfor%}
+{%for vrf in vehicle.violation_set.all %}
+<tr><td>Moving Violations</td><td> {{vrf.get_moving_violation_display}} </td></tr>
+{%endfor%}
+{%for vrf in vehicle.maneuver_set.all %}
+<tr><td>Driver Maneuvered to Avoid</td><td> {{vrf.get_driver_maneuvered_to_avoid_display}} </td></tr>
+{%endfor%}
+{%for vrf in vehicle.vehiclefactor_set.all %}
+<tr><td>Vehicle Factors</td><td> {{vrf.get_contributing_cause_display}} </td></tr>
+{%endfor%}
+{%for vrf in vehicle.damage_set.all %}
+<tr><td>Damaged Areas</td><td> {{vrf.get_area_of_impact_display}} </td></tr>
+{%endfor%}
+{%for vrf in vehicle.driverdistracted_set.all %}
+<tr><td>Driver Distracted</td><td> {{vrf.get_distracted_by_display}} </td></tr>
+{%endfor%}
+{%for vrf in vehicle.driverimpaired_set.all %}
+<tr><td>Driver Impaired</td><td> {{vrf.get_driver_impaired_display}} </td></tr>
+{%endfor%}
     </table>
     {% endfor %}
 
@@ -351,6 +378,9 @@
 
 <tr><td>Most Harmful Event</td><td> {{vehicle.get_most_harmful_event_display}} </td></tr>
 <tr><td>Fire Occurence</td><td> {{vehicle.fire_occurence}} </td></tr>
+{%for vrf in vehicle.parkedvehiclerelatedfactor_set.all %}
+<tr><td>Related Factors</td><td> {{vrf.get_parked_vehicle_related_factor_display}} </td></tr>
+{%endfor%}
 
     </table>
     </table>
@@ -425,6 +455,20 @@
     <tr><td>At Work</td><td>{{person.get_at_work_display}} </td></tr>
 
     <tr><td>Hispanic</td><td>{{person.get_hispanic_display}} </td></tr>
+    
+  {%for race in person.race_set.all %}
+  <tr><td>Race</td><td> {{race.get_race_display}} </td></tr>
+  {%endfor%}
+  {%for drugs in person.drugs_set.all %}
+  <tr><td>Drug Test Type</td><td> {{drugs.get_drug_test_type_display}} </td></tr>
+  <tr><td>Drug Test Results</td><td> {{drugs.drug_test_results}} </td></tr>
+  {%endfor%}
+  {%for rf in person.personrelatedfactor_set.all %}
+  <tr><td>Person Related Factor</td><td> {{rf.get_person_related_factor_display}} </td></tr>
+  {%endfor%}
+
+
+
     <tr><td>Nonmotorist Bicycle Helmet</td><td>{{person.safetyequipment.get_helmet_display}} </td></tr>
     <tr><td>Nonmotorist Pads</td><td>{{person.safetyequipment.get_pads_display}} </td></tr>
     <tr><td>Nonmotorist Lights</td><td>{{person.safetyequipment.get_lights_display}} </td></tr>
@@ -433,16 +477,29 @@
     <tr><td>Nonmotorist Other Preventative Equipment</td><td>{{person.safetyequipment.get_other_preventative_equipment_display}} </td></tr>
     <tr><td>Nonmotorist Marked Crosswalk Present</td><td>{{person.pedestriantype.get_marked_crosswalk_present_display}} </td></tr>
     <tr><td>Nonmotorist Sidewalk Present</td><td>{{person.pedestriantype.get_sidewalk_present_display}} </td></tr>
-      <tr><td>Nonmotorist In School Zone</td><td>{{person.pedestriantype.get_in_school_zone_display}} </td></tr>
-        <tr><td>Pedestrian Crash Type</td><td>{{person.pedestriantype.get_pedestrian_crash_type_display}} </td></tr>
-          <tr><td>Bicycle Crash Type</td><td>{{person.pedestriantype.get_bicycle_crash_type_display}} </td></tr>
-            <tr><td>Pedestrian Location</td><td>{{person.pedestriantype.get_pedestrian_location_display}} </td></tr>
-              <tr><td>Pedestrian Position</td><td>{{person.pedestriantype.get_pedestrian_position_display}} </td></tr>
-                <tr><td>Pedestrian Direction</td><td>{{person.pedestriantype.get_pedestrian_direction_display}} </td></tr>
-                  <tr><td>Bicycle Location</td><td>{{person.pedestriantype.get_bicycle_location_display}} </td></tr>
-                    <tr><td>Bicycle Position</td><td>{{person.pedestriantype.get_bicycle_position_display}} </td></tr>
-                      <tr><td>Bicycle Direction</td><td>{{person.pedestriantype.get_bicycle_direction_display}} </td></tr>
-                        <tr><td>Motorist Direction</td><td>{{person.pedestriantype.get_motorist_direction_display}} </td></tr>
+    <tr><td>Nonmotorist In School Zone</td><td>{{person.pedestriantype.get_in_school_zone_display}} </td></tr>
+    <tr><td>Pedestrian Crash Type</td><td>{{person.pedestriantype.get_pedestrian_crash_type_display}} </td></tr>
+    <tr><td>Bicycle Crash Type</td><td>{{person.pedestriantype.get_bicycle_crash_type_display}} </td></tr>
+    <tr><td>Pedestrian Location</td><td>{{person.pedestriantype.get_pedestrian_location_display}} </td></tr>
+    <tr><td>Pedestrian Position</td><td>{{person.pedestriantype.get_pedestrian_position_display}} </td></tr>
+    <tr><td>Pedestrian Direction</td><td>{{person.pedestriantype.get_pedestrian_direction_display}} </td></tr>
+    <tr><td>Bicycle Location</td><td>{{person.pedestriantype.get_bicycle_location_display}} </td></tr>
+    <tr><td>Bicycle Position</td><td>{{person.pedestriantype.get_bicycle_position_display}} </td></tr>
+    <tr><td>Bicycle Direction</td><td>{{person.pedestriantype.get_bicycle_direction_display}} </td></tr>
+    <tr><td>Motorist Direction</td><td>{{person.pedestriantype.get_motorist_direction_display}} </td></tr>
+
+  {%for rf in person.nonmotoristprioraction_set.all %}
+  <tr><td>Nonmotorist Prior Action</td><td> {{rf.get_nonmotorist_prior_action_display}} </td></tr>
+  {%endfor%}
+  {%for rf in person.nonmotoristimpaired_set.all %}
+  <tr><td>Nonmotorist Impaired</td><td> {{rf.get_nonmotorist_impaired_display}} </td></tr>
+  {%endfor%}
+  {%for rf in person.nonmotoristdistracted_set.all %}
+  <tr><td>Nonmotorist Distracted</td><td> {{rf.get_nonmotorist_distracted_by_display}} </td></tr>
+  {%endfor%}
+  {%for rf in person.nonmotoristcontributingcircumstance_set.all %}
+  <tr><td>Nonmotorist Contributing Circumstance</td><td> {{rf.get_nonmotorist_contributing_circumstance_display}} </td></tr>
+  {%endfor%}
     </table>
     {% endfor %}
 
