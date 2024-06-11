@@ -5,6 +5,8 @@ This repo powers [roadway.report](https://roadway.report), a web application in-
 I want people to build nice, interactive maps ontop of these APIS. This can support a nationwide vision-zero viewer
 Here's a crummy [proof of concept](https://roadway.report)
 
+Or get data straight from the API via the [docs](https://roadway.report/v1/docs)
+
 The data was interpreted mostly from [this manual](https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/813556), published by the NHTSA
 
 Based on this original data model
