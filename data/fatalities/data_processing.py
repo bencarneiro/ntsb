@@ -81,30 +81,97 @@ def functional_system_converter(functional_system, year):
             return 99      
     return functional_system 
     
-# 1975-1980
-# This data element is included in the format, but is not initialized. Do not use it.
-#  1981-1986
-#  1 Principal Arterial – Interstate
-#  2 Principal Arterial – Other Urban Freeways and Expressways
-#  3 Principal Arterial – Other
-#  4 Minor Arterial
-#  5 Urban Collector
-#  6 Major Rural Collector
-#  7 Minor Rural Collector
-#  8 Local Road or Street
-#  9 Unknown
-# 2015-Later
-#  1 Interstate
-#  2 Principal Arterial – Other Freeways and Expressways
-#  3 Principal Arterial – Other
-#  4 Minor Arterial
-#  5 Major Collector
-#  6 Minor Collector
-#  7 Local
-#  96 Trafficway Not in State Inventory
-#  98 Not Reported
-#  99 Unknown
+def dms2dd(degrees, minutes, seconds):
+    dd = float(degrees) + float(minutes)/60 + float(seconds)/(60*60)
+    return dd
 
+def latitude_converter(latitude, year):
+    if year < 1999:
+        return None
+    if year < 2010:
+        if isinstance(latitude, int):
+            if latitude > 72000000:
+                return None
+            str_lat = str(latitude)
+            return dms2dd(str_lat[:2],str_lat[2:4],str_lat[4:])
+            
+        if isinstance(latitude, float):
+            return latitude
+    if latitude > 72:
+        return None
+    return latitude
+
+
+def longitude_converter(longitude, year):
+    if year < 1999:
+        return None
+    if year < 2010:
+        if isinstance(longitude, int):
+            if longitude > 179000000:
+                return None
+            str_lat = str(longitude)
+            if len(str_lat) == 9:
+                return -1 * dms2dd(str_lat[:3],str_lat[3:5],str_lat[5:])
+            else:
+                return -1 * dms2dd(str_lat[:2],str_lat[2:4],str_lat[4:])
+        if isinstance(longitude, float):
+            return longitude
+    if longitude > 179:
+        return None
+    return longitude
+
+def soe_converter(soe, year):
+    if year < 1982:
+        if soe in {16}:
+            return 18
+        if soe in {17}:
+            return 21
+        if soe in {18}:
+            return 19
+        if soe in {19}:
+            return 32
+        if soe in {20}:
+            return 33
+        if soe in {21}:
+            return 29
+        if soe in {22}:
+            return 35
+        if soe in {23}:
+            return 38
+        if soe in {25}:
+            return 30
+        if soe in {26}:
+            return 59
+        if soe in {27}:
+            return 42
+        if soe in {28}:
+            return 30
+        if soe in {29}:
+            return 31
+        if soe in {30}:
+            return 20
+        if soe in {31}:
+            return 43
+        if soe in {32}:
+            return 21
+        if soe in {33}:
+            return 23
+        return soe
+    
+    if soe in {13}:
+        return 12
+    if soe in {22}:
+        return 23
+    if soe in {27,28}:
+        return 59
+    if soe in {29}:
+        return 30
+    if soe in {36,37}:
+        return 35
+    
+    return soe
+    
+            
 
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
@@ -128,11 +195,11 @@ FARS_DATA_CONVERTERS = {
     'accident.functional_system': functional_system_converter,
     'accident.road_owner': lambda value, year: value,
     'accident.national_highway_system': lambda value, year: value,
-    'accident.special_jurisdiction': None,
-    'accident.milepoint': None,
-    'accident.latitude': None,
-    'accident.longitude': None,
-    'accident.first_harmful_event': None,
+    'accident.special_jurisdiction': lambda value, year: value,
+    'accident.milepoint': lambda value, year: value,
+    'accident.latitude': latitude_converter,
+    'accident.longitude': longitude_converter,
+    'accident.first_harmful_event': soe_converter,
     'accident.manner_of_collision_of_first_harmful_event': None,
     'accident.at_intersection': None,
     'accident.relation_to_junction': None,
