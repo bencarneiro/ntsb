@@ -39,28 +39,95 @@ def route_signing_converter(route_signing, year):
             return 6
     return route_signing 
 
+def land_use_converter(land_use, year):
+    if year < 1987:
+        return land_use
+    if year < 2015:
+        if land_use in {1,2,3,4,5,6,9}:
+            return 1
+        if land_use in {11,12,13,14,15,16,19}:
+            return 2
+        return 9
+    return land_use
+
+def functional_system_converter(functional_system, year):
+    if year < 1981:
+        return None
+    if year < 1987:
+        if functional_system in {6}:
+            return 5
+        if functional_system in {7}:
+            return 6
+        if functional_system in {8}:
+            return 7
+        if functional_system in {9}:
+            return 99
+    if year < 2015:
+        if functional_system in {1,11}:
+            return 1
+        if functional_system in {12}:
+            return 2
+        if functional_system in {2,13}:
+            return 3
+        if functional_system in {3,14}:
+            return 4
+        if functional_system in {4,15}:
+            return 5
+        if functional_system in {5}:
+            return 6
+        if functional_system in {6,16}:
+            return 7
+        if functional_system in {9,19,99}:
+            return 99      
+    return functional_system 
+    
+# 1975-1980
+# This data element is included in the format, but is not initialized. Do not use it.
+#  1981-1986
+#  1 Principal Arterial – Interstate
+#  2 Principal Arterial – Other Urban Freeways and Expressways
+#  3 Principal Arterial – Other
+#  4 Minor Arterial
+#  5 Urban Collector
+#  6 Major Rural Collector
+#  7 Minor Rural Collector
+#  8 Local Road or Street
+#  9 Unknown
+# 2015-Later
+#  1 Interstate
+#  2 Principal Arterial – Other Freeways and Expressways
+#  3 Principal Arterial – Other
+#  4 Minor Arterial
+#  5 Major Collector
+#  6 Minor Collector
+#  7 Local
+#  96 Trafficway Not in State Inventory
+#  98 Not Reported
+#  99 Unknown
+
+
 FARS_DATA_CONVERTERS = {
-    'accident.st_case': lambda y: y,
-    'accident.number_of_persons_not_in_motor_vehicles': lambda y: y,
-    'accident.number_of_persons_not_in_motor_vehicles_in_transport': lambda y: y,
-    'accident.number_of_vehicles': lambda y: y,
-    'accident.number_of_vehicles_in_transport': lambda y: y,
-    'accident.number_of_parked_vehicles': lambda y: y,
-    'accident.number_of_persons_in_motor_vehicles': lambda y: y,
-    'accident.number_of_persons_in_motor_vehicles_in_transport': lambda y: y,
-    'accident.month': lambda y: y,
-    'accident.day': lambda y: y,
-    'accident.day_of_the_week': lambda y: y,
+    'accident.st_case': lambda value, year: value,
+    'accident.number_of_persons_not_in_motor_vehicles': lambda value, year: value,
+    'accident.number_of_persons_not_in_motor_vehicles_in_transport': lambda value, year: value,
+    'accident.number_of_vehicles': lambda value, year: value,
+    'accident.number_of_vehicles_in_transport': lambda value, year: value,
+    'accident.number_of_parked_vehicles': lambda value, year: value,
+    'accident.number_of_persons_in_motor_vehicles': lambda value, year: value,
+    'accident.number_of_persons_in_motor_vehicles_in_transport': lambda value, year: value,
+    'accident.month': lambda value, year: value,
+    'accident.day': lambda value, year: value,
+    'accident.day_of_the_week': lambda value, year: value,
     'accident.year': year_converter,
-    'accident.hour': lambda y: y,
-    'accident.minute': lambda y: y,
-    'accident.trafficway_identifier_1': lambda y: y,
-    'accident.trafficway_identifier_2': lambda y: y,
+    'accident.hour': lambda value, year: value,
+    'accident.minute': lambda value, year: value,
+    'accident.trafficway_identifier_1': lambda value, year: value,
+    'accident.trafficway_identifier_2': lambda value, year: value,
     'accident.route_signing': route_signing_converter,
-    'accident.rural_urban': None,
-    'accident.functional_system': None,
-    'accident.road_owner': None,
-    'accident.national_highway_system': None,
+    'accident.rural_urban': land_use_converter,
+    'accident.functional_system': functional_system_converter,
+    'accident.road_owner': lambda value, year: value,
+    'accident.national_highway_system': lambda value, year: value,
     'accident.special_jurisdiction': None,
     'accident.milepoint': None,
     'accident.latitude': None,
