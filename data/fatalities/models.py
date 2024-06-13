@@ -873,6 +873,7 @@ class Vehicle(models.Model):
         (0, 'Not Applicable'),
         (1, 'Single-Unit Truck (2 Axles and GVWR More Than 10,000 lbs)'),
         (2, 'Single-Unit Truck (3 or More Axles)'),
+        (3, "Single-Unit Truck (Unknown Number of Axles, Tires)"),
         (4, 'Truck Pulling Trailer(s)'),
         (5, 'Truck Tractor (Bobtail)'),
         (6, 'Truck Tractor/Semi-Trailer'),
@@ -882,6 +883,8 @@ class Vehicle(models.Model):
         (19, 'Vehicle More Than 10,000 lbs., Other'),
         (20, 'Bus/Large Van (Seats for 9-15 Occupants, Including Driver)'),
         (21, 'Bus (Seats for More Than 15 Occupants, Including Driver, 2010-Later)'),
+        (70, "Light Truck (Van, Mini-Van, Panel, Pickup, Sport Utility Vehicle Displaying a Hazardous Materials Placard)"),
+        (80, "Passenger Car (Only When Displaying a Hazardous Materials Placard)"),
         (88, 'Qualifying Vehicle, Unknown Configuration'),
         (98, 'Not Reported (2010-2012)'),
         (99, 'Unknown (Reported as Unknown, 2018-2019)')

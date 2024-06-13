@@ -474,49 +474,41 @@ def ncsa_body_type_converter(value, year):
         return 64
     return value
 
+def vehicle_trailing_converter(value, year):
+    if year < 1982:
+        if value in {1}:
+            return 4
+        return value
+    if year < 1983:
+        if value in {5}:
+            return 4
+        return value
+    return value
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def vehicle_configuration_converter(value, year):
+    if year < 1995:
+        if value in {3}:
+            return 4
+        if value in {4}:
+            return 5
+        if value in {5}:
+            return 6
+        if value in {6}:
+            return 19
+        if value in {7}:
+            return 21
+        if value in {9}:
+            return 99
+        return value
+    if year < 2001:
+        if value in {7}:
+            return 19
+        if value in {8}:
+            return 21
+        if value in {9}:
+            return 99
+        return value
+    return value
 
 
 
@@ -573,23 +565,23 @@ FARS_DATA_CONVERTERS = {
     'vehicle.vehicle_model_year': year_converter,
     'vehicle.vpic_make': lambda value, year: value,
     'vehicle.vpic_model': lambda value, year: value,
-    'vehicle.vpic_body_class': None,
-    'vehicle.ncsa_make': None,
+    'vehicle.vpic_body_class': lambda value, year: value,
+    'vehicle.ncsa_make': lambda value, year: value,
     'vehicle.ncsa_model': ncsa_model_converter,
     'vehicle.body_type': ncsa_body_type_converter,
-    'vehicle.final_stage_body_class': None,
-    'vehicle.gross_vehicle_weight_rating_lower': None,
-    'vehicle.gross_vehicle_weight_rating_upper': None,
-    'vehicle.vehicle_trailing': None,
-    'vehicle.trailer_vin_1': None,
-    'vehicle.trailer_vin_2': None,
-    'vehicle.trailer_vin_3': None,
-    'vehicle.trailer_weight_rating_1': None,
-    'vehicle.trailer_weight_rating_2': None,
-    'vehicle.trailer_weight_rating_3': None,
-    'vehicle.jackknife': None,
-    'vehicle.motor_carrier_identification_number': None,
-    'vehicle.vehicle_configuration': None,
+    'vehicle.final_stage_body_class': lambda value, year: value,
+    'vehicle.gross_vehicle_weight_rating_lower': lambda value, year: value,
+    'vehicle.gross_vehicle_weight_rating_upper': lambda value, year: value,
+    'vehicle.vehicle_trailing': vehicle_trailing_converter,
+    'vehicle.trailer_vin_1': lambda value, year: value,
+    'vehicle.trailer_vin_2': lambda value, year: value,
+    'vehicle.trailer_vin_3': lambda value, year: value,
+    'vehicle.trailer_weight_rating_1': lambda value, year: value,
+    'vehicle.trailer_weight_rating_2': lambda value, year: value,
+    'vehicle.trailer_weight_rating_3': lambda value, year: value,
+    'vehicle.jackknife': lambda value, year: value,
+    'vehicle.motor_carrier_identification_number': lambda value, year: value,
+    'vehicle.vehicle_configuration': vehicle_configuration_converter,
     'vehicle.cargo_body_type': None,
     'vehicle.hazardous_material_involvement': None,
     'vehicle.hazardous_material_placard': None,
