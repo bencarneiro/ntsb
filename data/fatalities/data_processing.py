@@ -318,6 +318,206 @@ def ncsa_model_converter(model, year):
             return 89
     return model
 
+def ncsa_body_type_converter(value, year):
+    if year < 1982:
+        if value in {3}:
+            return 4
+        if value in {4}:
+            return 7
+        if value in {5}:
+            return 10
+        if value in {7}:
+            return 14
+        if value in {8}:
+            return 9
+        if value in {15}:
+            return 80
+        if value in {16}:
+            return 81
+        if value in {17}:
+            return 88
+        if value in {18}:
+            return 89
+        if value in {25,26,27}:
+            return value + 25
+        if value in {28,29}:
+            return value + 30
+        if value in {35}:
+            return 91
+        if value in {36}:
+            return 92
+        if value in {37}:
+            return 97
+        if value in {38}:
+            return 93
+        if value in {39}:
+            return 11
+        if value in {40}:
+            return 12
+        if value in {41}:
+            return 73
+        if value in {42}:
+            return 78
+        if value in {43}:
+            return 14
+        if value in {44}:
+            return 79
+        if value in {45}:
+            return 79
+        if value in {50}:
+            return 39
+        if value in {51}:
+            return 29
+        if value in {52}:
+            return 16
+        if value in {53}:
+            return 61
+        if value in {54}:
+            return 62
+        if value in {55}:
+            return 63
+        if value in {56}:
+            return 64
+        if value in {57,58,59}:
+            return 66
+        if value in {60}:
+            return 79
+        return value
+    if year < 1991:
+        if value in {12}:
+            return 14
+        if value in {13}:
+            return 12
+        if value in {14}:
+            return 13
+        if value in {20}:
+            return 80
+        if value in {21}:
+            return 81
+        if value in {27}:
+            return 82
+        if value in {28}:
+            return 88
+        if value in {29}:
+            return 89
+        if value in {30,31,32,38,39}:
+            return value + 20
+        if value in {40}:
+            return 22
+        if value in {41}:
+            return 22
+        if value in {42}:
+            return 21
+        if value in {48}:
+            return 28
+        if value in {49}:
+            return 29
+        if value in {50}:
+            return 39
+        if value in {51}:
+            return 39
+        if value in {52}:
+            return 42
+        if value in {53}:
+            return 40
+        if value in {54}:
+            return 41
+        if value in {55}:
+            return 16
+        if value in {56}:
+            return 15
+        if value in {58}:
+            return 48
+        if value in {59}:
+            return 49
+        if value in {67}:
+            return 19
+        if value in {69}:
+            return 49
+        if value in {70}:
+            return 61
+        if value in {71}:
+            return 62
+        if value in {72}:
+            return 63
+        if value in {73}:
+            return 65
+        if value in {74}:
+            return 66
+        if value in {75}:
+            return 78
+        if value in {76}:
+            return 78
+        if value in {77}:
+            return 73
+        if value in {78}:
+            return 64
+        if value in {80}:
+            return 91
+        if value in {81}:
+            return 92
+        if value in {82}:
+            return 97
+        if value in {83}:
+            return 93
+        if value in {88,89,90}:
+            return 9
+        return value
+    if year < 1994:
+        if value in {8}:
+            return 9
+    if value in {23,24,25}:
+        return 21
+    if value in {30,31}:
+        return 34
+    if value in {68}:
+        return 64
+    return value
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 FARS_DATA_CONVERTERS = {
@@ -376,7 +576,7 @@ FARS_DATA_CONVERTERS = {
     'vehicle.vpic_body_class': None,
     'vehicle.ncsa_make': None,
     'vehicle.ncsa_model': ncsa_model_converter,
-    'vehicle.body_type': None,
+    'vehicle.body_type': ncsa_body_type_converter,
     'vehicle.final_stage_body_class': None,
     'vehicle.gross_vehicle_weight_rating_lower': None,
     'vehicle.gross_vehicle_weight_rating_upper': None,
