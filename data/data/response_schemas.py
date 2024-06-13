@@ -586,8 +586,8 @@ class AccidentSchema(Schema):
     first_harmful_event__display: str = Field(..., alias='get_first_harmful_event_display')
     manner_of_collision_of_first_harmful_event: int = Field(..., alias="manner_of_collision_of_first_harmful_event")
     manner_of_collision_of_first_harmful_event__display: str = Field(..., alias="get_manner_of_collision_of_first_harmful_event_display")
-    at_intersection: int = Field(..., alias="at_intersection")
-    at_intersection__display: str = Field(..., alias="get_at_intersection_display")
+    within_interchange_area: int = Field(..., alias="within_interchange_area")
+    within_interchange_area__display: str = Field(..., alias="get_within_interchange_area_display")
 
 
     relation_to_junction: int = Field(..., alias="relation_to_junction")

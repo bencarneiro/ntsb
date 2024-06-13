@@ -339,7 +339,14 @@ FARS_DATA_DICTIONARY = {
         }
     ],
     #C21
-    "accident.at_intersection": [
+    "accident.within_interchange_area": [
+        {
+            "range": {
+                "start": 1991,
+                "end": 2009
+            },
+            "key": "accident.REL_JUNC"
+        },
         {
             "range": {
                 "start": 2010,

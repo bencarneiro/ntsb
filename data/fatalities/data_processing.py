@@ -170,7 +170,64 @@ def soe_converter(soe, year):
         return 35
     
     return soe
-    
+
+def manner_of_collision_converter(moc, year):
+    if year < 2002:
+        if moc in {3}:
+            return 10
+        if moc in {4}:
+            return 6
+        if moc in {5}:
+            return 7
+        if moc in {6}:
+            return 8
+        if moc in {9}:
+            return 99
+        return moc
+    if year < 2010:
+        if moc in {3,4,5}:
+            return 6
+    return moc
+
+def within_interchange_area_converter(value, year):
+    if year < 2010:
+        if value in {1,2,3,4,5,6,7,8,9}:
+            return 0
+        if value in {10,11,12,13,14,15,19}:
+            return 1
+        return 9
+    return value
+
+def relation_to_junction_converter(value, year): 
+    if year < 1991:
+        if value in {4}:
+            return 2
+        if value in {5}:
+            return 4
+        if value in {6}:
+            return 5
+        if value in {7}:
+            return 6
+        if value in {8}:
+            return 7
+        return value
+    if year < 2010:
+        if value in {9}:
+            return 99
+        if value in {10}:
+            return 2
+        if value in {11}:
+            return 3
+        if value in {12}:
+            return 4
+        if value in {13}:
+            return 5
+        if value in {14}:
+            return 7
+        if value in {15}:
+            return 19   
+        
+    return value
             
 
 FARS_DATA_CONVERTERS = {
@@ -200,8 +257,8 @@ FARS_DATA_CONVERTERS = {
     'accident.latitude': latitude_converter,
     'accident.longitude': longitude_converter,
     'accident.first_harmful_event': soe_converter,
-    'accident.manner_of_collision_of_first_harmful_event': None,
-    'accident.at_intersection': None,
+    'accident.manner_of_collision_of_first_harmful_event': manner_of_collision_converter,
+    'accident.within_interchange_area': within_interchange_area_converter,
     'accident.relation_to_junction': None,
     'accident.type_of_intersection': None,
     'accident.relation_to_road': None,

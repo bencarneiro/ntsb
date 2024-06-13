@@ -35,7 +35,7 @@ class Command(BaseCommand):
             'longitude',
             'first_harmful_event',
             'manner_of_collision_of_first_harmful_event',
-            'at_intersection',
+            'within_interchange_area',
             'relation_to_junction',
             'type_of_intersection',
             'relation_to_road',

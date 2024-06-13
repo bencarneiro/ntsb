@@ -294,14 +294,14 @@ class Accident(models.Model):
     ]
     manner_of_collision_of_first_harmful_event = models.PositiveSmallIntegerField(choices=manner_of_collision_of_first_harmful_event_choices, default=98)
     #c21B RELJCT1
-    at_intersection_choices = [
+    within_interchange_area_choices = [
         (0, "No"),
         (1, "Yes"),
         (8, "Not Reported"),
         (9, "Reported as Unknown")
     ]
     
-    at_intersection = models.PositiveSmallIntegerField(choices=at_intersection_choices, default=8)
+    within_interchange_area = models.PositiveSmallIntegerField(choices=within_interchange_area_choices, default=8)
 #      2010- 2018- 
     #c23
     relation_to_junction_choices = [
