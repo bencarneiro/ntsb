@@ -991,6 +991,7 @@ class Vehicle(models.Model):
     #v29
     emergency_vehicle_use_choices = [
         (0, 'Not Applicable'),
+        (1, "Yes"),
         (2, 'Non-Emergency, Non-Transport'),
         (3, 'Non-Emergency Transport'),
         (4, 'Emergency Operation, Emergency Warning Equipment Not in Use'),

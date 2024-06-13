@@ -624,7 +624,7 @@ FARS_DATA_CONVERTERS = {
     'vehicle.release_of_hazardous_material': lambda value, year: value,
     'vehicle.bus_use': bus_use_converter,
     'vehicle.special_vehicle_use': special_use_converter,
-    'vehicle.emergency_vehicle_use': None,
+    'vehicle.emergency_vehicle_use': lambda value, year: value,
     'vehicle.travel_speed': None,
     'vehicle.underride_override': None,
     'vehicle.rollover': None,
