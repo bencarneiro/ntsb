@@ -304,8 +304,21 @@ def registration_state_converter(value, year):
             return 94
     return value
 
+def ncsa_model_converter(model, year):
+    if year < 1991:
+        if model in {57}:
+            return 59
+        if model in {60,61,62,63,64,65,69}:
+            return model + 10
+        if model in {67}:
+            return 76
+        if model in {70}:
+            return 78
+        if model in {88}:
+            return 89
+    return model
 
-            
+
 
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
@@ -362,7 +375,7 @@ FARS_DATA_CONVERTERS = {
     'vehicle.vpic_model': lambda value, year: value,
     'vehicle.vpic_body_class': None,
     'vehicle.ncsa_make': None,
-    'vehicle.ncsa_model': None,
+    'vehicle.ncsa_model': ncsa_model_converter,
     'vehicle.body_type': None,
     'vehicle.final_stage_body_class': None,
     'vehicle.gross_vehicle_weight_rating_lower': None,

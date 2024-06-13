@@ -694,6 +694,7 @@ class Vehicle(models.Model):
         (92, 'Gillig'),
         (93, 'MCI'),
         (94, 'Thomas Built'),
+        (95, "Other Truck/Bus"),
         (97, 'Not Reported (Since 2010)'),
         (98, 'Other Make'),
         (99, 'Unknown Make')
