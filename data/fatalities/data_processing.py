@@ -532,6 +532,19 @@ def hazardous_material_class_number_converter(value, year):
         return 88
     return value
 
+def bus_use_converter(value, year):
+    if year < 2010:
+        if value in {1,2,3}:
+            return 1
+        if value in {9}:
+            return 97
+        return value
+    return value
+
+def special_use_converter(value, year):
+    if value in {13}:
+        return 11
+    return value
 
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
@@ -609,8 +622,8 @@ FARS_DATA_CONVERTERS = {
     'vehicle.hazardous_material_id': lambda value, year: value,
     'vehicle.hazardous_material_class_number': hazardous_material_class_number_converter,
     'vehicle.release_of_hazardous_material': lambda value, year: value,
-    'vehicle.bus_use': None,
-    'vehicle.special_vehicle_use': None,
+    'vehicle.bus_use': bus_use_converter,
+    'vehicle.special_vehicle_use': special_use_converter,
     'vehicle.emergency_vehicle_use': None,
     'vehicle.travel_speed': None,
     'vehicle.underride_override': None,
