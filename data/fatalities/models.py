@@ -1312,6 +1312,7 @@ class Vehicle(models.Model):
         (7, "Commercial Learner's Permit (CLP)"),
         (8, 'Other - Not Valid'),
         (97, 'No Driver Present/Unknown if Driver Present'),
+        (98, "Not Reported"),
         (99, 'Unknown License Status')
     ]
     cdl_license_status = models.PositiveSmallIntegerField(choices=cdl_license_status_choices, default=99)
@@ -1322,6 +1323,7 @@ class Vehicle(models.Model):
         (2, 'Endorsements Required, Not Complied With'),
         (3, 'Endorsements Required, Compliance Unknown'),
         (7, 'No Driver Present/Unknown if Driver Present'),
+        (8, "Not Reported "),
         (9, 'Unknown, if Required')
     ]
     cdl_endorsements = models.PositiveSmallIntegerField(choices=cdl_endorsements_choices, default=0)
@@ -1332,6 +1334,7 @@ class Vehicle(models.Model):
         (2, 'No Valid License for This Class Vehicle'),
         (3, 'Valid License for This Class Vehicle'),
         (6, 'No Driver Present/Unknown if Driver Present'),
+        (7, 'Not Reported '),
         (8, 'Unknown if CDL and/or CDL Endorsement Required for This Vehicle'),
         (9, 'Unknown')
     ]
@@ -1343,6 +1346,7 @@ class Vehicle(models.Model):
         (2, "Restrictions Not Complied With"),
         (3, "Restrictions, Compliance Unknown"),
         (7, "No Driver Present/Unknown if Driver Present"),
+        (8, "Not Reported"),
         (9, "Unknown")
     ]
     compliance_with_license_restrictions = models.PositiveSmallIntegerField(choices=compliance_with_license_restrictions_choices, default=9)

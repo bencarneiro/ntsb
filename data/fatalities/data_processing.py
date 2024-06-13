@@ -602,7 +602,64 @@ def driver_present_converter(value, year):
             return 0
         return value
     return value
+
+def non_cdl_license_status_converter(value, year):
+    if year < 1982:
+        if value in {0,1,2}:
+            return 0
+        if value in {3,7}:
+            return 6
+        if value in {4,5,6}:
+            return value - 3
+        return value
     
+        
+    if year < 1987:
+        if value in {0,1}:
+            return 0
+        if value in {2,7,8}:
+            return 6
+        if value in {3,4,5,6}:
+            return value - 2
+        return value
+        
+    if year < 1993:
+        if value in {5,6,7,8}:
+            return 6
+        return value
+    if year < 2004:
+        if value in {7,8}:
+            return 6
+        return value
+    return value
+
+def cdl_license_status_converter(value, year):
+    if year < 1993:
+        if value in {0,1,2}:
+            return 0
+        if value in {3,4,5}:
+            return 6
+        if value in {6,7,9}:
+            return 99
+    if value in {9}:
+        return 99
+    return value
+
+def license_compliance_with_class_of_vehicle_converter(value, year):
+    if year < 1987:
+        if value in {0}:
+            return 1
+        if value in {1}:
+            return 2
+        if value in {2,4}:
+            return 3
+        if value in {3,5}:
+            return 2
+        return value
+    return value
+
+
+
 
 
 FARS_DATA_CONVERTERS = {
@@ -702,12 +759,12 @@ FARS_DATA_CONVERTERS = {
     'vehicle.driver_present': driver_present_converter,
     'vehicle.drivers_license_state': lambda value, year: value,
     'vehicle.driver_zip_code': lambda value, year: value,
-    'vehicle.non_cdl_license_type': None,
-    'vehicle.non_cdl_license_status': None,
-    'vehicle.cdl_license_status': None,
-    'vehicle.cdl_endorsements': None,
-    'vehicle.license_compliance_with_class_of_vehicle': None,
-    'vehicle.compliance_with_license_restrictions': None,
+    'vehicle.non_cdl_license_type': lambda value, year: value,
+    'vehicle.non_cdl_license_status': non_cdl_license_status_converter,
+    'vehicle.cdl_license_status': cdl_license_status_converter,
+    'vehicle.cdl_endorsements': lambda value, year: value,
+    'vehicle.license_compliance_with_class_of_vehicle': license_compliance_with_class_of_vehicle_converter,
+    'vehicle.compliance_with_license_restrictions': lambda value, year: value,
     'vehicle.driver_height': None,
     'vehicle.driver_weight': None,
     'vehicle.previous_recorded_crashes': None,
