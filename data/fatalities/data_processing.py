@@ -566,6 +566,44 @@ def rollover_converter(value, year):
         return 3
     return value
 
+def vehicle_towed_converter(value, year):
+    if year < 1976:
+        if value in {2}:
+            return 6
+        if value in {4}:
+            return 5
+        return value
+    if year < 2009:
+        if value in {1,3}:
+            return 5
+        if value in {2}:
+            return 6
+        return value
+    if year < 2013:
+        if value in {1,4}:
+            return 5
+        if value in {2,3}:
+            return 6
+        return value
+    if year < 2022:
+        if value in {2,3,7}:
+            return 6
+        return value
+    return value
+
+def fire_occurence_converter(value, year):
+    if value == 2:
+        return 1
+    return value
+
+def driver_present_converter(value, year):
+    if year < 2009:
+        if value in {2,3,4}:
+            return 0
+        return value
+    return value
+    
+
 
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
@@ -651,19 +689,19 @@ FARS_DATA_CONVERTERS = {
     'vehicle.rollover': rollover_converter,
     'vehicle.rollover_location': lambda value, year: value,
     'vehicle.initial_contact_point': lambda value, year: value,
-    'vehicle.extent_of_damage': None,
-    'vehicle.vehicle_towed': None,
-    'vehicle.most_harmful_event': None,
-    'vehicle.fire_occurence': None,
-    'vehicle.automated_driving_system_present': None,
-    'vehicle.automated_driving_system_level': None,
-    'vehicle.automated_driving_system_engaged': None,
-    'vehicle.combined_make_model_id': None,
-    'vehicle.fatalities': None,
-    'vehicle.driver_drinking': None,
-    'vehicle.driver_present': None,
-    'vehicle.drivers_license_state': None,
-    'vehicle.driver_zip_code': None,
+    'vehicle.extent_of_damage': lambda value, year: value,
+    'vehicle.vehicle_towed': vehicle_towed_converter,
+    'vehicle.most_harmful_event': soe_converter,
+    'vehicle.fire_occurence': fire_occurence_converter,
+    'vehicle.automated_driving_system_present': lambda value, year: value,
+    'vehicle.automated_driving_system_level': lambda value, year: value,
+    'vehicle.automated_driving_system_engaged': lambda value, year: value,
+    'vehicle.combined_make_model_id': lambda value, year: value,
+    'vehicle.fatalities': lambda value, year: value,
+    'vehicle.driver_drinking': lambda value, year: value,
+    'vehicle.driver_present': driver_present_converter,
+    'vehicle.drivers_license_state': lambda value, year: value,
+    'vehicle.driver_zip_code': lambda value, year: value,
     'vehicle.non_cdl_license_type': None,
     'vehicle.non_cdl_license_status': None,
     'vehicle.cdl_license_status': None,
