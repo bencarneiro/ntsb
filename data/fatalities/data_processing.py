@@ -296,6 +296,14 @@ def hit_and_run_converter(value, year):
         return 0
     return value
 
+def registration_state_converter(value, year):
+    if year < 2008:
+        if value in {94}:
+            return 93
+        if value in {95,96}:
+            return 94
+    return value
+
 
             
 
@@ -346,12 +354,12 @@ FARS_DATA_CONVERTERS = {
     'vehicle.vehicle_number': lambda value, year: value,
     'vehicle.number_of_occupants': lambda value, year: value,
     'vehicle.hit_and_run': hit_and_run_converter,
-    'vehicle.registration_state': None,
-    'vehicle.registered_vehicle_owner': None,
-    'vehicle.vehicle_identification_number': None,
-    'vehicle.vehicle_model_year': None,
-    'vehicle.vpic_make': None,
-    'vehicle.vpic_model': None,
+    'vehicle.registration_state': registration_state_converter,
+    'vehicle.registered_vehicle_owner': lambda value, year: value,
+    'vehicle.vehicle_identification_number': lambda value, year: value,
+    'vehicle.vehicle_model_year': year_converter,
+    'vehicle.vpic_make': lambda value, year: value,
+    'vehicle.vpic_model': lambda value, year: value,
     'vehicle.vpic_body_class': None,
     'vehicle.ncsa_make': None,
     'vehicle.ncsa_model': None,
