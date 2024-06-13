@@ -1398,6 +1398,7 @@ class Vehicle(models.Model):
     #d22
     speeding_related_choices = [
         (0, "No"),
+        (1, "Yes"),
         (2, "Yes, Racing"),
         (3, "Yes, Exceeded Speed Limit"),
         (4, "Yes, Too Fast for Conditions"),

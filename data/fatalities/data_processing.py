@@ -658,9 +658,12 @@ def license_compliance_with_class_of_vehicle_converter(value, year):
         return value
     return value
 
-
-
-
+def year_of_violation_converter(value, year):
+    if year < 1998:
+        if value in {99}:
+            return 9999
+        return int("19"+str(value))
+    return value
 
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
@@ -765,20 +768,20 @@ FARS_DATA_CONVERTERS = {
     'vehicle.cdl_endorsements': lambda value, year: value,
     'vehicle.license_compliance_with_class_of_vehicle': license_compliance_with_class_of_vehicle_converter,
     'vehicle.compliance_with_license_restrictions': lambda value, year: value,
-    'vehicle.driver_height': None,
-    'vehicle.driver_weight': None,
-    'vehicle.previous_recorded_crashes': None,
-    'vehicle.previous_bac_suspensions_underage': None,
-    'vehicle.previous_bac_suspensions': None,
-    'vehicle.previous_other_suspensions': None,
-    'vehicle.previous_dwi_convictions': None,
-    'vehicle.previous_speeding_convictions': None,
-    'vehicle.previous_other_moving_violations': None,
-    'vehicle.month_of_oldest_violation': None,
-    'vehicle.year_of_oldest_violation': None,
-    'vehicle.month_of_newest_violation': None,
-    'vehicle.year_of_newest_violation': None,
-    'vehicle.speeding_related': None,
+    'vehicle.driver_height': lambda value, year: value,
+    'vehicle.driver_weight': lambda value, year: value,
+    'vehicle.previous_recorded_crashes': lambda value, year: value,
+    'vehicle.previous_bac_suspensions_underage': lambda value, year: value,
+    'vehicle.previous_bac_suspensions': lambda value, year: value,
+    'vehicle.previous_other_suspensions': lambda value, year: value,
+    'vehicle.previous_dwi_convictions': lambda value, year: value,
+    'vehicle.previous_speeding_convictions': lambda value, year: value,
+    'vehicle.previous_other_moving_violations': lambda value, year: value,
+    'vehicle.month_of_oldest_violation': lambda value, year: value,
+    'vehicle.year_of_oldest_violation': year_of_violation_converter,
+    'vehicle.month_of_newest_violation': lambda value, year: value,
+    'vehicle.year_of_newest_violation': year_of_violation_converter,
+    'vehicle.speeding_related': lambda value, year: value,
     'vehicle.trafficway_description': None,
     'vehicle.total_lanes_in_roadway': None,
     'vehicle.speed_limit': None,
