@@ -212,6 +212,8 @@ def relation_to_junction_converter(value, year):
             return 6
         if value in {8}:
             return 7
+        if value in {9}:
+            return 99
         return value
     if year < 2010:
         if value in {9}:
@@ -510,6 +512,25 @@ def vehicle_configuration_converter(value, year):
         return value
     return value
 
+def cargo_body_type_converter(value, year):
+    if year < 1995:
+        if value in {8}:
+            return 97
+        if value in {9}:
+            return 22
+        return value
+    if year < 2001:
+        if value in {8}:
+            return 22
+        return value
+    if value in {20,21}:
+        return 22
+    return value
+
+def hazardous_material_class_number_converter(value, year):
+    if year == 2007 and value == 8:
+        return 88
+    return value
 
 
 FARS_DATA_CONVERTERS = {
@@ -582,12 +603,12 @@ FARS_DATA_CONVERTERS = {
     'vehicle.jackknife': lambda value, year: value,
     'vehicle.motor_carrier_identification_number': lambda value, year: value,
     'vehicle.vehicle_configuration': vehicle_configuration_converter,
-    'vehicle.cargo_body_type': None,
-    'vehicle.hazardous_material_involvement': None,
-    'vehicle.hazardous_material_placard': None,
-    'vehicle.hazardous_material_id': None,
-    'vehicle.hazardous_material_class_number': None,
-    'vehicle.release_of_hazardous_material': None,
+    'vehicle.cargo_body_type': cargo_body_type_converter,
+    'vehicle.hazardous_material_involvement': lambda value, year: value,
+    'vehicle.hazardous_material_placard': lambda value, year: value,
+    'vehicle.hazardous_material_id': lambda value, year: value,
+    'vehicle.hazardous_material_class_number': hazardous_material_class_number_converter,
+    'vehicle.release_of_hazardous_material': lambda value, year: value,
     'vehicle.bus_use': None,
     'vehicle.special_vehicle_use': None,
     'vehicle.emergency_vehicle_use': None,
