@@ -289,6 +289,13 @@ def school_bus_related_converter(value, year):
         return True
     return False
 
+def hit_and_run_converter(value, year):
+    if value in {1,2,3,4,5}:
+        return 1
+    if value in {0,8,9}:
+        return 0
+    return value
+
 
             
 
@@ -328,17 +335,17 @@ FARS_DATA_CONVERTERS = {
     'accident.light_condition': light_condition_converter,
     'accident.atmospheric_condition': atmospheric_condition_converter,
     'accident.school_bus_related': school_bus_related_converter,
-    'accident.rail_grade_crossing_identifier': None,
-    'accident.ems_notified_hour': None,
-    'accident.ems_notified_minute': None,
-    'accident.ems_arrived_hour': None,
-    'accident.ems_arrived_minute': None,
-    'accident.arrived_at_hospital_hour': None,
-    'accident.arrived_at_hospital_minute': None,
-    'accident.fatalities': None,
-    'vehicle.vehicle_number': None,
-    'vehicle.number_of_occupants': None,
-    'vehicle.hit_and_run': None,
+    'accident.rail_grade_crossing_identifier': lambda value, year: value,
+    'accident.ems_notified_hour': lambda value, year: value,
+    'accident.ems_notified_minute': lambda value, year: value,
+    'accident.ems_arrived_hour': lambda value, year: value,
+    'accident.ems_arrived_minute': lambda value, year: value,
+    'accident.arrived_at_hospital_hour': lambda value, year: value,
+    'accident.arrived_at_hospital_minute': lambda value, year: value,
+    'accident.fatalities': lambda value, year: value,
+    'vehicle.vehicle_number': lambda value, year: value,
+    'vehicle.number_of_occupants': lambda value, year: value,
+    'vehicle.hit_and_run': hit_and_run_converter,
     'vehicle.registration_state': None,
     'vehicle.registered_vehicle_owner': None,
     'vehicle.vehicle_identification_number': None,
