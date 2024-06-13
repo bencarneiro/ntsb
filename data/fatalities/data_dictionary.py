@@ -907,6 +907,14 @@ FARS_DATA_DICTIONARY = {
                                
         {
             "range": {
+                "start": 1980,
+                "end": 1993
+            },
+            "key": "vehicle.IMPACT1"
+        },
+                               
+        {
+            "range": {
                 "start": 1994,
                 "end": 2020
             },

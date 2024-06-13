@@ -546,6 +546,27 @@ def special_use_converter(value, year):
         return 11
     return value
 
+def underride_override_converter(value, year):
+    if year < 1994:
+        if value in {15}:
+            return 1
+        if value in {16}:
+            return 2
+        return 0
+    if year < 2021:
+        if value in {1,2,3,4,5,6}:
+            return 1
+        if value in {7,8}:
+            return 2
+        return value
+    return value
+
+def rollover_converter(value, year):
+    if value in {1,2,9}:
+        return 3
+    return value
+
+
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
     'accident.number_of_persons_not_in_motor_vehicles': lambda value, year: value,
@@ -625,11 +646,11 @@ FARS_DATA_CONVERTERS = {
     'vehicle.bus_use': bus_use_converter,
     'vehicle.special_vehicle_use': special_use_converter,
     'vehicle.emergency_vehicle_use': lambda value, year: value,
-    'vehicle.travel_speed': None,
-    'vehicle.underride_override': None,
-    'vehicle.rollover': None,
-    'vehicle.rollover_location': None,
-    'vehicle.initial_contact_point': None,
+    'vehicle.travel_speed': lambda value, year: value,
+    'vehicle.underride_override': underride_override_converter,
+    'vehicle.rollover': rollover_converter,
+    'vehicle.rollover_location': lambda value, year: value,
+    'vehicle.initial_contact_point': lambda value, year: value,
     'vehicle.extent_of_damage': None,
     'vehicle.vehicle_towed': None,
     'vehicle.most_harmful_event': None,
