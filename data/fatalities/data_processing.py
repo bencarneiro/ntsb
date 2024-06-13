@@ -37,6 +37,7 @@ def route_signing_converter(route_signing, year):
             return 4
         if route_signing == 7:
             return 6
+            
     return route_signing 
 
 def land_use_converter(land_use, year):
@@ -62,6 +63,7 @@ def functional_system_converter(functional_system, year):
             return 7
         if functional_system in {9}:
             return 99
+        return functional_system
     if year < 2015:
         if functional_system in {1,11}:
             return 1
@@ -228,6 +230,66 @@ def relation_to_junction_converter(value, year):
             return 19   
         
     return value
+
+def type_of_intersection_converter(value, year):
+    if year < 2013:
+        if value in {8}:
+            return 98
+        if value in {9}:
+            return 99
+    return value
+
+def relation_to_road_converter(value, year):
+    if year < 1998:
+        if value in {9}:
+            return 99
+        return value
+    
+def work_zone_converter(value, year):
+    if year < 1982:
+        if value in {3}:
+            return 4
+        return value
+    if value in {8}:
+        return 0
+    return value
+
+def light_condition_converter(value, year):
+    if year < 1980:
+        if value in {6}:
+            return 5
+    return value
+
+def atmospheric_condition_converter(value, year):
+    if year < 1980:
+        if value in {7}:
+            return [10]
+        if value in {9}:
+            return [99]
+        return [value]
+    if year < 2007:
+        if value in {8}:
+            return [5]
+        if value in {6}:
+            return [2,5]
+        if value in {7}:
+            return [3,5]
+        if value in {9}:
+            return [99]
+        return [value]
+    if year < 2010:
+        if value in {0}:
+            return 1
+        if value in {9}:
+            return [99]
+    return [value]
+
+def school_bus_related_converter(value, year):
+    if value in {1}:
+        return True
+    return False
+
+
             
 
 FARS_DATA_CONVERTERS = {
@@ -259,13 +321,13 @@ FARS_DATA_CONVERTERS = {
     'accident.first_harmful_event': soe_converter,
     'accident.manner_of_collision_of_first_harmful_event': manner_of_collision_converter,
     'accident.within_interchange_area': within_interchange_area_converter,
-    'accident.relation_to_junction': None,
-    'accident.type_of_intersection': None,
-    'accident.relation_to_road': None,
-    'accident.work_zone': None,
-    'accident.light_condition': None,
-    'accident.atmospheric_condition': None,
-    'accident.school_bus_related': None,
+    'accident.relation_to_junction': relation_to_junction_converter,
+    'accident.type_of_intersection': type_of_intersection_converter,
+    'accident.relation_to_road': relation_to_road_converter,
+    'accident.work_zone': work_zone_converter,
+    'accident.light_condition': light_condition_converter,
+    'accident.atmospheric_condition': atmospheric_condition_converter,
+    'accident.school_bus_related': school_bus_related_converter,
     'accident.rail_grade_crossing_identifier': None,
     'accident.ems_notified_hour': None,
     'accident.ems_notified_minute': None,
