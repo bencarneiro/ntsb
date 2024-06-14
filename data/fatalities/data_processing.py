@@ -729,6 +729,54 @@ def roadway_surface_condition_converter(value, year):
         return value
     return value
 
+def traffic_control_device_converter(value, year):
+    if year < 1982:
+        if value in {1}:
+            return 4
+        if value in {2}:
+            return 3
+        if value in {3}:
+            return 20
+        if value in {4}:
+            return 21
+        if value in {5,6,7}:
+            return 65
+        if value in {8}:
+            return 23
+        if value in {10}:
+            return 2
+        return value
+    if year < 2010:
+        if value in {5,6}:
+            return 4
+        if value in {30,31,38,39}:
+            return 23
+        if value in {41}:
+            return 40
+        if value in {60,61,62,63,64,68,69,70,71,72,73,78,79,80}:
+            return 65
+        return value
+    if year < 2011:
+        if value in {32}:
+            return 23
+    return value
+
+def traffic_control_device_functioning_converter(value, year):
+    if year < 1982:
+        if value in {0}:
+            return 0
+        if value in {9}:
+            return 1
+        return 3
+    return value
+
+def attempted_avoidance_maneuver_converter(value, year):
+    if year < 2016:
+        if value in {2,3,4}:
+            return 15
+        return value
+    return value
+
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
     'accident.number_of_persons_not_in_motor_vehicles': lambda value, year: value,
@@ -853,14 +901,14 @@ FARS_DATA_CONVERTERS = {
     'vehicle.roadway_grade': lambda value, year: value,
     'vehicle.roadway_surface_type': roadway_surface_type_converter,
     'vehicle.roadway_surface_condition': roadway_surface_condition_converter,
-    'vehicle.traffic_control_device': None,
-    'vehicle.traffic_control_device_functioning': None,
-    'vehicle.pre_event_movement': None,
-    'vehicle.critical_precrash_event': None,
-    'vehicle.attempted_avoidance_maneuver': None,
-    'vehicle.precrash_stability': None,
-    'vehicle.preimpact_location': None,
-    'vehicle.crash_type': None,
+    'vehicle.traffic_control_device': traffic_control_device_converter,
+    'vehicle.traffic_control_device_functioning': traffic_control_device_functioning_converter,
+    'vehicle.pre_event_movement': lambda value, year: value,
+    'vehicle.critical_precrash_event': lambda value, year: value,
+    'vehicle.attempted_avoidance_maneuver': attempted_avoidance_maneuver_converter,
+    'vehicle.precrash_stability': lambda value, year: value,
+    'vehicle.preimpact_location': lambda value, year: value,
+    'vehicle.crash_type': lambda value, year: value,
     'person.person_number': None,
     'person.age': None,
     'person.sex': None,

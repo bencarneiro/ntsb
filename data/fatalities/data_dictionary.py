@@ -1526,6 +1526,13 @@ FARS_DATA_DICTIONARY = {
     "vehicle.traffic_control_device_functioning": [
         {
             "range": {
+                "start": 1975,
+                "end": 1981
+            },
+            "key": "accident.TRA_CONT"
+        },
+        {
+            "range": {
                 "start": 1982,
                 "end": 2009
             },
