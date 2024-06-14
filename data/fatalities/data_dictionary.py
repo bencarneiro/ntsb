@@ -1847,6 +1847,13 @@ FARS_DATA_DICTIONARY = {
     "person.died_en_route": [
         {
             "range": {
+                "start": 1977,
+                "end": 2000
+            },
+            "key": "person.HOSPITAL"
+        },
+        {
+            "range": {
                 "start": 2001,
                 "end": None
             },

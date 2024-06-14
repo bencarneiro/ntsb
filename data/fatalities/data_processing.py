@@ -1,5 +1,5 @@
 from fatalities.data_dictionary import FARS_DATA_DICTIONARY
-from fatalities.models import City, County, State
+from fatalities.models import City, County, State, Vehicle
 
 def get_column_history(column):
     return FARS_DATA_DICTIONARY[column]
@@ -929,6 +929,66 @@ def drug_tested_converter(value, year):
         return 0
     return value
 
+def transported_to_medical_facility_by_converter(value, year):
+    if year < 2001:
+        if value in {1}:
+            return 4
+        if value in {7,8}:
+            return 0
+        return value
+    if year < 2007:
+        if value in {1}:
+            return 4
+        return value
+    return value
+
+def died_en_route_converter(value, year):
+    if year < 2001:
+        if value in {1}:
+            return 0
+        return value
+    return value
+
+def month_of_death_converter(value, year):
+    if year < 2008:
+        if value in {0}:
+            return 88
+    return value
+
+def day_of_death_converter(value, year):
+    if year < 2008:
+        if value in {0}:
+            return 88
+    return value
+
+def year_of_death_converter(value, year):
+    if year < 1998:
+        if value in {99}:
+            return 9999
+        return 1900 + value
+    if year < 2008:
+        if value in {0}:
+            return 8888
+    return value
+
+def lag_hours_converter(value, year):
+    if year < 2009:
+        if value in {99}:
+            return 999
+        return value
+    return value
+
+def vehicle_which_struck_non_motorist_converter(value, year, accident_id):
+    if year < 2009:
+        if value in {99}:
+            return None
+        vehicle = Vehicle.objects.get(accident_id=accident_id, vehicle_number=value)
+        return vehicle
+    if value in {999}:
+        return None
+    vehicle = Vehicle.objects.get(accident_id=accident_id, vehicle_number=value)
+    return vehicle
+
 
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
@@ -1082,16 +1142,16 @@ FARS_DATA_CONVERTERS = {
     'person.alcohol_test_result': alcohol_test_result_converter,
     'person.police_reported_drug_involvement': lambda value, year: value,
     'person.drug_tested': drug_tested_converter,
-    'person.transported_to_medical_facility_by': None,
-    'person.died_en_route': None,
-    'person.month_of_death': None,
-    'person.day_of_death': None,
-    'person.year_of_death': None,
-    'person.hour_of_death': None,
-    'person.minute_of_death': None,
-    'person.lag_hours': None,
-    'person.lag_minutes': None,
-    'person.vehicle_which_struck_non_motorist': None,
+    'person.transported_to_medical_facility_by': transported_to_medical_facility_by_converter,
+    'person.died_en_route': died_en_route_converter,
+    'person.month_of_death': month_of_death_converter,
+    'person.day_of_death': day_of_death_converter,
+    'person.year_of_death': year_of_death_converter,
+    'person.hour_of_death': lambda value, year: value,
+    'person.minute_of_death': lambda value, year: value,
+    'person.lag_hours': lag_hours_converter,
+    'person.lag_minutes': lambda value, year: value,
+    'person.vehicle_which_struck_non_motorist': vehicle_which_struck_non_motorist_converter,
     'person.non_motorist_device_type': None,
     'person.non_motorist_device_motorization': None,
     'person.non_motorist_location': None,
