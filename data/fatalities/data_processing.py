@@ -777,6 +777,109 @@ def attempted_avoidance_maneuver_converter(value, year):
         return value
     return value
 
+def age_converter(value, year):
+    if year < 2009:
+        if value == 99:
+            return 999
+    return value
+
+def person_type_converter(value, year):
+    if year < 1982:
+        if value in {5}:
+            return 4
+        if value in {4}:
+            return 6
+        if value in {3}:
+            return 5
+        if value in {8}:
+            return 19
+        return value
+    if year < 1994:
+        if value in {8}:
+            return 19
+        return value
+    if year < 2007:
+        if value in {8,99}:
+            return 19
+        return value
+    if year < 2022:
+        if value in {11,12,13}:
+            return 8
+        return value
+    return value
+
+def injury_severity_converter(value, year):
+    if value in {8}:
+        return 9
+    return value
+
+def seating_position_converter(value, year):
+    if year < 1982:
+        if value in {1,2,3}:
+            return value + 10
+        if value in {4,5,6}:
+            return value + 17
+        if value in {7,8,9}:
+            return value + 24
+        if value in {10}:
+            return 18
+        if value in {11}:
+            return 28
+        if value in {12}:
+            return 38
+        if value in {13}:
+            return 51
+        if value in {14}:
+            return 50
+        if value in {15}:
+            return 55
+        return value
+    return value
+
+def restraint_system_use_converter(value, year):
+    if year < 1994:
+        if value in {5}:
+            return 20
+        if value in {9}:
+            return 99
+        return value
+    if year < 2019:
+        if value in {5,6,7,15,16,17,19}:
+            return 20
+        if value in {13,14}:
+            return 4
+        if value in {29}:
+            return 99
+        return value
+    return value
+
+def helmet_use_converter(value, year):
+    if year < 1994:
+        if value in {5}:
+            return 5
+        return 20
+    if year < 2010:
+        if value in {5}:
+            return 5
+        if value in {6}:
+            return 16
+        if value in {15}:
+            return 19
+        return 20
+    if year < 2019:
+        if value in {5}:
+            return 5
+        if value in {16,19}:
+            return 19
+        if value in {17}:
+            return 17
+        if value in {29}:
+            return 99
+        return 20
+    return value
+
+
+
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
     'accident.number_of_persons_not_in_motor_vehicles': lambda value, year: value,
@@ -909,16 +1012,16 @@ FARS_DATA_CONVERTERS = {
     'vehicle.precrash_stability': lambda value, year: value,
     'vehicle.preimpact_location': lambda value, year: value,
     'vehicle.crash_type': lambda value, year: value,
-    'person.person_number': None,
-    'person.age': None,
-    'person.sex': None,
-    'person.person_type': None,
-    'person.injury_severity': None,
-    'person.seating_position': None,
-    'person.restraint_system_use': None,
-    'person.restraint_system_misuse': None,
-    'person.helmet_use': None,
-    'person.helmet_misuse': None,
+    'person.person_number': lambda value, year: value,
+    'person.age': age_converter,
+    'person.sex': lambda value, year: value,
+    'person.person_type': person_type_converter,
+    'person.injury_severity': injury_severity_converter,
+    'person.seating_position': seating_position_converter,
+    'person.restraint_system_use': restraint_system_use_converter,
+    'person.restraint_system_misuse': lambda value, year: value,
+    'person.helmet_use': helmet_use_converter,
+    'person.helmet_misuse': lambda value, year: value,
     'person.airbag_deployed': None,
     'person.ejection': None,
     'person.ejection_path': None,
