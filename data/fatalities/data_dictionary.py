@@ -1307,6 +1307,63 @@ FARS_DATA_DICTIONARY = {
     ],
     #d22 SPEEDREL
     "vehicle.speeding_related": [
+        
+        {
+            "range": {
+                "start": 1982,
+                "end": 1996
+            },
+            "key": "vehicle.VIOL_CHG"
+        },
+        {
+            "range": {
+                "start": 1997,
+                "end": 2008
+            },
+            "key": "vehicle.VIOLCHG1"
+        },
+        {
+            "range": {
+                "start": 1997,
+                "end": 2008
+            },
+            "key": "vehicle.VIOLCHG2"
+        },
+        {
+            "range": {
+                "start": 1997,
+                "end": 2008
+            },
+            "key": "vehicle.VIOLCHG3"
+        },
+        {
+            "range": {
+                "start": 1982,
+                "end": 2008
+            },
+            "key": "vehicle.DR_CF1"
+        },
+        {
+            "range": {
+                "start": 1982,
+                "end": 2008
+            },
+            "key": "vehicle.DR_CF2"
+        },
+        {
+            "range": {
+                "start": 1982,
+                "end": 2008
+            },
+            "key": "vehicle.DR_CF3"
+        },
+        {
+            "range": {
+                "start": 1997,
+                "end": 2008
+            },
+            "key": "vehicle.DR_CF4"
+        },
         {
             "range": {
                 "start": 2009,

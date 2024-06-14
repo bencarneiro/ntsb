@@ -665,6 +665,70 @@ def year_of_violation_converter(value, year):
         return int("19"+str(value))
     return value
 
+def speeding_related_converter(value, source, year):
+    #this one is tricky- need to look in driver related factors field and violations field for different codes which all indicate speeding related
+    # see page c-38 of FARS analytics manual 2022
+
+    if year < 2009 and source == "drf":
+        if value in {46}:
+            return 2
+        if value in {44}:
+            return 3
+        if value in {43}:
+            return 4
+        return None
+    if year < 2002 and source == "violation":
+        if value in {2,3}:
+            return 5
+        return None
+    if year < 2009 and source == "violation":
+        if value in {21}:
+            return 2
+        if value in {22,24}:
+            return 3
+        if value in {23,25}:
+            return 4
+        if value in {29}:
+            return 5
+        return None
+    
+    if year >= 2009 and source == "speeding":
+        return value
+    
+def trafficway_description_converter(value, year):
+    if year < 1982:
+        if value in {1}:
+            return 2
+        if value in {2,3}:
+            return 3
+        if value in {4}:
+            return 1
+        if value in {5}:
+            return 4
+        return value
+    return value
+
+def roadway_alignment_converter(value, year):
+    if year < 2010:
+        if value in {2}:
+            return 4
+        return value
+    return value
+
+def roadway_surface_type_converter(value, year):
+    if year < 2010:
+        if value in {8}:
+            return 7
+        return value
+    return value
+
+def roadway_surface_condition_converter(value, year):
+    if year < 2010:
+        if value in {9}:
+            return 99
+        return value
+    return value
+
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
     'accident.number_of_persons_not_in_motor_vehicles': lambda value, year: value,
@@ -781,14 +845,14 @@ FARS_DATA_CONVERTERS = {
     'vehicle.year_of_oldest_violation': year_of_violation_converter,
     'vehicle.month_of_newest_violation': lambda value, year: value,
     'vehicle.year_of_newest_violation': year_of_violation_converter,
-    'vehicle.speeding_related': lambda value, year: value,
-    'vehicle.trafficway_description': None,
-    'vehicle.total_lanes_in_roadway': None,
-    'vehicle.speed_limit': None,
-    'vehicle.roadway_alignment': None,
-    'vehicle.roadway_grade': None,
-    'vehicle.roadway_surface_type': None,
-    'vehicle.roadway_surface_condition': None,
+    'vehicle.speeding_related': speeding_related_converter,
+    'vehicle.trafficway_description': trafficway_description_converter,
+    'vehicle.total_lanes_in_roadway': lambda value, year: value,
+    'vehicle.speed_limit': lambda value, year: value,
+    'vehicle.roadway_alignment': roadway_alignment_converter,
+    'vehicle.roadway_grade': lambda value, year: value,
+    'vehicle.roadway_surface_type': roadway_surface_type_converter,
+    'vehicle.roadway_surface_condition': roadway_surface_condition_converter,
     'vehicle.traffic_control_device': None,
     'vehicle.traffic_control_device_functioning': None,
     'vehicle.pre_event_movement': None,
