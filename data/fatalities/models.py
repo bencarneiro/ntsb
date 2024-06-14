@@ -2668,6 +2668,7 @@ class Person(models.Model):
 
     # p12
     airbag_deployed_choices = [
+        (0, "Nonmotorist"),
         (1, 'Deployed - Front'),
         (2, 'Deployed - Side (Door, Seat Back)'),
         (3, 'Deployed - Curtain (Roof)'),

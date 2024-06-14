@@ -878,6 +878,56 @@ def helmet_use_converter(value, year):
         return 20
     return value
 
+def helmet_misuse_converter(restraint_system, restraint_system_misuse, helmet_misuse, year):
+    if year < 2019:
+        if restraint_system in {5,15,16,19} and restraint_system_misuse in {1}:
+            return 1
+
+        if restraint_system in {5} and restraint_system_misuse in {0}:
+            return 0
+        return 7
+    return helmet_misuse
+        
+    
+def airbag_deployed_converter(value, year):
+    if year < 1998:
+        if value in {3}:
+            return 9
+        if value in {4}:
+            return 20
+        if value in {9}:
+            return 99
+    if year < 2009:
+        if value in {29}:
+            return 99
+        if value in {30,31,32}:
+            return 20
+        return value
+    return value
+
+def alcohol_test_given_converter(value, year):
+    if value in {1}:
+        return 0
+    return value
+
+def alcohol_test_type_converter(value, year):
+    if year < 2010:
+        if value in {9}:
+            return 99
+        return value
+    return value
+
+def alcohol_test_result_converter(value, year):
+    if year < 2015:
+        if value in {95,96,97,98,99}:
+            return 900 + value
+        return value * 10
+    return value
+
+def drug_tested_converter(value, year):
+    if value in {1}:
+        return 0
+    return value
 
 
 FARS_DATA_CONVERTERS = {
@@ -1021,17 +1071,17 @@ FARS_DATA_CONVERTERS = {
     'person.restraint_system_use': restraint_system_use_converter,
     'person.restraint_system_misuse': lambda value, year: value,
     'person.helmet_use': helmet_use_converter,
-    'person.helmet_misuse': lambda value, year: value,
-    'person.airbag_deployed': None,
-    'person.ejection': None,
-    'person.ejection_path': None,
-    'person.extrication': None,
-    'person.police_reported_alcohol_involvement': None,
-    'person.alcohol_test_given': None,
-    'person.alcohol_test_type': None,
-    'person.alcohol_test_result': None,
-    'person.police_reported_drug_involvement': None,
-    'person.drug_tested': None,
+    'person.helmet_misuse': helmet_misuse_converter,
+    'person.airbag_deployed': airbag_deployed_converter,
+    'person.ejection': lambda value, year: value,
+    'person.ejection_path': lambda value, year: value,
+    'person.extrication': lambda value, year: value,
+    'person.police_reported_alcohol_involvement': lambda value, year: value,
+    'person.alcohol_test_given': alcohol_test_given_converter,
+    'person.alcohol_test_type': alcohol_test_type_converter,
+    'person.alcohol_test_result': alcohol_test_result_converter,
+    'person.police_reported_drug_involvement': lambda value, year: value,
+    'person.drug_tested': drug_tested_converter,
     'person.transported_to_medical_facility_by': None,
     'person.died_en_route': None,
     'person.month_of_death': None,
