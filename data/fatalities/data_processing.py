@@ -1301,7 +1301,7 @@ FARS_DATA_CONVERTERS = {
     # 'crash_event.vehicle_2': None,
     'crash_event.area_of_impact_2': lambda value, year: value,
     'crash_related_factors.crash_related_factor': crash_related_factor_converter,
-    'weather.weather': None,
+    'weather.weather': atmospheric_condition_converter,
     'vehicle_related_factor.vehicle_related_factor': None,
     'parked_vehicle_related_factor.vehicle_related_factor': None,
     'driver_related_factor.driver_related_factor': None,

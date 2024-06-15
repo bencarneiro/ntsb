@@ -425,6 +425,20 @@ FARS_DATA_DICTIONARY = {
         {
             "range": {
                 "start": 1975,
+                "end": 2006
+            },
+            "key": "accident.WEATHER"
+        },
+        {
+            "range": {
+                "start": 2007,
+                "end": 2019
+            },
+            "key": "accident.WEATHER1"
+        },
+        {
+            "range": {
+                "start": 2020,
                 "end": None
             },
             "key": "accident.WEATHER"
@@ -3159,9 +3173,23 @@ FARS_DATA_DICTIONARY = {
         {
             "range": {
                 "start": 1975,
-                "end": 2019
+                "end": 2006
             },
             "key": "ACCIDENT.WEATHER"
+        },
+        {
+            "range": {
+                "start": 2007,
+                "end": 2019
+            },
+            "key": "ACCIDENT.WEATHER1"
+        },
+        {
+            "range": {
+                "start": 2007,
+                "end": 2019
+            },
+            "key": "ACCIDENT.WEATHER2"
         },
         {
             "range": {
