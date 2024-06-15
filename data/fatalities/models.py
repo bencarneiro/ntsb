@@ -3795,13 +3795,17 @@ class VehicleRelatedFactor(models.Model):
         (0, 'None Noted'),
         (29, 'Default Code Used for Vehicle Numbering'),
         (30, 'Multi-Wheeled Motorcycle Conversion'),
+        (31, "Hit-and-Run Vehicle (1982-2008)"),
         (32, 'Vehicle Registration for a Person with a Disability'),
         (33, 'Vehicle Being Pushed by Non-Motorist'),
         (35, 'Reconstructed/Altered Vehicle'),
         (37, 'Transporting Children to/From Head Start/Day Care'),
+        (38, "Vehicle Went Airborne During Crash (2001-2003)"),
         (39, 'Highway Construction, Maintenance or Utility Vehicle, In-Transport (Inside or Outside Work Zone)'),
+        (40, "Highway Incident Response Vehicle(Since 2002)"),
         (41, 'Police Fire or EMS Vehicle Working at the Scene of an Emergency or Performing Other Traffic Control Activities'),
         (42, 'Other Working Vehicle (Not Construction, Maintenance, Utility, Police, Fire, or EMS Vehicle)'),
+        (43, "Hazardous Materials/Cargo Released From This Vehicle (2005-2006)")
         (44, 'Adaptive Equipment'),
         (45, 'Slide-in Camper'),
     ]

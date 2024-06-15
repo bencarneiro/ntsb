@@ -2019,10 +2019,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.vehicle_number": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.VEH_NO"
+            "key": "VEHNIT.VEH_NO"
         },
         {
             "range": {
@@ -2036,10 +2036,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.first_harmful_event": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.HARM_EV"
+            "key": "VEHNIT.HARM_EV"
         },
         {
             "range": {
@@ -2053,10 +2053,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.manner_of_collision_of_first_harmful_event": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.MAN_COLL"
+            "key": "VEHNIT.MAN_COLL"
         },
         {
             "range": {
@@ -2070,17 +2070,17 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.number_of_occupants": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2008
             },
-            "key": "VEHICLE.OCUPANTS"
+            "key": "VEHNIT.OCUPANTS"
         },
         {
             "range": {
                 "start": 2009,
                 "end": 2009
             },
-            "key": "VEHICLE.NUMOCCS"
+            "key": "VEHNIT.NUMOCCS"
         },
         {
             "range": {
@@ -2097,7 +2097,7 @@ FARS_DATA_DICTIONARY = {
                 "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.UNITTYPE"
+            "key": "VEHNIT.UNITTYPE"
         },
         {
             "range": {
@@ -2111,10 +2111,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.hit_and_run": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.HIT_RUN"
+            "key": "VEHNIT.HIT_RUN"
         },
         {
             "range": {
@@ -2129,10 +2129,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.registration_state": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.REG_STAT"
+            "key": "VEHNIT.REG_STAT"
         },
         {
             "range": {
@@ -2146,10 +2146,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.registered_vehicle_owner": [
         {
             "range": {
-                "start": 1991,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.OWNER"
+            "key": "VEHNIT.OWNER"
         },
         {
             "range": {
@@ -2163,10 +2163,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.vehicle_identification_number": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.VIN"
+            "key": "VEHNIT.VIN"
         },
         {
             "range": {
@@ -2180,10 +2180,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.vehicle_model_year": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.MOD_YEAR"
+            "key": "VEHNIT.MOD_YEAR"
         },
         {
             "range": {
@@ -2228,10 +2228,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.ncsa_make": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.MAKE"
+            "key": "VEHNIT.MAKE"
         },
         {
             "range": {
@@ -2246,10 +2246,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.ncsa_model": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.MODEL"
+            "key": "VEHNIT.MODEL"
         },
         {
             "range": {
@@ -2264,10 +2264,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.body_type": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.BODY_TYP"
+            "key": "VEHNIT.BODY_TYP"
         },
         {
             "range": {
@@ -2313,10 +2313,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.vehicle_trailing": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.TOW_VEH"
+            "key": "VEHNIT.TOW_VEH"
         },
         {
             "range": {
@@ -2387,10 +2387,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.motor_carrier_identification_number": [
         {
             "range": {
-                "start": 1998,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.MCARR_ID"
+            "key": "VEHNIT.MCARR_ID"
         },
         {
             "range": {
@@ -2404,10 +2404,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.vehicle_configuration": [
         {
             "range": {
-                "start": 1991,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "vehicle.V_CONFIG"
+            "key": "VEHNIT.V_CONFIG"
         },
         {
             "range": {
@@ -2421,10 +2421,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.cargo_body_type": [
         {
             "range": {
-                "start": 1991,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "vehicle.CARGO_BT"
+            "key": "VEHNIT.CARGO_BT"
         },
         {
             "range": {
@@ -2442,7 +2442,7 @@ FARS_DATA_DICTIONARY = {
                 "start": 2007,
                 "end": 2009
             },
-            "key": "vehicle.HAZ_INV"
+            "key": "VEHNIT.HAZ_INV"
         },
         {
             "range": {
@@ -2458,7 +2458,7 @@ FARS_DATA_DICTIONARY = {
                 "start": 2007,
                 "end": 2009
             },
-            "key": "vehicle.HAZ_PLAC"
+            "key": "VEHNIT.HAZ_PLAC"
         },
         {
             "range": {
@@ -2474,7 +2474,7 @@ FARS_DATA_DICTIONARY = {
                 "start": 2007,
                 "end": 2009
             },
-            "key": "vehicle.HAZ_ID"
+            "key": "VEHNIT.HAZ_ID"
         },
         {
             "range": {
@@ -2490,7 +2490,7 @@ FARS_DATA_DICTIONARY = {
                 "start": 2007,
                 "end": 2009
             },
-            "key": "vehicle.HAZ_CNO"
+            "key": "VEHNIT.HAZ_CNO"
         },
         {
             "range": {
@@ -2506,7 +2506,7 @@ FARS_DATA_DICTIONARY = {
                 "start": 2007,
                 "end": 2009
             },
-            "key": "vehicle.HAZ_REL"
+            "key": "VEHNIT.HAZ_REL"
         },
         {
             "range": {
@@ -2519,10 +2519,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.bus_use": [
         {
             "range": {
-                "start": 2000,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "vehicle.BUS_USE"
+            "key": "VEHNIT.BUS_USE"
         },
         {
             "range": {
@@ -2535,10 +2535,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.special_vehicle_use": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "vehicle.SPEC_USE"
+            "key": "VEHNIT.SPEC_USE"
         },
         {
             "range": {
@@ -2553,10 +2553,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.emergency_vehicle_use": [
         {
             "range": {
-                "start": 1977,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "vehicle.EMER_USE"
+            "key": "VEHNIT.EMER_USE"
         },
         {
             "range": {
@@ -2582,10 +2582,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.initial_contact_point": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "vehicle.IMPACT1"
+            "key": "VEHNIT.IMPACT1"
         },
         {
             "range": {
@@ -2599,10 +2599,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.extent_of_damage": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "vehicle.DEFORMED"
+            "key": "VEHNIT.DEFORMED"
         },
         {
             "range": {
@@ -2618,17 +2618,17 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.vehicle_towed": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2008
             },
-            "key": "vehicle.TOWAWAY"
+            "key": "VEHNIT.TOWAWAY"
         },
         {
             "range": {
                 "start": 2009,
                 "end": 2009
             },
-            "key": "vehicle.TOWED"
+            "key": "VEHNIT.TOWED"
         },
         {
             "range": {
@@ -2643,10 +2643,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.most_harmful_event": [
         {
             "range": {
-                "start": 1979,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "vehicle.M_HARM"
+            "key": "VEHNIT.M_HARM"
         },
         {
             "range": {
@@ -2661,10 +2661,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.fire_occurence": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "vehicle.FIRE_EXP"
+            "key": "VEHNIT.FIRE_EXP"
         },
         {
             "range": {
@@ -2680,10 +2680,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.fatalities": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "vehicle.DEATHS"
+            "key": "VEHNIT.DEATHS"
         },
         {
             "range": {
@@ -2699,10 +2699,10 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle.combined_make_model_id": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "vehicle.MAK_MOD"
+            "key": "VEHNIT.MAK_MOD"
         },
         {
             "range": {
@@ -3242,17 +3242,17 @@ FARS_DATA_DICTIONARY = {
     "parked_vehicle_related_factor.vehicle_related_factor": [
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.VEH_CF1"
+            "key": "VEHNIT.VEH_CF1"
         },
         {
             "range": {
-                "start": 1975,
+                "start": 2005,
                 "end": 2009
             },
-            "key": "VEHICLE.VEH_CF2"
+            "key": "VEHNIT.VEH_CF2"
         },
         {
             "range": {
