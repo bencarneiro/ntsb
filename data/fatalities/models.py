@@ -4060,6 +4060,8 @@ class VehicleFactor(models.Model):
         (15, 'Truck Coupling/Trailer Hitch/Safety Chains'),
         (16, 'Safety Systems'),
         (17, 'Vehicle Contributing Factors - No Details'),
+        (18, "Horn"),
+        (19, "Driver Seating and Control"),
         (97, 'Other'),
         (99, 'Reported as Unknown'),
     ]

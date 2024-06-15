@@ -1096,8 +1096,58 @@ def driver_related_factor_converter(value, year):
         return value
     return value
 
+def driver_impaired_converter(value, year):
+    if year < 1982:
+        if value in {1}:
+            return 2
+        if value in {2}:
+            return 1
+        if value in {3}:
+            return 8
+        if value in {4,5}:
+            return 9
+        if value in {7}:
+            return 10
+        return None
+    if year < 2010:
+        if value in {1}:
+            return 2
+        if value in {2}:
+            return 1
+        if value in {3}:
+            return 8
+        if value in {4,5}:
+            return 9
+        if value in {7,8}:
+            return 4
+        if value in {9}:
+            return 5
+        if value in {10}:
+            return 6
+        if value in {11}:
+            return 96
+        return None
+    return value
 
+def vehicle_factor_converter(value, year):
+    if year < 2010:
+        if value in {10}:
+            return 18
+        if value in {12}:
+            return 10
+        if value in {13}:
+            return 19
+        if value in {16}:
+            return 11
+        if value in {17,18,19}:
+            return 16
+        if value < 20:
+            return value
+        return None
+    return value
 
+        
+        
 
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
@@ -1343,9 +1393,9 @@ FARS_DATA_CONVERTERS = {
     'parked_vehicle_related_factor.vehicle_related_factor': parked_vehicle_related_factor_converter,
     'driver_related_factor.driver_related_factor': driver_related_factor_converter,
     'damage.area_of_impact': lambda value, year: value,
-    'driver_distracted.distracted_by': None,
-    'driver_impaired.driver_impaired': None,
-    'vehicle_factor.contributing_cause': None,
+    'driver_distracted.distracted_by': lambda value, year: value,
+    'driver_impaired.driver_impaired': driver_impaired_converter,
+    'vehicle_factor.contributing_cause': vehicle_factor_converter,
     'maneuver.driver_maneuvered_to_avoid': None,
     'violation.moving_violation': None,
     'vision.visibility': None,
