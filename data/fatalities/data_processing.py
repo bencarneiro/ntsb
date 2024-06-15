@@ -979,6 +979,8 @@ def lag_hours_converter(value, year):
     return value
 
 def vehicle_which_struck_non_motorist_converter(value, year, accident_id):
+    if value in {0}:
+        return None
     if year < 2009:
         if value in {99}:
             return None
@@ -988,6 +990,46 @@ def vehicle_which_struck_non_motorist_converter(value, year, accident_id):
         return None
     vehicle = Vehicle.objects.get(accident_id=accident_id, vehicle_number=value)
     return vehicle
+
+def nonmotorist_location_converter(value, year):
+    if year < 1982:
+        if value in {7}:
+            return 16
+        if value in {8}:
+            return 20
+        if value in {9}:
+            return 25
+        if value in {10}:
+            return 13
+        if value in {11}:
+            return 14
+        if value in {12}:
+            return 13
+        if value in {99}:
+            return 99
+        return value
+    if year < 2010:
+        if value in {4}:
+            return 2
+        if value in {5}:
+            return 25
+        if value in {12}:
+            return 11
+        if value in {17,18}:
+            return 25
+        if value in {19}:
+            return 99
+        return value
+
+    return value
+
+def hispanic_converter(value, year):
+    if year < 2000:
+        if value in {5}:
+            return 6
+        return value
+    return value
+
 
 
 FARS_DATA_CONVERTERS = {
@@ -1152,11 +1194,11 @@ FARS_DATA_CONVERTERS = {
     'person.lag_hours': lag_hours_converter,
     'person.lag_minutes': lambda value, year: value,
     'person.vehicle_which_struck_non_motorist': vehicle_which_struck_non_motorist_converter,
-    'person.non_motorist_device_type': None,
-    'person.non_motorist_device_motorization': None,
-    'person.non_motorist_location': None,
-    'person.at_work': None,
-    'person.hispanic': None,
+    'person.non_motorist_device_type': lambda value, year: value,
+    'person.non_motorist_device_motorization': lambda value, year: value,
+    'person.non_motorist_location': nonmotorist_location_converter,
+    'person.at_work': lambda value, year: value,
+    'person.hispanic': hispanic_converter,
     'parked_vehicle.vehicle_number': None,
     'parked_vehicle.first_harmful_event': None,
     'parked_vehicle.manner_of_collision_of_first_harmful_event': None,
