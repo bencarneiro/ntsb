@@ -1073,6 +1073,31 @@ def parked_vehicle_related_factor_converter(value, year):
         return 0
     return value
 
+def driver_related_factor_converter(value, year):
+    if value in {43}:
+        return 44
+    if year < 1995:
+        if value in {8,10}:
+            return 11
+        return value
+    if year < 2002:
+        if value in {73}:
+            return 72
+        if value in {74}:
+            return 0
+        return value
+    if year < 2010:
+        if value in {9}:
+            return 11
+        if value in {89}:
+            return 101
+        if value in {93,94,95,96,97,98}:
+            return 93
+        return value
+    return value
+
+
+
 
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
@@ -1316,8 +1341,8 @@ FARS_DATA_CONVERTERS = {
     'weather.weather': atmospheric_condition_converter,
     'vehicle_related_factor.vehicle_related_factor': vehicle_related_factor_converter,
     'parked_vehicle_related_factor.vehicle_related_factor': parked_vehicle_related_factor_converter,
-    'driver_related_factor.driver_related_factor': None,
-    'damage.area_of_impact': None,
+    'driver_related_factor.driver_related_factor': driver_related_factor_converter,
+    'damage.area_of_impact': lambda value, year: value,
     'driver_distracted.distracted_by': None,
     'driver_impaired.driver_impaired': None,
     'vehicle_factor.contributing_cause': None,

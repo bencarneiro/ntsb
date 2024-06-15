@@ -3368,14 +3368,14 @@ FARS_DATA_DICTIONARY = {
                 "start": 2010,
                 "end": 2019
             },
-            "key": "DAMAGE.MDRDSTRD"
+            "key": "DISTRACT.MDRDSTRD"
         },
         {
             "range": {
                 "start": 2020,
                 "end": None
             },
-            "key": "DAMAGE.DRDISTRACT"
+            "key": "DISTRACT.DRDISTRACT"
         }
     ],
     #DRIMPAIR
