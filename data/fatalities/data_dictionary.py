@@ -3424,6 +3424,57 @@ FARS_DATA_DICTIONARY = {
     "maneuver.driver_maneuvered_to_avoid": [
         {
             "range": {
+                "start": 1975,
+                "end": 1981
+            },
+            "key": "ACCIDENT.CF1"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 1981
+            },
+            "key": "ACCIDENT.CF2"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 1981
+            },
+            "key": "ACCIDENT.CF3"
+        },
+        
+        {
+            "range": {
+                "start": 1982,
+                "end": 2009
+            },
+            "key": "VEHICLE.DR_CF1"
+        },
+        {
+            "range": {
+                "start": 1982,
+                "end": 2009
+            },
+            "key": "VEHICLE.DR_CF2"
+        },
+        {
+            "range": {
+                "start": 1982,
+                "end": 2009
+            },
+            "key": "VEHICLE.DR_CF3"
+        },
+        {
+            "range": {
+                "start": 1997,
+                "end": 2009
+            },
+            "key": "VEHICLE.DR_CF4"
+        },
+
+        {
+            "range": {
                 "start": 2010,
                 "end": 2019
             },
@@ -3483,6 +3534,27 @@ FARS_DATA_DICTIONARY = {
         },
     ],
     "vision.visibility": [
+        {
+            "range": {
+                "start": 1975,
+                "end": 1981
+            },
+            "key": "ACCIDENT.CF1"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 1981
+            },
+            "key": "ACCIDENT.CF2"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 1981
+            },
+            "key": "ACCIDENT.CF3"
+        },
         {
             "range": {
                 "start": 1982,

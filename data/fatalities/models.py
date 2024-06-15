@@ -3753,6 +3753,8 @@ class CrashRelatedFactors(models.Model):
         (28, 'Regular Congestion'),
         (30, 'Obstructed Crosswalks'),
         (31, 'Related to a Bus Stop'),
+        (42, "Uncontrolled Intersection or Railroad Crossing"),
+        (99, "Unknown")
     ]
     crash_related_factor = models.PositiveSmallIntegerField(choices=crash_related_factor_choices, default=0)
     

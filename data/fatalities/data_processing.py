@@ -1037,6 +1037,29 @@ def hispanic_converter(value, year):
         return value
     return value
 
+def crash_related_factor_converter(value, year):
+    if value in {99}:
+        return 999
+    if year < 1982:
+        if value in {41}:
+            return 1
+        if value in {43,44}:
+            return 2
+        if value in {47}:
+            return 3
+        if value in {48}:
+            return 4
+        if value in {49}:
+            return 5
+        if value in {50}:
+            return 6
+        if value in {51}:
+            return 7
+        return None
+    return value
+        
+        
+
 
 
 FARS_DATA_CONVERTERS = {
@@ -1271,13 +1294,13 @@ FARS_DATA_CONVERTERS = {
     'pedestrian_type.pedestrian_scenario': lambda value, year: value,
     'pedestrian_type.pedestrian_crash_group': lambda value, year: value,
     'pedestrian_type.bike_crash_group': lambda value, year: value,
-    'crash_event.crash_event_number': None,
-    'crash_event.vehicle_1': None,
-    'crash_event.area_of_impact_1': None,
-    'crash_event.sequence_of_events': None,
-    'crash_event.vehicle_2': None,
-    'crash_event.area_of_impact_2': None,
-    'crash_related_factors.crash_related_factor': None,
+    'crash_event.crash_event_number': lambda value, year: value,
+    # 'crash_event.vehicle_1': None,
+    'crash_event.area_of_impact_1': lambda value, year: value,
+    'crash_event.sequence_of_events': soe_converter,
+    # 'crash_event.vehicle_2': None,
+    'crash_event.area_of_impact_2': lambda value, year: value,
+    'crash_related_factors.crash_related_factor': crash_related_factor_converter,
     'weather.weather': None,
     'vehicle_related_factor.vehicle_related_factor': None,
     'parked_vehicle_related_factor.vehicle_related_factor': None,
