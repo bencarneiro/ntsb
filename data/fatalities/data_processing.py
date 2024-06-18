@@ -1147,6 +1147,38 @@ def vehicle_factor_converter(value, year):
     return value
 
         
+def nonmotorist_impaired_converter(value, year):
+    if year < 1995:
+        if value in {15}:
+            return 6
+    if year < 2010:
+        if value in {6}:
+            return 1
+        if value in {7}:
+            return 8
+        if value in {11}:
+            return 3
+        if value in {12,13}:
+            return 4
+        if value in {14}:
+            return 5
+        if value in {15}:
+            return 9
+        return None
+    return value
+        
+
+def drug_test_type_converter(value, year):
+    if year < 2018:
+        if value in {3}:
+            return 1
+        if value in {6,7,8,9}:
+            return 90 + value
+        return value
+    return value
+
+
+
         
 
 FARS_DATA_CONVERTERS = {
@@ -1396,21 +1428,21 @@ FARS_DATA_CONVERTERS = {
     'driver_distracted.distracted_by': lambda value, year: value,
     'driver_impaired.driver_impaired': driver_impaired_converter,
     'vehicle_factor.contributing_cause': vehicle_factor_converter,
-    'maneuver.driver_maneuvered_to_avoid': None,
-    'violation.moving_violation': None,
-    'vision.visibility': None,
-    'person_related_factor.person_related_factor': None,
-    'drugs.drug_test_type': None,
-    'drugs.drug_test_results': None,
-    'race.race': None,
-    'nonmotorist_contributing_circumstance.nonmotorist_contributing_circumstance': None,
-    'nonmotorist_distracted.nonmotorist_distracted_by': None,
-    'nonmotorist_impaired.nonmotorist_impaired': None,
-    'nonmotorist_prior_action.nonmotorist_prior_action': None,
-    'safety_equipment.helmet': None,
-    'safety_equipment.pads': None,
-    'safety_equipment.other_protective_equipment': None,
-    'safety_equipment.reflective_equipment': None,
-    'safety_equipment.lights': None,
-    'safety_equipment.other_preventative_equipment': None,
+    'maneuver.driver_maneuvered_to_avoid': None, # todo
+    'violation.moving_violation': None, # todo
+    'vision.visibility': None, # todo
+    'person_related_factor.person_related_factor': None, # todo
+    'drugs.drug_test_type': drug_test_type_converter,
+    'drugs.drug_test_results': lambda value, year: value,
+    'race.race': lambda value, year: value,
+    'nonmotorist_contributing_circumstance.nonmotorist_contributing_circumstance': lambda value, year: value,
+    'nonmotorist_distracted.nonmotorist_distracted_by': lambda value, year: value,
+    'nonmotorist_impaired.nonmotorist_impaired': nonmotorist_impaired_converter,
+    'nonmotorist_prior_action.nonmotorist_prior_action': lambda value, year: value,
+    'safety_equipment.helmet': lambda value, year: value,
+    'safety_equipment.pads': lambda value, year: value,
+    'safety_equipment.other_protective_equipment': lambda value, year: value,
+    'safety_equipment.reflective_equipment': lambda value, year: value,
+    'safety_equipment.lights': lambda value, year: value,
+    'safety_equipment.other_preventative_equipment': lambda value, year: value,
 }

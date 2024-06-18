@@ -4324,6 +4324,92 @@ class Drugs(models.Model):
     # P19C/NM21C  DRUGRES
     drug_test_results = models.PositiveIntegerField(null=False, blank=False)
 
+    def interpret_test_result(self):
+        year = self.person.accident.year
+        result = self.drug_test_results
+        if year < 1993:
+            early_codes = {
+                0: "Not Tested for Drugs",
+                1: "No Drugs Reported",
+                2: "Narcotic",
+                3: "Depressant",
+                4: "Stimulant",
+                5: "Hallucinogen",
+                6: "Cannabinol",
+                7: "Phencyclidine (PCP)",
+                8: "Inhalant",
+                9: "Multiple Drugs (From Data Elements 02 to 08)",
+                10: "Other Drugs (All Other Drugs Excluding Nicotine, Aspirin, Alcohol)",
+                97: "Tested for Drugs, Results Unknown",
+                98: "Tested for Drugs, Drugs Found, Type Unknown",
+                99: "Unknown if Tested for Drugs"
+            }
+            return early_codes[result]
+        if year < 2022:
+            if result in {0}:
+                return "Test Not Given"
+            if result in {1}:
+                return "Tested, No Drugs Found/Negative"
+            if result in {95}:
+                return "Not Reported"
+            if result in {996}:
+                return "Other Drug (Specify:)"
+            if result in {997}:
+                return "Tested for Drugs, Results Unknown"
+            if result in {998}:
+                return "Tested for Drugs, Drugs Found, Type Unknown/Positive"
+            if result in {999}:
+                return "Reported as Unknown if Tested for Drugs"
+            if result >= 100 and result <= 295:
+                return "Narcotics"
+            if result >= 300 and result <= 399:
+                return "Depressants"
+            if result >= 400 and result <= 499:
+                return "Stimulants"
+            if result >= 500 and result <= 599:
+                return "Hallucinogens"
+            if result >= 600 and result <= 699:
+                return "Cannabinoids" 
+            if result >= 700 and result <= 799:
+                return "Phencyclidine (PCP)"
+            if result >= 800 and result <= 899:
+                return "Anabolic Steroids"
+            if result >= 900 and result <= 999:
+                return "Inhalants"
+        if result in {0}:
+            return "Test Not Given"
+        if result in {1}:
+            return "Tested, No Drugs Found/Negative"
+        if result in {9995}:
+            return "Not Reported"
+        if result in {9996}:
+            return "Other Drug (Specify:)"
+        if result in {9997}:
+            return "Tested for Drugs, Results Unknown"
+        if result in {9998}:
+            return "Tested for Drugs, Drugs Found, Type Unknown/Positive"
+        if result in {9999}:
+            return "Reported as Unknown if Tested for Drugs"
+        if result >= 1001 and result <= 2000:
+            return "Narcotic Analgesics"
+        if result >= 2001 and result <= 3000:
+            return "Depressants"
+        if result >= 3001 and result <= 4000:
+            return "Stimulants"
+        if result >= 4001 and result <= 5000:
+            return "Hallucinogens"
+        if result >= 5001 and result <= 6000:
+            return "Cannabinoids" 
+        if result >= 6001 and result <= 7000:
+            return "Dissociative Anesthetics"
+        if result >= 7001 and result <= 8000:
+            return "Inhalants"
+        if result >= 8001 and result <= 9000:
+            return "Anabolic Steroids" 
+        if result >= 9001 and result <= 9994:
+            return "Non-Psychoactive/Other Drugs"
+        return result
+        
     class Meta:
         db_table = "drugs"
         managed = True
@@ -4484,12 +4570,14 @@ class NonmotoristPriorAction(models.Model):
         (4, 'Jogging/Running'),
         (5, 'Movement Along Roadway With Traffic (in or Adjacent to Travel Lane)'),
         (6, 'Movement Along Roadway Against Traffic (in or Adjacent to Travel Lane)'),
+        (7, "Movement on Sidewalk"),
         (8, 'In Roadway-Other (Working, Playing, etc.)'),
         (9, 'Stationary and Adjacent to Roadway (e.g., Shoulder, Median, Sidewalk)'),
         (10, 'Working in Trafficway (Incident Response)'),
         (11, 'Entering/Exiting a Parked or Stopped Vehicle'),
         (12, 'Disabled Vehicle Related (Working on, Pushing, Leaving/Approaching)'),
         (14, 'Other'),
+        (15, "None"),
         (16, 'Movement Along Roadway - Direction Unknown (Since 2012)'),
         (98, 'Not Reported'),
         (99, 'Reported as Unknown'),
