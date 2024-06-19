@@ -294,14 +294,14 @@ class Accident(models.Model):
     ]
     manner_of_collision_of_first_harmful_event = models.PositiveSmallIntegerField(choices=manner_of_collision_of_first_harmful_event_choices, default=98)
     #c21B RELJCT1
-    at_intersection_choices = [
+    within_interchange_area_choices = [
         (0, "No"),
         (1, "Yes"),
         (8, "Not Reported"),
         (9, "Reported as Unknown")
     ]
     
-    at_intersection = models.PositiveSmallIntegerField(choices=at_intersection_choices, default=8)
+    within_interchange_area = models.PositiveSmallIntegerField(choices=within_interchange_area_choices, default=8)
 #      2010- 2018- 
     #c23
     relation_to_junction_choices = [
@@ -694,6 +694,7 @@ class Vehicle(models.Model):
         (92, 'Gillig'),
         (93, 'MCI'),
         (94, 'Thomas Built'),
+        (95, "Other Truck/Bus"),
         (97, 'Not Reported (Since 2010)'),
         (98, 'Other Make'),
         (99, 'Unknown Make')
@@ -872,6 +873,7 @@ class Vehicle(models.Model):
         (0, 'Not Applicable'),
         (1, 'Single-Unit Truck (2 Axles and GVWR More Than 10,000 lbs)'),
         (2, 'Single-Unit Truck (3 or More Axles)'),
+        (3, "Single-Unit Truck (Unknown Number of Axles, Tires)"),
         (4, 'Truck Pulling Trailer(s)'),
         (5, 'Truck Tractor (Bobtail)'),
         (6, 'Truck Tractor/Semi-Trailer'),
@@ -881,6 +883,8 @@ class Vehicle(models.Model):
         (19, 'Vehicle More Than 10,000 lbs., Other'),
         (20, 'Bus/Large Van (Seats for 9-15 Occupants, Including Driver)'),
         (21, 'Bus (Seats for More Than 15 Occupants, Including Driver, 2010-Later)'),
+        (70, "Light Truck (Van, Mini-Van, Panel, Pickup, Sport Utility Vehicle Displaying a Hazardous Materials Placard)"),
+        (80, "Passenger Car (Only When Displaying a Hazardous Materials Placard)"),
         (88, 'Qualifying Vehicle, Unknown Configuration'),
         (98, 'Not Reported (2010-2012)'),
         (99, 'Unknown (Reported as Unknown, 2018-2019)')
@@ -980,12 +984,14 @@ class Vehicle(models.Model):
         (22, 'Public Utility'),
         (23, 'Rental Truck Over 10,000 lbs'),
         (24, 'Truck Operating With Crash Attenuator Equipment'),
+        (98, "Not Reported"),
         (99, 'Reported as Unknown (since 2018)')
     ]
     special_vehicle_use = models.PositiveSmallIntegerField(choices=special_vehicle_use_choices, default=0)
     #v29
     emergency_vehicle_use_choices = [
         (0, 'Not Applicable'),
+        (1, "Yes"),
         (2, 'Non-Emergency, Non-Transport'),
         (3, 'Non-Emergency Transport'),
         (4, 'Emergency Operation, Emergency Warning Equipment Not in Use'),
@@ -1045,6 +1051,8 @@ class Vehicle(models.Model):
         (12, "12 O'Clock"),
         (13, "Top"),
         (14, "Undercarriage"),
+        (15, "Underride"),
+        (16, "Override"),
         (18, "Cargo/Vehicle Parts Set-in-Motion"),
         (19, "Other Objects or Person Set-in-Motion"),
         (20, "Object Set in Motion, Unknown if Cargo/Vehicle Parts or Other"),
@@ -1304,6 +1312,7 @@ class Vehicle(models.Model):
         (7, "Commercial Learner's Permit (CLP)"),
         (8, 'Other - Not Valid'),
         (97, 'No Driver Present/Unknown if Driver Present'),
+        (98, "Not Reported"),
         (99, 'Unknown License Status')
     ]
     cdl_license_status = models.PositiveSmallIntegerField(choices=cdl_license_status_choices, default=99)
@@ -1314,6 +1323,7 @@ class Vehicle(models.Model):
         (2, 'Endorsements Required, Not Complied With'),
         (3, 'Endorsements Required, Compliance Unknown'),
         (7, 'No Driver Present/Unknown if Driver Present'),
+        (8, "Not Reported "),
         (9, 'Unknown, if Required')
     ]
     cdl_endorsements = models.PositiveSmallIntegerField(choices=cdl_endorsements_choices, default=0)
@@ -1324,6 +1334,7 @@ class Vehicle(models.Model):
         (2, 'No Valid License for This Class Vehicle'),
         (3, 'Valid License for This Class Vehicle'),
         (6, 'No Driver Present/Unknown if Driver Present'),
+        (7, 'Not Reported '),
         (8, 'Unknown if CDL and/or CDL Endorsement Required for This Vehicle'),
         (9, 'Unknown')
     ]
@@ -1335,6 +1346,7 @@ class Vehicle(models.Model):
         (2, "Restrictions Not Complied With"),
         (3, "Restrictions, Compliance Unknown"),
         (7, "No Driver Present/Unknown if Driver Present"),
+        (8, "Not Reported"),
         (9, "Unknown")
     ]
     compliance_with_license_restrictions = models.PositiveSmallIntegerField(choices=compliance_with_license_restrictions_choices, default=9)
@@ -1386,6 +1398,7 @@ class Vehicle(models.Model):
     #d22
     speeding_related_choices = [
         (0, "No"),
+        (1, "Yes"),
         (2, "Yes, Racing"),
         (3, "Yes, Exceeded Speed Limit"),
         (4, "Yes, Too Fast for Conditions"),
@@ -2417,6 +2430,8 @@ class ParkedVehicle(models.Model):
         (12, "12 O'Clock"),
         (13, "Top"),
         (14, "Undercarriage"),
+        (15, "Underride"),
+        (16, "Override"),
         (18, "Cargo/Vehicle Parts Set-in-Motion"),
         (19, "Other Objects or Person Set-in-Motion"),
         (20, "Object Set in Motion, Unknown if Cargo/Vehicle Parts or Other"),
@@ -2653,6 +2668,7 @@ class Person(models.Model):
 
     # p12
     airbag_deployed_choices = [
+        (0, "Nonmotorist"),
         (1, 'Deployed - Front'),
         (2, 'Deployed - Side (Door, Seat Back)'),
         (3, 'Deployed - Curtain (Roof)'),
@@ -3355,6 +3371,8 @@ class CrashEvent(models.Model):
         (12, "12 O'Clock"),
         (13,'Top'),
         (14,'Undercarriage'),
+        (15, "Underride"),
+        (16, "Override"),
         (18,'Cargo/Vehicle Parts Set-in-Motion'),
         (19,'Other Objects or Person Set-in-Motion'),
         (20,'Object Set in Motion, Unknown if Cargo/Vehicle Parts or Other'),
@@ -3412,6 +3430,7 @@ class CrashEvent(models.Model):
         (44,'Pavement Surface Irregularity(Ruts, Potholes, Grates, etc.)'),
         (45,'Working Motor Vehicle'),
         (46,'Traffic Signal Support'),
+        (47, "Vehicle Occupant Struck or Run Over by Own Vehicle"),
         (48,'Snow Bank'),
         (49,'Ridden Animal or Animal-Drawn Conveyance'),
         (50,'Bridge Overhead Structure'),
@@ -3479,6 +3498,8 @@ class VehicleEvent(models.Model):
         (12, "12 O'Clock"),
         (13,'Top'),
         (14,'Undercarriage'),
+        (15, "Underride"),
+        (16, "Override"),
         (18,'Cargo/Vehicle Parts Set-in-Motion'),
         (19,'Other Objects or Person Set-in-Motion'),
         (20,'Object Set in Motion, Unknown if Cargo/Vehicle Parts or Other'),
@@ -3537,6 +3558,7 @@ class VehicleEvent(models.Model):
         (44,'Pavement Surface Irregularity(Ruts, Potholes, Grates, etc.)'),
         (45,'Working Motor Vehicle'),
         (46,'Traffic Signal Support'),
+        (47, "Vehicle Occupant Struck or Run Over by Own Vehicle"),
         (48,'Snow Bank'),
         (49,'Ridden Animal or Animal-Drawn Conveyance'),
         (50,'Bridge Overhead Structure'),
@@ -3599,6 +3621,8 @@ class VehicleSequenceOfEvents(models.Model):
         (12, "12 O'Clock"),
         (13,'Top'),
         (14,'Undercarriage'),
+        (15, "Underride"),
+        (16, "Override"),
         (18,'Cargo/Vehicle Parts Set-in-Motion'),
         (19,'Other Objects or Person Set-in-Motion'),
         (20,'Object Set in Motion, Unknown if Cargo/Vehicle Parts or Other'),
@@ -3655,6 +3679,7 @@ class VehicleSequenceOfEvents(models.Model):
         (44,'Pavement Surface Irregularity(Ruts, Potholes, Grates, etc.)'),
         (45,'Working Motor Vehicle'),
         (46,'Traffic Signal Support'),
+        (47, "Vehicle Occupant Struck or Run Over by Own Vehicle"),
         (48,'Snow Bank'),
         (49,'Ridden Animal or Animal-Drawn Conveyance'),
         (50,'Bridge Overhead Structure'),
@@ -3728,6 +3753,8 @@ class CrashRelatedFactors(models.Model):
         (28, 'Regular Congestion'),
         (30, 'Obstructed Crosswalks'),
         (31, 'Related to a Bus Stop'),
+        (42, "Uncontrolled Intersection or Railroad Crossing"),
+        (99, "Unknown")
     ]
     crash_related_factor = models.PositiveSmallIntegerField(choices=crash_related_factor_choices, default=0)
     
@@ -3768,13 +3795,17 @@ class VehicleRelatedFactor(models.Model):
         (0, 'None Noted'),
         (29, 'Default Code Used for Vehicle Numbering'),
         (30, 'Multi-Wheeled Motorcycle Conversion'),
+        (31, "Hit-and-Run Vehicle (1982-2008)"),
         (32, 'Vehicle Registration for a Person with a Disability'),
         (33, 'Vehicle Being Pushed by Non-Motorist'),
         (35, 'Reconstructed/Altered Vehicle'),
         (37, 'Transporting Children to/From Head Start/Day Care'),
+        (38, "Vehicle Went Airborne During Crash (2001-2003)"),
         (39, 'Highway Construction, Maintenance or Utility Vehicle, In-Transport (Inside or Outside Work Zone)'),
+        (40, "Highway Incident Response Vehicle(Since 2002)"),
         (41, 'Police Fire or EMS Vehicle Working at the Scene of an Emergency or Performing Other Traffic Control Activities'),
         (42, 'Other Working Vehicle (Not Construction, Maintenance, Utility, Police, Fire, or EMS Vehicle)'),
+        (43, "Hazardous Materials/Cargo Released From This Vehicle (2005-2006)"),
         (44, 'Adaptive Equipment'),
         (45, 'Slide-in Camper'),
     ]
@@ -3814,14 +3845,21 @@ class DriverRelatedFactor(models.Model):
     # DRIVERRF D24
     driver_related_factor_choices = [
         (0, 'None Noted'),
+        (1, "Drowsy, Sleepy, Asleep, Fatigued"),
+        (2, "Ill, Passed out/Blackout"),
+        (3, "Emotional (e.g., Depression, Angry, Disturbed)"),
         (4, 'Reaction to or Failure to Take Drugs/Medication'),
+        (5, "Under the Influence of Alcohol, Drugs, or Medication (2003-2009)"),
         (6, 'Careless Driving, Inattentive Operation, Improper Driving, Driving Without Due Care'),
+        (7, "Restricted to Wheelchair"),
         (8, 'Road Rage/Aggressive Driving'),
         (10, 'Looked but Did Not See'),
         (12, 'Mother of Dead Fetus/Mother of Infant Born Post Crash'),
         (13, 'Person with an Intellectual, Cognitive, or Developmental Disability'),
+        (14, "Failure to Take Drugs/Medication (1995-2004)"),
         (15, 'Seat Back Not in Normal Position, Seat Back Reclined'),
         (16, 'Police or Law Enforcement Officer'),
+        (17, "Running off Road (2000-2003)"),
         (18, 'Traveling on Prohibited Trafficways'),
         (19, 'Legally Driving on Suspended or Revoked License'),
         (20, 'Leaving Vehicle Unattended With Engine Running; Leaving Vehicle Unattended in Roadway'),
@@ -3846,9 +3884,12 @@ class DriverRelatedFactor(models.Model):
         (40, 'Passing Through or Around Barrier'),
         (41, 'Failure to Observe Warnings or Instructions on Vehicle Displaying Them'),
         (42, 'Failure to Signal Intentions'),
+        (44, "Driving too Fast for Conditions or in Excess of Posted Speed Limit (1982-2008)"),
         (45, 'Driving Less Than Posted Maximum'),
+        (46, "Racing"),
         (47, 'Making Right Turn From Left-Turn Lane or Making Left Turn From Right-Turn Lane'),
         (48, 'Making Improper Turn'),
+        (49, "Failure to Comply With Physical Restrictions of License (1982-2004)"),
         (50, 'Driving Wrong Way on One-Way Trafficway'),
         (51, 'Driving on Wrong Side of Two-way Trafficway (Intentionally or Unintentionally)'),
         (52, 'Operator Inexperience'),
@@ -3860,8 +3901,22 @@ class DriverRelatedFactor(models.Model):
         (58, 'Over Correcting'),
         (59, 'Getting off/out of a Vehicle'),
         (60, 'Alcohol and/or Drug Test Refused'),
+        (61, "Rain, Snow, Fog, Smoke, Sand, Dust (1982-2008)"),
+        (62, "Reflected Glare, Bright Sunlight, Headlights (1982-2008)"),
+        (63, "Curve, Hill, or Other Design Features (Including Traffic Signs, Embankment 1982-2008)"),
+        (64, "Building, Billboard, etc. (1982-2008)"),
+        (65, "Trees, Crops, Vegetation (1982-2008)"),
+        (66, "Motor Vehicle (Including Load 1982-2008)"),
+        (67, "Parked Vehicle (1982-2008)"),
+        (68, "Splash or Spray of Passing Vehicle (1982-2008)"),
+        (69, "Inadequate Defrost or Defog System (1982-2008)"),
+        (70, "Inadequate Vehicle Lighting System (1982-2008)"),
+        (71, "Obstructing Angles on Vehicle (1982-2008)"),
+        (72, "Mirrors - Rear View (1982-2008)"),
         (73, 'Driver Has Not Complied With Learners Permit or Intermediate Driver License Restrictions (GDL Restrictions)'),
         (74, 'Driver Has Not Complied With Physical or Other Imposed Restrictions'),
+        (75, "Broken or Improperly Cleaned Windshield (1982-2008)"),
+        (76, "Other Obstruction (1982-2008)"),
         (77, 'Severe Crosswind'),
         (78, 'Wind From Passing Truck'),
         (79, 'Slippery or Loose Surface'),
@@ -3875,10 +3930,15 @@ class DriverRelatedFactor(models.Model):
         (87, 'Ice, Water, Snow, Slush, Sand, Dirt, Oil, Wet Leaves on Road'),
         (88, 'Trailer Fishtailing or Swaying'),
         (89, 'Driver has a Driving Record or Driver’s License From More Than One State'),
+        (90, "Hit-and-Run Vehicle Driver"),
+        (91, "Non-Traffic Violation Charged (Manslaughter, Homicide, or Other Assault Offense Committed Without Malice, Since 1986)"),
+        (92, "Other Non-Moving Traffic Violation (1986-2011)"),
+        (93, "Cellular Telephone / Other Electronic Device"),
         (94, 'Emergency Medical Service Personnel'),
         (95, 'Fire Personnel'),
         (96, 'Tow Operator'),
         (97, 'Transportation (i.e., Maintenance Workers, Safety Service Patrol Operators, etc.)'),
+        (101, "Carrying Hazardous Cargo Improperly (1994-2009)")
     ]
     driver_related_factor = models.PositiveSmallIntegerField(choices=driver_related_factor_choices, default=0)
 
@@ -4000,6 +4060,8 @@ class VehicleFactor(models.Model):
         (15, 'Truck Coupling/Trailer Hitch/Safety Chains'),
         (16, 'Safety Systems'),
         (17, 'Vehicle Contributing Factors - No Details'),
+        (18, "Horn"),
+        (19, "Driver Seating and Control"),
         (97, 'Other'),
         (99, 'Reported as Unknown'),
     ]
@@ -4167,26 +4229,56 @@ class PersonRelatedFactor(models.Model):
     # PERSONRF P24/NM26 
     person_related_factor_choices = [
         (0, 'None Noted'),
+        (1, "Not Visible"),
+        (2, "Darting, Running, or Stumbling Into Roadway (1995-2009)"),
+        (3, "Improper Crossing or Roadway or Intersection"),
+        (4, "Walking/Riding With or Against Traffic, Playing, Working, Sitting, Lying, Standing, etc., in Roadway"),
         (5, 'Interfering With Driver'),
+        (6, "Ill, Passed out/Blackout (1995-2009)"),
+        (7, "Emotional (e.g., Depression, Angry, Disputed)"),
         (8, 'Person with an Intellectual, Cognitive, or Developmental Disability'),
         (9, 'Construction/Maintenance/Utility Worker'),
         (10, 'Alcohol and/or Drug Test Refused'),
+        (11, "Walking With Cane or Crutches"),
+        (12, "Restricted to Wheelchair"),
         (13, 'Motorized Wheelchair Rider'),
+        (14, "Impaired Due to Previous Injury"),
+        (15, "Deaf 1982-1994"),
+        (16, "Blind"),
+        (17, "Other Physical Impairment"),
         (18, 'Mother of Dead Fetus/Mother of Infant Born Post-Crash'),
+        (19, "Pedestrian"),
+        (20, "Leaving Vehicle Unattended in Roadway (1975-1994)"),
         (21, 'Overloading or Improper Loading of Vehicle With Passengers or Cargo'),
+        (22, "Towing or Pushing Vehicle Improperly (1982-2003)"),
+        (23, "Failing to [Dim Lights or, Since 1995] Have Lights on When Required"),
+        (24, "Operating Without Required Equipment"),
+        (25, "Creating Unlawful Noise or Using Equipment Prohibited by Law (1982-2002)"),
         (26, 'Following Improperly'),
+        (27, "Improper or Erratic Lane Changing"),
         (28, 'Improper Lane Usage'),
         (29, 'Intentional Illegal Driving on Road Shoulder, in Ditch, on Sidewalk, on Median'),
+        (30, "Making Improper Entry to or Exit From Trafficway"),
         (31, 'Default Code Used for Vehicle Numbering'),
         (32, 'Opening Vehicle Closure Into Moving Traffic or While Vehicle Is in Motion'),
         (33, 'Passing Where Prohibited by Posted Signs, Pavement Markings, or School Bus Displaying Warning Not to Pass'),
+        (34, "Passing on Wrong Side"),
+        (35, "Passing With Insufficient Distance or Inadequate Visibility or Failing to Yield to Overtaking Vehicle"),
+        (36, "Operating the Vehicle in Other Erratic, Reckless, Careless , or Negligent Manner (or Operating at Erratic or Suddenly Changing Speeds, 1995-2009)"),
         (37, 'Traveling on Prohibited Trafficway'),
+        (38, "Failure to Yield Right-of-Way"),
+        (39, "Failure to Obey Actual Traffic Signs, Traffic Control Devices or Traffic Officers; Failure to Obey Safety Zone Traffic Laws"),
         (40, 'Passing Through or Around Barrier Positioned to Prohibit or Channel Traffic'),
         (41, 'Failure to Observe Warnings or Instructions on Vehicles Displaying Them'),
         (42, 'Failure to Signal Intentions'),
+        (43, "Giving Wrong Signal (1982-1996)"),
         (44, 'Driving Too Fast for Conditions or in Excess of Posted Maximum'),
         (45, 'Driving Less Than Posted Maximum'),
+        (46, "Operating at Erratic or Suddenly Changing Speeds (1982-1996)"),
         (47, 'Making Right Turn From Left-Turn Lane, Left Turn From RightTurn Lane'),
+        (48, "Making Other Improper Turn"),
+        (49, "Driving Wrong Way on One-Way Trafficway"),
+        (50, "Driving on Wrong Side of Road (Intentional or Unintentional, 1995-2009)"),
         (51, 'Operator Inexperience'),
         (52, 'Unfamiliar With Roadway'),
         (53, 'Non-Motorist Previously Used a Motor Vehicle for Motion'),
@@ -4213,10 +4305,13 @@ class PersonRelatedFactor(models.Model):
         (76, 'Tire Blow-Out or Flat'),
         (77, 'Debris or Objects in Road'),
         (78, 'Ruts, Holes, Bumps in Road'),
+        (79, "Live Animals in Road"),
         (80, 'Vehicle in Road'),
         (81, 'Phantom Vehicle'),
         (82, 'Pedestrian, Pedalcyclist, or Other Non-Motorist'),
         (83, 'Ice, Snow, Slush, Water, Sand, Dirt, Oil, Wet Leaves on Road'),
+        (84, "Jaywalk (1982-1994)"),
+        (85, "Jog (1982-1994)"),
         (87, 'Police or Law Enforcement Officer'),
         (88, 'Seat Back Not in Normal Upright Position, Seat Back Reclined'),
         (89, 'Parked Motor Vehicle With Equipment Extending Into the Travel Lane'),
@@ -4262,6 +4357,92 @@ class Drugs(models.Model):
     # P19C/NM21C  DRUGRES
     drug_test_results = models.PositiveIntegerField(null=False, blank=False)
 
+    def interpret_test_result(self):
+        year = self.person.accident.year
+        result = self.drug_test_results
+        if year < 1993:
+            early_codes = {
+                0: "Not Tested for Drugs",
+                1: "No Drugs Reported",
+                2: "Narcotic",
+                3: "Depressant",
+                4: "Stimulant",
+                5: "Hallucinogen",
+                6: "Cannabinol",
+                7: "Phencyclidine (PCP)",
+                8: "Inhalant",
+                9: "Multiple Drugs (From Data Elements 02 to 08)",
+                10: "Other Drugs (All Other Drugs Excluding Nicotine, Aspirin, Alcohol)",
+                97: "Tested for Drugs, Results Unknown",
+                98: "Tested for Drugs, Drugs Found, Type Unknown",
+                99: "Unknown if Tested for Drugs"
+            }
+            return early_codes[result]
+        if year < 2022:
+            if result in {0}:
+                return "Test Not Given"
+            if result in {1}:
+                return "Tested, No Drugs Found/Negative"
+            if result in {95}:
+                return "Not Reported"
+            if result in {996}:
+                return "Other Drug (Specify:)"
+            if result in {997}:
+                return "Tested for Drugs, Results Unknown"
+            if result in {998}:
+                return "Tested for Drugs, Drugs Found, Type Unknown/Positive"
+            if result in {999}:
+                return "Reported as Unknown if Tested for Drugs"
+            if result >= 100 and result <= 295:
+                return "Narcotics"
+            if result >= 300 and result <= 399:
+                return "Depressants"
+            if result >= 400 and result <= 499:
+                return "Stimulants"
+            if result >= 500 and result <= 599:
+                return "Hallucinogens"
+            if result >= 600 and result <= 699:
+                return "Cannabinoids" 
+            if result >= 700 and result <= 799:
+                return "Phencyclidine (PCP)"
+            if result >= 800 and result <= 899:
+                return "Anabolic Steroids"
+            if result >= 900 and result <= 999:
+                return "Inhalants"
+        if result in {0}:
+            return "Test Not Given"
+        if result in {1}:
+            return "Tested, No Drugs Found/Negative"
+        if result in {9995}:
+            return "Not Reported"
+        if result in {9996}:
+            return "Other Drug (Specify:)"
+        if result in {9997}:
+            return "Tested for Drugs, Results Unknown"
+        if result in {9998}:
+            return "Tested for Drugs, Drugs Found, Type Unknown/Positive"
+        if result in {9999}:
+            return "Reported as Unknown if Tested for Drugs"
+        if result >= 1001 and result <= 2000:
+            return "Narcotic Analgesics"
+        if result >= 2001 and result <= 3000:
+            return "Depressants"
+        if result >= 3001 and result <= 4000:
+            return "Stimulants"
+        if result >= 4001 and result <= 5000:
+            return "Hallucinogens"
+        if result >= 5001 and result <= 6000:
+            return "Cannabinoids" 
+        if result >= 6001 and result <= 7000:
+            return "Dissociative Anesthetics"
+        if result >= 7001 and result <= 8000:
+            return "Inhalants"
+        if result >= 8001 and result <= 9000:
+            return "Anabolic Steroids" 
+        if result >= 9001 and result <= 9994:
+            return "Non-Psychoactive/Other Drugs"
+        return result
+        
     class Meta:
         db_table = "drugs"
         managed = True
@@ -4422,12 +4603,14 @@ class NonmotoristPriorAction(models.Model):
         (4, 'Jogging/Running'),
         (5, 'Movement Along Roadway With Traffic (in or Adjacent to Travel Lane)'),
         (6, 'Movement Along Roadway Against Traffic (in or Adjacent to Travel Lane)'),
+        (7, "Movement on Sidewalk"),
         (8, 'In Roadway-Other (Working, Playing, etc.)'),
         (9, 'Stationary and Adjacent to Roadway (e.g., Shoulder, Median, Sidewalk)'),
         (10, 'Working in Trafficway (Incident Response)'),
         (11, 'Entering/Exiting a Parked or Stopped Vehicle'),
         (12, 'Disabled Vehicle Related (Working on, Pushing, Leaving/Approaching)'),
         (14, 'Other'),
+        (15, "None"),
         (16, 'Movement Along Roadway - Direction Unknown (Since 2012)'),
         (98, 'Not Reported'),
         (99, 'Reported as Unknown'),

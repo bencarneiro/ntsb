@@ -622,9 +622,9 @@ def manner_of_collision_of_first_harmful_event_choices(request):
     return list(Accident.manner_of_collision_of_first_harmful_event_choices)
     
 
-@api.get("/at_intersection_choices", response=List[Tuple])
-def at_intersection_choices(request):
-    return list(Accident.at_intersection_choices)
+@api.get("/within_interchange_area_choices", response=List[Tuple])
+def within_interchange_area_choices(request):
+    return list(Accident.within_interchange_area_choices)
     
 
 @api.get("/relation_to_junction_choices", response=List[Tuple])
