@@ -1177,8 +1177,61 @@ def drug_test_type_converter(value, year):
         return value
     return value
 
+def visibility_converter(value, year):
+    if year < 1982:
+        if value in {1,2,3,4,5,6,7}:
+            return value
+        if value in {8}:
+            return 98
+        return None
+    if value < 2009:
+        if value in {60}:
+            return 1
+        if value in {61}:
+            return 2
+        if value in {62}:
+            return 3
+        if value in {63}:
+            return 4
+        if value in {64}:
+            return 5
+        if value in {65}:
+            return 6
+        if value in {66}:
+            return 7
+        if value in {67}:
+            return 8
+        if value in {68}:
+            return 10
+        if value in {69}:
+            return 11
+        if value in {70,71}:
+            return 12
+        if value in {72}:
+            return 98
+        return None
+    return value
+        
 
+def person_related_factor_converter(value, year):
+    if year < 1982:
+        if value in {1}:
+            return 17
+        if value in {2,3,4,5,6}:
+            return value - 1
+        return value
 
+    # throw away some stuff which was tested for a couple years
+    if year in {2000,2001} and value in {20}:
+        return None
+    if year in {2008,2009} and value in {15}:
+        return None
+    
+    if year < 2010:
+        if value in {10}:
+            return None
+        return value
+    return value
         
 
 FARS_DATA_CONVERTERS = {
@@ -1430,8 +1483,8 @@ FARS_DATA_CONVERTERS = {
     'vehicle_factor.contributing_cause': vehicle_factor_converter,
     'maneuver.driver_maneuvered_to_avoid': None, # todo
     'violation.moving_violation': None, # todo
-    'vision.visibility': None, # todo
-    'person_related_factor.person_related_factor': None, # todo
+    'vision.visibility': visibility_converter,
+    'person_related_factor.person_related_factor': person_related_factor_converter,
     'drugs.drug_test_type': drug_test_type_converter,
     'drugs.drug_test_results': lambda value, year: value,
     'race.race': lambda value, year: value,
