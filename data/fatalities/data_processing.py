@@ -1232,7 +1232,59 @@ def person_related_factor_converter(value, year):
             return None
         return value
     return value
+
+def violation_converter(value, year):
+    if year < 1982:
+        if value in {0}:
+            return 0
+        if value in {9}:
+            return 99
+        if value in {1,2}:
+            return 98
+        return value
+    if value < 1997:
+        if value in {4}:
+            return 2
+        if value in {6,8}:
+            return 98
+        if value in {9}:
+            return 99
+        if value in {7}:
+            return 79
+        if value in {5}:
+            return 71
+        if value in {2}:
+            return 22
+        if value in {1,3}:
+            return 19
+        return value
+    return value
+
         
+def maneuver_converter(value, year):
+    if year < 1982:
+        if value in {23,24,25,26}:
+            return value - 22
+        if value in {27}:
+            return 92
+        if value in {28}:
+            return 5
+        if value in {29}:
+            return 2
+        return None
+    if year < 2010:
+        if value in {81,82,83,84}:
+            return value - 80
+        if value in {85}:
+            return 92
+        if value in {86}:
+            return 5
+        if value in {87}:
+            return 2
+        return None
+    return value
+
+
 
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
@@ -1481,8 +1533,8 @@ FARS_DATA_CONVERTERS = {
     'driver_distracted.distracted_by': lambda value, year: value,
     'driver_impaired.driver_impaired': driver_impaired_converter,
     'vehicle_factor.contributing_cause': vehicle_factor_converter,
-    'maneuver.driver_maneuvered_to_avoid': None, # todo
-    'violation.moving_violation': None, # todo
+    'maneuver.driver_maneuvered_to_avoid': maneuver_converter,
+    'violation.moving_violation': violation_converter,
     'vision.visibility': visibility_converter,
     'person_related_factor.person_related_factor': person_related_factor_converter,
     'drugs.drug_test_type': drug_test_type_converter,
