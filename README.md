@@ -26,3 +26,61 @@ Then run the ETL scripts to import data. In order for the import scripts to run 
 
 accident, create_datetimes, create_points, vehicle, parkwork, person, pbtype, cevent, crashrf, weather, vehiclesf, pvehiclesf, driverrf, damage, distract, drimpair, factor, maneuver, violatn, vision, personrf, drugs, race, nmcrash, nmimpair, nmdistract, nmprior, safetyeq
 
+
+
+# Instructions for running the application in development
+
+Sorry folks, no docker here, but dependencies are pretty minimal. This is literally every command I had to run on a fresh install of debian to get this sucker up on my non-work machine. 
+
+```
+sudo apt update
+sudo apt install git
+sudo apt install pip
+sudo apt install postgresql-14
+sudo apt install postgresql-14-postgis-3
+```
+Pop open postgres
+```
+sudo -u postgres psql
+```
+and let's make a database
+```
+CREATE DATABASE crash;
+\c crash;
+CREATE EXTENSION postgis;
+CREATE USER app WITH PASSWORD 'assword';
+GRANT ALL PRIVILEGES ON DATABASE crash TO app;
+```
+clone the repo
+```
+cd /path/to/where-you-want-the-application
+git clone https://github.com/bencarneiro/ntsb.git
+```
+Get your python packages sorted - Feel free to create a virtual environment here
+```
+pip install django
+pip install pymysql
+pip install django-extensions
+pip install psycopg
+pip install django-ninja
+pip install folium
+pip install geoip2
+```
+Application uses IP addresses to find user-location and load the map. 
+[Django docs on how this is set up](https://docs.djangoproject.com/en/5.0/ref/contrib/gis/geoip2/)
+[download the geographies](https://drive.google.com/drive/folders/1JCmyvSZVb2vcpceOAUwhy8gh2tzo5ucB?usp=sharing) and then then make sure they line up with the GEOIP_PATH in settings.py
+This doesn't really work in development anyway (you make requests both to-and-from 127.0.0.1) so the Geolocation from IP is bunk in dev. 
+
+Then let's rip in some test data, shall we?
+[download this db dump](https://drive.google.com/file/d/1Tlk9b8C4HqzdhZdzh8LZwrPqEKPZt5HQ/view?usp=sharing), which contains a whole year of traffic fatalities, and rip dump it into db
+```
+sudo -u postgres psql crash < db_2022.sql
+```
+Then give it a boot
+```
+python3 manage.py runserver
+```
+
+Feel free to reach out if something goes wrong ben@bencarneiro.com
+
+
