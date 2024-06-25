@@ -1184,7 +1184,7 @@ def visibility_converter(value, year):
         if value in {8}:
             return 98
         return None
-    if value < 2009:
+    if year < 2009:
         if value in {60}:
             return 1
         if value in {61}:
@@ -1242,7 +1242,7 @@ def violation_converter(value, year):
         if value in {1,2}:
             return 98
         return value
-    if value < 1997:
+    if year < 1997:
         if value in {4}:
             return 2
         if value in {6,8}:
