@@ -8,7 +8,7 @@ class Command(BaseCommand):
         Weather.objects.filter(accident__year=2022).delete()
         csv = pd.read_csv(f"{CSV_PATH}2022/FARS2022NationalCSV/weather.csv", encoding='latin-1')
         for x in csv.index:
-            accident = Accident.objects.get(st_case=csv['ST_CASE'][x])
+            accident = Accident.objects.get(year=2022, st_case=csv['ST_CASE'][x])
 
             st_case = str(csv['ST_CASE'][x])
             if len(st_case) == 5:

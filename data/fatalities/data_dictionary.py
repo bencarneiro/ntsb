@@ -3169,7 +3169,7 @@ FARS_DATA_DICTIONARY = {
             "key": "CRASHRF.CRASHRF"
         }
     ],
-    "weather.weather": [
+    "weather.atmospheric_condition": [
         {
             "range": {
                 "start": 1975,
