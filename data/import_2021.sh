@@ -1,3 +1,4 @@
+#!/bin/sh
 export CSV_PATH="/root/ntsb/data/csvs/"
 python3 manage.py 2021_accident > /var/log/2021_accident.txt
 python3 manage.py 2021_vehicle > /var/log/2021_vehicle.txt
