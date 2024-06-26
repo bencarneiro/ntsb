@@ -1,23 +1,22 @@
 from django.core.management.base import BaseCommand
 from data.settings import CSV_PATH
 from fatalities.models import ParkedVehicle, Vehicle, Accident, CrashEvent
-from fatalities.data_processing import get_data_source
+from fatalities.data_processing import FARS_DATA_CONVERTERS, get_data_source
 import pandas as pd
 
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
-        CrashEvent.objects.filter(accident__year=2022).delete()
+        CrashEvent.objects.filter(accident__year=2021).delete()
         model_fields =  [ "crash_event_number",
              "area_of_impact_1",
              "area_of_impact_2",
              "sequence_of_events"]
 
-        csv = pd.read_csv(f"{CSV_PATH}2022/FARS2022NationalCSV/cevent.csv", encoding='latin-1')
+        csv = pd.read_csv(f"{CSV_PATH}2021/FARS2021NationalCSV/cevent.csv", encoding='latin-1')
         
         for x in csv.index:
 
-            accident = Accident.objects.get(year=2022, st_case=csv['ST_CASE'][x])
-            
+            accident = Accident.objects.get(year=2021, st_case=csv['ST_CASE'][x])
 
             st_case = str(csv['ST_CASE'][x])
             if len(st_case) == 5:
@@ -26,7 +25,7 @@ class Command(BaseCommand):
             new_event_id = str(number_of_saved_events + 1)
             while len(new_event_id) < 3:
                 new_event_id = "0" + new_event_id
-            primary_key = f"2022{st_case}{new_event_id}"
+            primary_key = f"2021{st_case}{new_event_id}"
   
             data_to_save = {
                 "id": primary_key,
@@ -54,9 +53,11 @@ class Command(BaseCommand):
             data_to_save['parked_vehicle_2'] = parked_vehicle_2
 
             for model_field_name in model_fields:
-                data_source = get_data_source("crash_event." + model_field_name, 2022)
-                csv_field_name = data_source.split(".")[1]
-                data_to_save[model_field_name] = csv[csv_field_name][x]
+                data_source = get_data_source("crash_event." + model_field_name, 2021)
+                if data_source:
+                    csv_field_name = data_source.split(".")[1]
+                    data_converter_function = FARS_DATA_CONVERTERS["crash_event." + model_field_name]
+                    data_to_save[model_field_name] = data_converter_function(csv[csv_field_name][x], 2021)
             print(data_to_save)
             CrashEvent.objects.create(**data_to_save)
             # break

@@ -1,6 +1,42 @@
 from fatalities.data_dictionary import FARS_DATA_DICTIONARY
 from fatalities.models import City, County, State, Vehicle
 
+from decimal import Decimal
+from django.contrib.gis.geos import Point
+
+def get_accident_datetime(a):
+    year = str(a.year)
+    month = str(a.month)
+    if len(str(a.month)) == 1:
+        month = "0" + str(a.month)
+    day = str(a.day)
+    if len(str(a.day)) == 1:
+        day = "0" + str(a.day)
+    hour = str(a.hour)
+    if len(str(a.hour)) == 1:
+        hour = "0" + str(a.hour)
+    minute = str(a.minute)
+    if len(str(a.minute)) == 1:
+        minute = "0" + str(a.minute)
+    if month == "99":
+        return f"{year}-01-01 00:00:00Z-00+0000", True
+    if day == "99":
+        return f"{year}-{month}-01 00:00:00+0000", True
+    if hour == "99":
+        return f"{year}-{month}-{day} 00:00:00+0000", True
+    if minute == "99":
+        return f"{year}-{month}-{day} {hour}:00:00+0000", False
+    return f"{year}-{month}-{day} {hour}:{minute}:00+0000", False
+
+
+def get_point(lat, lon):
+    if lat in {Decimal('77.7777000'), Decimal('88.8888000'), Decimal('99.9999000')} or lon in {Decimal('77.7777000'), Decimal('88.8888000'), Decimal('99.9999000')} or not lat or not lon:
+        return None
+    else:
+        return Point(x=float(lon), y=float(lat), srid=4326)
+    
+
+
 def get_column_history(column):
     return FARS_DATA_DICTIONARY[column]
 
@@ -8,7 +44,7 @@ def get_data_source(column, year):
     for period in FARS_DATA_DICTIONARY[column]:
         if period['range']['start'] <= year and ((not period['range']['end']) or period['range']['end'] >= year):
             return period['key']
-    return None,
+    return None
 
 def get_multiple_data_sources(column, year):
     locations = []
@@ -246,6 +282,7 @@ def relation_to_road_converter(value, year):
         if value in {9}:
             return 99
         return value
+    return value
     
 def work_zone_converter(value, year):
     if year < 1982:
@@ -892,7 +929,9 @@ def helmet_misuse_converter(restraint_system, restraint_system_misuse, helmet_mi
 
         if restraint_system in {5} and restraint_system_misuse in {0}:
             return 0
+        
         return 7
+    
     return helmet_misuse
         
     
@@ -1320,7 +1359,7 @@ FARS_DATA_CONVERTERS = {
     'accident.relation_to_road': relation_to_road_converter,
     'accident.work_zone': work_zone_converter,
     'accident.light_condition': light_condition_converter,
-    'accident.atmospheric_condition': atmospheric_condition_converter,
+    'accident.atmospheric_condition': lambda value, year: atmospheric_condition_converter(value, year)[0],
     'accident.school_bus_related': school_bus_related_converter,
     'accident.rail_grade_crossing_identifier': lambda value, year: value,
     'accident.ems_notified_hour': lambda value, year: value,
@@ -1373,6 +1412,7 @@ FARS_DATA_CONVERTERS = {
     'vehicle.extent_of_damage': lambda value, year: value,
     'vehicle.vehicle_towed': vehicle_towed_converter,
     'vehicle.most_harmful_event': soe_converter,
+    'vehicle.first_harmful_event': soe_converter,
     'vehicle.fire_occurence': fire_occurence_converter,
     'vehicle.automated_driving_system_present': lambda value, year: value,
     'vehicle.automated_driving_system_level': lambda value, year: value,
@@ -1525,7 +1565,7 @@ FARS_DATA_CONVERTERS = {
     # 'crash_event.vehicle_2': None,
     'crash_event.area_of_impact_2': lambda value, year: value,
     'crash_related_factors.crash_related_factor': crash_related_factor_converter,
-    'weather.weather': atmospheric_condition_converter,
+    'weather.atmospheric_condition': atmospheric_condition_converter,
     'vehicle_related_factor.vehicle_related_factor': vehicle_related_factor_converter,
     'parked_vehicle_related_factor.vehicle_related_factor': parked_vehicle_related_factor_converter,
     'driver_related_factor.driver_related_factor': driver_related_factor_converter,
