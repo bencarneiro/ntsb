@@ -929,7 +929,9 @@ def helmet_misuse_converter(restraint_system, restraint_system_misuse, helmet_mi
 
         if restraint_system in {5} and restraint_system_misuse in {0}:
             return 0
+        
         return 7
+    
     return helmet_misuse
         
     

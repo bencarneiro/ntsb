@@ -78,16 +78,3 @@ class Command(BaseCommand):
                     data_to_save[model_field_name] = data_converter_function(csv[csv_field_name][x], 2021)
             print(data_to_save)
             ParkedVehicle.objects.create(**data_to_save)
-            # break
-
-
-            # for model_field_name in vehicle_model_fields:
-            #     data_source = get_data_source("vehicle." + model_field_name, 2021)
-            #     if data_source:
-            #         csv_field_name = data_source.split(".")[1]
-            #         data_converter_function = FARS_DATA_CONVERTERS["vehicle." + model_field_name]
-            #         data_to_save[model_field_name] = data_converter_function(csv[csv_field_name][x], 2021)
-            # data_to_save['speeding_related'] = speeding_related_converter(csv['SPEEDREL'][x], "speeding", 2021)
-            # print(data_to_save)
-            # Vehicle.objects.create(**data_to_save)
-            # # break
