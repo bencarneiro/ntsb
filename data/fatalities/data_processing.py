@@ -44,7 +44,7 @@ def get_data_source(column, year):
     for period in FARS_DATA_DICTIONARY[column]:
         if period['range']['start'] <= year and ((not period['range']['end']) or period['range']['end'] >= year):
             return period['key']
-    return None,
+    return None
 
 def get_multiple_data_sources(column, year):
     locations = []

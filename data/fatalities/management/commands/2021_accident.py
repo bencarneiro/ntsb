@@ -108,14 +108,15 @@ class Command(BaseCommand):
             }
             for model_field_name in accident_model_fields:
                 data_source = get_data_source("accident." + model_field_name, 2021)
-                csv_field_name = data_source.split(".")[1]
-                data_converter_function = FARS_DATA_CONVERTERS["accident." + model_field_name]
-                data_to_save[model_field_name] = data_converter_function(csv[csv_field_name][x], 2021)
+                if data_source:
+                    csv_field_name = data_source.split(".")[1]
+                    data_converter_function = FARS_DATA_CONVERTERS["accident." + model_field_name]
+                    data_to_save[model_field_name] = data_converter_function(csv[csv_field_name][x], 2021)
 
             
             print(data_to_save)
             Accident.objects.create(**data_to_save)
-            
+
         for a in Accident.objects.filter(year=2021).order_by("st_case"):
             dt = get_accident_datetime(a)
             print(dt)
