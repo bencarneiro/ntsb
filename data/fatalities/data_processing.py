@@ -1410,6 +1410,7 @@ FARS_DATA_CONVERTERS = {
     'vehicle.extent_of_damage': lambda value, year: value,
     'vehicle.vehicle_towed': vehicle_towed_converter,
     'vehicle.most_harmful_event': soe_converter,
+    'vehicle.first_harmful_event': soe_converter,
     'vehicle.fire_occurence': fire_occurence_converter,
     'vehicle.automated_driving_system_present': lambda value, year: value,
     'vehicle.automated_driving_system_level': lambda value, year: value,
