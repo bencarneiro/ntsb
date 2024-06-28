@@ -86,6 +86,7 @@ class Command(BaseCommand):
                     csv_field_name = data_source.split(".")[1]
                     data_converter_function = FARS_DATA_CONVERTERS["person." + model_field_name]
                     data_to_save[model_field_name] = data_converter_function(csv[csv_field_name][x], 2021)
+                    # this will need to be fixed in 2018
             data_to_save['helmet_misuse'] = helmet_misuse_converter(None, None, csv['HELM_MIS'][x], 2021)
 
             print(data_to_save)
