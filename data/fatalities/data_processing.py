@@ -317,8 +317,8 @@ def atmospheric_condition_converter(value, year):
             return [99]
         return [value]
     if year < 2010:
-        if value in {0}:
-            return 1
+        # if value in {0}:
+        #     return 1
         if value in {9}:
             return [99]
     return [value]
