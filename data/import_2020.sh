@@ -1,0 +1,30 @@
+#!/bin/sh
+export CSV_PATH="/root/ntsb/data/csvs/"
+python3 manage.py 2020_accident > /var/log/2020_accident.txt
+python3 manage.py 2020_vehicle > /var/log/2020_vehicle.txt
+python3 manage.py 2020_parkwork > /var/log/2020_parkwork.txt
+python3 manage.py 2020_person > /var/log/2020_person.txt
+python3 manage.py 2020_cevent > /var/log/2020_cevent.txt
+python3 manage.py 2020_crashrf > /var/log/2020_crashrf.txt
+python3 manage.py 2020_weather > /var/log/2020_weather.txt
+python3 manage.py 2020_pbtype > /var/log/2020_pbtype.txt
+python3 manage.py 2020_safetyeq > /var/log/2020_safetyeq.txt
+python3 manage.py 2020_damage > /var/log/2020_damage.txt
+python3 manage.py 2020_distract > /var/log/2020_distract.txt
+python3 manage.py 2020_drimpair > /var/log/2020_drimpair.txt
+python3 manage.py 2020_factor > /var/log/2020_factor.txt
+python3 manage.py 2020_maneuver > /var/log/2020_maneuver.txt
+python3 manage.py 2020_violatn > /var/log/2020_violatn.txt
+python3 manage.py 2020_vision > /var/log/2020_vision.txt
+python3 manage.py 2020_vehiclesf > /var/log/2020_vehiclesf.txt
+python3 manage.py 2020_driverrf > /var/log/2020_driverrf.txt
+python3 manage.py 2022_pvehiclesf > /var/log/2022_pvehiclesf.txt
+python3 manage.py 2021_pvehiclesf > /var/log/2021_pvehiclesf.txt
+python3 manage.py 2020_pvehiclesf > /var/log/2020_pvehiclesf.txt
+python3 manage.py 2020_drugs > /var/log/2020_drugs.txt
+python3 manage.py 2020_race > /var/log/2020_race.txt
+python3 manage.py 2020_personrf > /var/log/2020_personrf.txt
+python3 manage.py 2020_nmcrash > /var/log/2020_nmcrash.txt
+python3 manage.py 2020_nmimpair > /var/log/2020_nmimpair.txt
+python3 manage.py 2020_nmdistract > /var/log/2020_nmdistract.txt
+python3 manage.py 2020_nmprior > /var/log/2020_nmprior.txt
