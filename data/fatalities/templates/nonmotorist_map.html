@@ -1,0 +1,92 @@
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script> 
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />    
+
+</head>
+
+<body>
+  <div id="my_map" style="height: 100%"></div>
+  <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const lat = urlParams.get('lat')
+    const lon = urlParams.get('lon')
+    const radius = urlParams.get('radius')
+    const map = L.map('my_map')
+    L.Control.geocoder().addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    map.setView([lat, lon], 11);
+    var layerGroup = new L.LayerGroup();
+
+    async function load_shapefile(lon, lat) {
+      let url = `/v1/nonmotorist_accidents_by_location_geojson?lat=${lat}&lon=${lon}&radius=5`;
+      const response = await fetch(url)
+      const shape_obj = await response.json();
+      console.log(shape_obj);
+      return shape_obj;
+    }
+
+    async function main() {
+
+    // var layerGroup = new L.LayerGroup();
+      const json = await load_shapefile(lon, lat);
+
+        layerGroup.addTo(map);
+
+        layerGroup.addLayer(
+            L.geoJson(
+                json,
+                {
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(
+                            `<h1>${feature.properties.fatalities} Death(s)</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+                            
+                        );
+                    }
+                }
+
+            )
+        );
+    //   L.geoJson(json).addTo(map);
+    }
+
+    main();
+    async function onMapClick(e) {
+        // alert("You clicked the map at " + e.latlng);
+        console.log(e.latlng.lat)
+        console.log(e.latlng.lng)
+        console.log("HIIIII")
+        map.eachLayer(function (layer) {
+            console.log(layer)
+        });
+        layerGroup.clearLayers()
+        // map.removeLayer(layerGroup);
+
+        const json = await load_shapefile(e.latlng.lng, e.latlng.lat);
+        layerGroup.addLayer(
+            L.geoJson(
+                json,
+                {
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(
+                            `<h1>${feature.properties.fatalities} Death(s)</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+                            
+                        );
+                    }
+                }
+
+            )
+        );
+        
+    }
+    map.on('click', onMapClick);
+
+  </script>
+</body>
+
+</html>
