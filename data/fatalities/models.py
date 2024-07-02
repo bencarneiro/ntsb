@@ -4343,6 +4343,7 @@ class Drugs(models.Model):
         (0, 'Test Not Given'),
         (1, 'Whole Blood'),
         (2, 'Urine'),
+        (3, 'Both Blood and Urine Tests'),
         (11, 'Blood Plasma/Serum'),
         (12, 'Blood Clot'),
         (13, 'Oral Fluids'),

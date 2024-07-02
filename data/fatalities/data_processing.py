@@ -1209,8 +1209,8 @@ def nonmotorist_impaired_converter(value, year):
 
 def drug_test_type_converter(value, year):
     if year < 2018:
-        if value in {3}:
-            return 1
+        # if value in {3}:
+        #     return 1
         if value in {6,7,8,9}:
             return 90 + value
         return value
