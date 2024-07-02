@@ -10,7 +10,7 @@ from django.db.models import Q
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
         PersonRelatedFactor.objects.filter(person__accident__year=2017).delete()
-        csv = pd.read_csv(f"{CSV_PATH}2017/person.csv", encoding='latin-1')
+        csv = pd.read_csv(f"{CSV_PATH}2017/Person.CSV", encoding='latin-1')
         for x in csv.index:
             if csv['VEH_NO'][x] == 0:
                 person = Person.objects.get(accident__year=2017, person_number=csv['PER_NO'][x], accident__st_case=csv['ST_CASE'][x], vehicle__vehicle_number__isnull=True, parked_vehicle__vehicle_number__isnull=True)
