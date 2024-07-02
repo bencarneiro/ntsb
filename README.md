@@ -2,7 +2,7 @@
 
 This repo powers [roadway.report](https://roadway.report), a web application in-development which will serve data on any traffic death in the USA since 1975
 
-I want people to build nice, interactive maps ontop of these APIS. This can support a nationwide vision-zero viewer
+I want people to build nice, interactive maps ontop of these APIS. This can support a nationwide vision-zero viewer. 
 Here's a crummy [proof of concept](https://roadway.report)
 
 Or get data straight from the API via the [docs](https://roadway.report/v1/docs)
@@ -16,15 +16,6 @@ Based on this original data model
 Is now represented by a much more modern and descriptive [Schema](https://roadway.report/schema)
 
 In the file data_dictionary.py, you can find a complete mapping of the government table/variable names to the more descriptive variable names used on roadway.report
-
-If you want to run the application on your machine, 
-requirements: django, geodjango, postgis/postgres, django-ninja, pydantic
-
-here is how to install postGIS: https://docs.djangoproject.com/en/5.0/ref/contrib/gis/install/postgis/
-
-Then run the ETL scripts to import data. In order for the import scripts to run correctly, they need to be in this order - This applies to any year of data importing
-
-accident, create_datetimes, create_points, vehicle, parkwork, person, pbtype, cevent, crashrf, weather, vehiclesf, pvehiclesf, driverrf, damage, distract, drimpair, factor, maneuver, violatn, vision, personrf, drugs, race, nmcrash, nmimpair, nmdistract, nmprior, safetyeq
 
 
 
