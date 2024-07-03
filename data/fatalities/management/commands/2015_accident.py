@@ -1,8 +1,13 @@
 from django.core.management.base import BaseCommand
-from data.settings import CSV_PATH
+from data.settings import CSV_PATH, GOOGLE_MAPS_API_KEY
 from fatalities.models import Accident, City, County, State
 from fatalities.data_processing import get_data_source, FARS_DATA_CONVERTERS, get_accident_datetime, get_point
 import pandas as pd
+import googlemaps
+from datetime import datetime
+
+gmaps = googlemaps.Client(key=GOOGLE_MAPS_API_KEY)
+
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
@@ -54,7 +59,6 @@ class Command(BaseCommand):
         ]
         csv = pd.read_csv(f"{CSV_PATH}2015/FARS2015NationalCSV/accident.csv", encoding='latin-1')
         for x in csv.index:
-
             st_case = str(csv['ST_CASE'][x])
             if len(st_case) == 5:
                 st_case = "0" + st_case
@@ -90,13 +94,20 @@ class Command(BaseCommand):
                 try:
                     city = City.objects.get(state=state, city_id=csv['CITY'][x])
                 except:
-                    city = City(
-                        id=f"{state_code}{city_code}",
-                        state=state, 
-                        city_id=csv['CITY'][x],
-                        name=csv['CITYNAME'][x]
-                    )
-                    city.save()
+                    reverse_geocode_result = gmaps.reverse_geocode((csv['LATITUDE'][x], csv['LONGITUD'][x]))
+
+                    print(reverse_geocode_result[0])
+                    for component in reverse_geocode_result[0]['address_components']:
+                        if "sublocality" in component['types'] or "locality" in component['types']:
+                            city_name = component['long_name']
+                    try:
+                        city = City.objects.get(state_id=csv['STATE'][x], name=city_name.upper())
+                        print("THIS RAN SUCCESSFULLY")
+                        print(f"this city id #{csv['CITY'][x]} really maps to the following city object")
+                        print(city.__dict__)
+                    except:
+                        city = None
+                        print("NO CITY FOUND FOR THIS RECORD")
             else: 
                 city = None
             data_to_save = {
