@@ -2750,6 +2750,43 @@ class Person(models.Model):
     alcohol_test_type = models.PositiveSmallIntegerField(choices=alcohol_test_type_choices, default=95)
     #p17C
     alcohol_test_result = models.PositiveSmallIntegerField(null=True, blank=True)
+
+    def interpret_alcohol_test_result(self):
+        year = self.accident.year
+        result = self.alcohol_test_result
+        if year > 2014:
+            if result <= 940:
+                return result / 1000
+            else:
+                if result in {995}:
+                    return "Not Reported"
+                if result in {996}:
+                    return "None Given"
+                if result in {997}:
+                    return "AC Test Performed, Results Unknown"
+                if result in {998}:
+                    return "Positive Reading With No Actual Value"
+                if result in {999}:
+                    return "Reported as Unknown if Tested"
+        else:
+            if result < 95:
+                return result / 100
+            else:
+                if result in {95}:
+                    if year < 2009:
+                        return "Test Refused"
+                    else:
+                        return "Not Reported"
+                if result in {96}:
+                    return "None Given"
+                if result in {97}:
+                    return "AC Test Performed, Results Unknown"
+                if result in {98}:
+                    return "Positive Reading With No Actual Value"
+                if result in {99}:
+                    return "Reported as Unknown if Tested"
+            
+                
     #p18
     police_reported_drug_involvement_choices = [
         (0, "No (Drugs Not Involved)"),
