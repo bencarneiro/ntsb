@@ -427,7 +427,7 @@
     <tr><td>Alcohol Test Given</td><td>{{person.get_alcohol_test_given_display}} </td></tr>
 
     <tr><td>Alcohol Test Type</td><td>{{person.get_alcohol_test_type_display}} </td></tr>
-    <tr><td>Alcohol Test Result</td><td>{{person.alcohol_test_result}} </td></tr>
+    <tr><td>Alcohol Test Result</td><td>{{person.interpret_alcohol_test_result}} </td></tr>
 
     <tr><td>Police Reported Drug Involvement</td><td>{{person.get_police_reported_drug_involvement_display}} </td></tr>
 
@@ -462,14 +462,14 @@
   {%endfor%}
   {%for drugs in person.drugs_set.all %}
   <tr><td>Drug Test Type</td><td> {{drugs.get_drug_test_type_display}} </td></tr>
-  <tr><td>Drug Test Results</td><td> {{drugs.drug_test_results}} </td></tr>
+  <tr><td>Drug Test Results</td><td> {{drugs.interpret_test_result}} </td></tr>
   {%endfor%}
   {%for rf in person.personrelatedfactor_set.all %}
   <tr><td>Person Related Factor</td><td> {{rf.get_person_related_factor_display}} </td></tr>
   {%endfor%}
 
 
-
+    {% if person.safetyequipment.get_helmet_display %} 
     <tr><td>Nonmotorist Bicycle Helmet</td><td>{{person.safetyequipment.get_helmet_display}} </td></tr>
     <tr><td>Nonmotorist Pads</td><td>{{person.safetyequipment.get_pads_display}} </td></tr>
     <tr><td>Nonmotorist Lights</td><td>{{person.safetyequipment.get_lights_display}} </td></tr>
@@ -488,6 +488,7 @@
     <tr><td>Bicycle Position</td><td>{{person.pedestriantype.get_bicycle_position_display}} </td></tr>
     <tr><td>Bicycle Direction</td><td>{{person.pedestriantype.get_bicycle_direction_display}} </td></tr>
     <tr><td>Motorist Direction</td><td>{{person.pedestriantype.get_motorist_direction_display}} </td></tr>
+    {% endif %}
 
   {%for rf in person.nonmotoristprioraction_set.all %}
   <tr><td>Nonmotorist Prior Action</td><td> {{rf.get_nonmotorist_prior_action_display}} </td></tr>
