@@ -56,6 +56,7 @@ pip install psycopg
 pip install django-ninja
 pip install folium
 pip install geoip2
+pip install googlemaps
 ```
 Application uses IP addresses to find user-location and load the map. 
 [Django docs on how this is set up](https://docs.djangoproject.com/en/5.0/ref/contrib/gis/geoip2/)
