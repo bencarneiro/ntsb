@@ -545,6 +545,26 @@
     {%endfor%}
     </table>
 
+
+    <h1>Comments / Obituaries / Links / Articles</h1>
+    <table id="customers">
+        <tr>
+          <th>Comments</th>
+        </tr>
+
+    {% for comment in accident.comment_set.all %}
+    <tr><td>{{comment.comment}} </td></tr>
+    {%endfor%}
+    </table>
+    <br>
+    <form action="/post_comment" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <input type="hidden" id="accident_id" name="accident_id" value="{{ accident.id }}" />
+      <input type="submit" value="Submit">
+  </form>
+
+
 </body>
 </html>
 

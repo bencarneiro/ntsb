@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
 from django.contrib.gis.geos import GEOSGeometry
-from fatalities.models import Accident
+from fatalities.models import Accident, Comment
 from django.http import JsonResponse
 import json
 import folium
@@ -14,6 +14,8 @@ from django.contrib.gis.db.models.functions import Distance
 from data.filter_schemas import AccidentLocationFilterSchema
 from django.db.models import Q
 from django.contrib.gis.geoip2 import GeoIP2
+from fatalities.forms import CommentForm
+
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -171,4 +173,29 @@ def folium_map(request):
 
 def accident_summary(request, **kwargs):
     a = Accident.objects.get(id=kwargs['id'])
-    return render(request, "accident_details.html", {"accident": a})
+    return render(request, "accident_details.html", {"accident": a, "form": CommentForm})
+
+
+def post_comment(request):
+    # if this is a POST request we need to process the form data
+    if request.method == "POST":
+        print(request)
+        print(request.POST)
+        # create a form instance and populate it with data from the request:
+        form = CommentForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            data_to_save = {
+                "accident_id": request.POST['accident_id'],
+                "comment": request.POST['comment']
+            }
+            Comment.objects.create(**data_to_save)
+            # redirect to a new URL:
+            return redirect(f"/accidents/{request.POST['accident_id']}")
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CommentForm()
+
+    return render(request, "name.html", {"form": form})
