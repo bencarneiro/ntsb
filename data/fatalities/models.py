@@ -4687,3 +4687,13 @@ class SafetyEquipment(models.Model):
     class Meta:
         db_table = "safety_equipment"
         managed = True
+
+
+class Comment(models.Model):
+    created = models.DateTimeField(auto_now_add=True) 
+    accident = models.ForeignKey(Accident, on_delete=models.DO_NOTHING, null=False, blank=False)
+    comment = models.TextField(null=False, blank=False)
+
+    class Meta:
+        db_table = "comment"
+        managed = True
