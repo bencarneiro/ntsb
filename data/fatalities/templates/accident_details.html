@@ -23,6 +23,14 @@
   background-color: #04AA6D;
   color: white;
 }
+
+#comment th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #04AA6D;
+  color: white;
+}
 </style>
 </head>
 <body>
@@ -546,23 +554,22 @@
     </table>
 
 
+    <div style="border: solid; border-radius: 2px; border-color: black; text-align: center; justify-content: center;">
     <h1>Comments / Obituaries / Links / Articles</h1>
-    <table id="customers">
-        <tr>
-          <th>Comments</th>
-        </tr>
+    <table id="customers" style="width:100%">
 
     {% for comment in accident.comment_set.all %}
-    <tr><td>{{comment.comment|linebreaks}} </td></tr>
+    <tr><td style="width:20%">{{comment.created|date}} - {{comment.created|time}} </td><td>{{comment.comment|linebreaks}} </td></tr>
     {%endfor%}
     </table>
     <br>
-    <form action="/post_comment" method="post">
+    <form  action="/post_comment" method="post">
       {% csrf_token %}
       {{ form }}
       <input type="hidden" id="accident_id" name="accident_id" value="{{ accident.id }}" />
       <input type="submit" value="Submit">
   </form>
+</div>
 
 
 </body>
