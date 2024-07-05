@@ -553,7 +553,7 @@
         </tr>
 
     {% for comment in accident.comment_set.all %}
-    <tr><td>{{comment.comment}} </td></tr>
+    <tr><td>{{comment.comment|linebreaks}} </td></tr>
     {%endfor%}
     </table>
     <br>
