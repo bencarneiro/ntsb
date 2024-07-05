@@ -4003,8 +4003,21 @@ class Damage(models.Model):
         (13, "Top"),
         (14, "Undercarriage"),
         (15, "No Damage"),
+        (16, "Override"),
+        (17, "Underride"),
+        (18, "Cargo/Vehicle Parts Set-in-Motion"),
+        (19, "Other Objects or Person Set-in-Motion"),
+        (20, "Object Set in Motion, Unknown if Cargo/Vehicle Parts or Other"),
+        (61, "Left"),
+        (62, "Left-Front Side"),
+        (63, "Left-Back Side"),
+        (81, "Right"),
+        (82, "Right-Front Side"),
+        (83, "Right-Back Side"),
+        (98, "Not Reported"),
         (99, "Damage Areas Unknown")
     ]
+
     area_of_impact = models.PositiveSmallIntegerField(choices=area_of_impact_choices, default=99)
 
     class Meta:
