@@ -1323,6 +1323,12 @@ def maneuver_converter(value, year):
         return None
     return value
 
+def area_of_impact_converter(value, year):
+    if year < 2012:
+        if value in {15}:
+            return 17
+        return value
+    return value
 
 
 FARS_DATA_CONVERTERS = {
@@ -1569,7 +1575,7 @@ FARS_DATA_CONVERTERS = {
     'vehicle_related_factor.vehicle_related_factor': vehicle_related_factor_converter,
     'parked_vehicle_related_factor.vehicle_related_factor': parked_vehicle_related_factor_converter,
     'driver_related_factor.driver_related_factor': driver_related_factor_converter,
-    'damage.area_of_impact': lambda value, year: value,
+    'damage.area_of_impact': area_of_impact_converter,
     'driver_distracted.distracted_by': lambda value, year: value,
     'driver_impaired.driver_impaired': driver_impaired_converter,
     'vehicle_factor.contributing_cause': vehicle_factor_converter,

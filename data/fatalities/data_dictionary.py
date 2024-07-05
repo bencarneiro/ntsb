@@ -3348,6 +3348,20 @@ FARS_DATA_DICTIONARY = {
     "damage.area_of_impact": [
         {
             "range": {
+                "start": 1975,
+                "end": 2011
+            },
+            "key": "VEHICLE.IMPACT1"
+        },
+        {
+            "range": {
+                "start": 1975,
+                "end": 2011
+            },
+            "key": "VEHICLE.IMPACT2"
+        },
+        {
+            "range": {
                 "start": 2012,
                 "end": 2019
             },
