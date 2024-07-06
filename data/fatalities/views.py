@@ -34,7 +34,7 @@ def schema(request):
 
 def leaflet(request):
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
-        return redirect("/leaflet?lat=37.756745231&lon=-122.442857530&radius=5")
+        return redirect("/leaflet?lat=37.756745231&lon=-122.442857530&radius=4")
     return render(request, "leaflet.html", context={})
 
 def testmap(request):
@@ -45,12 +45,12 @@ def testmap(request):
             g = GeoIP2()
             country = g.country(ip)
             if country['country_code'] != "US":
-                return redirect("/testmap?lat=37.756745231&lon=-122.442857530&radius=5")
+                return redirect("/testmap?lat=37.756745231&lon=-122.442857530&radius=4")
             coordinates = g.lat_lon(ip)
-            return redirect(f"/testmap?lat={coordinates[0]}&lon={coordinates[1]}&radius=5")
+            return redirect(f"/testmap?lat={coordinates[0]}&lon={coordinates[1]}&radius=4")
         except Exception as e:
             print(e)
-            return redirect("/testmap?lat=37.756745231&lon=-122.442857530&radius=5")
+            return redirect("/testmap?lat=37.756745231&lon=-122.442857530&radius=4")
         
         
     return render(request, "leaflet.html", context={})
@@ -63,12 +63,12 @@ def nonmotorist_map(request):
             g = GeoIP2()
             country = g.country(ip)
             if country['country_code'] != "US":
-                return redirect("/nonmotorist_map?lat=37.756745231&lon=-122.442857530&radius=5")
+                return redirect("/nonmotorist_map?lat=37.756745231&lon=-122.442857530&radius=4")
             coordinates = g.lat_lon(ip)
-            return redirect(f"/nonmotorist_map?lat={coordinates[0]}&lon={coordinates[1]}&radius=5")
+            return redirect(f"/nonmotorist_map?lat={coordinates[0]}&lon={coordinates[1]}&radius=4")
         except Exception as e:
             print(e)
-            return redirect("/nonmotorist_map?lat=37.756745231&lon=-122.442857530&radius=5")
+            return redirect("/nonmotorist_map?lat=37.756745231&lon=-122.442857530&radius=4")
         
         
     return render(request, "nonmotorist_map.html", context={})
@@ -82,12 +82,12 @@ def map(request):
             g = GeoIP2()
             country = g.country(ip)
             if country['country_code'] != "US":
-                return redirect("/map?lat=37.8011&lon=-122.3267&radius=5")
+                return redirect("/map?lat=37.8011&lon=-122.3267&radius=4")
             coordinates = g.lat_lon(ip)
-            return redirect(f"/map?lat={coordinates[0]}&lon={coordinates[1]}&radius=5")
+            return redirect(f"/map?lat={coordinates[0]}&lon={coordinates[1]}&radius=4")
         except Exception as e:
             print(e)
-            return redirect("/map?lat=37.8011&lon=-122.3267&radius=5")
+            return redirect("/map?lat=37.8011&lon=-122.3267&radius=4")
         
         
     return render(request, "test.html", context={})

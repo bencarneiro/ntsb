@@ -24,7 +24,7 @@
     var layerGroup = new L.LayerGroup();
 
     async function load_shapefile(lon, lat) {
-      let url = `/v1/accidents_by_location_geojson?lat=${lat}&lon=${lon}&radius=5`;
+      let url = `/v1/accidents_by_location_geojson?lat=${lat}&lon=${lon}&radius=4`;
       const response = await fetch(url)
       const shape_obj = await response.json();
       console.log(shape_obj);
