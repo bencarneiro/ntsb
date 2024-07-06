@@ -1271,7 +1271,7 @@ class Vehicle(models.Model):
         (98, "Not Reported"),
         (99, "Reported as Unknown")
     ]
-    drivers_license_state = models.PositiveSmallIntegerField(choices=drivers_license_state_choices, default=98)
+    drivers_license_state = models.PositiveSmallIntegerField(choices=drivers_license_state_choices, default=98, null=True, blank=True)
     #d6 
     driver_zip_code = models.IntegerField(null=True, blank=True)
 
@@ -1285,7 +1285,7 @@ class Vehicle(models.Model):
         (8, "Temporary License"),
         (9, "Unknown License Type")
     ]
-    non_cdl_license_type = models.PositiveSmallIntegerField(choices=non_cdl_license_type_choices, default=9)
+    non_cdl_license_type = models.PositiveSmallIntegerField(choices=non_cdl_license_type_choices, default=9, null=True, blank=True)
 
     #d7b
     non_cdl_license_status_choices = [
@@ -1299,7 +1299,7 @@ class Vehicle(models.Model):
         (7, 'No Driver Present/Unknown if Driver'),
         (9, 'Unknown License Status')
     ]
-    non_cdl_license_status = models.PositiveSmallIntegerField(choices=non_cdl_license_status_choices, default=9)
+    non_cdl_license_status = models.PositiveSmallIntegerField(choices=non_cdl_license_status_choices, default=9, null=True, blank=True)
     #d8
     cdl_license_status_choices = [
         (0, "No Commercial Driver's License (CDL)"),
@@ -1315,7 +1315,7 @@ class Vehicle(models.Model):
         (98, "Not Reported"),
         (99, 'Unknown License Status')
     ]
-    cdl_license_status = models.PositiveSmallIntegerField(choices=cdl_license_status_choices, default=99)
+    cdl_license_status = models.PositiveSmallIntegerField(choices=cdl_license_status_choices, default=99, null=True, blank=True)
     #d9
     cdl_endorsements_choices = [
         (0, 'No Endorsements Required for This Vehicle'),
@@ -1326,7 +1326,7 @@ class Vehicle(models.Model):
         (8, "Not Reported "),
         (9, 'Unknown, if Required')
     ]
-    cdl_endorsements = models.PositiveSmallIntegerField(choices=cdl_endorsements_choices, default=0)
+    cdl_endorsements = models.PositiveSmallIntegerField(choices=cdl_endorsements_choices, default=0, null=True, blank=True)
     #d10
     license_compliance_with_class_of_vehicle_choices = [
         (0, 'Not Licensed'),
@@ -1338,7 +1338,7 @@ class Vehicle(models.Model):
         (8, 'Unknown if CDL and/or CDL Endorsement Required for This Vehicle'),
         (9, 'Unknown')
     ]
-    license_compliance_with_class_of_vehicle = models.PositiveSmallIntegerField(choices=license_compliance_with_class_of_vehicle_choices, default=9)
+    license_compliance_with_class_of_vehicle = models.PositiveSmallIntegerField(choices=license_compliance_with_class_of_vehicle_choices, default=9, null=True, blank=True)
     #d11
     compliance_with_license_restrictions_choices = [
         (0, "No Restrictions or Not Applicable"),
@@ -1349,7 +1349,7 @@ class Vehicle(models.Model):
         (8, "Not Reported"),
         (9, "Unknown")
     ]
-    compliance_with_license_restrictions = models.PositiveSmallIntegerField(choices=compliance_with_license_restrictions_choices, default=9)
+    compliance_with_license_restrictions = models.PositiveSmallIntegerField(choices=compliance_with_license_restrictions_choices, default=9, null=True, blank=True)
     
 
 
@@ -1388,11 +1388,11 @@ class Vehicle(models.Model):
         (98, "No Driver Present/Unknown if Driver Present"),
         (99, "Unknown")
     ]
-    month_of_oldest_violation = models.PositiveSmallIntegerField(choices=month_of_oldest_violation_choices, default=99)
+    month_of_oldest_violation = models.PositiveSmallIntegerField(choices=month_of_oldest_violation_choices, default=99, null=True, blank=True)
     #d19b
     year_of_oldest_violation = models.PositiveIntegerField(null=True, blank=True)
     #d20a
-    month_of_newest_violation = models.PositiveSmallIntegerField(choices=month_of_oldest_violation_choices, default=99)
+    month_of_newest_violation = models.PositiveSmallIntegerField(choices=month_of_oldest_violation_choices, default=99, null=True, blank=True)
     #d20b
     year_of_newest_violation = models.PositiveIntegerField(null=True, blank=True)
     #d22
@@ -1406,7 +1406,7 @@ class Vehicle(models.Model):
         (8, "No Driver Present/Unknown if Driver Present"),
         (9, "Reported as Unknown")
     ]
-    speeding_related = models.PositiveSmallIntegerField(choices=speeding_related_choices, default=9)
+    speeding_related = models.PositiveSmallIntegerField(choices=speeding_related_choices, default=9, null=True, blank=True)
 
     #pc5
     trafficway_description_choices = [
