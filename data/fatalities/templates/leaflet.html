@@ -20,7 +20,7 @@
     const map = L.map('my_map')
     L.Control.geocoder().addTo(map);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-    map.setView([lat, lon], 11);
+    map.setView([lat, lon], 13);
     var layerGroup = new L.LayerGroup();
 
     async function load_shapefile(lon, lat) {
