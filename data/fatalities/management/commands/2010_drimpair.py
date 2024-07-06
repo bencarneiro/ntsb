@@ -15,7 +15,7 @@ class Command(BaseCommand):
             try:
                 vehicle = Vehicle.objects.get(accident__year=2010, accident__st_case=csv['ST_CASE'][x], vehicle_number=csv['VEH_NO'][x])
             except Exception as e:
-                print(f"Major fuckup --- this distraction was linked to a parked car --- st_case: {csv['ST_CASE'][x]}")
+                print(f"Major fuckup --- this impairment was linked to a parked car --- st_case: {csv['ST_CASE'][x]}")
                 print(f"DISTRACTION VALUE IS {csv['DRIMPAIR'][x]}")
                 print(e)
             st_case = str(csv['ST_CASE'][x])
