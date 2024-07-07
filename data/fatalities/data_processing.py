@@ -124,6 +124,8 @@ def dms2dd(degrees, minutes, seconds):
     return dd
 
 def latitude_converter(latitude, year):
+    if not latitude:
+        return None
     if year < 1999:
         return None
     if year < 2010:
@@ -141,6 +143,8 @@ def latitude_converter(latitude, year):
 
 
 def longitude_converter(longitude, year):
+    if not longitude:
+        return None
     if year < 1999:
         return None
     if year < 2010:
@@ -713,7 +717,8 @@ def speeding_related_converter(value, source, year):
     #this one is tricky- need to look in driver related factors field and violations field for different codes which all indicate speeding related
     # see page c-38 of FARS analytics manual 2022
 
-    if year < 2009 and source == "drf":
+    if year < 2010 and source == "drf":
+        # print(F"DRF INPUT {value}")
         if value in {46}:
             return 2
         if value in {44}:
@@ -725,7 +730,8 @@ def speeding_related_converter(value, source, year):
         if value in {2,3}:
             return 5
         return None
-    if year < 2009 and source == "violation":
+    if year < 2010 and source == "violation":
+        # print(f"VIOLATION INPUT {value}")
         if value in {21}:
             return 2
         if value in {22,24}:
