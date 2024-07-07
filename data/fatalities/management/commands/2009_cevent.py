@@ -7,8 +7,7 @@ import pandas as pd
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
         VehicleSequenceOfEvents.objects.filter(vehicle__accident__year=2009).delete()
-
-
+        VehicleSequenceOfEvents.objects.filter(parked_vehicle__accident__year=2009).delete()
 
         # csv = pd.read_csv(f"{CSV_PATH}2009/FARS2009NationalCSV/CEVENT.CSV", encoding='latin-1')
         csv = pd.read_csv(f"{CSV_PATH}2009/FARS2009NationalCSV/VEHICLE.CSV", encoding='latin-1')
@@ -51,7 +50,7 @@ class Command(BaseCommand):
                 st_case = str(csv['ST_CASE'][x])
                 if len(st_case) == 5:
                     st_case = "0" + st_case
-                number_of_saved_events = len(VehicleSequenceOfEvents.objects.filter(vehicle=vehicle))
+                number_of_saved_events = len(VehicleSequenceOfEvents.objects.filter(parked_vehicle=parked_vehicle))
                 new_event_id = str(number_of_saved_events + 1)
                 while len(new_event_id) < 3:
                     new_event_id = "0" + new_event_id
