@@ -9,7 +9,6 @@ class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
         Vehicle.objects.filter(accident__year=2009).delete()
         vehicle_model_fields = [
-            'vehicle_number',
             'number_of_occupants',
             'hit_and_run',
             'registration_state',
@@ -108,11 +107,11 @@ class Command(BaseCommand):
             while len(veh_no) < 3:
                 veh_no = "0" + veh_no
             primary_key = f"2009{st_case}{veh_no}"
-            
             accident = Accident.objects.get(id=int(f"2009{st_case}"))
             data_to_save = {
                 "id": primary_key,
                 "accident": accident,
+                'vehicle_number': int(veh_no),
                 "hazardous_material_involvement": csv['HAZ_INV'][x] - 1
             }
             for vehicle_model_field_name in vehicle_model_fields:
@@ -129,7 +128,6 @@ class Command(BaseCommand):
                     csv_field_name = data_source.split(".")[1]
                     data_converter_function = FARS_DATA_CONVERTERS["vehicle." + accident_model_field_name]
                     data_to_save[accident_model_field_name] = data_converter_function(accident_temp_df[csv_field_name][0], 2009)
-                    # print(data_converter_function(csv[csv_field_name][0], 2009))
 
 
             speeding_related = None
@@ -149,9 +147,6 @@ class Command(BaseCommand):
             # if speeding_related:
                 # print("YES YES YES YES YES YES YES YES YES YES YES YES YES YES YES YES YES YESYES YES YES YES YES YES YES YES YES")
             data_to_save['speeding_related'] = speeding_related
-
-
-
             print(data_to_save)
             Vehicle.objects.create(**data_to_save)
             # break
