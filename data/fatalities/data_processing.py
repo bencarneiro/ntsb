@@ -1,6 +1,6 @@
 from fatalities.data_dictionary import FARS_DATA_DICTIONARY
 from fatalities.models import City, County, State, Vehicle
-
+import numpy as np
 from decimal import Decimal
 from django.contrib.gis.geos import Point
 
@@ -1279,6 +1279,8 @@ def person_related_factor_converter(value, year):
     return value
 
 def violation_converter(value, year):
+    if np.isnan(value):
+        return None
     if year < 1982:
         if value in {0}:
             return 0
