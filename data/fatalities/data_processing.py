@@ -22,7 +22,7 @@ def get_accident_datetime(a):
         return f"{year}-01-01 00:00:00Z-00+0000", True
     if day == "99":
         return f"{year}-{month}-01 00:00:00+0000", True
-    if hour == "99":
+    if hour in {"24", "99"}:
         return f"{year}-{month}-{day} 00:00:00+0000", True
     if minute == "99":
         return f"{year}-{month}-{day} {hour}:00:00+0000", False
