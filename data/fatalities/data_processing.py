@@ -1108,14 +1108,14 @@ def vehicle_related_factor_converter(value, year):
     if year < 2020:
         if value > 28:
             return value
-        return 0
+        return None
     return value
 
 def parked_vehicle_related_factor_converter(value, year):
     if year < 2010:
         if value > 28:
             return value
-        return 0
+        return None
     return value
 
 def driver_related_factor_converter(value, year):
