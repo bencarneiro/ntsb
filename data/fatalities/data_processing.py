@@ -1,6 +1,6 @@
 from fatalities.data_dictionary import FARS_DATA_DICTIONARY
 from fatalities.models import City, County, State, Vehicle
-
+import numpy as np
 from decimal import Decimal
 from django.contrib.gis.geos import Point
 
@@ -124,6 +124,8 @@ def dms2dd(degrees, minutes, seconds):
     return dd
 
 def latitude_converter(latitude, year):
+    if not latitude:
+        return None
     if year < 1999:
         return None
     if year < 2010:
@@ -141,6 +143,8 @@ def latitude_converter(latitude, year):
 
 
 def longitude_converter(longitude, year):
+    if not longitude:
+        return None
     if year < 1999:
         return None
     if year < 2010:
@@ -713,7 +717,8 @@ def speeding_related_converter(value, source, year):
     #this one is tricky- need to look in driver related factors field and violations field for different codes which all indicate speeding related
     # see page c-38 of FARS analytics manual 2022
 
-    if year < 2009 and source == "drf":
+    if year < 2010 and source == "drf":
+        # print(F"DRF INPUT {value}")
         if value in {46}:
             return 2
         if value in {44}:
@@ -725,7 +730,8 @@ def speeding_related_converter(value, source, year):
         if value in {2,3}:
             return 5
         return None
-    if year < 2009 and source == "violation":
+    if year < 2010 and source == "violation":
+        # print(f"VIOLATION INPUT {value}")
         if value in {21}:
             return 2
         if value in {22,24}:
@@ -1102,14 +1108,14 @@ def vehicle_related_factor_converter(value, year):
     if year < 2020:
         if value > 28:
             return value
-        return 0
+        return None
     return value
 
 def parked_vehicle_related_factor_converter(value, year):
     if year < 2010:
         if value > 28:
             return value
-        return 0
+        return None
     return value
 
 def driver_related_factor_converter(value, year):
@@ -1273,6 +1279,8 @@ def person_related_factor_converter(value, year):
     return value
 
 def violation_converter(value, year):
+    if np.isnan(value):
+        return None
     if year < 1982:
         if value in {0}:
             return 0
