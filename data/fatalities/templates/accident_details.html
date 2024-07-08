@@ -307,10 +307,15 @@
 {%for vrf in vehicle.driverimpaired_set.all %}
 <tr><td>Driver Impaired</td><td> {{vrf.get_driver_impaired_display}} </td></tr>
 {%endfor%}
+{%for vsoe in vehicle.vehiclesequenceofevents_set.all %}
+<tr><td>Vehicle Event {{ vsoe.vehicle_event_number }}</td><td> {{vsoe.get_sequence_of_events_display}} </td></tr>
+{%endfor%}
     </table>
     {% endfor %}
 
+    {% if accident.parkedvehicle_set.all|length > 0 %}
     <h1>Parked Vehicles</h1>
+    {% endif %}
     {% for vehicle in accident.parkedvehicle_set.all %}
     <table id="customers">
         <tr>
@@ -513,8 +518,9 @@
     </table>
     {% endfor %}
 
-
+    {% if accident.crashevent_set.all|length > 0 %}
     <h1>Crash Events</h1>
+    {% endif %}
     {% for ce in accident.crashevent_set.all %}
     <table id="customers">
         <tr>
