@@ -6,10 +6,21 @@
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script> 
 <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />    
-
+<style>
+    /* Centered text */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* transform: translate(-50%, -50%); */
+  z-index: 10000;
+  font-size: 3rem;
+}
+</style>
 </head>
 
 <body>
+    <div class="centered" id="loading"></div>
   <div id="my_map" style="height: 100%"></div>
   <script>
     const queryString = window.location.search;
@@ -24,8 +35,10 @@
     var layerGroup = new L.LayerGroup();
 
     async function load_shapefile(lon, lat) {
-      let url = `/v1/accidents_by_location_geojson?lat=${lat}&lon=${lon}&radius=4`;
+    document.getElementById('loading').innerHTML+= "<center>loading...</center>";
+      let url = `/v1/accidents_by_location_geojson?lat=${lat}&lon=${lon}&radius=3`;
       const response = await fetch(url)
+
       const shape_obj = await response.json();
       console.log(shape_obj);
       return shape_obj;
@@ -52,6 +65,8 @@
 
             )
         );
+
+        document.getElementById('loading').innerHTML = "";
     //   L.geoJson(json).addTo(map);
     }
 
@@ -82,6 +97,8 @@
 
             )
         );
+
+        document.getElementById('loading').innerHTML = "";
         
     }
     map.on('click', onMapClick);
