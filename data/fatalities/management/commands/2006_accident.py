@@ -11,7 +11,7 @@ gmaps = googlemaps.Client(key=GOOGLE_MAPS_API_KEY)
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        Accident.objects.filter(year=2007).delete()
+        Accident.objects.filter(year=2006).delete()
         accident_model_fields = [
             'st_case',
             'number_of_persons_not_in_motor_vehicles',
@@ -57,13 +57,13 @@ class Command(BaseCommand):
             'arrived_at_hospital_minute',
             'fatalities'
         ]
-        csv = pd.read_csv(f"{CSV_PATH}2007/FARS2007NationalCSV/ACCIDENT.CSV", encoding='latin-1')
+        csv = pd.read_csv(f"{CSV_PATH}2006/FARS2006NationalCSV/ACCIDENT.CSV", encoding='latin-1')
         csv = csv.replace({np.nan: None})
         for x in csv.index:
             st_case = str(csv['ST_CASE'][x])
             if len(st_case) == 5:
                 st_case = "0" + st_case
-            primary_key = f"2007{st_case}"
+            primary_key = f"2006{st_case}"
             # print(f"saving data for accident #{primary_key}")
 
             state = State.objects.get(id=csv['STATE'][x])
@@ -113,23 +113,23 @@ class Command(BaseCommand):
                 city = None
             data_to_save = {
                 "id": primary_key,
-                "year": 2007,
+                "year": 2006,
                 "state": state,
                 "county": county,
                 "city": city
             }
             for model_field_name in accident_model_fields:
-                data_source = get_data_source("accident." + model_field_name, 2007)
+                data_source = get_data_source("accident." + model_field_name, 2006)
                 if data_source:
                     csv_field_name = data_source.split(".")[1]
                     data_converter_function = FARS_DATA_CONVERTERS["accident." + model_field_name]
-                    data_to_save[model_field_name] = data_converter_function(csv[csv_field_name][x], 2007)
+                    data_to_save[model_field_name] = data_converter_function(csv[csv_field_name][x], 2006)
 
             
             print(data_to_save)
             Accident.objects.create(**data_to_save)
 
-        for a in Accident.objects.filter(year=2007).order_by("st_case"):
+        for a in Accident.objects.filter(year=2006).order_by("st_case"):
             dt = get_accident_datetime(a)
             print(dt)
             a.datetime = dt[0]
