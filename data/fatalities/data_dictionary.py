@@ -303,6 +303,13 @@ FARS_DATA_DICTIONARY = {
         {
             "range": {
                 "start": 1999,
+                "end": 2007
+            },
+            "key": "accident.latitude"
+        },
+        {
+            "range": {
+                "start": 2008,
                 "end": None
             },
             "key": "accident.LATITUDE"
@@ -313,6 +320,13 @@ FARS_DATA_DICTIONARY = {
         {
             "range": {
                 "start": 1999,
+                "end": 2007
+            },
+            "key": "accident.longitud"
+        },
+        {
+            "range": {
+                "start": 2008,
                 "end": None
             },
             "key": "accident.LONGITUD"
