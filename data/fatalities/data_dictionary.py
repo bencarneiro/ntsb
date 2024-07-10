@@ -187,7 +187,7 @@ FARS_DATA_DICTIONARY = {
 
         {
             "range": {
-                "start": 1982,
+                "start": 2004,
                 "end": None
             },
             "key": "accident.TWAY_ID2"
