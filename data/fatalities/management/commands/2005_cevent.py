@@ -39,7 +39,7 @@ class Command(BaseCommand):
 
 
         # csv = pd.read_csv(f"{CSV_PATH}2005/FARS2005NationalCSV/CEVENT.CSV", encoding='latin-1')
-        csv = pd.read_csv(f"{CSV_PATH}2005/FARS2005NationalCSV/VEHNIT.CSV", encoding='latin-1')
+        csv = pd.read_csv(f"{CSV_PATH}2005/VEHNIT.CSV", encoding='latin-1')
         for x in csv.index:
             veh_no = str(csv['VEH_NO'][x])
             while len(veh_no) < 3:
