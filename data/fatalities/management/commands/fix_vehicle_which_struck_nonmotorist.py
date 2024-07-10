@@ -49,7 +49,7 @@ class Command(BaseCommand):
         for x in csv_2005.index:
             if not csv_2005['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2005, st_case=csv_2005['ST_CASE'][x])
-                person = Person.objects.get(accident=accident, vehicle=None, person_number=csv_2005['PER_NO'][x])
+                person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2005['PER_NO'][x])
                 try: 
                     vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2005['N_MOT_NO'][x])
                     person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
@@ -64,7 +64,7 @@ class Command(BaseCommand):
         for x in csv_2006.index:
             if not csv_2006['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2006, st_case=csv_2006['ST_CASE'][x])
-                person = Person.objects.get(accident=accident, vehicle=None, person_number=csv_2006['PER_NO'][x])
+                person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2006['PER_NO'][x])
                 try: 
                     vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2006['N_MOT_NO'][x])
                     person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
@@ -79,7 +79,7 @@ class Command(BaseCommand):
         for x in csv_2007.index:
             if not csv_2007['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2007, st_case=csv_2007['ST_CASE'][x])
-                person = Person.objects.get(accident=accident, vehicle=None, person_number=csv_2007['PER_NO'][x])
+                person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2007['PER_NO'][x])
                 try: 
                     vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2007['N_MOT_NO'][x])
                     person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
@@ -93,7 +93,7 @@ class Command(BaseCommand):
         for x in csv_2008.index:
             if not csv_2008['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2008, st_case=csv_2008['ST_CASE'][x])
-                person = Person.objects.get(accident=accident, vehicle=None, person_number=csv_2008['PER_NO'][x])
+                person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2008['PER_NO'][x])
                 try: 
                     vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2008['N_MOT_NO'][x])
                     person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
@@ -107,7 +107,7 @@ class Command(BaseCommand):
         for x in csv_2009.index:
             if not csv_2009['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2009, st_case=csv_2009['ST_CASE'][x])
-                person = Person.objects.get(accident=accident, vehicle=None, person_number=csv_2009['PER_NO'][x])
+                person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2009['PER_NO'][x])
                 try: 
                     vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2009['N_MOT_NO'][x])
                     person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
