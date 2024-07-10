@@ -1,0 +1,71 @@
+#!/bin/sh
+export CSV_PATH="/root/ntsb/data/csvs/"
+
+python3 manage.py 2004_accident > /var/log/2004_accident.txt
+python3 manage.py 2004_vehicle > /var/log/2004_vehicle.txt
+python3 manage.py 2004_person > /var/log/2004_person.txt
+python3 manage.py 2004_cevent > /var/log/2004_cevent.txt
+python3 manage.py 2004_crashrf > /var/log/2004_crashrf.txt
+python3 manage.py 2004_weather > /var/log/2004_weather.txt
+python3 manage.py 2004_damage > /var/log/2004_damage.txt
+python3 manage.py 2004_drimpair > /var/log/2004_drimpair.txt
+python3 manage.py 2004_factor > /var/log/2004_factor.txt
+python3 manage.py 2004_maneuver > /var/log/2004_maneuver.txt
+python3 manage.py 2004_violatn > /var/log/2004_violatn.txt
+python3 manage.py 2004_vision > /var/log/2004_vision.txt
+python3 manage.py 2004_vehiclesf > /var/log/2004_vehiclesf.txt
+python3 manage.py 2004_driverrf > /var/log/2004_driverrf.txt
+python3 manage.py 2004_drugs > /var/log/2004_drugs.txt
+python3 manage.py 2004_race > /var/log/2004_race.txt
+python3 manage.py 2004_personrf > /var/log/2004_personrf.txt
+
+python3 manage.py 2003_accident > /var/log/2003_accident.txt
+python3 manage.py 2003_vehicle > /var/log/2003_vehicle.txt
+python3 manage.py 2003_person > /var/log/2003_person.txt
+python3 manage.py 2003_crashrf > /var/log/2003_crashrf.txt
+python3 manage.py 2003_weather > /var/log/2003_weather.txt
+python3 manage.py 2003_damage > /var/log/2003_damage.txt
+python3 manage.py 2003_drimpair > /var/log/2003_drimpair.txt
+python3 manage.py 2003_factor > /var/log/2003_factor.txt
+python3 manage.py 2003_maneuver > /var/log/2003_maneuver.txt
+python3 manage.py 2003_violatn > /var/log/2003_violatn.txt
+python3 manage.py 2003_vision > /var/log/2003_vision.txt
+python3 manage.py 2003_vehiclesf > /var/log/2003_vehiclesf.txt
+python3 manage.py 2003_driverrf > /var/log/2003_driverrf.txt
+python3 manage.py 2003_drugs > /var/log/2003_drugs.txt
+python3 manage.py 2003_race > /var/log/2003_race.txt
+python3 manage.py 2003_personrf > /var/log/2003_personrf.txt
+
+python3 manage.py 2002_accident > /var/log/2002_accident.txt
+python3 manage.py 2002_vehicle > /var/log/2002_vehicle.txt
+python3 manage.py 2002_person > /var/log/2002_person.txt
+python3 manage.py 2002_crashrf > /var/log/2002_crashrf.txt
+python3 manage.py 2002_weather > /var/log/2002_weather.txt
+python3 manage.py 2002_damage > /var/log/2002_damage.txt
+python3 manage.py 2002_drimpair > /var/log/2002_drimpair.txt
+python3 manage.py 2002_factor > /var/log/2002_factor.txt
+python3 manage.py 2002_maneuver > /var/log/2002_maneuver.txt
+python3 manage.py 2002_violatn > /var/log/2002_violatn.txt
+python3 manage.py 2002_vision > /var/log/2002_vision.txt
+python3 manage.py 2002_vehiclesf > /var/log/2002_vehiclesf.txt
+python3 manage.py 2002_driverrf > /var/log/2002_driverrf.txt
+python3 manage.py 2002_drugs > /var/log/2002_drugs.txt
+python3 manage.py 2002_race > /var/log/2002_race.txt
+python3 manage.py 2002_personrf > /var/log/2002_personrf.txt
+
+python3 manage.py 2001_accident > /var/log/2001_accident.txt
+python3 manage.py 2001_vehicle > /var/log/2001_vehicle.txt
+python3 manage.py 2001_person > /var/log/2001_person.txt
+python3 manage.py 2001_crashrf > /var/log/2001_crashrf.txt
+python3 manage.py 2001_weather > /var/log/2001_weather.txt
+python3 manage.py 2001_damage > /var/log/2001_damage.txt
+python3 manage.py 2001_drimpair > /var/log/2001_drimpair.txt
+python3 manage.py 2001_factor > /var/log/2001_factor.txt
+python3 manage.py 2001_maneuver > /var/log/2001_maneuver.txt
+python3 manage.py 2001_violatn > /var/log/2001_violatn.txt
+python3 manage.py 2001_vision > /var/log/2001_vision.txt
+python3 manage.py 2001_vehiclesf > /var/log/2001_vehiclesf.txt
+python3 manage.py 2001_driverrf > /var/log/2001_driverrf.txt
+python3 manage.py 2001_drugs > /var/log/2001_drugs.txt
+python3 manage.py 2001_race > /var/log/2001_race.txt
+python3 manage.py 2001_personrf > /var/log/2001_personrf.txt
