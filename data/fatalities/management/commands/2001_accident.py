@@ -95,7 +95,7 @@ class Command(BaseCommand):
                 try:
                     city = City.objects.get(state=state, city_id=csv['CITY'][x])
                 except:
-                    if not latitude or not longitude:
+                    if not csv['latitude'][x] or not csv['longitud'][x]:
                         city = None
                         print("NO CITY FOUND FOR THIS RECORD")
                     else:

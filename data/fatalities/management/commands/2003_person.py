@@ -74,7 +74,7 @@ class Command(BaseCommand):
             data_to_save['parked_vehicle'] = parked_vehicle
 
             try: 
-                vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv['STR_VEH'][x])
+                vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv['N_MOT_NO'][x])
             except: 
                 vehicle_which_struck_non_motorist = None
             
