@@ -30,7 +30,30 @@
   text-align: center;
   background-color: #04AA6D;
   color: white;
+
+
 }
+.comment-container{
+  margin-top:1REM; 
+  border: solid; 
+  border-radius: 2px; 
+  border-color: black; 
+  text-align: center; 
+  justify-content: center;
+  width:100%
+}
+.comments {
+    table-layout:fixed;
+    width:100%;
+    text-wrap: wrap;
+  }
+
+.comment {
+    width:80%;
+    text-wrap: wrap;
+    word-break: break-word;
+  }
+
 </style>
 </head>
 <body>
@@ -537,6 +560,7 @@
     {%endfor%}
 
 
+    {% if accident.crashrelatedfactor_set.all|length > 0 %}
     <h1>Crash Related Factors</h1>
     <table id="customers">
         <tr>
@@ -547,6 +571,7 @@
     <tr><td>{{crf.get_crash_related_factor_display}} </td></tr>
     {%endfor%}
     </table>
+    {% endif %}
 
     <h1>Weather</h1>
     <table id="customers">
@@ -560,12 +585,12 @@
     </table>
 
 
-    <div style="border: solid; border-radius: 2px; border-color: black; text-align: center; justify-content: center;">
+    <div class="comment-container">
     <h1>Comments / Obituaries / Links / Articles</h1>
-    <table id="customers" style="width:100%">
+    <table class="comments">
 
     {% for comment in accident.comment_set.all %}
-    <tr><td style="width:20%">{{comment.created|date}} - {{comment.created|time}} </td><td>{{comment.comment|linebreaks}} </td></tr>
+    <tr><td>{{comment.created|date}} - {{comment.created|time}} </td><td class="comment">{{comment.comment|linebreaks}} </td></tr>
     {%endfor%}
     </table>
     <br>
