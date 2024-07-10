@@ -1338,6 +1338,11 @@ def area_of_impact_converter(value, year):
         return value
     return value
 
+def milepoint_converter(value, year):
+    if value < 0:
+        return abs(value)
+    return value
+
 
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
@@ -1362,7 +1367,7 @@ FARS_DATA_CONVERTERS = {
     'accident.road_owner': lambda value, year: value,
     'accident.national_highway_system': lambda value, year: value,
     'accident.special_jurisdiction': lambda value, year: value,
-    'accident.milepoint': lambda value, year: value,
+    'accident.milepoint': milepoint_converter,
     'accident.latitude': latitude_converter,
     'accident.longitude': longitude_converter,
     'accident.first_harmful_event': soe_converter,
