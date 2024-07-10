@@ -157,9 +157,9 @@ def longitude_converter(longitude, year):
             else:
                 return -1 * dms2dd(str_lat[:2],str_lat[2:4],str_lat[4:])
         if isinstance(longitude, float):
+            if abs(longitude) > 179:
+                return None
             return longitude
-    if abs(longitude) > 179:
-        return None
     return longitude
 
 def soe_converter(soe, year):
