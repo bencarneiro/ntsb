@@ -6,7 +6,7 @@ import pandas as pd
 
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
-        Person.objects.filter(accident__year=2006).delete()
+        Person.objects.filter(accident__year=2001).delete()
         person_model_fields = [
             'person_number',
             'age',
@@ -43,7 +43,7 @@ class Command(BaseCommand):
             'at_work',
             'hispanic'
         ]
-        csv = pd.read_csv(f"{CSV_PATH}2006/FARS2006NationalCSV/PERSON.CSV", encoding='latin-1').fillna(0)
+        csv = pd.read_csv(f"{CSV_PATH}2001/PERSON.CSV", encoding='latin-1').fillna(0)
         for x in csv.index:
             
             st_case = str(csv['ST_CASE'][x])
@@ -55,9 +55,9 @@ class Command(BaseCommand):
             per_no = str(csv['PER_NO'][x])
             while len(per_no) < 3:
                 per_no = "0" + per_no
-            primary_key = f"2006{st_case}{veh_no}{per_no}"
+            primary_key = f"2001{st_case}{veh_no}{per_no}"
             
-            accident = Accident.objects.get(year=2006, st_case=csv['ST_CASE'][x])
+            accident = Accident.objects.get(year=2001, st_case=csv['ST_CASE'][x])
             data_to_save = {
                 "id": primary_key,
                 "accident": accident
@@ -81,11 +81,11 @@ class Command(BaseCommand):
             data_to_save['vehicle_which_struck_non_motorist'] = vehicle_which_struck_non_motorist
 
             for model_field_name in person_model_fields:
-                data_source = get_data_source("person." + model_field_name, 2006)
+                data_source = get_data_source("person." + model_field_name, 2001)
                 if data_source:
                     csv_field_name = data_source.split(".")[1]
                     data_converter_function = FARS_DATA_CONVERTERS["person." + model_field_name]
-                    data_to_save[model_field_name] = data_converter_function(csv[csv_field_name][x], 2006)
+                    data_to_save[model_field_name] = data_converter_function(csv[csv_field_name][x], 2001)
 
             print(data_to_save)
             # if data_to_save['vehicle_which_struck_non_motorist'] == 0:
