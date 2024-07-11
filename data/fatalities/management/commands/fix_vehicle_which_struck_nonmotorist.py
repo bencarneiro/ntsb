@@ -120,6 +120,7 @@ class Command(BaseCommand):
         for x in csv_2010.index:
             if not csv_2010['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2010, st_case=csv_2010['ST_CASE'][x])
+                persons = Person.objects.filter(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2010['PER_NO'][x])
                 person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2010['PER_NO'][x])
                 try: 
                     vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2010['N_MOT_NO'][x])

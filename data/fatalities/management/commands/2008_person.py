@@ -77,8 +77,13 @@ class Command(BaseCommand):
                 vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv['N_MOT_NO'][x])
             except: 
                 vehicle_which_struck_non_motorist = None
+            try: 
+                parked_vehicle_which_struck_non_motorist = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv['N_MOT_NO'][x])
+            except: 
+                parked_vehicle_which_struck_non_motorist = None
             
             data_to_save['vehicle_which_struck_non_motorist'] = vehicle_which_struck_non_motorist
+            data_to_save['parked_vehicle_which_struck_non_motorist'] = parked_vehicle_which_struck_non_motorist
 
             for model_field_name in person_model_fields:
                 data_source = get_data_source("person." + model_field_name, 2008)
