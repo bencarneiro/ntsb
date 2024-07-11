@@ -2859,6 +2859,8 @@ class Person(models.Model):
     #NM4
     vehicle_which_struck_non_motorist = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.DO_NOTHING, related_name="vehicle_which_struck_nonmotorist")
     #nm8
+    parked_vehicle_which_struck_non_motorist = models.ForeignKey(ParkedVehicle, null=True, blank=True, on_delete=models.DO_NOTHING, related_name="parked_vehicle_which_struck_nonmotorist")
+    #nm8
     non_motorist_device_type_choices = [
         (0, 'Not Applicable'),
         (1, 'Ridden Animal, Animal Drawn Conveyance, or Trailer'),
