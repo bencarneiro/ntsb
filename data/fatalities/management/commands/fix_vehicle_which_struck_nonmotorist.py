@@ -143,13 +143,6 @@ class Command(BaseCommand):
                 accident = Accident.objects.get(year=2011, st_case=csv_2011['ST_CASE'][x])
                 person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2011['PER_NO'][x])
                 try: 
-                    vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2011['STR_VEH'][x])
-                    person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
-                    person.save()
-                    print(f"vehicle which struck nonmotorist fixed for {person.id} hit by veh #{vehicle_which_struck_non_motorist.vehicle_number}")
-                except: 
-                    print(f"vehicle_which_struck_non_motorist NOTHING for {person.id}")
-                try: 
                     parked_vehicle_which_struck_non_motorist = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv_2011['STR_VEH'][x])
                     person.parked_vehicle_which_struck_non_motorist = parked_vehicle_which_struck_non_motorist
                     person.save()
@@ -165,13 +158,6 @@ class Command(BaseCommand):
                 accident = Accident.objects.get(year=2012, st_case=csv_2012['ST_CASE'][x])
                 person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2012['PER_NO'][x])
                 try: 
-                    vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2012['STR_VEH'][x])
-                    person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
-                    person.save()
-                    print(f"vehicle which struck nonmotorist fixed for {person.id} hit by veh #{vehicle_which_struck_non_motorist.vehicle_number}")
-                except: 
-                    print(f"vehicle_which_struck_non_motorist NOTHING for {person.id}")
-                try: 
                     parked_vehicle_which_struck_non_motorist = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv_2012['STR_VEH'][x])
                     person.parked_vehicle_which_struck_non_motorist = parked_vehicle_which_struck_non_motorist
                     person.save()
@@ -185,13 +171,6 @@ class Command(BaseCommand):
             if not csv_2013['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2013, st_case=csv_2013['ST_CASE'][x])
                 person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2013['PER_NO'][x])
-                try: 
-                    vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2013['STR_VEH'][x])
-                    person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
-                    person.save()
-                    print(f"vehicle which struck nonmotorist fixed for {person.id} hit by veh #{vehicle_which_struck_non_motorist.vehicle_number}")
-                except: 
-                    print(f"vehicle_which_struck_non_motorist NOTHING for {person.id}")
                 try: 
                     parked_vehicle_which_struck_non_motorist = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv_2013['STR_VEH'][x])
                     person.parked_vehicle_which_struck_non_motorist = parked_vehicle_which_struck_non_motorist
@@ -207,13 +186,6 @@ class Command(BaseCommand):
                 accident = Accident.objects.get(year=2014, st_case=csv_2014['ST_CASE'][x])
                 person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2014['PER_NO'][x])
                 try: 
-                    vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2014['STR_VEH'][x])
-                    person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
-                    person.save()
-                    print(f"vehicle which struck nonmotorist fixed for {person.id} hit by veh #{vehicle_which_struck_non_motorist.vehicle_number}")
-                except: 
-                    print(f"vehicle_which_struck_non_motorist NOTHING for {person.id}")
-                try: 
                     parked_vehicle_which_struck_non_motorist = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv_2014['STR_VEH'][x])
                     person.parked_vehicle_which_struck_non_motorist = parked_vehicle_which_struck_non_motorist
                     person.save()
@@ -227,13 +199,6 @@ class Command(BaseCommand):
             if not csv_2015['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2015, st_case=csv_2015['ST_CASE'][x])
                 person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2015['PER_NO'][x])
-                try: 
-                    vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2015['STR_VEH'][x])
-                    person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
-                    person.save()
-                    print(f"vehicle which struck nonmotorist fixed for {person.id} hit by veh #{vehicle_which_struck_non_motorist.vehicle_number}")
-                except: 
-                    print(f"vehicle_which_struck_non_motorist NOTHING for {person.id}")
                 try: 
                     parked_vehicle_which_struck_non_motorist = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv_2015['STR_VEH'][x])
                     person.parked_vehicle_which_struck_non_motorist = parked_vehicle_which_struck_non_motorist
@@ -249,13 +214,6 @@ class Command(BaseCommand):
                 accident = Accident.objects.get(year=2016, st_case=csv_2016['ST_CASE'][x])
                 person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2016['PER_NO'][x])
                 try: 
-                    vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2016['STR_VEH'][x])
-                    person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
-                    person.save()
-                    print(f"vehicle which struck nonmotorist fixed for {person.id} hit by veh #{vehicle_which_struck_non_motorist.vehicle_number}")
-                except: 
-                    print(f"vehicle_which_struck_non_motorist NOTHING for {person.id}")
-                try: 
                     parked_vehicle_which_struck_non_motorist = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv_2016['STR_VEH'][x])
                     person.parked_vehicle_which_struck_non_motorist = parked_vehicle_which_struck_non_motorist
                     person.save()
@@ -269,13 +227,7 @@ class Command(BaseCommand):
             if not csv_2017['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2017, st_case=csv_2017['ST_CASE'][x])
                 person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2017['PER_NO'][x])
-                try: 
-                    vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2017['STR_VEH'][x])
-                    person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
-                    person.save()
-                    print(f"vehicle which struck nonmotorist fixed for {person.id} hit by veh #{vehicle_which_struck_non_motorist.vehicle_number}")
-                except: 
-                    print(f"vehicle_which_struck_non_motorist NOTHING for {person.id}")
+                
                 try: 
                     parked_vehicle_which_struck_non_motorist = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv_2017['STR_VEH'][x])
                     person.parked_vehicle_which_struck_non_motorist = parked_vehicle_which_struck_non_motorist
@@ -290,13 +242,7 @@ class Command(BaseCommand):
             if not csv_2018['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2018, st_case=csv_2018['ST_CASE'][x])
                 person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2018['PER_NO'][x])
-                try: 
-                    vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2018['STR_VEH'][x])
-                    person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
-                    person.save()
-                    print(f"vehicle which struck nonmotorist fixed for {person.id} hit by veh #{vehicle_which_struck_non_motorist.vehicle_number}")
-                except: 
-                    print(f"vehicle_which_struck_non_motorist NOTHING for {person.id}")
+                
                 try: 
                     parked_vehicle_which_struck_non_motorist = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv_2018['STR_VEH'][x])
                     person.parked_vehicle_which_struck_non_motorist = parked_vehicle_which_struck_non_motorist
@@ -311,13 +257,7 @@ class Command(BaseCommand):
             if not csv_2019['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2019, st_case=csv_2019['ST_CASE'][x])
                 person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2019['PER_NO'][x])
-                try: 
-                    vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2019['STR_VEH'][x])
-                    person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
-                    person.save()
-                    print(f"vehicle which struck nonmotorist fixed for {person.id} hit by veh #{vehicle_which_struck_non_motorist.vehicle_number}")
-                except: 
-                    print(f"vehicle_which_struck_non_motorist NOTHING for {person.id}")
+                
                 try: 
                     parked_vehicle_which_struck_non_motorist = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv_2019['STR_VEH'][x])
                     person.parked_vehicle_which_struck_non_motorist = parked_vehicle_which_struck_non_motorist
@@ -332,13 +272,7 @@ class Command(BaseCommand):
             if not csv_2020['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2020, st_case=csv_2020['ST_CASE'][x])
                 person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2020['PER_NO'][x])
-                try: 
-                    vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2020['STR_VEH'][x])
-                    person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
-                    person.save()
-                    print(f"vehicle which struck nonmotorist fixed for {person.id} hit by veh #{vehicle_which_struck_non_motorist.vehicle_number}")
-                except: 
-                    print(f"vehicle_which_struck_non_motorist NOTHING for {person.id}")
+                
                 try: 
                     parked_vehicle_which_struck_non_motorist = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv_2020['STR_VEH'][x])
                     person.parked_vehicle_which_struck_non_motorist = parked_vehicle_which_struck_non_motorist
@@ -353,13 +287,7 @@ class Command(BaseCommand):
             if not csv_2021['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2021, st_case=csv_2021['ST_CASE'][x])
                 person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2021['PER_NO'][x])
-                try: 
-                    vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2021['STR_VEH'][x])
-                    person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
-                    person.save()
-                    print(f"vehicle which struck nonmotorist fixed for {person.id} hit by veh #{vehicle_which_struck_non_motorist.vehicle_number}")
-                except: 
-                    print(f"vehicle_which_struck_non_motorist NOTHING for {person.id}")
+                
                 try: 
                     parked_vehicle_which_struck_non_motorist = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv_2021['STR_VEH'][x])
                     person.parked_vehicle_which_struck_non_motorist = parked_vehicle_which_struck_non_motorist
@@ -374,13 +302,7 @@ class Command(BaseCommand):
             if not csv_2022['VEH_NO'][x]:
                 accident = Accident.objects.get(year=2022, st_case=csv_2022['ST_CASE'][x])
                 person = Person.objects.get(accident=accident, vehicle=None, parked_vehicle=None, person_number=csv_2022['PER_NO'][x])
-                try: 
-                    vehicle_which_struck_non_motorist = Vehicle.objects.get(accident=accident, vehicle_number=csv_2022['STR_VEH'][x])
-                    person.vehicle_which_struck_non_motorist = vehicle_which_struck_non_motorist
-                    person.save()
-                    print(f"vehicle which struck nonmotorist fixed for {person.id} hit by veh #{vehicle_which_struck_non_motorist.vehicle_number}")
-                except: 
-                    print(f"vehicle_which_struck_non_motorist NOTHING for {person.id}")
+                
                 try: 
                     parked_vehicle_which_struck_non_motorist = ParkedVehicle.objects.get(accident=accident, vehicle_number=csv_2022['STR_VEH'][x])
                     person.parked_vehicle_which_struck_non_motorist = parked_vehicle_which_struck_non_motorist
