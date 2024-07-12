@@ -2,13 +2,13 @@
 <html>
 <head>
   <style>
-    @media (max-width:960px) { 
+    @media (max-width:1260px) { 
       .table {
         width: 100%
       }
     } 
 
-    @media (min-width:960px) { 
+    @media (min-width:1260px) { 
       .table {
         width: 50%;
       }
@@ -42,6 +42,39 @@
       align-items: center;
       position: center;
     }
+    .comment-container{
+      text-align: center;
+      background-color: lightcyan;
+    }
+    form {
+      margin-left: auto;
+      margin-right: auto;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    }
+    #comment{
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto
+    }
+    
+    #comments {
+        width:100%;
+      }
+
+    .comment {
+        width:80%;
+        text-wrap: wrap;
+        word-break: break-word;
+      }
+    .dt {
+        width:20%;
+        text-wrap: wrap;
+        word-break: break-word;
+      }
 
   </style>
 <!-- <style>
@@ -85,17 +118,6 @@
   justify-content: center;
   width:100%
 }
-.comments {
-    table-layout:fixed;
-    width:100%;
-    text-wrap: wrap;
-  }
-
-.comment {
-    width:80%;
-    text-wrap: wrap;
-    word-break: break-word;
-  }
 
 </style> -->
 </head>
@@ -628,19 +650,21 @@
 
     <div class="comment-container">
     <h1>Comments / Obituaries / Links / Articles</h1>
-    <table class="comments">
+    <table id="comments">
 
     {% for comment in accident.comment_set.all %}
-    <tr><td>{{comment.created|date}} - {{comment.created|time}} </td><td class="comment">{{comment.comment|linebreaks}} </td></tr>
+    <tr><td class="dt">{{comment.created|date}} - {{comment.created|time}} </td><td class="comment">{{comment.comment|linebreaks}} </td></tr>
     {%endfor%}
     </table>
     <br>
+    <div class="comment-container">
     <form  action="/post_comment" method="post">
       {% csrf_token %}
       {{ form }}
       <input type="hidden" id="accident_id" name="accident_id" value="{{ accident.id }}" />
       <input type="submit" value="Submit">
   </form>
+  </div>
 </div>
 
 
