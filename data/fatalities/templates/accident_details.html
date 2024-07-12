@@ -1,7 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
+  <style>
+    @media (max-width:960px) { 
+      .table {
+        width: 100%
+      }
+    } 
+
+    @media (min-width:960px) { 
+      .table {
+        width: 50%;
+      }
+    } 
+
+    h1 {
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      font-size: 4rem;
+    }
+    .table{
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto
+    }
+    .header{
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: center;
+      background-color: #04AA6D;
+      color: white;
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      width: 50%;
+      text-align: center;
+      align-items: center;
+      position: center;
+    }
+
+  </style>
+<!-- <style>
 #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -54,16 +97,16 @@
     word-break: break-word;
   }
 
-</style>
+</style> -->
 </head>
 <body>
 
 <h1>Accident Details</h1>
-
-<table id="customers">
+<div class="table-container">
+<table class="table" id="accident">
   <tr>
-    <th>Property</th>
-    <th>Info</th>
+    <th class="header">Property</th>
+    <th class="header">Info</th>
   </tr>
   <tr>
     <td>Accident ID</td>
@@ -88,12 +131,10 @@
   <tr>
     <td>Date</td>
     <td> {{  accident.datetime | date}}</td>
-    <td></td>
   </tr>
   <tr>
     <td>Time</td>
     <td> {{  accident.datetime | time}}</td>
-    <td></td>
   </tr>
   <tr><td>Google Maps</td><td>{{accident.map_link|safe}}</td></tr>
   <tr><td>Latitude</td><td> {{accident.latitude}} </td></tr>
@@ -147,13 +188,13 @@
     <tr><td>Arrived At Hospital Hour</td><td> {{accident.arrived_at_hospital_hour}} </td></tr>
     <tr><td>Arrived at Hospital Minute</td><td> {{accident.arrived_at_hospital_minute}} </td></tr>
 </table>
-
+</div>
 <h1>Vehicles In Transport</h1>
     {% for vehicle in accident.vehicle_set.all %}
-    <table id="customers">
+    <table class="table" id="vehicle">
         <tr>
-          <th>Property</th>
-          <th>Info</th>
+          <th class="header">Property</th>
+          <th class="header">Info</th>
         </tr>
         <tr><td>Vehicle ID</td><td> {{vehicle.vehicle_number}} </td></tr>
 
@@ -204,7 +245,7 @@
 <tr><td>Hazardous Material Involvement</td><td> {{vehicle.hazardous_material_involvement}} </td></tr>
 
 <tr><td>Hazardous Material Placard</td><td> {{vehicle.get_hazardous_material_placard_display}} </td></tr>
-<tr><td>Hazardous Materia ID</td><td> {{vehicle.hazardous_material_id}} </td></tr>
+<tr><td>Hazardous Material ID</td><td> {{vehicle.hazardous_material_id}} </td></tr>
 
 <tr><td>Hazardous Material Class Number</td><td> {{vehicle.get_hazardous_material_class_number_display}} </td></tr>
 
@@ -340,10 +381,10 @@
     <h1>Parked Vehicles</h1>
     {% endif %}
     {% for vehicle in accident.parkedvehicle_set.all %}
-    <table id="customers">
+    <table class="table" id="parked_vehicle">
         <tr>
-          <th>Property</th>
-          <th>Info</th>
+          <th class="header">Property</th>
+          <th class="header">Info</th>
         </tr>
 
         <tr><td>Vehicle ID</td><td> {{vehicle.vehicle_number}} </td></tr>
@@ -425,10 +466,10 @@
 
     <h1>Persons</h1>
     {% for person in accident.person_set.all %}
-    <table id="customers">
+    <table class="table" id="person">
         <tr>
-          <th>Property</th>
-          <th>Info</th>
+          <th class="header">Property</th>
+          <th class="header">Info</th>
         </tr>
     <tr><td>Person ID</td><td>{{person.person_number}} </td></tr>
     <tr><td>Vehicle ID</td><td>{{ person.vehicle_or_parked_vehicle_number }}</td></tr>
@@ -545,10 +586,10 @@
     <h1>Crash Events</h1>
     {% endif %}
     {% for ce in accident.crashevent_set.all %}
-    <table id="customers">
+    <table class="table" id="crash_event">
         <tr>
-          <th>Property</th>
-          <th>Info</th>
+          <th class="header">Property</th>
+          <th class="header">Info</th>
         </tr>
     <tr><td>ID</td><td>{{ce.crash_event_number}} </td></tr>
     <tr><td>Vehicle 1</td><td>{{ce.vehicle_number_1}} </td></tr>
@@ -562,9 +603,9 @@
 
     {% if accident.crashrelatedfactor_set.all|length > 0 %}
     <h1>Crash Related Factors</h1>
-    <table id="customers">
+    <table class="table" id="crash_related_factor">
         <tr>
-          <th>Crash Related Factor</th>
+          <th class="header">Crash Related Factor</th>
         </tr>
 
     {% for crf in accident.crashrelatedfactors_set.all %}
@@ -574,9 +615,9 @@
     {% endif %}
 
     <h1>Weather</h1>
-    <table id="customers">
+    <table class="table" id="weather">
         <tr>
-          <th>Weather</th>
+          <th class="header">Weather</th>
         </tr>
 
     {% for crf in accident.weather_set.all %}
