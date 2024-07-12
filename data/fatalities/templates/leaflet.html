@@ -21,22 +21,53 @@
 
 <body>
     <div class="centered" id="loading"></div>
-  <div id="my_map" style="height: 100%"></div>
+  <div id="my_map" style="height: 100%"></div><script src="https://cdn.jsdelivr.net/npm/leaflet-calendar@1.1.4/js/leaflet-calendar.min.js"></script>
   <script>
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const lat = urlParams.get('lat')
-    const lon = urlParams.get('lon')
+    var lat = urlParams.get('lat')
+    var lon = urlParams.get('lon')
     const radius = urlParams.get('radius')
     const map = L.map('my_map')
+    var startDate = "2001-01-01"
+    var endDate = "2023-01-01"
     L.Control.geocoder().addTo(map);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
     map.setView([lat, lon], 13);
     var layerGroup = new L.LayerGroup();
+    async function selectMinDate(value){
+        console.log("min")
+        console.log(value)
+        startDate = value
+        await onUpdateCalendar()
+    }
+    L.control.calendar({
+            label: "hi",
+            minDate: "2001-01-01",
+            maxDate: "2023-01-01",
+            value: startDate,
+            onSelectDate: (value) => this.selectMinDate(value),
+            position: "topleft",
+        }).addTo(map);
+    async function selectMaxDate(value){
+        console.log("max")
+        console.log(value)
+        endDate = value
+        await onUpdateCalendar()
+    }
+    L.control.calendar({
+            id: 2,
+            title: "HIIII",
+            minDate: "2001-01-01",
+            maxDate: "2023-01-01",
+            value: endDate,
+            onSelectDate: (value) => this.selectMaxDate(value),
+            position: "topleft",
+        }).addTo(map);
 
     async function load_shapefile(lon, lat) {
     document.getElementById('loading').innerHTML+= "<center>loading...</center>";
-      let url = `/v1/accidents_by_location_geojson?lat=${lat}&lon=${lon}&radius=3`;
+      let url = `/v1/accidents_by_location_geojson?lat=${lat}&lon=${lon}&radius=3&datetime__gte=${startDate}T00:00:00&datetime__lte=${endDate}T00:00:00`;
       const response = await fetch(url)
 
       const shape_obj = await response.json();
@@ -74,6 +105,8 @@
     async function onMapClick(e) {
         // alert("You clicked the map at " + e.latlng);
         console.log(e.latlng.lat)
+        lat = e.latlng.lat
+        lon = e.latlng.lng
         console.log(e.latlng.lng)
         console.log("HIIIII")
         map.eachLayer(function (layer) {
@@ -83,6 +116,27 @@
         // map.removeLayer(layerGroup);
 
         const json = await load_shapefile(e.latlng.lng, e.latlng.lat);
+        layerGroup.addLayer(
+            L.geoJson(
+                json,
+                {
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(
+                            `<h1>${feature.properties.fatalities} Death(s)</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+                            
+                        );
+                    }
+                }
+
+            )
+        );
+
+        document.getElementById('loading').innerHTML = "";
+        
+    }
+    async function onUpdateCalendar() {
+        layerGroup.clearLayers()
+        const json = await load_shapefile(lon, lat);
         layerGroup.addLayer(
             L.geoJson(
                 json,

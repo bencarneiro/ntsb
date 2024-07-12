@@ -602,6 +602,8 @@ class AccidentLocationFilterSchema(FilterSchema):
     year__gt: Optional[int] = None
     datetime__lt: Optional[datetime] = None
     datetime__gt: Optional[datetime] = None
+    datetime__lte: Optional[datetime] = None
+    datetime__gte: Optional[datetime] = None
     fatalities: Optional[int] = None
     fatalities__lt: Optional[int] = None
     fatalities__gt: Optional[int] = None
