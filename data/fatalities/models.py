@@ -2627,6 +2627,7 @@ class Person(models.Model):
     seating_position = models.PositiveSmallIntegerField(choices=seating_position_choices, default=98)
     #P10A restraint system use
     restraint_system_use_choices = [
+        (0, 'None Used/Not Applicable'),
         (1, 'Shoulder Belt Only Used'),
         (2, 'Lap Belt Only Used'),
         (3, 'Shoulder and Lap Belt Used'),
