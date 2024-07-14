@@ -1,0 +1,61 @@
+<html>
+    <script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>
+    <style>
+                .row {
+        display: flex;
+        margin-left:-5px;
+        margin-right:-5px;
+        }
+        .column {
+            flex: 50%;
+            padding: 5px;
+            border: 7px solid black; text-align: center; ;
+            }
+    table{
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      margin-left: 0px;
+      margin-right: 0px;
+      width: 100%
+    }
+    .header{
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: center;
+      background-color: #04AA6D;
+      color: white;
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    tr{display: flex; margin-left: 0px; margin-right: 0px; width: 100%}
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+      width: 100%
+    }
+    </style>
+    <body>
+        <div class="row">
+        <div class="column">
+        <h1>States</h1>
+        <table>
+
+            {% for state in states %}
+            <tr>
+                <tr hx-get="/county_table?state_id={{ state.id }}" hx-trigger="click"  hx-target="#county-table" hx-indicator=".htmx-indicator">
+                    <td>
+                        {{ state.name }}
+                    </td></tr>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="column">
+
+        <h1>Counties</h1>
+        <table id="county-table"></table>
+    </div>
+</div>
+    </body>
+</html>

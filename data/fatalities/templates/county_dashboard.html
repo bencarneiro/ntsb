@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        h1 {text-align: center;}
+        h2 {text-align: center;}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
+    <script>
+            /**
+    * returns an array with moving average of the input array
+    * @param array - the input array
+    * @param count - the number of elements to include in the moving average calculation
+    * @param qualifier - an optional function that will be called on each 
+    *  value to determine whether it should be used
+    */
+    function movingAvg(array, count, qualifier){
+
+// calculate average for subarray
+var avg = function(array, qualifier){
+
+    var sum = 0, count = 0, val;
+    for (var i in array){
+        val = array[i];
+        if (!qualifier || qualifier(val)){
+            sum += val;
+            count++;
+        }
+    }
+
+    return sum / count;
+};
+
+var result = [], val;
+
+// pad beginning of result with null values
+for (var i=0; i < count-1; i++)
+    result.push(null);
+
+// calculate average for each subarray and add to result
+for (var i=0, len=array.length - count; i <= len; i++){
+
+    val = avg(array.slice(i, i + count), qualifier);
+    if (isNaN(val))
+        result.push(null);
+    else
+        result.push(val);
+}
+
+return result;
+}
+
+        async function get_data() {
+                await axios.get("/total_fatalities?county_id={{ county.id }}").then((response)=>{
+                    console.log(response.data)
+                    console.log(response.data.labels)
+                    console.log(response.data.total_fatalities);
+                    const TOTAL_FATALITIES = response.data.total;
+                    const VEHICLE_FATALITIES = response.data.vehicle_fatalities;
+                    const PEDESTRIAN_FATALITIES = response.data.pedestrian_fatalities;
+                    const NONMOTORIST_FATALITIES = response.data.nonmotorist_fatalities;
+                    const BICYCLE_FATALITIES = response.data.bicycle_fatalities;
+                    const LABELS = response.data.labels;
+                    new Chart(document.getElementById("total-fatalities"), {
+                        type: "bar",
+                        data: {
+                            labels: LABELS,
+                            datasets: [
+                            {
+                                data: TOTAL_FATALITIES,
+                                label: "Annual Roadway Deaths",
+                                borderColor: "#3e95cd",
+                                fill: false
+                            },
+                            {
+                                type: "line",
+                                label: "3-Year Moving Average",
+                                data: movingAvg(TOTAL_FATALITIES, 3, function(val){ return val != 0; }),
+                                borderColor: "#3e95cd",
+                                fill: false
+                            }
+                            ]
+                        },
+                        options: {
+                            title: {
+                            display: true,
+                            responsive: true,
+                            text: "Annual Roadway Deaths in {{ county.name }} County"
+                            },
+                            scales: {
+                            y: {
+                                min: 0
+                            }
+                            }
+                        }
+                        });
+                    new Chart(document.getElementById("vehicles"), {
+                        type: "bar",
+                        data: {
+                            labels: LABELS,
+                            datasets: [
+                            {
+                                data: VEHICLE_FATALITIES,
+                                label: "Annual Driver / Passenger Roadway Deaths",
+                                borderColor: "#8e5ea2",
+                                fill: false
+                            },
+                            {
+                                type: "line",
+                                label: "3-Year Moving Average",
+                                data: movingAvg(VEHICLE_FATALITIES, 3, function(val){ return val != 0; }),
+                                borderColor: "#3e95cd",
+                                fill: false
+                            }
+                            ]
+                        },
+                        options: {
+                            title: {
+                            display: true,
+                            responsive: true,
+                            text: "Types of Roadway Deaths in {{ county.name }} County"
+                            },
+                            scales: {
+                            y: {
+                                min: 0
+                            }
+                            }
+                        }
+                        });
+                    new Chart(document.getElementById("nonmotorists"), {
+                        type: "bar",
+                        data: {
+                            labels: LABELS,
+                            datasets: [
+                            {
+                                data: NONMOTORIST_FATALITIES,
+                                label: "Annual Driver / Passenger Roadway Deaths",
+                                borderColor: "#8e5ea2",
+                                fill: false
+                            },
+                            {
+                                type: "line",
+                                label: "3-Year Moving Average",
+                                data: movingAvg(NONMOTORIST_FATALITIES, 3, function(val){ return val != 0; }),
+                                borderColor: "#3e95cd",
+                                fill: false
+                            }
+                            ]
+                        },
+                        options: {
+                            title: {
+                            display: true,
+                            responsive: true,
+                            text: "Types of Roadway Deaths in {{ county.name }} County"
+                            },
+                            scales: {
+                            y: {
+                                min: 0
+                            }
+                            }
+                        }
+                        });
+                    new Chart(document.getElementById("pedestrians"), {
+                        type: "bar",
+                        data: {
+                            labels: LABELS,
+                            datasets: [
+                            {
+                                data: PEDESTRIAN_FATALITIES,
+                                label: "Annual Pedestrian Roadway Deaths",
+                                borderColor: "#8e5ea2",
+                                fill: false
+                            },
+                            {
+                                type: "line",
+                                label: "3-Year Moving Average",
+                                data: movingAvg(PEDESTRIAN_FATALITIES, 3, function(val){ return val != 0; }),
+                                borderColor: "#3e95cd",
+                                fill: false
+                            }
+                            ]
+                        },
+                        options: {
+                            title: {
+                            display: true,
+                            responsive: true,
+                            text: "Types of Roadway Deaths in {{ county.name }} County"
+                            },
+                            scales: {
+                            y: {
+                                min: 0
+                            }
+                            }
+                        }
+                        });
+                    new Chart(document.getElementById("bikes"), {
+                        type: "bar",
+                        data: {
+                            labels: LABELS,
+                            datasets: [
+                            {
+                                data: BICYCLE_FATALITIES,
+                                label: "Annual Bicycle / Micro-mobility Roadway Deaths",
+                                borderColor: "#3e95cd",
+                                fill: false
+                            },
+                            {
+                                type: "line",
+                                label: "3-Year Moving Average",
+                                data: movingAvg(BICYCLE_FATALITIES, 3, function(val){ return val != 0; }),
+                                borderColor: "#3e95cd",
+                                fill: false
+                            }
+                            ]
+                        },
+                        options: {
+                            title: {
+                            display: true,
+                            responsive: true,
+                            text: "Types of Roadway Deaths in {{ county.name }} County"
+                            },
+                            scales: {
+                            y: {
+                                min: 0
+                            }
+                            }
+                        }
+                        });
+                }
+            )
+        }
+        
+    </script>
+  <head>
+    <title>{{county.name}} County Dashboard</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <h1>
+        {{county.name}} County Dashboard
+    </h1>
+    <h2>Total Roadway Deaths</h2>
+    <canvas id="total-fatalities" width="800" height="300"></canvas>
+    <h2>Driver / Passenger Roadway Deaths</h2>
+    <canvas id="vehicles" width="800" height="300"></canvas>
+    <h2>Non-Motorist Roadway Deaths</h2>
+    <canvas id="nonmotorists" width="800" height="300"></canvas>
+    <h2>Pedestrian Deaths</h2>
+    <canvas id="pedestrians" width="800" height="300"></canvas>
+    <h2>Bicycle / Micro-Mobility Deaths</h2>
+    <canvas id="bikes" width="800" height="300"></canvas>
+
+
+
+    <script> 
+        
+        get_data()
+        </script>
+  </body>
+</html>

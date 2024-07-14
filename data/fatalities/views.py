@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 
-from django.db.models import Q
+from django.db.models import Q, Sum, Count
 from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
 from django.contrib.gis.geos import GEOSGeometry
-from fatalities.models import Accident, Comment
+from fatalities.models import Accident, Comment, County, Person, State
 from django.http import JsonResponse
 import json
 import folium
@@ -15,6 +15,8 @@ from data.filter_schemas import AccidentLocationFilterSchema
 from django.db.models import Q
 from django.contrib.gis.geoip2 import GeoIP2
 from fatalities.forms import CommentForm
+
+from django.db import connection
 
 
 def get_client_ip(request):
@@ -199,3 +201,119 @@ def post_comment(request):
         form = CommentForm()
 
     return render(request, "name.html", {"form": form})
+
+def county_dashboard(request, **kwargs):
+    county = County.objects.get(id=kwargs['county_id'])
+    return render(request, "county_dashboard.html", {"county": county})
+
+
+
+def total_fatalities(request):
+    county = County.objects.get(id=request.GET['county_id'])
+
+    # with connection.cursor() as cursor:
+    #     cursor.execute(
+    #         """
+    #         SELECT 
+    #             accident.year, 
+    #             sum(accident.fatalities) as total_fatalities
+    #         FROM 
+    #             accident 
+    #         WHERE 
+    #             county_id = %s
+    #         AND
+    #             accident.id IN (SELECT person.accident_id FROM person WHERE person.person_type IN (6,7,8))
+    #         GROUP BY 
+    #             year
+    #         ORDER BY
+    #             year;
+    #         """, 
+    #         [county.id]
+    #     )
+    #     rows = cursor.fetchall()
+    #     for row in rows:
+    #         print(row)
+    # return JsonResponse({})
+
+    years = [2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022]
+
+    fatalities_by_year = Accident.objects.filter(county=county).values("year").annotate(total_fatalities=Sum("fatalities")).order_by("year")
+
+    pedestrian_accidents_list = Person.objects.filter(accident__county=county, injury_severity=4, vehicle__isnull=True, parked_vehicle__isnull=True, person_type__in=[5,10,19]).values_list("accident_id", flat=True)
+    pedestrian_fatalities_qs = Accident.objects.filter(id__in=list(pedestrian_accidents_list)).values("year").annotate(pedestrian_fatalities=Sum("fatalities")).order_by("year")
+    print(pedestrian_fatalities_qs)
+    # print(len(pedestrian_fatalities_qs))
+    bicycle_accidents_list = Person.objects.filter(accident__county=county, injury_severity=4, vehicle__isnull=True, parked_vehicle__isnull=True, person_type__in=[6,7,8]).values_list("accident_id", flat=True)
+    bicycle_fatalities_qs = Accident.objects.filter(id__in=list(bicycle_accidents_list)).values("year").annotate(bicycle_fatalities=Sum("fatalities")).order_by("year")
+    
+    print(bicycle_fatalities_qs)
+    print(fatalities_by_year)
+    print(fatalities_by_year[0])
+    
+
+    # print(fatalities_by_year[0].__dict__)
+    data = {"labels": years, "total": [], "vehicle_fatalities": [ ], "nonmotorist_fatalities": [] , "pedestrian_fatalities": [] , "bicycle_fatalities": []}
+    for year in years:
+        print(year)
+        total_deaths = 0
+        for f in fatalities_by_year:
+            print(f)
+            if f['year'] == year:
+                total_deaths = f['total_fatalities']
+                break
+        pedestrian_deaths = 0
+        for f in pedestrian_fatalities_qs:
+            if f['year'] == year:
+                pedestrian_deaths = f['pedestrian_fatalities']
+                break
+        micromobility_deaths = 0
+        for f in bicycle_fatalities_qs:
+            if f['year'] == year:
+                micromobility_deaths = f['bicycle_fatalities']
+                break
+        nonmotorist_deaths = pedestrian_deaths + micromobility_deaths
+        vehicle_deaths = total_deaths - nonmotorist_deaths
+        data['total'] += [total_deaths]
+        data['vehicle_fatalities'] += [vehicle_deaths]
+        data['nonmotorist_fatalities'] += [nonmotorist_deaths]
+        data['pedestrian_fatalities'] += [pedestrian_deaths]
+        data['bicycle_fatalities'] += [micromobility_deaths]
+    
+            
+
+
+
+
+
+
+    # labels, total_fatalities = [], []
+    # for year_of_fatalities in fatalities_by_year:
+    #     labels += [year_of_fatalities['year']]
+    #     total_fatalities += [year_of_fatalities['total_fatalities']]
+    # pedestrian_fatalities, bicycle_fatalities = [], []
+    # for year_of_fatalities in pedestrian_fatalities_qs:
+    #     pedestrian_fatalities += [year_of_fatalities['pedestrian_fatalities']]
+    # for year_of_fatalities in bicycle_fatalities_qs:
+    #     bicycle_fatalities += [year_of_fatalities['bicycle_fatalities']]
+
+    # vehicle_deaths = []
+    # print(len(total_fatalities))
+    # print(len(pedestrian_fatalities))
+    # print(len(bicycle_fatalities))
+    # for x in range(len(total_fatalities)):
+    #     num_vehicle_deaths = total_fatalities[x] - pedestrian_fatalities[x] - bicycle_fatalities[x]
+    #     vehicle_deaths += [num_vehicle_deaths]
+
+    
+    
+    return JsonResponse(data)
+
+
+def county_selector(request):
+    states = State.objects.all()
+    return render(request, "county_selector.html", {"states": states})
+
+def county_table(request):
+    state = State.objects.get(id=request.GET['state_id'])
+    counties = County.objects.filter(state=state)
+    return render(request, "county_table.html", {"counties": counties})

@@ -1,0 +1,15 @@
+<html>
+    <script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>
+
+    <body>
+            <table>
+            {% for county in counties %}
+            <tr>
+                <td>
+                    <a href="/county_dashboard/{{ county.id }}">{{ county.name }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
