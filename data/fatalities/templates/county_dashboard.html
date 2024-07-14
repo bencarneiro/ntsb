@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
+    <script>
+        async function get_data() {
+                await axios.get("/total_fatalities?county_id=48453").then((response)=>{
+                    console.log(response.data)
+                    console.log(response.data.labels)
+                    console.log(response.data.total_fatalities);
+                    const TOTAL_FATALITIES = response.data.total_fatalities;
+                    const LABELS = response.data.labels;
+                    new Chart(document.getElementById("line-chart"), {
+                        type: "line",
+                        data: {
+                            labels: LABELS,
+                            datasets: [
+                            {
+                                data: TOTAL_FATALITIES,
+                                label: "Africa",
+                                borderColor: "#3e95cd",
+                                fill: false
+                            },
+                            //   {
+                            //     data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
+                            //     label: "Asia",
+                            //     borderColor: "#8e5ea2",
+                            //     fill: false
+                            //   },
+                            //   {
+                            //     data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
+                            //     label: "Europe",
+                            //     borderColor: "#3cba9f",
+                            //     fill: false
+                            //   },
+                            //   {
+                            //     data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784],
+                            //     label: "Latin America",
+                            //     borderColor: "#e8c3b9",
+                            //     fill: false
+                            //   },
+                            //   {
+                            //     data: [6, 3, 2, 2, 7, 26, 82, 172, 312, 433],
+                            //     label: "North America",
+                            //     borderColor: "#c45850",
+                            //     fill: false
+                            //   }
+                            ]
+                        },
+                        options: {
+                            title: {
+                            display: true,
+                            responsive: true,
+                            text: "World population per region (in millions)"
+                            },
+                            scales: {
+                            y: {
+                                min: 0
+                            }
+                            }
+                        }
+                        });
+                }
+            )
+        }
+        
+    </script>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <canvas id="line-chart" width="800" height="300"></canvas>
+    
+    <canvas id="total-fatalities" width="800" height="300"></canvas>
+
+
+
+    <script> 
+        
+        get_data()
+        </script>
+  </body>
+</html>

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from fatalities.views import crashes, favicon_view, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment
+from fatalities.views import crashes, favicon_view, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, county_dashboard, total_fatalities
 from .api import api
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,8 +31,9 @@ urlpatterns = [
     path("testmap", testmap, name="testmap"),
     path("nonmotorist_map", nonmotorist_map, name="nonmotorist_map"),
     path("post_comment", post_comment, name="post_comment"),
-
+    path("county_dashboard/<int:county_id>", county_dashboard, name="county_dashboard"),
     path("accidents/<int:id>/", accident_summary, name="accident_summary"),
+    path("total_fatalities", total_fatalities, name="total_fatalities"),
     path("v1/", api.urls),
     re_path(r'^favicon\.ico$', favicon_view),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

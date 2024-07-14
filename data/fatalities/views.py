@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 
-from django.db.models import Q
+from django.db.models import Q, Sum, Count
 from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
 from django.contrib.gis.geos import GEOSGeometry
-from fatalities.models import Accident, Comment
+from fatalities.models import Accident, Comment, County
 from django.http import JsonResponse
 import json
 import folium
@@ -199,3 +199,16 @@ def post_comment(request):
         form = CommentForm()
 
     return render(request, "name.html", {"form": form})
+
+def county_dashboard(request, **kwargs):
+    county = County.objects.get(id=kwargs['county_id'])
+    return render(request, "county_dashboard.html", {"county": county})
+
+def total_fatalities(request):
+    county = County.objects.get(id=request.GET['county_id'])
+    fatalities_by_year = Accident.objects.filter(county=county).values("year").annotate(total_fatalities=Sum("fatalities")).order_by("year")
+    labels, total_fatalities = [], []
+    for year_of_fatalities in fatalities_by_year:
+        labels += [year_of_fatalities['year']]
+        total_fatalities += [year_of_fatalities['total_fatalities']]
+    return JsonResponse({"labels": labels, "total_fatalities": total_fatalities})
