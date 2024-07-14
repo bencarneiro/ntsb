@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Q, Sum, Count
 from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
 from django.contrib.gis.geos import GEOSGeometry
-from fatalities.models import Accident, Comment, County
+from fatalities.models import Accident, Comment, County, Person
 from django.http import JsonResponse
 import json
 import folium
@@ -207,8 +207,14 @@ def county_dashboard(request, **kwargs):
 def total_fatalities(request):
     county = County.objects.get(id=request.GET['county_id'])
     fatalities_by_year = Accident.objects.filter(county=county).values("year").annotate(total_fatalities=Sum("fatalities")).order_by("year")
+    p = Person.objects.filter(accident__county=county, injury_severity=4, vehicle__isnull=True, parked_vehicle__isnull=True).values_list("accident_id", flat=True)
+    pedestrian_fatalities_qs = Accident.objects.filter(id__in=list(p)).values("year").annotate(pedestrian_fatalities=Sum("fatalities")).order_by("year")
     labels, total_fatalities = [], []
     for year_of_fatalities in fatalities_by_year:
         labels += [year_of_fatalities['year']]
         total_fatalities += [year_of_fatalities['total_fatalities']]
-    return JsonResponse({"labels": labels, "total_fatalities": total_fatalities})
+    pedestrian_fatalities = []
+    for year_of_fatalities in pedestrian_fatalities_qs:
+        pedestrian_fatalities += [year_of_fatalities['pedestrian_fatalities']]
+    
+    return JsonResponse({"labels": labels, "total_fatalities": total_fatalities, "pedestrian_fatalities": pedestrian_fatalities})

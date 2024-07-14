@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+    <style>
+        h1 {text-align: center;}
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
     <script>
@@ -9,49 +12,52 @@
                     console.log(response.data.labels)
                     console.log(response.data.total_fatalities);
                     const TOTAL_FATALITIES = response.data.total_fatalities;
+                    const PEDESTRIAN_FATALITIES = response.data.pedestrian_fatalities;
                     const LABELS = response.data.labels;
-                    new Chart(document.getElementById("line-chart"), {
+                    new Chart(document.getElementById("total-fatalities"), {
                         type: "line",
                         data: {
                             labels: LABELS,
                             datasets: [
                             {
                                 data: TOTAL_FATALITIES,
-                                label: "Africa",
+                                label: "Annual Roadway Deaths",
                                 borderColor: "#3e95cd",
                                 fill: false
                             },
-                            //   {
-                            //     data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
-                            //     label: "Asia",
-                            //     borderColor: "#8e5ea2",
-                            //     fill: false
-                            //   },
-                            //   {
-                            //     data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
-                            //     label: "Europe",
-                            //     borderColor: "#3cba9f",
-                            //     fill: false
-                            //   },
-                            //   {
-                            //     data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784],
-                            //     label: "Latin America",
-                            //     borderColor: "#e8c3b9",
-                            //     fill: false
-                            //   },
-                            //   {
-                            //     data: [6, 3, 2, 2, 7, 26, 82, 172, 312, 433],
-                            //     label: "North America",
-                            //     borderColor: "#c45850",
-                            //     fill: false
-                            //   }
                             ]
                         },
                         options: {
                             title: {
                             display: true,
                             responsive: true,
-                            text: "World population per region (in millions)"
+                            text: "Annual Roadway Deaths in {{ county.name }} County"
+                            },
+                            scales: {
+                            y: {
+                                min: 0
+                            }
+                            }
+                        }
+                        });
+                    new Chart(document.getElementById("breakdown"), {
+                        type: "line",
+                        data: {
+                            labels: LABELS,
+                            datasets: [
+                            {
+                                data: PEDESTRIAN_FATALITIES,
+                                label: "Annual Pedestrian Roadway Deaths",
+                                borderColor: "#8e5ea2",
+                                fill: false
+                            },
+                            ]
+                        },
+                        options: {
+                            title: {
+                            display: true,
+                            responsive: true,
+                            text: "Types of Roadway Deaths in {{ county.name }} County"
                             },
                             scales: {
                             y: {
@@ -66,14 +72,17 @@
         
     </script>
   <head>
-    <title>Parcel Sandbox</title>
+    <title>{{county.name}} County Dashboard</title>
     <meta charset="UTF-8" />
   </head>
 
   <body>
-    <canvas id="line-chart" width="800" height="300"></canvas>
-    
+    <h1>
+        {{county.name}} County Dashboard
+    </h1>
     <canvas id="total-fatalities" width="800" height="300"></canvas>
+    
+    <canvas id="breakdown" width="800" height="300"></canvas>
 
 
 
