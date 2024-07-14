@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Q, Sum, Count
 from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
 from django.contrib.gis.geos import GEOSGeometry
-from fatalities.models import Accident, Comment, County, Person
+from fatalities.models import Accident, Comment, County, Person, State
 from django.http import JsonResponse
 import json
 import folium
@@ -307,3 +307,13 @@ def total_fatalities(request):
     
     
     return JsonResponse(data)
+
+
+def county_selector(request):
+    states = State.objects.all()
+    return render(request, "county_selector.html", {"states": states})
+
+def county_table(request):
+    state = State.objects.get(id=request.GET['state_id'])
+    counties = County.objects.filter(state=state)
+    return render(request, "county_table.html", {"counties": counties})
