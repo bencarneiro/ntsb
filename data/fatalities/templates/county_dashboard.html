@@ -56,10 +56,15 @@ return result;
                     console.log(response.data.labels)
                     console.log(response.data.total_fatalities);
                     const TOTAL_FATALITIES = response.data.total;
+                    const TOTAL_AVG = response.data.total_average;
                     const VEHICLE_FATALITIES = response.data.vehicle_fatalities;
+                    const V_AVG = response.data.vehicle_fatalities_average
                     const PEDESTRIAN_FATALITIES = response.data.pedestrian_fatalities;
+                    const P_AVG = response.data.pedestrian_fatalities_average
                     const NONMOTORIST_FATALITIES = response.data.nonmotorist_fatalities;
+                    const N_AVG = response.data.nonmotorist_fatalities_average
                     const BICYCLE_FATALITIES = response.data.bicycle_fatalities;
+                    const B_AVG = response.data.bicycle_fatalities_average
                     const LABELS = response.data.labels;
                     new Chart(document.getElementById("total-fatalities"), {
                         type: "bar",
@@ -75,7 +80,7 @@ return result;
                             {
                                 type: "line",
                                 label: "3-Year Moving Average",
-                                data: movingAvg(TOTAL_FATALITIES, 3, function(val){ return val != 0; }),
+                                data: TOTAL_AVG,
                                 borderColor: "#3e95cd",
                                 fill: false
                             }
@@ -108,7 +113,7 @@ return result;
                             {
                                 type: "line",
                                 label: "3-Year Moving Average",
-                                data: movingAvg(VEHICLE_FATALITIES, 3, function(val){ return val != 0; }),
+                                data: V_AVG,
                                 borderColor: "#3e95cd",
                                 fill: false
                             }
@@ -134,14 +139,14 @@ return result;
                             datasets: [
                             {
                                 data: NONMOTORIST_FATALITIES,
-                                label: "Annual Driver / Passenger Roadway Deaths",
+                                label: "Annual Nonmotorist Deaths",
                                 borderColor: "#8e5ea2",
                                 fill: false
                             },
                             {
                                 type: "line",
                                 label: "3-Year Moving Average",
-                                data: movingAvg(NONMOTORIST_FATALITIES, 3, function(val){ return val != 0; }),
+                                data: N_AVG,
                                 borderColor: "#3e95cd",
                                 fill: false
                             }
@@ -174,7 +179,7 @@ return result;
                             {
                                 type: "line",
                                 label: "3-Year Moving Average",
-                                data: movingAvg(PEDESTRIAN_FATALITIES, 3, function(val){ return val != 0; }),
+                                data: P_AVG,
                                 borderColor: "#3e95cd",
                                 fill: false
                             }
@@ -207,7 +212,7 @@ return result;
                             {
                                 type: "line",
                                 label: "3-Year Moving Average",
-                                data: movingAvg(BICYCLE_FATALITIES, 3, function(val){ return val != 0; }),
+                                data: B_AVG,
                                 borderColor: "#3e95cd",
                                 fill: false
                             }

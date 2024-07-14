@@ -19,6 +19,19 @@ from fatalities.forms import CommentForm
 from django.db import connection
 
 
+def three_year_moving_avg(years):
+    new_list = []
+    for idx in range(len(years)):
+        if idx == 0:
+            new_list += [round(years[idx], 1)]
+        elif idx == 1:
+            new_list += [ round((years[idx - 1] + years[idx]) / 2, 1) ]
+        else:
+            new_list += [ round((years[idx - 2] + years[idx - 1] + years[idx]) / 3, 1) ]
+    return new_list
+
+
+
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
@@ -278,7 +291,11 @@ def total_fatalities(request):
         data['nonmotorist_fatalities'] += [nonmotorist_deaths]
         data['pedestrian_fatalities'] += [pedestrian_deaths]
         data['bicycle_fatalities'] += [micromobility_deaths]
-    
+    data['total_average'] = three_year_moving_avg(data['total'])
+    data['vehicle_fatalities_average'] = three_year_moving_avg(data['vehicle_fatalities'])
+    data['nonmotorist_fatalities_average'] = three_year_moving_avg(data['nonmotorist_fatalities'])
+    data['pedestrian_fatalities_average'] = three_year_moving_avg(data['pedestrian_fatalities'])
+    data['bicycle_fatalities_average'] = three_year_moving_avg(data['bicycle_fatalities'])
             
 
 
