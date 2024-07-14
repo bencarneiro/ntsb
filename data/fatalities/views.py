@@ -23,11 +23,11 @@ def three_year_moving_avg(years):
     new_list = []
     for idx in range(len(years)):
         if idx == 0:
-            new_list += [round(years[idx], 1)]
+            new_list += [round(years[idx], 2)]
         elif idx == 1:
-            new_list += [ round((years[idx - 1] + years[idx]) / 2, 1) ]
+            new_list += [ round((years[idx - 1] + years[idx]) / 2, 2) ]
         else:
-            new_list += [ round((years[idx - 2] + years[idx - 1] + years[idx]) / 3, 1) ]
+            new_list += [ round((years[idx - 2] + years[idx - 1] + years[idx]) / 3, 2) ]
     return new_list
 
 
