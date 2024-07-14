@@ -315,5 +315,5 @@ def county_selector(request):
 
 def county_table(request):
     state = State.objects.get(id=request.GET['state_id'])
-    counties = County.objects.filter(state=state)
+    counties = County.objects.filter(state=state).order_by("name")
     return render(request, "county_table.html", {"counties": counties})
