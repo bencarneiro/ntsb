@@ -113,3 +113,30 @@ def test_date_selectors(playwright) -> None:
     context.close()
     browser.close()
 
+
+
+# this test exists because there was an issue in safari where clicking the map would send two api requests instead of 1
+def test_double_click(playwright) -> None:
+
+    iphone_13 = playwright.devices['iPhone 13']
+    browser = playwright.webkit.launch(headless=False)
+    context = browser.new_context(**iphone_13)
+    page = context.new_page()
+    page.on("console", lambda msg: print(f"error: {msg.text}"))
+    page.goto("http://127.0.0.1:8000/")
+    page.get_by_role("link", name="Roadway Report: The").click()
+    page.locator(".leaflet-marker-icon").first.click()
+    page.locator("#input-control-date-picker1").fill("2009-01-01")
+    # page.locator("#input-control-date-picker2").fill("2015-01-01")
+    page.locator(".leaflet-marker-icon").first.click()
+    page.locator("#input-control-date-picker2").fill("2015-01-01")
+    page.locator(".leaflet-marker-icon").first.click()
+    page.locator(".leaflet-container").click()
+    page.on("console", lambda msg: print(f"error: {msg.text}"))
+    page.locator(".leaflet-marker-icon").first.click()
+    # with page.expect_popup() as page1_info:
+    #     page.get_by_role("link", name="Details Here").click()
+    # ---------------------
+    context.close()
+    browser.close()
+

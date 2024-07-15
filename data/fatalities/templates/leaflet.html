@@ -28,7 +28,7 @@
     var lat = urlParams.get('lat')
     var lon = urlParams.get('lon')
     const radius = urlParams.get('radius')
-    const map = L.map('my_map')
+    const map = L.map('my_map', {tap: false})
     var startDate = "2001-01-01"
     var endDate = "2023-01-01"
     L.Control.geocoder().addTo(map);
