@@ -203,12 +203,24 @@
     <tr><td>Atmospheric Condition</td><td> {{accident.get_atmospheric_condition_display}} </td></tr>
     <tr><td>School Bus Related</td><td> {{accident.school_bus_related}} </td></tr>
     <tr><td>Rail Grade Crossing ID</td><td> {{accident.rail_grade_crossing_identifier}} </td></tr>
+    {% if accident.ems_notified_hour < 99 %}
     <tr><td>EMS Notified Hour</td><td> {{accident.ems_notified_hour}} </td></tr>
+    {% endif %}
+    {% if accident.ems_notified_minute < 99 %}
     <tr><td>EMS Notified Minute</td><td> {{accident.ems_notified_minute}} </td></tr>
+    {% endif %}
+    {% if accident.ems_arrived_hour < 99 %}
     <tr><td>EMS Arrived Hour</td><td> {{accident.ems_arrived_hour}} </td></tr>
+    {% endif %}
+    {% if accident.ems_arrived_minute < 99 %}
     <tr><td>EMS Arrived Minute</td><td> {{accident.ems_arrived_minute}} </td></tr>
+    {% endif %}
+    {% if accident.arrived_at_hospital_hour < 99 %}
     <tr><td>Arrived At Hospital Hour</td><td> {{accident.arrived_at_hospital_hour}} </td></tr>
+    {% endif %}
+    {% if accident.arrived_at_hospital_minute < 99 %}
     <tr><td>Arrived at Hospital Minute</td><td> {{accident.arrived_at_hospital_minute}} </td></tr>
+    {% endif %}
 </table>
 </div>
 <h1>Vehicles In Transport</h1>
@@ -278,7 +290,14 @@
 <tr><td>Special Vehicle Use</td><td> {{vehicle.get_special_vehicle_use_display}} </td></tr>
 
 <tr><td>Emergency Vehicle Use</td><td> {{vehicle.get_emergency_vehicle_use_display}} </td></tr>
-<tr><td>Travel Speed</td><td> {{vehicle.travel_speed}} </td></tr>
+
+<tr><td>Speed Limit</td><td> {% if vehicle.speed_limit < 97 %}{{vehicle.speed_limit}}{% else %}Unknown{% endif %} </td></tr>
+
+{% if accident.year < 2009 %}
+<tr><td>Travel Speed</td><td> {% if vehicle.travel_speed < 97 %}{{vehicle.travel_speed}}{% else %}Unknown{% endif %} </td></tr>
+{% else %}
+<tr><td>Travel Speed</td><td> {% if vehicle.travel_speed < 995 %}{{vehicle.travel_speed}}{% else %}Unknown{% endif %} </td></tr>
+{% endif %}
 
 <tr><td>Underride / Override</td><td> {{vehicle.get_underride_override_display}} </td></tr>
 
@@ -340,8 +359,6 @@
 <tr><td>Trafficway Description</td><td> {{vehicle.get_trafficway_description_display}} </td></tr>
 
 <tr><td>Total Lanes in Roadway</td><td> {{vehicle.get_total_lanes_in_roadway_display}} </td></tr>
-<tr><td>Speed Limit</td><td> {{vehicle.speed_limit}} </td></tr>
-<tr><td>Travel Speed</td><td> {{vehicle.travel_speed}} </td></tr>
 
 <tr><td>Roadway Alignment</td><td> {{vehicle.get_roadway_alignment_display}} </td></tr>
 
