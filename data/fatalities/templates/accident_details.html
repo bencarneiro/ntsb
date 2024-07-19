@@ -392,6 +392,7 @@
 <tr><td>Vehicle Related Factor</td><td> {{vrf.get_vehicle_related_factor_display}} </td></tr>
 {%endfor%}
 {%for vrf in vehicle.driverrelatedfactor_set.all %}
+
 <tr><td>Driver Related Factor</td><td> {{vrf.get_driver_related_factor_display}} </td></tr>
 {%endfor%}
 {%for vrf in vehicle.vision_set.all %}
@@ -603,7 +604,7 @@
     <tr><td>Nonmotorist Other Protective Equipment</td><td>{{person.safetyequipment.get_other_protective_equipment_display}} </td></tr>
     <tr><td>Nonmotorist Other Preventative Equipment</td><td>{{person.safetyequipment.get_other_preventative_equipment_display}} </td></tr>
     {% endif %}
-    {% if person.safetyequipment.get_marked_crosswalk_present_display %} 
+    {% if person.pedestriantype.get_pedestrian_location_display %} 
     <tr><td>Nonmotorist Marked Crosswalk Present</td><td>{{person.pedestriantype.get_marked_crosswalk_present_display}} </td></tr>
     <tr><td>Nonmotorist Sidewalk Present</td><td>{{person.pedestriantype.get_sidewalk_present_display}} </td></tr>
     <tr><td>Nonmotorist In School Zone</td><td>{{person.pedestriantype.get_in_school_zone_display}} </td></tr>
@@ -617,7 +618,7 @@
     <tr><td>Bicycle Direction</td><td>{{person.pedestriantype.get_bicycle_direction_display}} </td></tr>
     <tr><td>Motorist Direction</td><td>{{person.pedestriantype.get_motorist_direction_display}} </td></tr>
     {% endif %}
-
+    
   {%for rf in person.nonmotoristprioraction_set.all %}
   <tr><td>Nonmotorist Prior Action</td><td> {{rf.get_nonmotorist_prior_action_display}} </td></tr>
   {%endfor%}
