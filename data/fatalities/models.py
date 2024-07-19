@@ -3978,6 +3978,7 @@ class DriverRelatedFactor(models.Model):
         (95, 'Fire Personnel'),
         (96, 'Tow Operator'),
         (97, 'Transportation (i.e., Maintenance Workers, Safety Service Patrol Operators, etc.)'),
+        (99, "Reported as Unknown"),
         (101, "Carrying Hazardous Cargo Improperly (1994-2009)")
     ]
     driver_related_factor = models.PositiveSmallIntegerField(choices=driver_related_factor_choices, default=0)
