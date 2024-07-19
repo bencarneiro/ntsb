@@ -3,10 +3,19 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script> 
 <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />    
+<script src="static/leaflet_menu.js"></script>
+<link rel="stylesheet" type="text/css" href="static/leaflet_menu.css"></link>
 <style>
+    body {
+        background-color: lavenderblush
+    }
+    .leaflet-menu{
+        background-color: lavenderblush;
+    }
     /* Centered text */
 .centered {
   position: absolute;
@@ -16,6 +25,31 @@
   z-index: 10000;
   font-size: 3rem;
 }
+
+h1 {
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      font-size: 2rem;
+    }
+    h2 {
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      font-size: 1.7rem;
+    }
+    .table{
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto;
+      width:100%;
+    }
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      padding-top: 30px;
+      width: 50%;
+      width:100%;
+    }
 </style>
 </head>
 
@@ -65,6 +99,21 @@
             position: "topleft",
         }).addTo(map);
 
+        L.control.slideMenu(`
+        <h1>Roadway Report</h1>
+        <h2>The Nationwide Vision-Zero Map</h2>
+        <br><br>
+        <table>
+            
+            <tr><td><h1><a href='https://patreon.com/visionzero'>Support This Project!</a></h1></td></tr>
+            <tr><td><h2><a href='https://github.com/bencarneiro/ntsb'>Source Code</a></h2></td></tr>
+                <tr><td><h2><a href='https://roadway.report/v1/docs'>Free API Docs</a></h2></td></tr>
+                    <tr><td><h2><a href='https://bencarneiro.com/@ben'>The Developer</a></h2></td></tr>
+                        <tr><td><h2><a href="mailto:hello@bencarneiro.com">Get In Touch</a></h2></td></tr>
+    </table>
+        
+        
+        `).addTo(map);
     async function load_shapefile(lon, lat) {
     document.getElementById('loading').innerHTML+= "<center>loading...</center>";
       let url = `/v1/accidents_by_location_geojson?lat=${lat}&lon=${lon}&radius=3&datetime__gte=${startDate}T00:00:00&datetime__lte=${endDate}T00:00:00`;

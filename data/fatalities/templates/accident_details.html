@@ -203,12 +203,24 @@
     <tr><td>Atmospheric Condition</td><td> {{accident.get_atmospheric_condition_display}} </td></tr>
     <tr><td>School Bus Related</td><td> {{accident.school_bus_related}} </td></tr>
     <tr><td>Rail Grade Crossing ID</td><td> {{accident.rail_grade_crossing_identifier}} </td></tr>
+    {% if accident.ems_notified_hour < 99 %}
     <tr><td>EMS Notified Hour</td><td> {{accident.ems_notified_hour}} </td></tr>
+    {% endif %}
+    {% if accident.ems_notified_minute < 99 %}
     <tr><td>EMS Notified Minute</td><td> {{accident.ems_notified_minute}} </td></tr>
+    {% endif %}
+    {% if accident.ems_arrived_hour < 99 %}
     <tr><td>EMS Arrived Hour</td><td> {{accident.ems_arrived_hour}} </td></tr>
+    {% endif %}
+    {% if accident.ems_arrived_minute < 99 %}
     <tr><td>EMS Arrived Minute</td><td> {{accident.ems_arrived_minute}} </td></tr>
+    {% endif %}
+    {% if accident.arrived_at_hospital_hour < 99 %}
     <tr><td>Arrived At Hospital Hour</td><td> {{accident.arrived_at_hospital_hour}} </td></tr>
+    {% endif %}
+    {% if accident.arrived_at_hospital_minute < 99 %}
     <tr><td>Arrived at Hospital Minute</td><td> {{accident.arrived_at_hospital_minute}} </td></tr>
+    {% endif %}
 </table>
 </div>
 <h1>Vehicles In Transport</h1>
@@ -248,6 +260,7 @@
 <tr><td>Upper Weight Rating</td><td> {{vehicle.get_gross_vehicle_weight_rating_upper_display}} </td></tr>
 
 <tr><td>Vehicle Trailing</td><td> {{vehicle.get_vehicle_trailing_display}} </td></tr>
+{% if vehicle.vehicle_trailing > 0 %}
 <tr><td>Trailer VIN 1</td><td> {{vehicle.trailer_vin_1}} </td></tr>
 <tr><td>Trailer VIN 2</td><td> {{vehicle.trailer_vin_2}} </td></tr>
 <tr><td>Trailer VIN 3</td><td> {{vehicle.trailer_vin_3}} </td></tr>
@@ -257,6 +270,7 @@
 <tr><td>Trailer Weight Rating 2</td><td> {{vehicle.get_trailer_weight_rating_2_display}} </td></tr>
 
 <tr><td>Trailer Weight Rating 3</td><td> {{vehicle.get_trailer_weight_rating_3_display}} </td></tr>
+{% endif %}
 
 <tr><td>Jackknife</td><td> {{vehicle.get_jackknife_display}} </td></tr>
 <tr><td>Motor Carrier ID</td><td> {{vehicle.motor_carrier_identification_number}} </td></tr>
@@ -264,6 +278,7 @@
 <tr><td>Vehicle Configuration</td><td> {{vehicle.get_vehicle_configuration_display}} </td></tr>
 
 <tr><td>Cargo Body Type</td><td> {{vehicle.get_cargo_body_type_display}} </td></tr>
+{% if vehicle.hazardous_material_involvement %}
 <tr><td>Hazardous Material Involvement</td><td> {{vehicle.hazardous_material_involvement}} </td></tr>
 
 <tr><td>Hazardous Material Placard</td><td> {{vehicle.get_hazardous_material_placard_display}} </td></tr>
@@ -272,13 +287,21 @@
 <tr><td>Hazardous Material Class Number</td><td> {{vehicle.get_hazardous_material_class_number_display}} </td></tr>
 
 <tr><td>Relase of Hazardous Material</td><td> {{vehicle.get_release_of_hazardous_material_display}} </td></tr>
+{%endif%}
 
 <tr><td>Bus Use</td><td> {{vehicle.get_bus_use_display}} </td></tr>
 
 <tr><td>Special Vehicle Use</td><td> {{vehicle.get_special_vehicle_use_display}} </td></tr>
 
 <tr><td>Emergency Vehicle Use</td><td> {{vehicle.get_emergency_vehicle_use_display}} </td></tr>
-<tr><td>Travel Speed</td><td> {{vehicle.travel_speed}} </td></tr>
+
+<tr><td>Speed Limit</td><td> {% if vehicle.speed_limit < 97 %}{{vehicle.speed_limit}}{% else %}Unknown{% endif %} </td></tr>
+
+{% if accident.year < 2009 %}
+<tr><td>Travel Speed</td><td> {% if vehicle.travel_speed < 97 %}{{vehicle.travel_speed}}{% else %}Unknown{% endif %} </td></tr>
+{% else %}
+<tr><td>Travel Speed</td><td> {% if vehicle.travel_speed < 995 %}{{vehicle.travel_speed}}{% else %}Unknown{% endif %} </td></tr>
+{% endif %}
 
 <tr><td>Underride / Override</td><td> {{vehicle.get_underride_override_display}} </td></tr>
 
@@ -294,12 +317,13 @@
 
 <tr><td>Most Harmful Event</td><td> {{vehicle.get_most_harmful_event_display}} </td></tr>
 <tr><td>Fire Occurence</td><td> {{vehicle.fire_occurence}} </td></tr>
-
+{% if accident.year > 2018 %}
 <tr><td>Automated Driving System Present</td><td> {{vehicle.get_automated_driving_system_present_display}} </td></tr>
 
 <tr><td>Automated Driving System Level</td><td> {{vehicle.get_automated_driving_system_level_display}} </td></tr>
 
 <tr><td>Automated Driving System Engaged</td><td> {{vehicle.get_automated_driving_system_engaged_display}} </td></tr>
+{% endif %}
 
 <tr><td>Driver Drinking</td><td> {{vehicle.get_driver_drinking_display}} </td></tr>
 
@@ -340,8 +364,6 @@
 <tr><td>Trafficway Description</td><td> {{vehicle.get_trafficway_description_display}} </td></tr>
 
 <tr><td>Total Lanes in Roadway</td><td> {{vehicle.get_total_lanes_in_roadway_display}} </td></tr>
-<tr><td>Speed Limit</td><td> {{vehicle.speed_limit}} </td></tr>
-<tr><td>Travel Speed</td><td> {{vehicle.travel_speed}} </td></tr>
 
 <tr><td>Roadway Alignment</td><td> {{vehicle.get_roadway_alignment_display}} </td></tr>
 
@@ -370,6 +392,7 @@
 <tr><td>Vehicle Related Factor</td><td> {{vrf.get_vehicle_related_factor_display}} </td></tr>
 {%endfor%}
 {%for vrf in vehicle.driverrelatedfactor_set.all %}
+
 <tr><td>Driver Related Factor</td><td> {{vrf.get_driver_related_factor_display}} </td></tr>
 {%endfor%}
 {%for vrf in vehicle.vision_set.all %}
@@ -422,10 +445,12 @@
 <tr><td>Registered Vehicle Owner</td><td> {{vehicle.get_registered_vehicle_owner_display}} </td></tr>
 <tr><td>VIN</td><td> {{vehicle.vehicle_identification_number}} </td></tr>
 <tr><td>Model Year</td><td> {{vehicle.vehicle_model_year}} </td></tr>
+{% if accident.year > 2019 %}
 <tr><td>VPIC Make ID</td><td> {{vehicle.vpic_make}} </td></tr>
 <tr><td>VPIC Model ID</td><td> {{vehicle.vpic_model}} </td></tr>
 
 <tr><td>VPIC Body Class</td><td> {{vehicle.get_vpic_body_class_display}} </td></tr>
+{% endif %}
 
 <tr><td>NCSA Make</td><td> {{vehicle.get_ncsa_make_display}} </td></tr>
 <tr><td>NCSA Model</td><td> {{vehicle.ncsa_model}} </td></tr>
@@ -535,7 +560,7 @@
     <tr><td>Transported To Medical Facility By</td><td>{{person.get_transported_to_medical_facility_by_display}} </td></tr>
 
     <tr><td>Died En Route</td><td>{{person.get_died_en_route_display}} </td></tr>
-
+    {% if person.injury_severity == 4 %}
     <tr><td>Month of Death</td><td>{{person.get_month_of_death_display}} </td></tr>
     <tr><td>Day of Death</td><td>{{person.day_of_death}} </td></tr>
     <tr><td>Year of Death</td><td>{{person.year_of_death}} </td></tr>
@@ -543,13 +568,14 @@
     <tr><td>Minute of Death</td><td>{{person.minute_of_death}} </td></tr>
     <tr><td>Lag Hours</td><td>{{person.lag_hours}} </td></tr>
     <tr><td>Lag Minutes</td><td>{{person.lag_minutes}} </td></tr>
+    {% endif %}
     <tr><td>Vehicle which Struck Non Motorist</td><td>{%if person.vehicle_which_struck_non_motorist%}#{%endif%}{{person.vehicle_which_struck_non_motorist.vehicle_number}} </td></tr>
 
-
+    {% if accident.year > 2021 %}
     <tr><td>Non Motorist Device Type</td><td>{{person.get_non_motorist_device_type_display}} </td></tr>
 
     <tr><td>Non Motorist Device Motorization</td><td>{{person.get_non_motorist_device_motorization_display}} </td></tr>
-
+    {% endif %}
     <tr><td>Non Motorist Location</td><td>{{person.get_non_motorist_location_display}} </td></tr>
 
     <tr><td>At Work</td><td>{{person.get_at_work_display}} </td></tr>
@@ -560,8 +586,10 @@
   <tr><td>Race</td><td> {{race.get_race_display}} </td></tr>
   {%endfor%}
   {%for drugs in person.drugs_set.all %}
+  {% if person.drug_test_type > 0 %}
   <tr><td>Drug Test Type</td><td> {{drugs.get_drug_test_type_display}} </td></tr>
   <tr><td>Drug Test Results</td><td> {{drugs.interpret_test_result}} </td></tr>
+  {% endif %}
   {%endfor%}
   {%for rf in person.personrelatedfactor_set.all %}
   <tr><td>Person Related Factor</td><td> {{rf.get_person_related_factor_display}} </td></tr>
@@ -575,6 +603,8 @@
     <tr><td>Nonmotorist Reflectors</td><td>{{person.safetyequipment.get_reflective_equipment_display}} </td></tr>
     <tr><td>Nonmotorist Other Protective Equipment</td><td>{{person.safetyequipment.get_other_protective_equipment_display}} </td></tr>
     <tr><td>Nonmotorist Other Preventative Equipment</td><td>{{person.safetyequipment.get_other_preventative_equipment_display}} </td></tr>
+    {% endif %}
+    {% if person.pedestriantype.get_pedestrian_location_display %} 
     <tr><td>Nonmotorist Marked Crosswalk Present</td><td>{{person.pedestriantype.get_marked_crosswalk_present_display}} </td></tr>
     <tr><td>Nonmotorist Sidewalk Present</td><td>{{person.pedestriantype.get_sidewalk_present_display}} </td></tr>
     <tr><td>Nonmotorist In School Zone</td><td>{{person.pedestriantype.get_in_school_zone_display}} </td></tr>
@@ -588,7 +618,7 @@
     <tr><td>Bicycle Direction</td><td>{{person.pedestriantype.get_bicycle_direction_display}} </td></tr>
     <tr><td>Motorist Direction</td><td>{{person.pedestriantype.get_motorist_direction_display}} </td></tr>
     {% endif %}
-
+    
   {%for rf in person.nonmotoristprioraction_set.all %}
   <tr><td>Nonmotorist Prior Action</td><td> {{rf.get_nonmotorist_prior_action_display}} </td></tr>
   {%endfor%}
