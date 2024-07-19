@@ -50,6 +50,10 @@ h1 {
       width: 50%;
       width:100%;
     }
+    .leaflet-popup-content-wrapper h1, h2 {
+        font-size: 1.35rem;
+        margin: 10px
+    }
 </style>
 </head>
 
@@ -136,10 +140,17 @@ h1 {
                 json,
                 {
                     onEachFeature: function (feature, layer) {
-                        layer.bindPopup(
-                            `<h1>${feature.properties.fatalities} Death(s)</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+                        if (feature.properties.fatalities > 1) {
+                            layer.bindPopup(
+                            `<h1>${feature.properties.fatalities} Deaths</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
                             
                         );
+                        } else {
+                            layer.bindPopup(
+                            `<h1>${feature.properties.fatalities} Death</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+                            
+                        );
+                        }
                     }
                 }
 
@@ -170,10 +181,17 @@ h1 {
                 json,
                 {
                     onEachFeature: function (feature, layer) {
-                        layer.bindPopup(
-                            `<h1>${feature.properties.fatalities} Death(s)</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+                        if (feature.properties.fatalities > 1) {
+                            layer.bindPopup(
+                            `<h1>${feature.properties.fatalities} Deaths</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
                             
                         );
+                        } else {
+                            layer.bindPopup(
+                            `<h1>${feature.properties.fatalities} Death</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+                            
+                        );
+                        }
                     }
                 }
 
@@ -191,10 +209,17 @@ h1 {
                 json,
                 {
                     onEachFeature: function (feature, layer) {
-                        layer.bindPopup(
-                            `<h1>${feature.properties.fatalities} Death(s)</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+                        if (feature.properties.fatalities > 1) {
+                            layer.bindPopup(
+                            `<h1>${feature.properties.fatalities} Deaths</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
                             
                         );
+                        } else {
+                            layer.bindPopup(
+                            `<h1>${feature.properties.fatalities} Death</h1><h2>${new Date(feature.properties.datetime).toDateString()}</h2><h2>${feature.properties.link}</h2>`
+                            
+                        );
+                        }
                     }
                 }
 
