@@ -278,6 +278,7 @@
 <tr><td>Vehicle Configuration</td><td> {{vehicle.get_vehicle_configuration_display}} </td></tr>
 
 <tr><td>Cargo Body Type</td><td> {{vehicle.get_cargo_body_type_display}} </td></tr>
+{% if vehicle.hazardous_material_involvement %}
 <tr><td>Hazardous Material Involvement</td><td> {{vehicle.hazardous_material_involvement}} </td></tr>
 
 <tr><td>Hazardous Material Placard</td><td> {{vehicle.get_hazardous_material_placard_display}} </td></tr>
@@ -286,6 +287,7 @@
 <tr><td>Hazardous Material Class Number</td><td> {{vehicle.get_hazardous_material_class_number_display}} </td></tr>
 
 <tr><td>Relase of Hazardous Material</td><td> {{vehicle.get_release_of_hazardous_material_display}} </td></tr>
+{%endif%}
 
 <tr><td>Bus Use</td><td> {{vehicle.get_bus_use_display}} </td></tr>
 
@@ -315,12 +317,13 @@
 
 <tr><td>Most Harmful Event</td><td> {{vehicle.get_most_harmful_event_display}} </td></tr>
 <tr><td>Fire Occurence</td><td> {{vehicle.fire_occurence}} </td></tr>
-
+{% if accident.year > 2018 %}
 <tr><td>Automated Driving System Present</td><td> {{vehicle.get_automated_driving_system_present_display}} </td></tr>
 
 <tr><td>Automated Driving System Level</td><td> {{vehicle.get_automated_driving_system_level_display}} </td></tr>
 
 <tr><td>Automated Driving System Engaged</td><td> {{vehicle.get_automated_driving_system_engaged_display}} </td></tr>
+{% endif %}
 
 <tr><td>Driver Drinking</td><td> {{vehicle.get_driver_drinking_display}} </td></tr>
 
