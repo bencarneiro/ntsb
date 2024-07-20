@@ -554,8 +554,8 @@ class AccidentSchema(Schema):
     hour: int
     minute: int
     datetime: datetime
-    latitude: float
-    longitude: float
+    latitude: float = Field(None, alias="latitude")
+    longitude: float = Field(None, alias="longitude")
     number_of_vehicles: int = Field(0, alias="number_of_vehicles")
     number_of_vehicles_in_transport: int = Field(0, alias="number_of_vehicles_in_transport")
     number_of_parked_vehicles: int = Field(0, alias="number_of_parked_vehicles")
@@ -625,13 +625,11 @@ class ShortAccidentSchema(Schema):
     datetime: datetime
     st_case: int
     fatalities: int
-    latitude: float
-    longitude: float
     link: str
 
 class GeometrySchema(Schema):
     type: str = Field("Point", alias="not_applicable")
-    coordinates: list[float] = Field(..., alias="coordinates")
+    coordinates: list[float] = Field([], alias="coordinates")
 
 class FeatureSchema(Schema): 
     id: int
