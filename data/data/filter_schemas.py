@@ -597,6 +597,7 @@ class AccidentLocationFilterSchema(FilterSchema):
     id__gt: Optional[int] = None
     state_id: Optional[int] = None
     county_id: Optional[int] = None
+    city_id: Optional[int] = None
     year: Optional[int] = None
     year__lt: Optional[int] = None
     year__gt: Optional[int] = None
@@ -655,6 +656,7 @@ class AccidentFilterSchema(FilterSchema):
     id__gt: Optional[int] = None
     state_id: Optional[int] = None
     county_id: Optional[int] = None
+    city_id: Optional[int] = None
     year: Optional[int] = None
     year__lt: Optional[int] = None
     year__gt: Optional[int] = None

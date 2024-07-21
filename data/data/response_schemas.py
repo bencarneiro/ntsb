@@ -3,7 +3,7 @@ from ninja import Schema, Field
 
 from datetime import datetime
 
-from typing import List
+from typing import List, Optional
 
 from pydantic import (
     BaseModel,
@@ -277,8 +277,8 @@ class VehicleSchema(Schema):
     registered_vehicle_owner__display: str = Field(..., alias='get_registered_vehicle_owner_display')
     vehicle_identification_number: str
     vehicle_model_year: int
-    vpic_make: int
-    vpic_model: int
+    vpic_make: Optional[int] = None
+    vpic_model: Optional[int] = None
     vpic_body_class: int = Field(..., alias='vpic_body_class')	
     vpic_body_class__display: str = Field(..., alias='get_vpic_body_class_display')
     ncsa_make: int = Field(..., alias='ncsa_make')	
@@ -294,9 +294,9 @@ class VehicleSchema(Schema):
     gross_vehicle_weight_rating_upper__display: str = Field(..., alias='get_gross_vehicle_weight_rating_upper_display')
     vehicle_trailing: int = Field(..., alias='vehicle_trailing')	
     vehicle_trailing__display: str = Field(..., alias='get_vehicle_trailing_display')
-    trailer_vin_1: str
-    trailer_vin_2: str
-    trailer_vin_3: str
+    trailer_vin_1: Optional[str] = None
+    trailer_vin_2: Optional[str] = None
+    trailer_vin_3: Optional[str] = None
     trailer_weight_rating_1: int = Field(..., alias='trailer_weight_rating_1')	
     trailer_weight_rating_1__display: str = Field(..., alias='get_trailer_weight_rating_1_display')
     trailer_weight_rating_2: int = Field(..., alias='trailer_weight_rating_2')	
@@ -313,7 +313,7 @@ class VehicleSchema(Schema):
     hazardous_material_involvement: bool
     hazardous_material_placard: int = Field(..., alias='hazardous_material_placard')	
     hazardous_material_placard__display: str = Field(..., alias='get_hazardous_material_placard_display')
-    hazardous_material_id: int
+    hazardous_material_id: Optional[int] = None
     hazardous_material_class_number: int = Field(..., alias='hazardous_material_class_number')	
     hazardous_material_class_number__display: str = Field(..., alias='get_hazardous_material_class_number_display')
     release_of_hazardous_material: int = Field(..., alias='release_of_hazardous_material')	
@@ -371,8 +371,8 @@ class VehicleSchema(Schema):
     driver_weight: int
         
     previous_recorded_crashes: int
-    previous_bac_suspensions_underage: int
-    previous_bac_suspensions: int
+    previous_bac_suspensions_underage: Optional[int] = None
+    previous_bac_suspensions: Optional[int] = None
     previous_dwi_convictions: int
     previous_speeding_convictions: int
     previous_other_moving_violations: int
@@ -450,8 +450,8 @@ class ParkedVehicleSchema(Schema):
     registered_vehicle_owner__display: str = Field(..., alias='get_registered_vehicle_owner_display')
     vehicle_identification_number: str
     vehicle_model_year: int
-    vpic_make: int
-    vpic_model: int
+    vpic_make: Optional[int] = None
+    vpic_model: Optional[int] = None
 
     vpic_body_class: int = Field(..., alias='vpic_body_class')	
     vpic_body_class__display: str = Field(..., alias='get_vpic_body_class_display')
@@ -469,9 +469,9 @@ class ParkedVehicleSchema(Schema):
     vehicle_trailing: int = Field(..., alias='vehicle_trailing')	
     vehicle_trailing__display: str = Field(..., alias='get_vehicle_trailing_display')
 
-    trailer_vin_1: str
-    trailer_vin_2: str
-    trailer_vin_3: str
+    trailer_vin_1: Optional[str] = None
+    trailer_vin_2: Optional[str] = None
+    trailer_vin_3: Optional[str] = None
     trailer_weight_rating_1: int = Field(..., alias='trailer_weight_rating_1')	
     trailer_weight_rating_1__display: str = Field(..., alias='get_trailer_weight_rating_1_display')
     trailer_weight_rating_2: int = Field(..., alias='trailer_weight_rating_2')	
@@ -486,7 +486,7 @@ class ParkedVehicleSchema(Schema):
     hazardous_material_involvement: bool
     hazardous_material_placard: int = Field(..., alias='hazardous_material_placard')	
     hazardous_material_placard__display: str = Field(..., alias='get_hazardous_material_placard_display')
-    hazardous_material_id: int
+    hazardous_material_id: Optional[int] = None
     hazardous_material_class_number: int = Field(..., alias='hazardous_material_class_number')	
     hazardous_material_class_number__display: str = Field(..., alias='get_hazardous_material_class_number_display')
     release_of_hazardous_material: int = Field(..., alias='release_of_hazardous_material')	
@@ -567,7 +567,7 @@ class AccidentSchema(Schema):
 
 
     trafficway_identifier_1: str
-    trafficway_identifier_2: str
+    trafficway_identifier_2: Optional[str] = None
 
     route_signing: int = Field(..., alias='route_signing')
     route_signing__display: str = Field(..., alias='get_route_signing_display')
