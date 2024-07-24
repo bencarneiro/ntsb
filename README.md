@@ -2,6 +2,9 @@
 
 This repo powers [roadway.report](https://roadway.report), a web application in-development which will serve data on any traffic death in the USA since 1975
 
+
+<img src="https://censusmaps.org/static/death.png">
+
 I want people to build nice, interactive maps ontop of these APIS. This can support a nationwide vision-zero viewer. 
 Here's a crummy [proof of concept](https://roadway.report)
 
