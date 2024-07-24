@@ -23,13 +23,18 @@
             text-align: center;
             font-size: 4rem;
             }
+            h2 {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            font-size: 2rem;
+            }
             .table{
             font-family: Arial, Helvetica, sans-serif;
             border-collapse: collapse;
             margin-left: auto;
             margin-right: auto
             }
-            td {
+            td, th {
             border: 1px solid #ddd;
             padding: 8px;
             width: 50%;
@@ -124,7 +129,7 @@
                         table += "</tr>";
                     })
                     table += "</table>";
-                    let header = `<h2>${total} death${total > 1 ? 's' : ''}</h2>`;
+                    let header = `<h2>${total} Death${total > 1 ? 's' : ''}</h2>`;
                     new maplibregl.Popup()
                         .setLngLat(e.lngLat)
                         .setHTML(header + table)
