@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from fatalities.views import crashes, favicon_view, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, county_dashboard, total_fatalities, county_selector, county_table
+from fatalities.views import crashes, favicon_view, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, county_dashboard, total_fatalities, county_selector, county_table, info
 from .api import api
 from django.conf import settings
 from django.conf.urls.static import static
@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("map", map, name="map"),
+    path("map", new_map, name="map"),
     path("folium_map", folium_map, name="folium_map"),
     path("", crashes, name="homepage"),
     path("schema", schema, name="schema"),
@@ -36,7 +36,8 @@ urlpatterns = [
     path("county_dashboard/<int:county_id>", county_dashboard, name="county_dashboard"),
     path("accidents/<int:id>/", accident_summary, name="accident_summary"),
     path("total_fatalities", total_fatalities, name="total_fatalities"),
-    path("new_map", new_map, name="new_map"),
+    # path("new_map", new_map, name="new_map"),
+    path("info", info, name="info"),
     path("v1/", api.urls),
     re_path(r'^favicon\.ico$', favicon_view),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

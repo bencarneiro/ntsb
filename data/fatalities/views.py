@@ -337,3 +337,6 @@ def county_table(request):
 
 def new_map(request):
     return render(request, "new_map.html", {})
+
+def info(request):
+    return render(request, "info.html", {})
