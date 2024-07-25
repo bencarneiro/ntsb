@@ -127,12 +127,12 @@
                     let total = 0;
                     features.forEach((f, i) => {
                         table += "<tr>";
-                        let date = new Date(f.properties.YEAR, f.properties.MONTH-1, f.properties.DAY);
+                        let date = new Date(f.properties.year, f.properties.month-1, f.properties.day);
                         table += `<tr><td>${date.toDateString()}</td>`;
-                        let deaths = f.properties.FATALS;
+                        let deaths = f.properties.fatalities;
                         total += deaths;
                         table += `<td align='right'>${deaths}</td>`;
-                        let id = `${f.properties.YEAR}${String(f.properties.ST_CASE).padStart(6, "0")}`;
+                        let id = `${f.properties.year}${String(f.properties.st_case).padStart(6, "0")}`;
                         table += `<td><a href="https://roadway.report/accidents/${id}" target="_blank">Details</a></td>`;
                         table += "</tr>";
                     })
