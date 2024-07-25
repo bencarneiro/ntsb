@@ -4,7 +4,7 @@ from django.db.models import Q, Sum, Count
 from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
 from django.contrib.gis.geos import GEOSGeometry
 from fatalities.models import Accident, Comment, County, Person, State
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 import json
 import folium
 from django.contrib.gis.geos import Point
@@ -15,6 +15,8 @@ from data.filter_schemas import AccidentLocationFilterSchema
 from django.db.models import Q
 from django.contrib.gis.geoip2 import GeoIP2
 from fatalities.forms import CommentForm
+
+import csv
 
 from django.db import connection
 
@@ -338,5 +340,43 @@ def county_table(request):
 def new_map(request):
     return render(request, "new_map.html", {})
 
+def nonmotorist(request):
+    return render(request, "nonmotorist.html", {})
+
 def info(request):
     return render(request, "info.html", {})
+
+
+def vehicle_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    year = request.GET['year']
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="vehicle_fatalities_{year}.csv"'},
+    )
+
+    writer = csv.writer(response)
+    writer.writerow(["st_case", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
+
+    crashes = Accident.objects.filter(year=year, fatalitytotals__vehicle_fatalities__gte=1)
+    for crash in crashes:
+        writer.writerow([crash.st_case, crash.fatalitytotals.vehicle_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
+
+    return response
+
+def nonmotorist_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    year = request.GET['year']
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="nonmotorist_fatalities_{year}.csv"'},
+    )
+
+    writer = csv.writer(response)
+    writer.writerow(["st_case", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
+
+    crashes = Accident.objects.filter(year=year, fatalitytotals__nonmotorist_fatalities__gte=1)
+    for crash in crashes:
+        writer.writerow([crash.st_case, crash.fatalitytotals.nonmotorist_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
+
+    return response

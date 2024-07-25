@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>roadway.report - The Nationwide Vision-Zero Map</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="static/css/maplibre-gl.css">
+        <script src="static/js/maplibre-gl.js"></script>
+        <script src="static/js/pmtiles.js"></script>
+        <style>
+            body {
+                margin: 0;
+            }
+            html, body, #map {
+                height:100%; width:100%;
+            }
+            .popup .maplibregl-popup-content {
+                max-height: 50vh;
+                overflow-y: auto;
+            }
+            h1 {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            font-size: 4rem;
+            }
+            h2 {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            font-size: 2rem;
+            }
+            .table{
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto
+            }
+            td, th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            width: 50%;
+            text-align: center;
+            align-items: center;
+            position: center;
+            }
+            .dt {
+                width:20%;
+                text-wrap: wrap;
+                word-break: break-word;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script type="text/javascript">
+            let protocol = new pmtiles.Protocol();
+            maplibregl.addProtocol("pmtiles", protocol.tile);
+
+            var map = new maplibregl.Map({
+                container: 'map',
+                style: {
+                    version: 8,
+                    sources: {
+                        "base-raster": {
+                            type: "raster",
+                            tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+                            tileSize: 256,
+                            attribution: "<a href='/info' target='_blank'>MORE ABOUT ROADWAY.REPORT</a> | <a href='/testmap' target='_blank'>Alternative Map For Slow Internet</a>"
+                        }
+                    },
+                    layers: [
+                        {
+                            id: "base-raster",
+                            type: "raster",
+                            source: "base-raster",
+                            paint: {
+                                "raster-saturation": -1,
+                            }
+                        }
+                    ]
+                },
+                center: [-120, 45],
+                zoom: 3
+            });
+            map.addControl(
+                new maplibregl.GeolocateControl({
+                    positionOptions: {
+                        enableHighAccuracy: true
+                    },
+                    trackUserLocation: true
+                })
+            );
+            // https://hotgarbo.github.io/nhtsa-fars/tiles/2018.pmtiles
+            map.on('load', () => {
+                for (i = 2001; i < 2002; i++) {
+                    map.addLayer({
+                        id: `${i}`,
+                        type: "circle",
+                        source: {
+                            url: `pmtiles://static/tiles/nonmotorist_tiles/${i}.pmtiles`,
+                            type: "vector"
+                        },
+                        "source-layer": `${i}`,
+                        paint: {
+                            "circle-opacity": .3,
+                            "circle-color": "darkred",
+                            "circle-radius": [
+                                "interpolate", ["exponential", 1.1], ["zoom"],
+                                2, .3,
+                                14, 5
+                            ],
+                            "circle-stroke-opacity": .6,
+                            "circle-stroke-color": "darkred",
+                            "circle-stroke-width": [
+                                "interpolate", ["exponential", 1.1], ["zoom"],
+                                2, 0,
+                                14, 1
+                            ],
+                        }
+                    })
+                    map.on('mouseenter', `${i}`, () => {map.getCanvas().style.cursor = 'pointer'});
+                    map.on('mouseleave', `${i}`, () => {map.getCanvas().style.cursor = ''});
+                }
+                map.on('click', (e) => {
+                    const features = map.queryRenderedFeatures(e.point);
+                    if (features.length == 0) return;
+                    let table = "<table><thead><tr><th>Date</th><th>Deaths</th><th></th></tr></thead>";
+                    let total = 0;
+                    features.forEach((f, i) => {
+                        table += "<tr>";
+                        let date = new Date(f.properties.YEAR, f.properties.MONTH-1, f.properties.DAY);
+                        table += `<tr><td>${date.toDateString()}</td>`;
+                        let deaths = f.properties.FATALS;
+                        total += deaths;
+                        table += `<td align='right'>${deaths}</td>`;
+                        let id = `${f.properties.YEAR}${String(f.properties.ST_CASE).padStart(6, "0")}`;
+                        table += `<td><a href="https://roadway.report/accidents/${id}" target="_blank">Details</a></td>`;
+                        table += "</tr>";
+                    })
+                    table += "</table>";
+                    let header = `<h2>${total} Death${total > 1 ? 's' : ''}</h2>`;
+                    new maplibregl.Popup()
+                        .setLngLat(e.lngLat)
+                        .setHTML(header + table)
+                        .addTo(map)
+                        .addClassName("popup");
+                });
+            });
+        </script>
+    </body>
+</html>
+

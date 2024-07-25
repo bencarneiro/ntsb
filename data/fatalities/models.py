@@ -4716,3 +4716,42 @@ class Comment(models.Model):
     class Meta:
         db_table = "comment"
         managed = True
+
+
+class FatalityTotals(models.Model):
+    accident = models.OneToOneField(Accident, on_delete=models.DO_NOTHING)
+    total_fatalities = models.PositiveSmallIntegerField(default=1, null=False, blank=False)
+    vehicle_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    nonmotorist_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+
+    # 5,10,19
+    ped_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    # 6,7,8
+    bike_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    
+    #1
+    driver_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    #2
+    passenger_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    #3
+    parked_vehicle_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    #4
+    nonmotorized_transport_device_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    #5
+    pedestrian_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    #6
+    bicycle_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    #7
+    pedalcyclist_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    #8
+    personal_conveyance_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    #9
+    unknown_vehicle_occupant_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    # 10
+    person_in_building_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    # 19
+    unknown_nonmotorist_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+
+    class Meta:
+        db_table = "fatality_totals"
+        managed = True
