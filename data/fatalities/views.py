@@ -343,6 +343,9 @@ def new_map(request):
 def nonmotorist(request):
     return render(request, "nonmotorist.html", {})
 
+def vehicle(request):
+    return render(request, "vehicle.html", {})
+
 def info(request):
     return render(request, "info.html", {})
 
