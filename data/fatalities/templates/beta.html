@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>roadway.report - The Nationwide Vision-Zero Map</title>
+        <title>Roadway Fatalities 2001-2022</title>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="static/css/maplibre-gl.css">
@@ -108,9 +108,9 @@
                 <fieldset>
                     <label for="layer">Select layer</label>
                     <select id="layer" name="layer">
-                        <option value="all">All Fatalities</option>
-                        <option value="vehicle">Motorist / Passenger Fatalities</option>
-                        <option value="nonmotorist">Pedestrian / Bike / Micromobility Fatalities</option>
+                        <option value="all">All Roadway Deaths</option>
+                        <option value="vehicle">Driver / Passenger Deaths</option>
+                        <option value="nonmotorist">Pedestrian / Bike / Other Deaths</option>
                     </select>
                 </fieldset>
             </div>
@@ -213,10 +213,7 @@
                     },
                     trackUserLocation: true
                 })
-            );    const popup = new maplibregl.Popup({closeOnClick: true})
-                .setLngLat([-96, 37.8])
-                .setHTML('<h3>USA Roadway Fatalities 2001-2022</h3>')
-                .addTo(map);
+            );   
             // https://hotgarbo.github.io/nhtsa-fars/tiles/2018.pmtiles
             map.on('load', () => {
                 for (i = 2001; i < 2023; i++) {
