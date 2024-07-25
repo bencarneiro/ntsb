@@ -44,7 +44,8 @@ def get_client_ip(request):
 
 
 def crashes(request):
-    return render(request, "landing_page.html", context={})
+    return redirect("beta")
+    # return render(request, "landing_page.html", context={})
 
 def schema(request):
     return render(request, "schema.html", context={})

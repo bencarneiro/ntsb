@@ -189,7 +189,7 @@
                             type: "raster",
                             tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
                             tileSize: 256,
-                            attribution: "<a href='/info' target='_blank'>MORE ABOUT ROADWAY.REPORT</a> | <a href='/testmap' target='_blank'>Alternative Map For Slow Internet</a>"
+                            attribution: "<a href='/info' target='_blank'>MORE ABOUT ROADWAY.REPORT</a>"
                         }
                     },
                     layers: [
@@ -213,7 +213,10 @@
                     },
                     trackUserLocation: true
                 })
-            );
+            );    const popup = new maplibregl.Popup({closeOnClick: true})
+                .setLngLat([-96, 37.8])
+                .setHTML('<h3>USA Roadway Fatalities 2001-2022</h3>')
+                .addTo(map);
             // https://hotgarbo.github.io/nhtsa-fars/tiles/2018.pmtiles
             map.on('load', () => {
                 for (i = 2001; i < 2023; i++) {
