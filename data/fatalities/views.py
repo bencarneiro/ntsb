@@ -346,8 +346,29 @@ def nonmotorist(request):
 def vehicle(request):
     return render(request, "vehicle.html", {})
 
+def beta(request):
+    return render(request, "beta.html", {})
+
 def info(request):
     return render(request, "info.html", {})
+
+
+def total_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    year = request.GET['year']
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="total_fatalities_{year}.csv"'},
+    )
+
+    writer = csv.writer(response)
+    writer.writerow(["st_case", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
+
+    crashes = Accident.objects.filter(year=year)
+    for crash in crashes:
+        writer.writerow([crash.st_case, crash.fatalitytotals.total_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
+
+    return response
 
 
 def vehicle_csv(request):
