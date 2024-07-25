@@ -93,7 +93,7 @@
             map.on('load', () => {
                 for (i = 2001; i < 2002; i++) {
                     map.addLayer({
-                        id: `${i}`,
+                        id: `nonmotorist_fatalities_${i}`,
                         type: "circle",
                         source: {
                             url: `pmtiles://static/tiles/nonmotorist_tiles/${i}.pmtiles`,
