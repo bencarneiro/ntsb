@@ -4725,9 +4725,10 @@ class FatalityTotals(models.Model):
     nonmotorist_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
 
     # 5,10,19
-    pedestrian_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    ped_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
     # 6,7,8
-    bicycle_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    bike_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
+    
     #1
     driver_fatalities = models.PositiveSmallIntegerField(default=0, null=False, blank=False)
     #2
