@@ -158,3 +158,7 @@ LOGGING = {
         },
     },
 }
+
+MASTODON_FIRST_SECRET = os.environ.get("MASTODON_FIRST_SECRET", "")
+MASTODON_LOGIN_PASSWORD = os.environ.get("MASTODON_LOGIN_PASSWORD", "")
+MASTODON_SECOND_SECRET = os.environ.get("MASTODON_SECOND_SECRET", "")
