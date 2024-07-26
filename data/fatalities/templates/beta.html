@@ -7,6 +7,9 @@
         <link rel="stylesheet" href="static/css/maplibre-gl.css">
         <script src="static/js/maplibre-gl.js"></script>
         <script src="static/js/pmtiles.js"></script>
+
+        <link href="static/css/nouislider.css" rel="stylesheet">
+        <script src="static/js/nouislider.js"></script>
         <style>
             body {
                 margin: 0;
@@ -27,6 +30,11 @@
             font-family: Arial, Helvetica, sans-serif;
             text-align: center;
             font-size: 2rem;
+            }
+            h3 {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            font-size: 1.2rem;
             }
             .table{
             font-family: Arial, Helvetica, sans-serif;
@@ -105,6 +113,8 @@
         <div id="map"></div>
         <div class="map-overlay top">
             <div class="map-overlay-inner">
+                <h3>USA Traffic Deaths 2001-2022</h3>
+                <h3><a href="info">More about roadway.report</a> </h3> 
                 <fieldset>
                     <label for="layer">Select layer</label>
                     <select id="layer" name="layer">
@@ -113,10 +123,96 @@
                         <option value="nonmotorist">Pedestrian / Bike / Other Deaths</option>
                     </select>
                 </fieldset>
+                <br><br>
+                <div id="slider"></div>
             </div>
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js" integrity="sha512-igVQ7hyQVijOUlfg3OmcTZLwYJIBXU63xL9RC12xBHNpmGJAktDnzl9Iw0J4yrSaQtDxTTVlwhY730vphoVqJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script type="text/javascript">
+            var startYear = 2001
+            var endYear = 2022
+            var slider = document.getElementById('slider');
+
+            noUiSlider.create(slider, {
+                start: [startYear, endYear],
+                step:1,
+                connect: true,
+                range: {
+                    'min': startYear,
+                    'max': endYear
+                },
+                tooltips: [
+                wNumb({decimals: 0}),
+                wNumb({decimals: 0})
+            ],
+            });
+            
+            slider.noUiSlider.on('change.one', function () { 
+                console.log(slider.noUiSlider.get())
+                startYear = Math.floor(slider.noUiSlider.get()[0])
+                endYear = Math.floor(slider.noUiSlider.get()[1])
+
+                map.getStyle().layers.forEach((layer) => {
+                    console.log(layer)
+                    if(layer.id != "base-raster"){
+                        map.removeLayer(layer.id);
+                        map.removeSource(layer.id);
+                        }
+                    });
+
+                for (i = startYear; i < endYear + 1; i++) {
+
+                    var layerName
+                    var sourceUrl
+                    var selector = document.getElementById("layer").value
+                    if (selector == "all") {
+                        console.log("ALL")
+                        layerName = `total_fatalities_${i}`
+                        sourceUrl =  `pmtiles://static/tiles/total_tiles/${i}.pmtiles`
+                    }
+                    if (selector == "vehicle") {
+                        console.log("VEHICLE")
+                        layerName = `vehicle_fatalities_${i}`
+                        sourceUrl =  `pmtiles://static/tiles/vehicle_tiles/${i}.pmtiles`
+                    }
+                    if (selector == "nonmotorist") {
+                        console.log("NONMOTORIST")
+                        layerName = `nonmotorist_fatalities_${i}`
+                        sourceUrl =  `pmtiles://static/tiles/nonmotorist_tiles/${i}.pmtiles`
+                    }
+
+                    map.addLayer({
+                        id: layerName,
+                        type: "circle",
+                        source: {
+                            url: sourceUrl,
+                            type: "vector"
+                        },
+                        "source-layer": layerName,
+                        paint: {
+                            "circle-opacity": .3,
+                            "circle-color": "darkred",
+                            "circle-radius": [
+                                "interpolate", ["exponential", 1.1], ["zoom"],
+                                2, .3,
+                                14, 5
+                            ],
+                            "circle-stroke-opacity": .6,
+                            "circle-stroke-color": "darkred",
+                            "circle-stroke-width": [
+                                "interpolate", ["exponential", 1.1], ["zoom"],
+                                2, 0,
+                                14, 1
+                            ],
+                        }
+                    })
+                    map.on('mouseenter', `${i}`, () => {map.getCanvas().style.cursor = 'pointer'});
+                    map.on('mouseleave', `${i}`, () => {map.getCanvas().style.cursor = ''});
+                    }
+            });
+
             let menu = document.getElementById('layer')
+
             menu.addEventListener("change", function(e) {
                 console.log(e.target.value)
 
@@ -128,7 +224,7 @@
                         }
                     });
 
-                for (i = 2001; i < 2023; i++) {
+                for (i = startYear; i < endYear + 1; i++) {
 
                     var layerName
                     var sourceUrl
@@ -177,6 +273,8 @@
                     map.on('mouseleave', `${i}`, () => {map.getCanvas().style.cursor = ''});
                 }
             })
+
+
             let protocol = new pmtiles.Protocol();
             maplibregl.addProtocol("pmtiles", protocol.tile);
 
@@ -189,7 +287,8 @@
                             type: "raster",
                             tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
                             tileSize: 256,
-                            attribution: "<a href='/info' target='_blank'>MORE ABOUT ROADWAY.REPORT</a>"
+                            attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a>"
+                        
                         }
                     },
                     layers: [
@@ -216,7 +315,7 @@
             );   
             // https://hotgarbo.github.io/nhtsa-fars/tiles/2018.pmtiles
             map.on('load', () => {
-                for (i = 2001; i < 2023; i++) {
+                for (i = startYear; i < endYear + 1; i++) {
                     map.addLayer({
                         id: `total_fatalities_${i}`,
                         type: "circle",
