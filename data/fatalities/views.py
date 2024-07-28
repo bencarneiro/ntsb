@@ -242,6 +242,7 @@ def total_fatalities(request):
     
     functional_system_data = []
     total_lanes_data = []
+    body_type_data = []
     for year in years:
         total_deaths = 0
         for f in fatalities_by_year:
@@ -282,6 +283,14 @@ def total_fatalities(request):
         total_lanes_data += [this_years_data]
 
 
+        deaths_by_body_type = Vehicle.objects.filter(accident__year=year, id__in=list_of_cars_which_hit_people).values("body_type").annotate(fatalities=Sum("accident__fatalities")).order_by("body_type")
+        # print(fatalities_by_num_lanes)
+        this_years_data = {"x": year}
+        for f in deaths_by_body_type:
+            this_years_data[f['body_type']] = f['fatalities']
+        body_type_data += [this_years_data]
+
+
 
         data['total'] += [total_deaths]
         data['vehicle_fatalities'] += [vehicle_deaths]
@@ -295,6 +304,7 @@ def total_fatalities(request):
     data['bicycle_fatalities_average'] = three_year_moving_avg(data['bicycle_fatalities'])
     data['functional_system_data'] = functional_system_data
     data['total_lanes_data'] = total_lanes_data
+    data['body_type_data'] = body_type_data
     return JsonResponse(data)
 
 

@@ -27,6 +27,7 @@
                     const LABELS = response.data.labels;
                     const FUNCTIONAL_SYSTEM = response.data.functional_system_data
                     const TOTAL_LANES = response.data.total_lanes_data
+                    const BODY_TYPE = response.data.body_type_data
                 
                     new Chart(document.getElementById("total-fatalities"), {
                         type: "bar",
@@ -351,6 +352,664 @@
 
                         }
                         );
+
+                    new Chart(document.getElementById("body_type"), {
+                        type: "bar",
+                        data: {
+                            labels: LABELS,
+                            datasets: [
+                            {
+                                label: "Convertible (Excludes Sunroof, T-Bar)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "1"
+                                }
+                            },
+                        
+
+                            {
+                                label: "2-Door Sedan/Hardtop/Coupe",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "2"
+                                }
+                            },
+                        
+
+                            {
+                                label: "3-Door/2-Door Hatchback",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "3"
+                                }
+                            },
+                        
+
+                            {
+                                label: "4-Door Sedan/Hardtop",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "4"
+                                }
+                            },
+                        
+
+                            {
+                                label: "5-Door/4-Door Hatchback",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "5"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Station Wagon (Excluding Van- and Truck-Based)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "6"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Hatchback, Number of Doors Unknown",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "7"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Sedan/Hardtop, Number of Doors Unknown (Since 1994)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "8"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Other or Unknown Automobile Type (Since 1994)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "9"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Auto-Based Pickup",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "10"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Auto-Based Panel (Cargo Station Wagon, AutoBased Ambulance or Hearse)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "11"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Large Limousine (More Than Four Side Doors or Stretch Chassis)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "12"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Three-Wheel Automobile or Automobile Derivative",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "13"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Compact Utility (ANSI D-16 Utility Vehicle Categories “Small” and “Midsize”)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "14"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Large Utility (ANSI D-16 Utility Vehicle Categories “Full Size” and “Large”)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "15"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Utility Station Wagon",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "16"
+                                }
+                            },
+                        
+
+                            {
+                                label: "3-Door Coupe",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "17"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Utility Unknown Body",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "19"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Minivan",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "20"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Large Van - Includes Van-Based Buses",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "21"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Step Van or Walk-in Van (GVWR ≤ 10,000 lbs)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "22"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Other Van Type (Hi-Cube Van)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "28"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Unknown Van Type",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "29"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Convertible Pickup",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "33"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Light Pickup",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "34"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Unknown (Pickup Style) Light Conventional Truck Type",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "39"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Cab Chassis-Based (Includes Light Stake, Light Dump, Light Tow, Rescue Vehicles)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "40"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Truck-Based Panel",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "41"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Light Vehicle-Based Motorhome (Chassis Mounted)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "42"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Other Light Conventional Truck Type (Includes Stretched Suburban Limousine)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "45"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Unknown Light Truck Type (Since 2013)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "48"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Unknown Light-Vehicle Type (Automobile, Utility Vehicle, Van or Light Truck)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "49"
+                                }
+                            },
+                        
+
+                            {
+                                label: "School Bus",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "50"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Cross-Country/Intercity Bus (i.e., Greyhound)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "51"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Transit Bus (City Bus)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "52"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Van-Based Bus (GVWR > 10,000 lbs) (Since 2011)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "55"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Other Bus Type",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "58"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Unknown Bus Type",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "59"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Step Van (GVWR > 10,000 lbs)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "60"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Single-Unit Straight Truck or Cab-Chassis (GVWR range 10,001 to 19,500 lbs) (Since 2011)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "61"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Single-Unit Straight Truck or Cab-Chassis (GVWR range 19,501 to 26,000 lbs) (Since 2011)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "62"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Single-Unit Straight Truck or Cab-Chassis (GVWR > 26,000 lbs) (Since 2011)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "63"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Single Unit Straight Truck or Cab-Chassis (GVWR Unknown) (Since 2011)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "64"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Medium/Heavy Vehicle-Based Motorhome",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "65"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Truck/Tractor (Cab Only, or With Any Number of Trailing Units: Any Weight)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "66"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Medium/Heavy Pickup (GVWR > 10,000 lbs) (Since 2001)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "67"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Unknown if Single-Unit or Combination-Unit Medium Truck (GVWR range 10,001 to 26,000 lbs)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "71"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Unknown if Single-Unit or Combination-Unit Heavy Truck (GVWR > 26,000 lbs)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "72"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Camper or Motorhome, Unknown GVWR",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "73"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Unknown Medium/Heavy Truck Type",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "78"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Unknown Truck Type",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "79"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Two Wheel Motorcycle (excluding motor scooters)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "80"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Moped (Since 2022)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "81"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Three-Wheel Motorcycle (2 Rear Wheels)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "82"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Off-Road Motorcycle",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "83"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Motor Scooter",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "84"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Unenclosed Three-Wheel Motorcycle/Unenclosed Autocycle (1 Rear Wheel)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "85"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Enclosed Three-Wheel Motorcycle/Enclosed Autocycle (1 Rear Wheel)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "86"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Unknown Three-Wheel Motorcycle Type",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "87"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Other Motored Cycle Type (Mini-Bikes, Pocket Motorcycles, Pocket Bikes)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "88"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Unknown Motored Cycle Type",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "89"
+                                }
+                            },
+                        
+
+                            {
+                                label: "ATV (All-Terrain Vehicle; Includes 3 or 4 Wheels)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "90"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Snowmobile",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "91"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Farm Equipment Other Than Trucks",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "92"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Construction Equipment Other Than Trucks (Includes Graders)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "93"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Low-Speed Vehicle (LSV)/Neighborhood Electric Vehicle (NEV) (Since 2011)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "94"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Golf Cart (Since 2012)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "95"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Recreational Off-Highway Vehicle",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "96"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Other Vehicle Type (Includes Go-Cart, Fork-Lift, City Street Sweeper, Dune/Swamp Buggy)",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "97"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Not Reported",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "98"
+                                }
+                            },
+                        
+
+                            {
+                                label: "Unknown Body Type",
+                                data: BODY_TYPE,
+                                parsing: {
+                                    yAxisKey: "99"
+                                }
+                            },
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                x: {
+                                    stacked: true
+                                },
+                                y: {
+                                    stacked: true
+                                }
+                            }
+                        }
+
+                        }
+                        );
                 }
             )
         }
@@ -380,6 +1039,9 @@
     <canvas id="functional_system" width="800" height="300"></canvas>
     <h2>Nonmotorist Deaths by Total Lanes in Roadway</h2>
     <canvas id="total_lanes" width="800" height="300"></canvas>
+
+    <h2>Nonmotorist Deaths by Vehicle Body Type</h2>
+    <canvas id="body_type" width="800" height="300"></canvas>
 
 
 
