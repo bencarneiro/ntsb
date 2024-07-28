@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Q, Sum, Count
 from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
 from django.contrib.gis.geos import GEOSGeometry
-from fatalities.models import Accident, Comment, County, Person, State
+from fatalities.models import Accident, Comment, County, Person, State, Vehicle
 from django.http import JsonResponse, HttpResponse
 import json
 import folium
@@ -234,13 +234,14 @@ def total_fatalities(request):
     pedestrian_fatalities_qs = Accident.objects.filter(id__in=list(pedestrian_accidents_list)).values("year").annotate(pedestrian_fatalities=Sum("fatalities")).order_by("year")
     bicycle_accidents_list = Person.objects.filter(accident__county=county, injury_severity=4, vehicle__isnull=True, parked_vehicle__isnull=True, person_type__in=[6,7,8]).values_list("accident_id", flat=True)
     bicycle_fatalities_qs = Accident.objects.filter(id__in=list(bicycle_accidents_list)).values("year").annotate(bicycle_fatalities=Sum("fatalities")).order_by("year")
-
+    list_of_cars_which_hit_people = Person.objects.filter(accident__county=county, person_type__in=[5,6,7,8,10,19], injury_severity=4).values_list("vehicle_which_struck_non_motorist__id", flat=True)
     
     
 
     data = {"labels": years, "total": [], "vehicle_fatalities": [ ], "nonmotorist_fatalities": [] , "pedestrian_fatalities": [] , "bicycle_fatalities": []}
     
     functional_system_data = []
+    total_lanes_data = []
     for year in years:
         total_deaths = 0
         for f in fatalities_by_year:
@@ -260,6 +261,7 @@ def total_fatalities(request):
         nonmotorist_deaths = pedestrian_deaths + micromobility_deaths
         vehicle_deaths = total_deaths - nonmotorist_deaths
 
+
         fatalities_by_num_lanes = Accident.objects.filter(county=county, year=year).values('functional_system').annotate(fatalities=Sum("fatalities")).order_by("functional_system")
         # print(fatalities_by_num_lanes)
         this_years_data = {"x": year, "99": 0}
@@ -270,6 +272,14 @@ def total_fatalities(request):
             else:
                 this_years_data[f['functional_system']] = f['fatalities']
         functional_system_data += [this_years_data]
+
+
+        deaths_by_lanes_in_roadway = Vehicle.objects.filter(accident__year=year, id__in=list_of_cars_which_hit_people).values("total_lanes_in_roadway").annotate(fatalities=Sum("accident__fatalities")).order_by("total_lanes_in_roadway")
+        # print(fatalities_by_num_lanes)
+        this_years_data = {"x": year}
+        for f in deaths_by_lanes_in_roadway:
+            this_years_data[f['total_lanes_in_roadway']] = f['fatalities']
+        total_lanes_data += [this_years_data]
 
 
 
@@ -284,34 +294,10 @@ def total_fatalities(request):
     data['pedestrian_fatalities_average'] = three_year_moving_avg(data['pedestrian_fatalities'])
     data['bicycle_fatalities_average'] = three_year_moving_avg(data['bicycle_fatalities'])
     data['functional_system_data'] = functional_system_data
-            
-
-
-
-
-
-
-    # labels, total_fatalities = [], []
-    # for year_of_fatalities in fatalities_by_year:
-    #     labels += [year_of_fatalities['year']]
-    #     total_fatalities += [year_of_fatalities['total_fatalities']]
-    # pedestrian_fatalities, bicycle_fatalities = [], []
-    # for year_of_fatalities in pedestrian_fatalities_qs:
-    #     pedestrian_fatalities += [year_of_fatalities['pedestrian_fatalities']]
-    # for year_of_fatalities in bicycle_fatalities_qs:
-    #     bicycle_fatalities += [year_of_fatalities['bicycle_fatalities']]
-
-    # vehicle_deaths = []
-    # print(len(total_fatalities))
-    # print(len(pedestrian_fatalities))
-    # print(len(bicycle_fatalities))
-    # for x in range(len(total_fatalities)):
-    #     num_vehicle_deaths = total_fatalities[x] - pedestrian_fatalities[x] - bicycle_fatalities[x]
-    #     vehicle_deaths += [num_vehicle_deaths]
-
-    
-    
+    data['total_lanes_data'] = total_lanes_data
     return JsonResponse(data)
+
+
 
 
 def county_selector(request):

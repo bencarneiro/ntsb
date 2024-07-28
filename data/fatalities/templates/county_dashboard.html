@@ -26,6 +26,7 @@
                     const B_AVG = response.data.bicycle_fatalities_average
                     const LABELS = response.data.labels;
                     const FUNCTIONAL_SYSTEM = response.data.functional_system_data
+                    const TOTAL_LANES = response.data.total_lanes_data
                 
                     new Chart(document.getElementById("total-fatalities"), {
                         type: "bar",
@@ -267,6 +268,89 @@
 
                         }
                         );
+
+                    new Chart(document.getElementById("total_lanes"), {
+                        type: "bar",
+                        data: {
+                            labels: LABELS,
+                            datasets: [
+                                {
+                                    label: 'One Lane',
+                                    data: TOTAL_LANES,
+                                    // borderColor: "#3e95cd",
+                                    parsing: {
+                                        yAxisKey: '1'
+                                    }
+                                },
+                                {
+                                    label: 'Two Lanes',
+                                    data: TOTAL_LANES,
+                                    // borderColor: "#3e95cd",
+                                    parsing: {
+                                        yAxisKey: '2'
+                                    }
+                                },
+                                {
+                                    label: 'Three Lanes',
+                                    data: TOTAL_LANES,
+                                    // borderColor: "#3e95cd",
+                                    parsing: {
+                                        yAxisKey: '3'
+                                    }
+                                },
+                                {
+                                    label: 'Four Lanes',
+                                    data: TOTAL_LANES,
+                                    // borderColor: "#3e95cd",
+                                    parsing: {
+                                        yAxisKey: '4'
+                                    }
+                                },
+                                {
+                                    label: 'Five Lanes',
+                                    data: TOTAL_LANES,
+                                    // borderColor: "#3e95cd",
+                                    parsing: {
+                                        yAxisKey: '5'
+                                    }
+                                },
+                                {
+                                    label: 'Six Lanes',
+                                    data: TOTAL_LANES,
+                                    // borderColor: "#3e95cd",
+                                    parsing: {
+                                        yAxisKey: '6'
+                                    }
+                                },
+                                {
+                                    label: 'Seven or More Lanes',
+                                    data: TOTAL_LANES,
+                                    // borderColor: "#3e95cd",
+                                    parsing: {
+                                        yAxisKey: '7'
+                                    }
+                                },
+                                {
+                                    label: 'Not Reported',
+                                    data: TOTAL_LANES,
+                                    // borderColor: "#3e95cd",
+                                    parsing: {
+                                        yAxisKey: '8'
+                                    }
+                                },
+                                {
+                                    label: 'Unknown',
+                                    data: TOTAL_LANES,
+                                    // borderColor: "#3e95cd",
+                                    parsing: {
+                                        yAxisKey: '9'
+                                    }
+                                },
+                            ]
+                        },
+
+                        }
+                        );
                 }
             )
         }
@@ -294,6 +378,8 @@
     <canvas id="bikes" width="800" height="300"></canvas>
     <h2>Functional System</h2>
     <canvas id="functional_system" width="800" height="300"></canvas>
+    <h2>Nonmotorist Deaths by Total Lanes in Roadway</h2>
+    <canvas id="total_lanes" width="800" height="300"></canvas>
 
 
 
