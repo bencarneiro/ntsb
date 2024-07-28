@@ -227,53 +227,23 @@ def county_dashboard(request, **kwargs):
 def total_fatalities(request):
     county = County.objects.get(id=request.GET['county_id'])
 
-    # with connection.cursor() as cursor:
-    #     cursor.execute(
-    #         """
-    #         SELECT 
-    #             accident.year, 
-    #             sum(accident.fatalities) as total_fatalities
-    #         FROM 
-    #             accident 
-    #         WHERE 
-    #             county_id = %s
-    #         AND
-    #             accident.id IN (SELECT person.accident_id FROM person WHERE person.person_type IN (6,7,8))
-    #         GROUP BY 
-    #             year
-    #         ORDER BY
-    #             year;
-    #         """, 
-    #         [county.id]
-    #     )
-    #     rows = cursor.fetchall()
-    #     for row in rows:
-    #         print(row)
-    # return JsonResponse({})
-
     years = [2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022]
 
     fatalities_by_year = Accident.objects.filter(county=county).values("year").annotate(total_fatalities=Sum("fatalities")).order_by("year")
-
     pedestrian_accidents_list = Person.objects.filter(accident__county=county, injury_severity=4, vehicle__isnull=True, parked_vehicle__isnull=True, person_type__in=[5,10,19]).values_list("accident_id", flat=True)
     pedestrian_fatalities_qs = Accident.objects.filter(id__in=list(pedestrian_accidents_list)).values("year").annotate(pedestrian_fatalities=Sum("fatalities")).order_by("year")
-    print(pedestrian_fatalities_qs)
-    # print(len(pedestrian_fatalities_qs))
     bicycle_accidents_list = Person.objects.filter(accident__county=county, injury_severity=4, vehicle__isnull=True, parked_vehicle__isnull=True, person_type__in=[6,7,8]).values_list("accident_id", flat=True)
     bicycle_fatalities_qs = Accident.objects.filter(id__in=list(bicycle_accidents_list)).values("year").annotate(bicycle_fatalities=Sum("fatalities")).order_by("year")
+
     
-    print(bicycle_fatalities_qs)
-    print(fatalities_by_year)
-    print(fatalities_by_year[0])
     
 
-    # print(fatalities_by_year[0].__dict__)
     data = {"labels": years, "total": [], "vehicle_fatalities": [ ], "nonmotorist_fatalities": [] , "pedestrian_fatalities": [] , "bicycle_fatalities": []}
+    
+    functional_system_data = []
     for year in years:
-        print(year)
         total_deaths = 0
         for f in fatalities_by_year:
-            print(f)
             if f['year'] == year:
                 total_deaths = f['total_fatalities']
                 break
@@ -289,6 +259,20 @@ def total_fatalities(request):
                 break
         nonmotorist_deaths = pedestrian_deaths + micromobility_deaths
         vehicle_deaths = total_deaths - nonmotorist_deaths
+
+        fatalities_by_num_lanes = Accident.objects.filter(county=county, year=year).values('functional_system').annotate(fatalities=Sum("fatalities")).order_by("functional_system")
+        # print(fatalities_by_num_lanes)
+        this_years_data = {"x": year, "99": 0}
+        for f in fatalities_by_num_lanes:
+            # grouping three categories into "other"
+            if f['functional_system'] in {"96","98", "99"}:
+                this_years_data["99"] += f['fatalities']
+            else:
+                this_years_data[f['functional_system']] = f['fatalities']
+        functional_system_data += [this_years_data]
+
+
+
         data['total'] += [total_deaths]
         data['vehicle_fatalities'] += [vehicle_deaths]
         data['nonmotorist_fatalities'] += [nonmotorist_deaths]
@@ -299,6 +283,7 @@ def total_fatalities(request):
     data['nonmotorist_fatalities_average'] = three_year_moving_avg(data['nonmotorist_fatalities'])
     data['pedestrian_fatalities_average'] = three_year_moving_avg(data['pedestrian_fatalities'])
     data['bicycle_fatalities_average'] = three_year_moving_avg(data['bicycle_fatalities'])
+    data['functional_system_data'] = functional_system_data
             
 
 
