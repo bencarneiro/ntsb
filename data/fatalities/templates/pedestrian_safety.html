@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        h1 {text-align: center;}
+        h2 {text-align: center;}
+        h3 {text-align: center;}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
+    <script>
+
+        function get_data() {
+            const PEDESTRIAN_CRASH_TYPE_LABELS = {{ pedestrian_crash_type_labels | safe }};
+            const PEDESTRIAN_CRASH_TYPE_COUNTS = {{ pedestrian_crash_type_counts | safe }};
+            const PEDESTRIAN_CRASH_GROUP_LABELS = {{ pedestrian_crash_group_labels | safe }};
+            const PEDESTRIAN_CRASH_GROUP_COUNTS = {{ pedestrian_crash_group_counts | safe }};
+            const PEDESTRIAN_POSITION_LABELS = {{ pedestrian_position_labels | safe }};
+            const PEDESTRIAN_POSITION_COUNTS = {{ pedestrian_position_counts | safe }};
+            const PEDESTRIAN_LOCATION_LABELS = {{ pedestrian_location_labels | safe }};
+            const PEDESTRIAN_LOCATION_COUNTS = {{ pedestrian_location_counts | safe }};
+            const BICYCLE_CRASH_TYPE_LABELS = {{ bicycle_crash_type_labels | safe }};
+            const BICYCLE_CRASH_TYPE_COUNTS = {{ bicycle_crash_type_counts | safe }};
+            const BICYCLE_POSITION_LABELS = {{ bicycle_position_labels | safe }};
+            const BICYCLE_POSITION_COUNTS = {{ bicycle_position_counts | safe }};
+            const BICYCLE_LOCATION_LABELS = {{ bicycle_location_labels | safe }};
+            const BICYCLE_LOCATION_COUNTS = {{ bicycle_location_counts | safe }};
+            const LABELS = {{ pedestrian_death_labels | safe }};
+            const PED_FATALITIES = {{ pedestrian_death_counts | safe }};
+            const PED_AVG = {{ pedestrian_death_average | safe }};
+            const BIKE_FATALITIES = {{ bicycle_death_counts | safe }};
+            const BIKE_AVG = {{ bicycle_death_average | safe }};
+
+
+            console.log("{{ pedestrian_death_average | safe }};")
+
+            new Chart(document.getElementById("pedestrian-fatalities"), {
+                        type: "bar",
+                        data: {
+                            labels: LABELS,
+                            datasets: [
+                            {
+                                data: PED_FATALITIES,
+                                label: "Annual Roadway Deaths",
+                                borderColor: "#3e95cd",
+                                fill: false
+                            },
+                            {
+                                type: "line",
+                                label: "3-Year Moving Average",
+                                data: PED_AVG,
+                                borderColor: "#3e95cd",
+                                fill: false
+                            }
+                            ]
+                        },
+                        options: {
+                            title: {
+                            display: true,
+                            responsive: true,
+                            text: "Annual USA Pedestrian Deaths"
+                            },
+                            scales: {
+                            y: {
+                                min: 0
+                            }
+                            }
+                        }
+                        });
+            new Chart(document.getElementById("bicycle-fatalities"), {
+                        type: "bar",
+                        data: {
+                            labels: LABELS,
+                            datasets: [
+                            {
+                                data: BIKE_FATALITIES,
+                                label: "Annual Roadway Deaths",
+                                borderColor: "#3e95cd",
+                                fill: false
+                            },
+                            {
+                                type: "line",
+                                label: "3-Year Moving Average",
+                                data: BIKE_AVG,
+                                borderColor: "#3e95cd",
+                                fill: false
+                            }
+                            ]
+                        },
+                        options: {
+                            title: {
+                            display: true,
+                            responsive: true,
+                            text: "Annual USA Bicycle Deaths"
+                            },
+                            scales: {
+                            y: {
+                                min: 0
+                            }
+                            }
+                        }
+                        });
+
+
+
+            new Chart(document.getElementById("pedestrian-crash-type"), {
+                type: "doughnut",
+                data: {
+                    labels: PEDESTRIAN_CRASH_TYPE_LABELS,
+                    datasets: [
+                    {
+                        data: PEDESTRIAN_CRASH_TYPE_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                        display: false
+                        }
+                    },
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Pedestrian Crash Type",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
+            new Chart(document.getElementById("pedestrian-crash-group"), {
+                type: "doughnut",
+                data: {
+                    labels: PEDESTRIAN_CRASH_GROUP_LABELS,
+                    datasets: [
+                    {
+                        data: PEDESTRIAN_CRASH_GROUP_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Pedestrian Crash Group",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
+
+            new Chart(document.getElementById("pedestrian-position"), {
+                type: "doughnut",
+                data: {
+                    labels: PEDESTRIAN_POSITION_LABELS,
+                    datasets: [
+                    {
+                        data: PEDESTRIAN_POSITION_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Pedestrian Position",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
+
+
+                new Chart(document.getElementById("pedestrian-location"), {
+                type: "doughnut",
+                data: {
+                    labels: PEDESTRIAN_LOCATION_LABELS,
+                    datasets: [
+                    {
+                        data: PEDESTRIAN_LOCATION_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Pedestrian LOCATION",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
+
+
+
+                new Chart(document.getElementById("bicycle-crash-type"), {
+                type: "doughnut",
+                data: {
+                    labels: BICYCLE_CRASH_TYPE_LABELS,
+                    datasets: [
+                    {
+                        data: BICYCLE_CRASH_TYPE_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                        display: false
+                        }
+                    },
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Bicycle Crash Type",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
+
+            new Chart(document.getElementById("bicycle-position"), {
+                type: "doughnut",
+                data: {
+                    labels: BICYCLE_POSITION_LABELS,
+                    datasets: [
+                    {
+                        data: BICYCLE_POSITION_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Bicycle Position",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
+
+            new Chart(document.getElementById("bicycle-location"), {
+                type: "doughnut",
+                data: {
+                    labels: BICYCLE_LOCATION_LABELS,
+                    datasets: [
+                    {
+                        data: BICYCLE_LOCATION_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Bicycle Location",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
+
+        }
+    </script>
+  <head>
+    <title>Pedestrian and Bike Crash Data</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <h1>
+        USA Pedestrian and Bike Fatality Data
+    </h1>
+    <h2>Annual Pedestrian Deaths</h2>
+    <canvas id="pedestrian-fatalities" width="800" height="300"></canvas>
+    
+    <h2>Annual Bicycle Deaths</h2>
+    <canvas id="bicycle-fatalities" width="800" height="300"></canvas>
+
+    <h2>Pedestrian Position (Fatal Crashes) 2014-2022</h2>
+    <canvas id="pedestrian-position" width="800" height="300"></canvas>
+    
+    <h2>Pedestrian Location (Fatal Crashes) 2014-2022</h2>
+    <canvas id="pedestrian-location" width="800" height="300"></canvas>
+
+    <h2>Pedestrian Crash Group (Fatal Crashes) 2014-2022</h2>
+    <canvas id="pedestrian-crash-group" width="800" height="300"></canvas>
+    
+    <h2>Pedestrian Crash Type (Fatal Crashes) 2014-2022</h2>
+    <canvas id="pedestrian-crash-type" width="800" height="300"></canvas>
+    
+    <h2>Bicycle Position (Fatal Crashes) 2014-2022</h2>
+    <canvas id="bicycle-position" width="800" height="300"></canvas>
+    
+    <h2>Bicycle Location (Fatal Crashes) 2014-2022</h2>
+    <canvas id="bicycle-location" width="800" height="300"></canvas>
+    
+    <h2>Bicycle Crash Type (Fatal Crashes) 2014-2022</h2>
+    <canvas id="bicycle-crash-type" width="800" height="300"></canvas>
+    
+    <h2>
+        <a href="/">BACK TO THE MAP</a>
+    </h2>
+
+
+    <script> 
+        
+        get_data()
+        </script>
+  </body>
+</html>
