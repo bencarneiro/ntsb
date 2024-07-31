@@ -16,6 +16,14 @@
             const PEDESTRIAN_CRASH_GROUP_COUNTS = {{ pedestrian_crash_group_counts | safe }};
             const PEDESTRIAN_POSITION_LABELS = {{ pedestrian_position_labels | safe }};
             const PEDESTRIAN_POSITION_COUNTS = {{ pedestrian_position_counts | safe }};
+            const PEDESTRIAN_LOCATION_LABELS = {{ pedestrian_location_labels | safe }};
+            const PEDESTRIAN_LOCATION_COUNTS = {{ pedestrian_location_counts | safe }};
+            const BICYCLE_CRASH_TYPE_LABELS = {{ bicycle_crash_type_labels | safe }};
+            const BICYCLE_CRASH_TYPE_COUNTS = {{ bicycle_crash_type_counts | safe }};
+            const BICYCLE_POSITION_LABELS = {{ bicycle_position_labels | safe }};
+            const BICYCLE_POSITION_COUNTS = {{ bicycle_position_counts | safe }};
+            const BICYCLE_LOCATION_LABELS = {{ bicycle_location_labels | safe }};
+            const BICYCLE_LOCATION_COUNTS = {{ bicycle_location_counts | safe }};
             const LABELS = {{ pedestrian_death_labels | safe }};
             const PED_FATALITIES = {{ pedestrian_death_counts | safe }};
             const PED_AVG = {{ pedestrian_death_average | safe }};
@@ -135,11 +143,6 @@
                     ]
                 },
                 options: {
-                    plugins: {
-                        legend: {
-                        display: false
-                        }
-                    },
                     title: {
                     // display: true,
                     // responsive: true,
@@ -164,11 +167,6 @@
                     ]
                 },
                 options: {
-                    plugins: {
-                        legend: {
-                        display: false
-                        }
-                    },
                     title: {
                     // display: true,
                     // responsive: true,
@@ -180,6 +178,109 @@
                 }
                 });
 
+
+                new Chart(document.getElementById("pedestrian-location"), {
+                type: "doughnut",
+                data: {
+                    labels: PEDESTRIAN_LOCATION_LABELS,
+                    datasets: [
+                    {
+                        data: PEDESTRIAN_LOCATION_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Pedestrian LOCATION",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
+
+
+
+                new Chart(document.getElementById("bicycle-crash-type"), {
+                type: "doughnut",
+                data: {
+                    labels: BICYCLE_CRASH_TYPE_LABELS,
+                    datasets: [
+                    {
+                        data: BICYCLE_CRASH_TYPE_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                        display: false
+                        }
+                    },
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Bicycle Crash Type",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
+
+            new Chart(document.getElementById("bicycle-position"), {
+                type: "doughnut",
+                data: {
+                    labels: BICYCLE_POSITION_LABELS,
+                    datasets: [
+                    {
+                        data: BICYCLE_POSITION_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Bicycle Position",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
+
+            new Chart(document.getElementById("bicycle-location"), {
+                type: "doughnut",
+                data: {
+                    labels: BICYCLE_LOCATION_LABELS,
+                    datasets: [
+                    {
+                        data: BICYCLE_LOCATION_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Bicycle Location",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
 
         }
     </script>
@@ -197,8 +298,12 @@
     
     <h2>Annual Bicycle Deaths</h2>
     <canvas id="bicycle-fatalities" width="800" height="300"></canvas>
-    
 
+    <h2>Pedestrian Position</h2>
+    <canvas id="pedestrian-position" width="800" height="300"></canvas>
+    
+    <h2>Pedestrian Location</h2>
+    <canvas id="pedestrian-location" width="800" height="300"></canvas>
 
     <h2>Pedestrian Crash Group</h2>
     <canvas id="pedestrian-crash-group" width="800" height="300"></canvas>
@@ -206,9 +311,16 @@
     <h2>Pedestrian Crash Type</h2>
     <canvas id="pedestrian-crash-type" width="800" height="300"></canvas>
     
-    <h2>Pedestrian Position</h2>
-    <canvas id="pedestrian-position" width="800" height="300"></canvas>
+    <h2>Bicycle Position</h2>
+    <canvas id="bicycle-position" width="800" height="300"></canvas>
     
+    <h2>Bicycle Location</h2>
+    <canvas id="bicycle-location" width="800" height="300"></canvas>
+    
+    <h2>Bicycle Crash Type</h2>
+    <canvas id="bicycle-crash-type" width="800" height="300"></canvas>
+    
+
 
     <script> 
         
