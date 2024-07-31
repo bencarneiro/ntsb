@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        h1 {text-align: center;}
+        h2 {text-align: center;}
+        h3 {text-align: center;}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
+    <script>
+
+        function get_data() {
+            const PEDESTRIAN_CRASH_TYPE_LABELS = {{ pedestrian_crash_type_labels | safe }};
+            const PEDESTRIAN_CRASH_TYPE_COUNTS = {{ pedestrian_crash_type_counts | safe }};
+            const PEDESTRIAN_CRASH_GROUP_LABELS = {{ pedestrian_crash_group_labels | safe }};
+            const PEDESTRIAN_CRASH_GROUP_COUNTS = {{ pedestrian_crash_group_counts | safe }};
+            const LABELS = {{ pedestrian_death_labels | safe }};
+            const PED_FATALITIES = {{ pedestrian_death_counts | safe }};
+            const PED_AVG = {{ pedestrian_death_average | safe }};
+            const BIKE_FATALITIES = {{ bicycle_death_counts | safe }};
+            const BIKE_AVG = {{ bicycle_death_average | safe }};
+
+
+            console.log("{{ pedestrian_death_average | safe }};")
+
+            new Chart(document.getElementById("pedestrian-fatalities"), {
+                        type: "bar",
+                        data: {
+                            labels: LABELS,
+                            datasets: [
+                            {
+                                data: PED_FATALITIES,
+                                label: "Annual Roadway Deaths",
+                                borderColor: "#3e95cd",
+                                fill: false
+                            },
+                            {
+                                type: "line",
+                                label: "3-Year Moving Average",
+                                data: PED_AVG,
+                                borderColor: "#3e95cd",
+                                fill: false
+                            }
+                            ]
+                        },
+                        options: {
+                            title: {
+                            display: true,
+                            responsive: true,
+                            text: "Annual USA Pedestrian Deaths"
+                            },
+                            scales: {
+                            y: {
+                                min: 0
+                            }
+                            }
+                        }
+                        });
+            new Chart(document.getElementById("bicycle-fatalities"), {
+                        type: "bar",
+                        data: {
+                            labels: LABELS,
+                            datasets: [
+                            {
+                                data: BIKE_FATALITIES,
+                                label: "Annual Roadway Deaths",
+                                borderColor: "#3e95cd",
+                                fill: false
+                            },
+                            {
+                                type: "line",
+                                label: "3-Year Moving Average",
+                                data: BIKE_AVG,
+                                borderColor: "#3e95cd",
+                                fill: false
+                            }
+                            ]
+                        },
+                        options: {
+                            title: {
+                            display: true,
+                            responsive: true,
+                            text: "Annual USA Bicycle Deaths"
+                            },
+                            scales: {
+                            y: {
+                                min: 0
+                            }
+                            }
+                        }
+                        });
+
+
+
+            new Chart(document.getElementById("pedestrian-crash-type"), {
+                type: "doughnut",
+                data: {
+                    labels: PEDESTRIAN_CRASH_TYPE_LABELS,
+                    datasets: [
+                    {
+                        data: PEDESTRIAN_CRASH_TYPE_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                        display: false
+                        }
+                    },
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Pedestrian Crash Type",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
+            new Chart(document.getElementById("pedestrian-crash-group"), {
+                type: "doughnut",
+                data: {
+                    labels: PEDESTRIAN_CRASH_GROUP_LABELS,
+                    datasets: [
+                    {
+                        data: PEDESTRIAN_CRASH_GROUP_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                        display: false
+                        }
+                    },
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Pedestrian Crash Group",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
+
+
+        }
+    </script>
+  <head>
+    <title>Pedestrian and Bike Crash Data 2014-2022</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <h1>
+        Pedestrian and Bike Crash Data 2014-2022
+    </h1>
+    <h2>Annual Pedestrian Deaths</h2>
+    <canvas id="pedestrian-fatalities" width="800" height="300"></canvas>
+    
+    <h2>Annual Bicycle Deaths</h2>
+    <canvas id="bicycle-fatalities" width="800" height="300"></canvas>
+    
+
+
+    <h2>Pedestrian Crash Type</h2>
+    <canvas id="pedestrian-crash-type" width="800" height="300"></canvas>
+    
+    <h2>Pedestrian Crash Group</h2>
+    <canvas id="pedestrian-crash-group" width="800" height="300"></canvas>
+    
+
+    <script> 
+        
+        get_data()
+        </script>
+  </body>
+</html>

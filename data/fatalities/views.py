@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 
-from django.db.models import Q, Sum, Count
+from django.db.models import Q, Sum, Count, Min
 from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
 from django.contrib.gis.geos import GEOSGeometry
-from fatalities.models import Accident, Comment, County, Person, State, Vehicle
+from fatalities.models import Accident, Comment, County, PedestrianType, Person, State, Vehicle
 from django.http import JsonResponse, HttpResponse
 import json
 import folium
@@ -324,6 +324,66 @@ def new_map(request):
 
 def nonmotorist(request):
     return render(request, "nonmotorist.html", {})
+
+
+def pedestrian_safety(request):
+    
+    years = [2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022]
+
+    context = {
+        "pedestrian_death_labels": years, 
+        "pedestrian_death_counts": [], 
+        "bicycle_death_counts": [], 
+        "pedestrian_crash_type_labels": [], 
+        "pedestrian_crash_type_counts": [],
+        "pedestrian_crash_group_labels": [], 
+        "pedestrian_crash_group_counts": []}
+   
+    fatalities_by_year = Person.objects.filter(injury_severity=4, person_type__in=[5,10,19]).values("accident__year").annotate(total_fatalities=Count("id")).order_by("accident__year")
+    for year in years: 
+        total_deaths = 0
+        for f in fatalities_by_year:
+            if f['accident__year'] == year:
+                total_deaths = f['total_fatalities']
+                break
+        context['pedestrian_death_counts'] += [total_deaths]
+
+
+    fatalities_by_year = Person.objects.filter(injury_severity=4, person_type__in=[6,7,8]).values("accident__year").annotate(total_fatalities=Count("id")).order_by("accident__year")
+    for year in years: 
+        total_deaths = 0
+        for f in fatalities_by_year:
+            if f['accident__year'] == year:
+                total_deaths = f['total_fatalities']
+                break
+        context['bicycle_death_counts'] += [total_deaths]
+
+
+    crash_types = Person.objects.filter(accident__year__gte=2014, person_type__in=[5]).values("pedestriantype__pedestrian_crash_type").annotate(total=Count("id"))
+    for p in crash_types:
+        # print(p)
+        q = PedestrianType.objects.filter(pedestrian_crash_type=p['pedestriantype__pedestrian_crash_type'])[0].get_pedestrian_crash_type_display()
+        # print(type(q))
+        # print(q)
+        context['pedestrian_crash_type_labels'] += [q]
+        context['pedestrian_crash_type_counts'] += [p['total']]
+
+
+    crash_groups = Person.objects.filter(accident__year__gte=2014, person_type__in=[5]).values("pedestriantype__pedestrian_crash_group").annotate(total=Count("id"))
+    for p in crash_groups:
+        # print(p)
+        q = PedestrianType.objects.filter(pedestrian_crash_group=p['pedestriantype__pedestrian_crash_group'])[0].get_pedestrian_crash_group_display()
+        # print(type(q))
+        # print(q)
+        context['pedestrian_crash_group_labels'] += [q]
+        context['pedestrian_crash_group_counts'] += [p['total']]
+
+    
+    context['pedestrian_death_average'] = three_year_moving_avg(context['pedestrian_death_counts'])
+    
+    context['bicycle_death_average'] = three_year_moving_avg(context['bicycle_death_counts'])
+
+    return render(request, "pedestrian_safety.html", context)
 
 def vehicle(request):
     return render(request, "vehicle.html", {})
