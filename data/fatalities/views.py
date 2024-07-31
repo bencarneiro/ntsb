@@ -337,7 +337,9 @@ def pedestrian_safety(request):
         "pedestrian_crash_type_labels": [], 
         "pedestrian_crash_type_counts": [],
         "pedestrian_crash_group_labels": [], 
-        "pedestrian_crash_group_counts": []}
+        "pedestrian_crash_group_counts": [],
+        "pedestrian_position_labels": [], 
+        "pedestrian_position_counts": []}
    
     fatalities_by_year = Person.objects.filter(injury_severity=4, person_type__in=[5,10,19]).values("accident__year").annotate(total_fatalities=Count("id")).order_by("accident__year")
     for year in years: 
@@ -357,6 +359,16 @@ def pedestrian_safety(request):
                 total_deaths = f['total_fatalities']
                 break
         context['bicycle_death_counts'] += [total_deaths]
+
+
+    positions = Person.objects.filter(accident__year__gte=2014, person_type__in=[5]).values("pedestriantype__pedestrian_position").annotate(total=Count("id"))
+    for p in positions:
+        # print(p)
+        q = PedestrianType.objects.filter(pedestrian_position=p['pedestriantype__pedestrian_position'])[0].get_pedestrian_position_display()
+        # print(type(q))
+        # print(q)
+        context['pedestrian_position_labels'] += [q]
+        context['pedestrian_position_counts'] += [p['total']]
 
 
     crash_types = Person.objects.filter(accident__year__gte=2014, person_type__in=[5]).values("pedestriantype__pedestrian_crash_type").annotate(total=Count("id"))

@@ -14,6 +14,8 @@
             const PEDESTRIAN_CRASH_TYPE_COUNTS = {{ pedestrian_crash_type_counts | safe }};
             const PEDESTRIAN_CRASH_GROUP_LABELS = {{ pedestrian_crash_group_labels | safe }};
             const PEDESTRIAN_CRASH_GROUP_COUNTS = {{ pedestrian_crash_group_counts | safe }};
+            const PEDESTRIAN_POSITION_LABELS = {{ pedestrian_position_labels | safe }};
+            const PEDESTRIAN_POSITION_COUNTS = {{ pedestrian_position_counts | safe }};
             const LABELS = {{ pedestrian_death_labels | safe }};
             const PED_FATALITIES = {{ pedestrian_death_counts | safe }};
             const PED_AVG = {{ pedestrian_death_average | safe }};
@@ -149,6 +151,35 @@
                 }
                 });
 
+            new Chart(document.getElementById("pedestrian-position"), {
+                type: "doughnut",
+                data: {
+                    labels: PEDESTRIAN_POSITION_LABELS,
+                    datasets: [
+                    {
+                        data: PEDESTRIAN_POSITION_COUNTS,
+                        label: "Total Fatalities",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                        display: false
+                        }
+                    },
+                    title: {
+                    // display: true,
+                    // responsive: true,
+                    text: "Pedestrian Position",
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+                });
+
 
         }
     </script>
@@ -169,11 +200,14 @@
     
 
 
+    <h2>Pedestrian Crash Group</h2>
+    <canvas id="pedestrian-crash-group" width="800" height="300"></canvas>
+    
     <h2>Pedestrian Crash Type</h2>
     <canvas id="pedestrian-crash-type" width="800" height="300"></canvas>
     
-    <h2>Pedestrian Crash Group</h2>
-    <canvas id="pedestrian-crash-group" width="800" height="300"></canvas>
+    <h2>Pedestrian Position</h2>
+    <canvas id="pedestrian-position" width="800" height="300"></canvas>
     
 
     <script> 
