@@ -53,6 +53,7 @@ git clone https://github.com/bencarneiro/ntsb.git
 Get your python packages sorted - Feel free to create a virtual environment here
 ```
 pip install django
+pip install pandas
 pip install pymysql
 pip install django-extensions
 pip install psycopg
