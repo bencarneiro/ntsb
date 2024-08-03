@@ -505,3 +505,7 @@ def nonmotorist_csv(request):
         writer.writerow([crash.st_case, crash.fatalitytotals.nonmotorist_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
 
     return response
+
+def comments(request):
+    comments = Comment.objects.all().order_by("-created")
+    return render(request, "comment_moderation.html", {"comments": comments})
