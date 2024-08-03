@@ -3,4 +3,6 @@ from fatalities.models import Comment
 
 # Register your models here.
 
-admin.site.register(Comment)
+@admin.register(Comment)
+class AuthorAdmin(admin.ModelAdmin):
+    fields = ["comment"]
