@@ -4755,3 +4755,15 @@ class FatalityTotals(models.Model):
     class Meta:
         db_table = "fatality_totals"
         managed = True
+
+
+class PodcastEpisode(models.Model):
+    
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    audio_file = models.FileField(upload_to='podcasts/')
+    publish_date = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.title
