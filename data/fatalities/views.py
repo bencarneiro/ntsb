@@ -515,8 +515,9 @@ from django.urls import reverse
 from .models import PodcastEpisode  # Assume you have a model for episodes
 
 class PodcastFeed(Feed):
+    # feed_type = "Rss201reev2Feed"
     title = "Are You Into Bus Stuff?"
-    link = "/podcast/feed/"
+    link = "/podcast"
     description = "Two Idiots, Ben Carneiro and Lucas Reilly, talk about Cities and Transportation"
 
     def items(self):
@@ -535,7 +536,7 @@ class PodcastFeed(Feed):
 
     def item_enclosure_url(self, item):
         # URL to the actual audio file
-        return item.audio_file.url  # Ensure this is a file path or URL
+        return "/podcasts/" + item.slug + ".mp3"  # Ensure this is a file path or URL
 
     def item_enclosure_length(self, item):
         # Size of the file in bytes
@@ -543,7 +544,7 @@ class PodcastFeed(Feed):
 
     def item_enclosure_mime_type(self, item):
         return 'audio/mpeg'  # Set MIME type for the podcast audio
-    
+
 def episode_detail(request, **kwargs):
     episode = PodcastEpisode.objects.get(slug=kwargs['slug'])
     return render(request, "episode_detail.html", {"episode": episode})
