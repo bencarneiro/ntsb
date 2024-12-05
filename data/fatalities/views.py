@@ -536,7 +536,7 @@ class PodcastFeed(Feed):
 
     def item_enclosure_url(self, item):
         # URL to the actual audio file
-        return "/podcasts/" + item.slug + ".mp3"  # Ensure this is a file path or URL
+        return "https://roadway.report/podcasts/" + item.slug + ".mp3"  # Ensure this is a file path or URL
 
     def item_enclosure_length(self, item):
         # Size of the file in bytes
