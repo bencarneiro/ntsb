@@ -47,7 +47,7 @@ urlpatterns = [
     path("pedestrian_safety", pedestrian_safety, name="pedestrian_safety"),
     path("v1/", api.urls),
     path("comments", comments, name="comments"),
-    path('podcast/feed/', PodcastFeed(), name='podcast_feed'),  # RSS feed for podcast,
+    path('podcast/feed.xml', PodcastFeed(), name='podcast_feed'),  # RSS feed for podcast,
     path("podcast", episodes, name="episodes"),
     path("episode_detail/<str:slug>/", episode_detail, name="episode_detail"),
     re_path(r'^favicon\.ico$', favicon_view),
