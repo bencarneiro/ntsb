@@ -15,6 +15,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_ROOT=os.environ.get("MEDIA_ROOT", "podcasts")
+MEDIA_URL=os.environ.get("MEDIA_URL", "podcasts/")
 STATIC_ROOT=os.environ.get("STATIC_ROOT", "/var/www/static")
 STATICFILES_DIRS = [
     "/home/tonydeals/app/ntsb/data/fatalities/templates/static",

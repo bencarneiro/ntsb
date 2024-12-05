@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from fatalities.views import crashes, favicon_view, pedestrian_safety, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments
+from fatalities.views import PodcastFeed, crashes, favicon_view, pedestrian_safety, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes
 from .api import api
 from django.conf import settings
 from django.conf.urls.static import static
@@ -47,5 +47,9 @@ urlpatterns = [
     path("pedestrian_safety", pedestrian_safety, name="pedestrian_safety"),
     path("v1/", api.urls),
     path("comments", comments, name="comments"),
+    path('podcast/feed/', PodcastFeed(), name='podcast_feed'),  # RSS feed for podcast,
+    path("podcast", episodes, name="episodes"),
+    path("episode_detail/<str:slug>/", episode_detail, name="episode_detail"),
     re_path(r'^favicon\.ico$', favicon_view),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

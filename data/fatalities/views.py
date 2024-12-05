@@ -509,3 +509,45 @@ def nonmotorist_csv(request):
 def comments(request):
     comments = Comment.objects.all().order_by("-created")
     return render(request, "comment_moderation.html", {"comments": comments})
+
+from django.contrib.syndication.views import Feed
+from django.urls import reverse
+from .models import PodcastEpisode  # Assume you have a model for episodes
+
+class PodcastFeed(Feed):
+    title = "Are You Into Bus Stuff?"
+    link = "/podcast/feed/"
+    description = "Two Idiots, Ben Carneiro and Lucas Reilly, talk about Cities and Transportation"
+
+    def items(self):
+        # Fetch the latest episodes from your model
+        return PodcastEpisode.objects.all()[:10]  # Get the 10 most recent episodes
+
+    def item_title(self, item):
+        return item.title  # Title of the episode
+
+    def item_description(self, item):
+        return item.description  # Description of the episode
+
+    def item_link(self, item):
+        # Link to the episode's page
+        return reverse('episode_detail', args=[item.slug])
+
+    def item_enclosure_url(self, item):
+        # URL to the actual audio file
+        return item.audio_file.url  # Ensure this is a file path or URL
+
+    def item_enclosure_length(self, item):
+        # Size of the file in bytes
+        return item.audio_file.size  # Return file size in bytes
+
+    def item_enclosure_mime_type(self, item):
+        return 'audio/mpeg'  # Set MIME type for the podcast audio
+    
+def episode_detail(request, **kwargs):
+    episode = PodcastEpisode.objects.get(slug=kwargs['slug'])
+    return render(request, "episode_detail.html", {"episode": episode})
+
+def episodes(request, **kwargs):
+    episodes = PodcastEpisode.objects.all().order_by("-publish_date")
+    return render(request, "podcast_list.html", {"episodes": episodes})
