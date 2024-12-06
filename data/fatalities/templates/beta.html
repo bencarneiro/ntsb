@@ -110,10 +110,39 @@
     .map-overlay-inner button:hover {
         box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
     }
+        .context-menu {
+            position: absolute;
+            display: none;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+        .context-menu button {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+        .context-menu button:hover {
+            background-color: #f0f0f0;
+        }
         </style>
+
     </head>
+    <script>
+        function rightClickToCopy(lngLat) {
+            console.log(lngLat)
+        }
+    </script>
     <body>
         <div id="map"></div>
+
+    <div id="context-menu" class="context-menu">
+        <button onclick="alert('Hello!')">Hello</button>
+    </div>
         <div class="map-overlay top">
             <div class="map-overlay-inner">
                 <h3>USA Traffic Deaths 2001-2022</h3>
@@ -216,6 +245,7 @@
 
             let menu = document.getElementById('layer')
 
+            
             menu.addEventListener("change", function(e) {
                 console.log(e.target.value)
 
@@ -280,6 +310,29 @@
 
             let protocol = new pmtiles.Protocol();
             maplibregl.addProtocol("pmtiles", protocol.tile);
+            const url = new URL(window.location.href);
+            const params = new URLSearchParams(url.search);
+            function getLngLat() {
+                
+            }
+            if (params.has('latitude')) {
+                var lat = parseFloat(params.get('latitude')); 
+            } else {
+                var lat = 45
+            }
+            if (params.has('longitude')) {
+                var lon = parseFloat(params.get('longitude')); 
+            } else {
+                var lon = -120
+            }
+            if (params.has('zoom')) {
+                var zoom = parseInt(params.get('zoom')); 
+            } else {
+                var zoom = 3
+            }
+            console.log(lon)
+            console.log(lat)
+            console.log(zoom)
 
             var map = new maplibregl.Map({
                 container: 'map',
@@ -305,9 +358,45 @@
                         }
                     ]
                 },
-                center: [-120, 45],
-                zoom: 3
+                // these are the loading coordinates
+                center: [lon, lat],
+                zoom: zoom
             });
+            const contextMenu = document.getElementById('context-menu');
+
+            map.on('contextmenu', (e) => {
+                // Prevent the default context menu
+                e.preventDefault();
+
+                // Set the position of the custom context menu
+                contextMenu.style.left = `${e.originalEvent.clientX}px`;
+                contextMenu.style.top = `${e.originalEvent.clientY}px`;
+
+                // Show the context menu
+
+                console.log(e.lngLat.lat)
+                var latitude = e.lngLat.lat.toFixed(10)
+                var longitude = e.lngLat.lng.toFixed(10)
+                
+                var redirectUrl = `http://127.0.0.1:8000/beta?latitude=${latitude}&longitude=${longitude}&zoom=18`
+                contextMenu.innerHTML=`<button onclick="navigator.clipboard.writeText('${redirectUrl}'); alert('${redirectUrl} is copied to your clipboard')">Share This Location</button>`
+                
+                contextMenu.style.display = 'block';
+                console.log(e.lngLat)
+            });
+
+            // Hide the context menu on map click
+            map.on('click', () => {
+                contextMenu.style.display = 'none';
+            });
+
+            // Hide the context menu on Escape key press
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    contextMenu.style.display = 'none';
+                }
+            });
+
             map.addControl(
                 new maplibregl.GeolocateControl({
                     positionOptions: {
@@ -371,6 +460,7 @@
                         .addTo(map)
                         .addClassName("popup");
                 });
+                
             });
         </script>
     </body>
