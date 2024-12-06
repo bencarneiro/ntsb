@@ -132,11 +132,6 @@
         </style>
 
     </head>
-    <script>
-        function rightClickToCopy(lngLat) {
-            console.log(lngLat)
-        }
-    </script>
     <body>
         <div id="map"></div>
 
@@ -330,9 +325,6 @@
             } else {
                 var zoom = 3
             }
-            console.log(lon)
-            console.log(lat)
-            console.log(zoom)
 
             var map = new maplibregl.Map({
                 container: 'map',
@@ -374,7 +366,6 @@
 
                 // Show the context menu
 
-                console.log(e.lngLat.lat)
                 var latitude = e.lngLat.lat.toFixed(10)
                 var longitude = e.lngLat.lng.toFixed(10)
                 
@@ -382,7 +373,6 @@
                 contextMenu.innerHTML=`<button onclick="navigator.clipboard.writeText('${redirectUrl}'); alert('${redirectUrl} is copied to your clipboard')">Share This Location</button>`
                 
                 contextMenu.style.display = 'block';
-                console.log(e.lngLat)
             });
 
             // Hide the context menu on map click
