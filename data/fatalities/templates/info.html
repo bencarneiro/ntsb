@@ -1,79 +1,131 @@
-<html>
-  <head>
-
-    <title>roadway.report info</title>
-    <meta name="description" content="More Info on roadway.report, The Nationwide Vision-Zero Map">
-    <meta name="keywords" content="car, cars, automobiles, automobile, crash, crashes, bike, bikes, bicycle, bicylcles, pedestrian, pedestrians, pedestrian safety, bicycle safety, automobile safety, roadway, roadways, car safety, car crash, car crashes, accidents, car accident, car accidents, fatal accident, fatal car accident, car wreck, car wrecks, FARS, nhtsa, USDOT, DOT, FHA, highway, roadway, freeway, lanes, road width, danger, dangerous, dangerous roads, dangerous highway, dangerous street, stroad, urbanism, vision zero, vision-zero, urbanist, city, cities, transportation, urban planning, public transit, driving, buses, bus, train, trains, drivers, drive, autonomous vehicle, vision zero, vision, zero, vision-zero">
-    <meta name="author" content="Ben Carneiro">
-  </head>
-
-<link rel="stylesheet" type="text/css" href="static/leaflet_menu.css"></link>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-pink.css">     -->
+<title>Links website</title>
+<script src="https://unpkg.com/feather-icons"></script>
 <style>
-    body {
-        background-color: lavenderblush
-    }
-    .leaflet-menu{
-        background-color: lavenderblush;
-    }
-    /* Centered text */
-.centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  /* transform: translate(-50%, -50%); */
-  z-index: 10000;
-  font-size: 3rem;
+body {
+  background:url("/static/linktree.webp"); /* The image used for background */
 }
 
+.container {
+  width: 100%;
+  height: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.links-container {
+  display: flex;
+  flex-direction: column;
+  jusify-content: center;
+  align-items: center;
+}
+
+.links-container a {
+  width: 80%;
+}
+
+.w3-theme-l1:hover {
+  background-color: white !important;
+  color: white
+}
+
+.margin-top-2 {
+  margin-top: 32px;
+}
+
+.bottom {
+  width: 100%;
+  text-align: center;
+  width: auto;
+  font-weight: bolder;
+}
+
+.bottom span {
+  color: Black;
+}
+
+.bottom svg {
+  stroke: black;
+  fill: black;
+}
+h1, h2, h4 {color: lightcyan}
 h1 {
-      font-family: Arial, Helvetica, sans-serif;
-      text-align: center;
-      font-size: 2rem;
-    }
-    h2 {
-      font-family: Arial, Helvetica, sans-serif;
-      text-align: center;
-      font-size: 1.7rem;
-    }
-    .table{
-      font-family: Arial, Helvetica, sans-serif;
-      border-collapse: collapse;
-      margin-left: auto;
-      margin-right: auto;
-      width:100%;
-    }
-    td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      width: 50%;
-      width:100%;
-    }
-    .leaflet-popup-content-wrapper h1, h2 {
-        font-size: 1.35rem;
-        margin: 10px
-    }
+  font-size: 4rem
+}
+h2, h4 {
+  font-size: 2rem
+}
+.w3-button {
+  background-color: lightcyan;
+  font-size: 1.3rem;
+}
+
+@media (min-width: 768px) {
+  .link {
+    width: 100%;
+  }
+}
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
 </style>
+  </head>
+  <body>
+    <!-- Content container -->
+    <div class="container">
+
+      <!-- Image and name container. Change to your pictue here. -->
+      <div style="text-align: center">
         <h1>Roadway Report</h1>
         <h2>The Nationwide Vision-Zero Map</h2>
-        <br><br>
-        <table>
-            
-            <h1><a href='/beta'>THE MAP</a></h1>
-            <br>
-            <h2><a href='/testmap'>deprecated map</a></h2>
-            <br>
-            <h2><a href='/pedestrian_safety'>Data on USA's Pedestrian Safety Crisis</a></h2>
-            <br><br>
-            <h2><a href='/county_selector'>Data by County</a></h2>
-            <br><br>
-            <h2><a href='https://patreon.com/visionzero'>Support This Project!</a></h2>
-            <h2><a href='https://github.com/bencarneiro/ntsb'>Source Code</a></h2>
-                <h2><a href='https://roadway.report/v1/docs'>Free API Docs</a></h2>
-                    <h2><a href='https://bencarneiro.com/@ben'>The Developer</a></h2>
-                        <h2><a href="mailto:info@roadway.report">Get In Touch</a></h2>
-    </table>
-    <br><br>
-    <h2>There are four unmapped deaths for every death on the map</h2>
-    <br><br>
-    <h2>How many more will finally be enough?</h2>
+        <!-- <p style="font-weight: bolder;">Check out my links!</p> -->
+      </div>
+
+      <!-- Links section 1. Replace the # inside of the "" with your links. -->
+      <div class="links-container">
+        <a href="/beta" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link">Back to Map</a>
+        <br>
+        <a href="/pedestrian_safety" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Data on USA Pedestrian Safety Crisis</a>
+        <br>
+        <a href="/county_selector" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Data By County</a>
+      </div>
+
+      <!-- Links section 2. Replace the # inside of the "" with your links. -->
+      <h4 class="margin-top-2" style="text-align: center;">Links</h4>
+      <div class="links-container">
+        <a href="https://patreon.com/visionzero" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Support Us!</a>
+        <br>
+        <a href="https://github.com/bencarneiro/ntsb" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Source Code</a>
+        <br>
+        <a href="/v1/docs" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Documentation</a>
+        <br>
+        
+      </div>
+
+      <!-- Links section 3. Replace the # inside of the "" with your links. -->
+      <h4 class="margin-top-2" style="text-align: center;">About Ben</h4>
+      <div class="links-container">
+        <a href="mailto:ben@roadway.report" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link">Email Me (ben@roadway.report)</a>
+        <br>
+        <a href="https://censusmaps.org/resume" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Resume</a>
+        <br>
+        <a href="https://github.com/bencarneiro" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Github</a>
+        <br>
+      </div>
+
+    </div>
+    <script>
+      feather.replace()
+    </script>
+  </body>  
 </html>
