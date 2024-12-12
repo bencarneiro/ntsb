@@ -565,7 +565,7 @@ class PodcastFeed(Feed):
 
     def items(self):
         # Fetch the latest episodes from your model
-        return PodcastEpisode.objects.all()[:10]  # Get the 10 most recent episodes
+        return PodcastEpisode.objects.order_by("-publish_date")  # Get the 10 most recent episodes
 
     def item_title(self, item):
         return item.title  # Title of the episode
@@ -587,6 +587,9 @@ class PodcastFeed(Feed):
 
     def item_enclosure_mime_type(self, item):
         return 'audio/mpeg'  # Set MIME type for the podcast audio
+    
+    def item_pubdate(self, item):
+        return item.publish_date
 
     # def root_attributes(self):
     #     attrs = super().root_attributes()
