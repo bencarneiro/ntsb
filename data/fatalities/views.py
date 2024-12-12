@@ -517,17 +517,24 @@ from .models import PodcastEpisode  # Assume you have a model for episodes
 from django.utils import feedgenerator
 
 class PodcastFeedGenerator(feedgenerator.Rss201rev2Feed):
+
+    def root_attributes(self):
+        attrs = super().root_attributes()
+        attrs["xmlns:itunes"] = "http://www.itunes.com/dtds/podcast-1.0.dtd"
+        return attrs
+    
     def add_root_elements(self, handler):
         super(PodcastFeedGenerator, self).add_root_elements(handler)
         #image
+
+        handler.addQuickElement(u'itunes:image href="https://roadway.report/static/podcast.jpg"', '',{}) 
         handler.startElement(u'image', {})
         handler.addQuickElement(u"url", u"https://roadway.report/static/podcast.jpg")
         handler.addQuickElement(u"title", u"Are You Into Bus Stuff?")
-        handler.addQuickElement(u"copywright", u'All Rights Reserved',{})  
         handler.addQuickElement(u"link", u"https://roadway.report/podcast")
         handler.endElement(u'image') 
-        #itunes image
-        handler.addQuickElement(u'itunes:image href="https://roadway.report/static/podcast.jpg"', '',{})  
+        handler.addQuickElement(u"copywright", u'All Rights Reserved',{})  
+        #itunes image 
         #itunes categories
         handler.addQuickElement(u"itunes:subtitle", u"A Podcast by roadway.report")
         handler.startElement(u'itunes:category text="News"', {})
