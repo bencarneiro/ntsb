@@ -527,7 +527,7 @@ class PodcastFeedGenerator(feedgenerator.Rss201rev2Feed):
         handler.addQuickElement(u"link", u"https://roadway.report/podcast")
         handler.endElement(u'image') 
         #itunes image
-        handler.addQuickElement(u"itunes:image href='https://roadway.report/static/podcast.jpg'", '',{})  
+        handler.addQuickElement(u'itunes:image href="https://roadway.report/static/podcast.jpg"', '',{})  
         #itunes categories
         handler.addQuickElement(u"itunes:subtitle", u"A Podcast by roadway.report")
         handler.startElement(u'itunes:category text="News"', {})
