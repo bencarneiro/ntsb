@@ -514,11 +514,43 @@ from django.contrib.syndication.views import Feed
 from django.urls import reverse
 from .models import PodcastEpisode  # Assume you have a model for episodes
 
+from django.utils import feedgenerator
+
+class PodcastFeedGenerator(feedgenerator.Rss201rev2Feed):
+    def add_root_elements(self, handler):
+        super(PodcastFeedGenerator, self).add_root_elements(handler)
+        #image
+        handler.startElement(u'image', {})
+        handler.addQuickElement(u"url", u"https://roadway.report/static/podcast.jpg")
+        handler.addQuickElement(u"title", u"Are You Into Bus Stuff?")
+        handler.addQuickElement(u"copywright", u'All Rights Reserved',{})  
+        handler.addQuickElement(u"link", u"https://roadway.report/podcast")
+        handler.endElement(u'image') 
+        #itunes image
+        handler.addQuickElement(u"itunes:image href='https://roadway.report/static/podcast.jpg'", '',{})  
+        #itunes categories
+        handler.addQuickElement(u"itunes:subtitle", u"A Podcast by roadway.report")
+        handler.startElement(u'itunes:category text="News"', {})
+        handler.addQuickElement(u'itunes:category text="Politics"', u"")
+        handler.endElement(u'itunes:category') 
+        handler.addQuickElement(u'itunes:category text="Comedy"', u"")
+        #itunes explicit
+        handler.addQuickElement(u"itunes:explicit", 'true',{})  
+        handler.addQuickElement(u"itunes:author", 'roadway.report',{})  
+        handler.addQuickElement(u"itunes:type", 'episodic',{}) 
+
+
+
+#   <itunes:category text="Society &amp; Culture">
+#     <itunes:category text="Documentary" />
+#   </itunes:category>
+
 class PodcastFeed(Feed):
-    # feed_type = "Rss201reev2Feed"
+    feed_type = PodcastFeedGenerator
     title = "Are You Into Bus Stuff?"
     link = "/podcast"
     description = "Two Idiots, Ben Carneiro and Lucas Reilly, talk about Cities and Transportation"
+    language="en"
 
     def items(self):
         # Fetch the latest episodes from your model
@@ -544,6 +576,16 @@ class PodcastFeed(Feed):
 
     def item_enclosure_mime_type(self, item):
         return 'audio/mpeg'  # Set MIME type for the podcast audio
+
+    # def root_attributes(self):
+    #     attrs = super().root_attributes()
+    #     attrs["xmlns:itunes"] = "http://www.itunes.com/dtds/podcast-1.0.dtd"
+    #     return attrs
+    
+    # def add_root_elements(self, handler):
+    #     super().add_root_elements(handler)
+    #     handler.addQuickElement("itunes:explicit", "clean")
+    
 
 def episode_detail(request, **kwargs):
     episode = PodcastEpisode.objects.get(slug=kwargs['slug'])
