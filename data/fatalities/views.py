@@ -533,6 +533,10 @@ class PodcastFeedGenerator(feedgenerator.Rss201rev2Feed):
         handler.addQuickElement(u"title", u"Are You Into Bus Stuff?")
         handler.addQuickElement(u"link", u"https://roadway.report/podcast")
         handler.endElement(u'image') 
+        handler.startElement(u'itunes:owner', {})
+        handler.addQuickElement(u"itunes:name", u"roadway.report")
+        handler.addQuickElement(u"itunes:email", u"ben@roadway.report")
+        handler.endElement(u"itunes:owner")
         handler.addQuickElement(u"copywright", u'All Rights Reserved',{})  
         #itunes image 
         #itunes categories
