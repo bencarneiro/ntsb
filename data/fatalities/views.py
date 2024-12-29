@@ -608,3 +608,6 @@ def episode_detail(request, **kwargs):
 def episodes(request, **kwargs):
     episodes = PodcastEpisode.objects.all().order_by("-publish_date")
     return render(request, "podcast_list.html", {"episodes": episodes})
+
+def privacy(request):
+    return render(request, "privacy.html", {})
