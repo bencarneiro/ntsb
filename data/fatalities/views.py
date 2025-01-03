@@ -560,7 +560,7 @@ class PodcastFeed(Feed):
     feed_type = PodcastFeedGenerator
     title = "Are You Into Bus Stuff?"
     link = "/podcast"
-    description = "Two Idiots, Ben Carneiro and Lucas Reilly, talk about Cities and Transportation"
+    description = "A podcast about bus stops, bike lanes, and boy pussy --- Hosted by Ben Carneiro of roadway.report and Lucas Reilly of Blurbanist"
     language="en"
 
     def items(self):
