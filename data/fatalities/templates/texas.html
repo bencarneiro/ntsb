@@ -226,11 +226,11 @@ map.on('load', () => {
         let total = 0;
         features.forEach((f, i) => {
             table += "<tr>";
-            table += `<tr><td>${e.properties.crash_date}</td>`;
-            table += `<td align='right'>${e.properties.injury_severity}}</td>`;
+            table += `<tr><td>${f.properties.crash_date}</td>`;
+            table += `<td align='right'>${f.properties.injury_severity}}</td>`;
             let id = f.properties.id
             table += `<td>${id}</td>`;
-            table += `<td>${e.properties.unit_description}</td>`;
+            table += `<td>${f.properties.unit_description}</td>`;
             table += `<td>${f.properties.person_age}</td><td>${f.properties.person_gender}</td><td>${f.properties.person_ethnicity}</td>`;
             table += "</tr>";
         })
