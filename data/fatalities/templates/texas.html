@@ -52,7 +52,7 @@ var map = new maplibregl.Map({
         ]
     },
     // these are the loading coordinates
-    center: [30,-89],
+    center: [-89,30],
     zoom: 4
 });
 layerName = "fatalities"
@@ -85,11 +85,13 @@ map.addLayer({
     }
 })
 
-map.on('mouseenter', `${i}`, () => {map.getCanvas().style.cursor = 'pointer'});
-map.on('mouseleave', `${i}`, () => {map.getCanvas().style.cursor = ''});
+map.on('mouseenter', `fatalities`, () => {map.getCanvas().style.cursor = 'pointer'});
+map.on('mouseleave', `fatalities`, () => {map.getCanvas().style.cursor = ''});
 
 map.on('click', (e) => {
     const features = map.queryRenderedFeatures(e.point);
+    console.log(e)
+    console.log(features)
     if (features.length == 0) return;
     let table = "<table><thead><tr><th>Date</th><th>Severity</th><th>ID</th><th>Age</th><th>Gender</th><th>Ethnicity</th></tr></thead>";
     let total = 0;
