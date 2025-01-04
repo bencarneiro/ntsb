@@ -52,10 +52,10 @@ var map = new maplibregl.Map({
         ]
     },
     // these are the loading coordinates
-    center: ["30.00", "-90.00"],
+    center: [30,-89],
     zoom: 4
 });
-layerName = "Fatalities"
+layerName = "fatalities"
 sourceUrl =  `pmtiles://static/tiles/texas_tiles/fatalities.pmtiles`
 
 map.on('load', () => {
