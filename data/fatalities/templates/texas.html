@@ -58,92 +58,15 @@ var map = new maplibregl.Map({
 
 map.on('load', () => {
 
-    map.addLayer({
-        id: "fatalities",
-        type: "circle",
-        source: {
-            url: "pmtiles://static/tiles/texas_tiles/fatalities.pmtiles",
-            type: "vector"
-        },
-        "source-layer": "fatalities",
-        paint: {
-            "circle-opacity": .3,
-            "circle-color": "darkred",
-            "circle-radius": [
-                "interpolate", ["exponential", 1.1], ["zoom"],
-                2, .3,
-                14, 5
-            ],
-            "circle-stroke-opacity": .6,
-            "circle-stroke-color": "darkred",
-            "circle-stroke-width": [
-                "interpolate", ["exponential", 1.1], ["zoom"],
-                2, 0,
-                14, 1
-            ],
-        }
-    })
 
     map.addLayer({
-        id: "serious_injuries",
+        id: "unknown_injuries",
         type: "circle",
         source: {
-            url: "pmtiles://static/tiles/texas_tiles/serious_injuries.pmtiles",
+            url: "pmtiles://static/tiles/texas_tiles/unknown_injuries.pmtiles",
             type: "vector"
         },
-        "source-layer": "serious_injuries",
-        paint: {
-            "circle-opacity": .3,
-            "circle-color": "red",
-            "circle-radius": [
-                "interpolate", ["exponential", 1.1], ["zoom"],
-                2, .3,
-                14, 5
-            ],
-            "circle-stroke-opacity": .6,
-            "circle-stroke-color": "red",
-            "circle-stroke-width": [
-                "interpolate", ["exponential", 1.1], ["zoom"],
-                2, 0,
-                14, 1
-            ],
-        }
-    })
-
-    map.addLayer({
-        id: "minor_injuries",
-        type: "circle",
-        source: {
-            url: "pmtiles://static/tiles/texas_tiles/minor_injuries.pmtiles",
-            type: "vector"
-        },
-        "source-layer": "minor_injuries",
-        paint: {
-            "circle-opacity": .3,
-            "circle-color": "orange",
-            "circle-radius": [
-                "interpolate", ["exponential", 1.1], ["zoom"],
-                2, .3,
-                14, 5
-            ],
-            "circle-stroke-opacity": .6,
-            "circle-stroke-color": "orange",
-            "circle-stroke-width": [
-                "interpolate", ["exponential", 1.1], ["zoom"],
-                2, 0,
-                14, 1
-            ],
-        }
-    })
-
-    map.addLayer({
-        id: "possible_injuries",
-        type: "circle",
-        source: {
-            url: "pmtiles://static/tiles/texas_tiles/possible_injuries.pmtiles",
-            type: "vector"
-        },
-        "source-layer": "possible_injuries",
+        "source-layer": "unknown_injuries",
         paint: {
             "circle-opacity": .3,
             "circle-color": "yellow",
@@ -188,14 +111,15 @@ map.on('load', () => {
         }
     })
 
+
     map.addLayer({
-        id: "unknown_injuries",
+        id: "possible_injuries",
         type: "circle",
         source: {
-            url: "pmtiles://static/tiles/texas_tiles/unknown_injuries.pmtiles",
+            url: "pmtiles://static/tiles/texas_tiles/possible_injuries.pmtiles",
             type: "vector"
         },
-        "source-layer": "unknown_injuries",
+        "source-layer": "possible_injuries",
         paint: {
             "circle-opacity": .3,
             "circle-color": "yellow",
@@ -213,6 +137,87 @@ map.on('load', () => {
             ],
         }
     })
+
+
+    map.addLayer({
+        id: "minor_injuries",
+        type: "circle",
+        source: {
+            url: "pmtiles://static/tiles/texas_tiles/minor_injuries.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "minor_injuries",
+        paint: {
+            "circle-opacity": .3,
+            "circle-color": "orange",
+            "circle-radius": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, .3,
+                14, 5
+            ],
+            "circle-stroke-opacity": .6,
+            "circle-stroke-color": "orange",
+            "circle-stroke-width": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, 0,
+                14, 1
+            ],
+        }
+    })
+
+
+    map.addLayer({
+        id: "serious_injuries",
+        type: "circle",
+        source: {
+            url: "pmtiles://static/tiles/texas_tiles/serious_injuries.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "serious_injuries",
+        paint: {
+            "circle-opacity": .3,
+            "circle-color": "red",
+            "circle-radius": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, .3,
+                14, 5
+            ],
+            "circle-stroke-opacity": .6,
+            "circle-stroke-color": "red",
+            "circle-stroke-width": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, 0,
+                14, 1
+            ],
+        }
+    })
+
+    map.addLayer({
+        id: "fatalities",
+        type: "circle",
+        source: {
+            url: "pmtiles://static/tiles/texas_tiles/fatalities.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "fatalities",
+        paint: {
+            "circle-opacity": .3,
+            "circle-color": "darkred",
+            "circle-radius": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, .3,
+                14, 5
+            ],
+            "circle-stroke-opacity": .6,
+            "circle-stroke-color": "darkred",
+            "circle-stroke-width": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, 0,
+                14, 1
+            ],
+        }
+    })
+
 
     map.on('mouseenter', `fatalities`, () => {map.getCanvas().style.cursor = 'pointer'});
     map.on('mouseleave', `fatalities`, () => {map.getCanvas().style.cursor = ''});
