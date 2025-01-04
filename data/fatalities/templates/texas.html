@@ -1,0 +1,113 @@
+
+
+<link rel="stylesheet" href="static/css/maplibre-gl.css">
+<script src="static/js/maplibre-gl.js"></script>
+<script src="static/js/pmtiles.js"></script>
+<style>
+    body {
+        margin: 0;
+    }
+    html, body, #map {
+        height:100%; width:100%;
+    }
+    .popup .maplibregl-popup-content {
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+</style>
+
+
+<body>
+
+    <div id="map"></div>
+</body>
+
+<script>
+
+
+let protocol = new pmtiles.Protocol();
+maplibregl.addProtocol("pmtiles", protocol.tile);
+var map = new maplibregl.Map({
+    container: 'map',
+    style: {
+        version: 8,
+        sources: {
+            "base-raster": {
+                type: "raster",
+                tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+                tileSize: 256,
+                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a>"
+            
+            }
+        },
+        layers: [
+            {
+                id: "base-raster",
+                type: "raster",
+                source: "base-raster",
+                paint: {
+                    "raster-saturation": -1,
+                }
+            }
+        ]
+    },
+    // these are the loading coordinates
+    center: ["30.00", "-90.00"],
+    zoom: 4
+});
+layerName = "Fatalities"
+sourceUrl =  `pmtiles://static/tiles/texas_tiles/test.pmtiles`
+
+map.on('load', () => {
+map.addLayer({
+    id: layerName,
+    type: "circle",
+    source: {
+        url: sourceUrl,
+        type: "vector"
+    },
+    "source-layer": layerName,
+    paint: {
+        "circle-opacity": .3,
+        "circle-color": "darkred",
+        "circle-radius": [
+            "interpolate", ["exponential", 1.1], ["zoom"],
+            2, .3,
+            14, 5
+        ],
+        "circle-stroke-opacity": .6,
+        "circle-stroke-color": "darkred",
+        "circle-stroke-width": [
+            "interpolate", ["exponential", 1.1], ["zoom"],
+            2, 0,
+            14, 1
+        ],
+    }
+})
+
+map.on('mouseenter', `${i}`, () => {map.getCanvas().style.cursor = 'pointer'});
+map.on('mouseleave', `${i}`, () => {map.getCanvas().style.cursor = ''});
+
+map.on('click', (e) => {
+    const features = map.queryRenderedFeatures(e.point);
+    if (features.length == 0) return;
+    let table = "<table><thead><tr><th>Date</th><th>Severity</th><th>ID</th><th>Age</th><th>Gender</th><th>Ethnicity</th></tr></thead>";
+    let total = 0;
+    features.forEach((f, i) => {
+        table += "<tr>";
+        table += `<tr><td>${e.crash_date}</td>`;
+        table += `<td align='right'>${e.injury_severity}}</td>`;
+        let id = f.id
+        table += `<td>${id}</td>`;
+        table += `<td>${f.person_age}</td><td>${f.person_gender}</td><td>${f.person_ethnicity}</td>`;
+        table += "</tr>";
+    })
+    table += "</table>";
+    new maplibregl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(table)
+        .addTo(map)
+        .addClassName("popup");
+});
+})
+</script>

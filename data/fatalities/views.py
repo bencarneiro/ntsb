@@ -611,3 +611,6 @@ def episodes(request, **kwargs):
 
 def privacy(request):
     return render(request, "privacy.html", {})
+
+def texas(request):
+    return render(request, "texas.html", {})
