@@ -18,7 +18,7 @@ class Command(BaseCommand):
         # toot = f"{animal_type} alert! {name} is a {age_upon_intake} {sex_upon_intake} {color} {breed}. \nThey were found near {found_location} at {datetime}.\n\nIntake Type: {intake_type} \nIntake Condition: {intake_condition} \nID: {animal['animal_id']} \n\nThey are now at the Austin Animal Center - If unclaimed, the animal will be available for adoption in 3 days. \n\n#adopt #adoption #animals #cats #dogs #austin #austintx #animalshelter #shelter"
 
         today = date.today()
-        future = date(2026,7,1)
+        future = date(2026,12,23)
 
         days_to_shrek_5 = (future - today).days
         api.toot(f"Only {days_to_shrek_5} more days until the release of Shrek 5! \n \n #shrek #shrek5 #dreamworks #dreamworkscinematicuniverse ")
