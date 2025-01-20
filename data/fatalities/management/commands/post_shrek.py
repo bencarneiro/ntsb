@@ -4,7 +4,7 @@ from data.settings import MASTODON_FIRST_SECRET, MASTODON_LOGIN_PASSWORD, MASTOD
 from mastodon import Mastodon
 from datetime import *
 
-api = Mastodon(MASTODON_FIRST_SECRET, MASTODON_SECOND_SECRET, api_base_url="https://bencarneiro.com")
+api = Mastodon(MASTODON_FIRST_SECRET, MASTODON_SECOND_SECRET, api_base_url="https://its.bencarneiro.com")
 api.log_in("shrek@bencarneiro.com", MASTODON_LOGIN_PASSWORD, scopes=["read", "write"])
 
 class Command(BaseCommand):
