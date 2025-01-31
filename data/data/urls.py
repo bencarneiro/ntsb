@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from fatalities.views import PodcastFeed, crashes, favicon_view, texas, pedestrian_safety, privacy, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes
+from fatalities.views import PodcastFeed, reddit, crashes, favicon_view, texas, pedestrian_safety, privacy, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes
 from .api import api
 from django.conf import settings
 from django.conf.urls.static import static
@@ -52,6 +52,7 @@ urlpatterns = [
     path("privacy", privacy, name="privacy"),
     path("episode_detail/<str:slug>/", episode_detail, name="episode_detail"),
     path("texas", texas, name="texas"),
+    path("reddit", reddit, name="reddit"),
     re_path(r'^favicon\.ico$', favicon_view),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

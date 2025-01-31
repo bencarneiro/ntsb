@@ -512,7 +512,7 @@ def comments(request):
 
 from django.contrib.syndication.views import Feed
 from django.urls import reverse
-from .models import PodcastEpisode  # Assume you have a model for episodes
+from .models import PodcastEpisode, RedditPost  # Assume you have a model for episodes
 
 from django.utils import feedgenerator
 
@@ -614,3 +614,8 @@ def privacy(request):
 
 def texas(request):
     return render(request, "texas.html", {})
+
+
+def reddit(request):
+    posts = RedditPost.objects.filter(created_utc__gt=1735689600).order_by("-created_utc")
+    return render(request, "reddit.html", {"posts": posts})
