@@ -4767,3 +4767,38 @@ class PodcastEpisode(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+class Subreddit(models.Model):
+    id = models.CharField(primary_key=True, max_length=255)
+
+class RedditPost(models.Model):
+    id = models.AutoField(primary_key=True)
+    slug = models.CharField(max_length=16)
+    subreddit = models.ForeignKey(Subreddit, on_delete=models.DO_NOTHING)
+    title = models.TextField(null=False, blank=False)
+    author = models.CharField(max_length=255)
+    score = models.BigIntegerField()
+    url = models.TextField(null=True, blank=True)
+    created_utc = models.PositiveBigIntegerField(null=False, blank=False)
+    body = models.TextField(null=True, blank=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["subreddit", "slug"]),
+            models.Index(fields=["created_utc"]),
+        ]
+        unique_together = [["subreddit", "slug"]]
+        managed = True
+
+        #         print(f"Subreddit: {post.subreddit.display_name}")
+        # print(f"Title: {post.title}")
+        # print(f"Author: {post.author}")
+        # print(f"Score: {post.score}")
+        # print(f"URL: {post.url}")
+        # utc_time = datetime.utcfromtimestamp(post.created_utc)
+        # print(f"LONDON TIME: {utc_time}")
+        # time_since_posting = datetime.now(timezone.utc) - utc_time.replace(tzinfo=timezone.utc)
+        # print(f"{time_since_posting.days} days since posting")
+        # print(f"Body: {post.selftext}")
+        # print("-" * 40)
