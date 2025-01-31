@@ -24,7 +24,7 @@
     td {
       border: 1px solid #ddd;
       padding: 8px;
-      width: 50%;
+      /* width: 50%; */
       text-align: center;
       align-items: center;
       position: center;
@@ -52,16 +52,6 @@
         width:100%;
       }
 
-    .comment {
-        width:80%;
-        text-wrap: wrap;
-        word-break: break-word;
-      }
-    .dt {
-        width:20%;
-        text-wrap: wrap;
-        word-break: break-word;
-      }
     </style>
     <table>
         <tr>
@@ -78,15 +68,15 @@
         </tr>
         {% for post in posts %}
         <tr>
-            <td class="dt">{{post.created_utc|date}} - {{post.created_utc|time}} </td>
+            <td class="dt">{{post.created_utc}}</td>
             <td class="dt">{{ post.title }}</td>
-            <td class="dt">{{ post.link }}</td>
+            <td class="dt">{{ post.url }}</td>
             <td class="body">{{post.body|linebreaks}} </td>
             <td class="dt">{{ post.author }}</td>
             <td class="dt">{{ post.score }}</td>
             <td class="dt">{{ post.subreddit }}</td>
             <td class="dt">{{ post.slug }}</td>
-            <td class="dt"><a href="https://reddit.com/r/{{ post.subreddit }}/{{ post.slug }}/">LINK TO POST</a></td>
+            <td class="dt"><a href="https://reddit.com/r/{{ post.subreddit.id }}/comments/{{ post.slug }}">LINK TO POST</a></td>
 
         </tr>
         {%endfor%}
