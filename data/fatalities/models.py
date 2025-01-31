@@ -4791,14 +4791,10 @@ class RedditPost(models.Model):
         unique_together = [["subreddit", "slug"]]
         managed = True
 
-        #         print(f"Subreddit: {post.subreddit.display_name}")
-        # print(f"Title: {post.title}")
-        # print(f"Author: {post.author}")
-        # print(f"Score: {post.score}")
-        # print(f"URL: {post.url}")
-        # utc_time = datetime.utcfromtimestamp(post.created_utc)
-        # print(f"LONDON TIME: {utc_time}")
-        # time_since_posting = datetime.now(timezone.utc) - utc_time.replace(tzinfo=timezone.utc)
-        # print(f"{time_since_posting.days} days since posting")
-        # print(f"Body: {post.selftext}")
-        # print("-" * 40)
+class MultiReddit(models.Model):
+
+    id = models.AutoField(primary_key=True)
+    slug = models.TextField(null=False)
+
+    class Meta:
+        db_table="multireddit"
