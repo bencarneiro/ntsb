@@ -1,0 +1,230 @@
+
+
+<link rel="stylesheet" href="static/css/maplibre-gl.css">
+<script src="static/js/maplibre-gl.js"></script>
+<script src="static/js/pmtiles.js"></script>
+<style>
+    body {
+        margin: 0;
+    }
+    html, body, #map {
+        height:100%; width:100%;
+    }
+    .popup .maplibregl-popup-content {
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+    h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 4rem;
+    }
+    h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 2rem;
+    }
+    h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 1.2rem;
+    }
+    .table{
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto
+    }
+    td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    width: 50%;
+    text-align: center;
+    align-items: center;
+    position: center;
+    }
+    .dt {
+        width:20%;
+        text-wrap: wrap;
+        word-break: break-word;
+    }
+.map-overlay {
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+position: absolute;
+width: 200px;
+top: 0;
+left: 0;
+padding: 10px;
+}
+
+.map-overlay .map-overlay-inner {
+background-color: #fff;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+border-radius: 3px;
+padding: 10px;
+margin-bottom: 10px;
+}
+
+.map-overlay-inner fieldset {
+border: none;
+padding: 0;
+margin: 0 0 10px;
+}
+
+.map-overlay-inner fieldset:last-child {
+margin: 0;
+}
+
+.map-overlay-inner select {
+width: 100%;
+}
+
+.map-overlay-inner label {
+display: block;
+font-weight: bold;
+margin: 0 0 5px;
+}
+
+.map-overlay-inner button {
+display: inline-block;
+width: 36px;
+height: 20px;
+border: none;
+cursor: pointer;
+}
+
+.map-overlay-inner button:focus {
+outline: none;
+}
+
+.map-overlay-inner button:hover {
+box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+</style>
+<head>
+
+    <title>USA Median Income (2023)</title>
+</head>
+
+<script>
+    function toggleLayerVisibility(layerId, isVisible) {
+        map.setLayoutProperty(layerId, 'visibility', 
+            isVisible ? 'visible' : 'none'
+        );
+    }
+
+    // Example usage:
+
+    function toggleOn() {    
+    toggleLayerVisibility('income', true);  // Show the layer
+    }
+    function toggleOff() {    
+    toggleLayerVisibility('income', false); // Hide the layer
+    }
+</script>
+<body>
+
+    <div id="map"></div>
+    <div class="map-overlay top">
+        <div class="map-overlay-inner">
+            <h3>Per Capita Roadway Fatality Rate By Census Tract (2001-2022)</h3>
+        </div>
+        <button onclick=toggleOn()>Display Data</button>
+        <button onclick=toggleOff()>Hide Data</button>
+    </div>
+</body>
+
+<script>
+
+
+let protocol = new pmtiles.Protocol();
+maplibregl.addProtocol("pmtiles", protocol.tile);
+var map = new maplibregl.Map({
+    container: 'map',
+    style: {
+        version: 8,
+        sources: {
+            "base-raster": {
+                type: "raster",
+                tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+                tileSize: 256,
+                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a>"
+            
+            }
+        },
+        layers: [
+            {
+                id: "base-raster",
+                type: "raster",
+                source: "base-raster",
+                paint: {
+                    "raster-saturation": -1,
+                }
+            }
+        ]
+    },
+
+    // these are the loading coordinates
+    center: [-100,32],
+    zoom: 5.5
+});
+
+map.on('load', () => {
+
+
+    map.addLayer({
+        id: "total_fatalities",
+        type: "fill-extrusion",
+        source: {
+            url: "pmtiles://http://127.0.0.1:8080/total_fatalities.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "total_fatalities",
+        'paint': {
+                // See the MapLibre Style Specification for details on data expressions.
+                // https://maplibre.org/maplibre-style-spec/expressions/
+                'fill-extrusion-color': [
+                      'interpolate',
+                      ['linear'],
+                      ['get', 'total_fatality_rate'],  0, "green", .005, 'red'
+                  ],
+
+                // Get fill-extrusion-height from the source 'height' property.
+                'fill-extrusion-height': ['get', 'ppsm'],
+
+                // // Get fill-extrusion-base from the source 'base_height' property.
+                // 'fill-extrusion-base': ['get', 'base_height'],
+
+                // // Make extrusions slightly opaque for see through indoor walls.
+                'fill-extrusion-opacity': 0.8
+            }
+    })
+
+
+    map.on('mouseenter', `fatalities`, () => {map.getCanvas().style.cursor = 'pointer'});
+    map.on('mouseleave', `fatalities`, () => {map.getCanvas().style.cursor = ''});
+
+    map.on('click', (e) => {
+        const features = map.queryRenderedFeatures(e.point);
+        console.log(e)
+        console.log(features)
+        if (features.length == 0) return;
+        let table = "<table><thead><tr><th>Tract</th><th>People Per Square Mile</th><th>Roadway Fatalities Per Capita</th></tr></thead>";
+        let total = 0;
+        features.forEach((f, i) => {
+            table += "<tr>";
+            table += `<tr><td>${f.properties.NAME_x}</td>`;
+            table += `<td>${f.properties.ppsm}</td>`;
+            table += `<td>${Math.round(f.properties.total_fatality_rate * 100000) / 100000}</td>`;
+            table += "</tr>";
+        })
+        table += "</table>";
+        new maplibregl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(table)
+            .addTo(map)
+            .addClassName("popup");
+    });
+})
+</script>

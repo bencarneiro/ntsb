@@ -615,6 +615,14 @@ def privacy(request):
 def texas(request):
     return render(request, "texas.html", {})
 
+def population(request):
+    return render(request, "population.html", {})
+
+def population_nonmotorist(request):
+    return render(request, "population_nonmotorist.html", {})
+
+
+
 
 def reddit(request):
     posts = RedditPost.objects.filter(created_utc__gt=1735689600).order_by("-created_utc")[:2500]
