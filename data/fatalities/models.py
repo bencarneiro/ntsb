@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.gis.db import models as gismodels
 
-
+import time
 
 # Create your models here.
 
@@ -4782,6 +4782,8 @@ class RedditPost(models.Model):
     url = models.TextField(null=True, blank=True)
     created_utc = models.PositiveBigIntegerField(null=False, blank=False)
     body = models.TextField(null=True, blank=True)
+    def hours_ago(self):
+        return round((int(time.time()) - self.created_utc)/3600, 2)
 
     class Meta:
         indexes = [

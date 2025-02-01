@@ -18,7 +18,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # RedditPost.objects.all.delete()
-        keywords = ["crash", "accident", "collision", "wreck", "dashcam", "hit-and-run", "car+hit", "truck+hit", "pedestrian", "bicycle", "bike", "cyclist", "scooter", "drunk+driv"]
+        keywords = ["crash", "accident", "collision", "wreck", "dashcam", "hit-and-run", "car+hit", "truck+hit", "pedestrian", "bicycle", "bike", "cyclist", "scooter", "drunk+driver","drunk+driving"]
         # RedditPost.objects.all().delete()
         # Initialize the Reddit instance
         reddit = praw.Reddit(
