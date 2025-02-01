@@ -177,7 +177,7 @@ map.on('load', () => {
         id: "nonmotorist_fatalities",
         type: "fill-extrusion",
         source: {
-            url: "pmtiles://http://127.0.0.1:8080/nonmotorist_fatalities.pmtiles",
+            url: "pmtiles://static/tiles/population/nonmotorist_fatalities.pmtiles",
             type: "vector"
         },
         "source-layer": "nonmotorist_fatalities",
@@ -214,7 +214,7 @@ map.on('load', () => {
         let total = 0;
         features.forEach((f, i) => {
             table += "<tr>";
-            table += `<tr><td>${f.properties.NAME_y}</td>`;
+            table += `<tr><td>${f.properties.NAME_x}</td>`;
             table += `<td>${f.properties.ppsm}</td>`;
             table += `<td>${Math.round(f.properties.nonmotorist_fatality_rate * 100000) / 100000}</td>`;
             table += "</tr>";
