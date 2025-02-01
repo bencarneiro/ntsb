@@ -617,5 +617,5 @@ def texas(request):
 
 
 def reddit(request):
-    posts = RedditPost.objects.filter(created_utc__gt=1735689600).order_by("-created_utc")
+    posts = RedditPost.objects.filter(created_utc__gt=1735689600).order_by("-created_utc")[:2500]
     return render(request, "reddit.html", {"posts": posts})
