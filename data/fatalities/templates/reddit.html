@@ -1,0 +1,82 @@
+<html>
+    <style>
+
+    h1 {
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      font-size: 4rem;
+    }
+    .table{
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto
+    }
+    .header{
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: center;
+      background-color: #04AA6D;
+      color: white;
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      width: 20%;
+      text-align: center;
+      align-items: center;
+      position: center;
+    }
+    .comment-container{
+      text-align: center;
+      background-color: lightcyan;
+    }
+    form {
+      margin-left: auto;
+      margin-right: auto;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    }
+    #comment{
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto
+    }
+    
+    /* #comments {
+        width:100%;
+      } */
+
+    </style>
+    <table>
+        <tr>
+            <th>date</th>
+            <th>title</th>
+            <th>link</th>
+            <th>body</th>
+            <th>score</th>
+            <th>subreddit</th>
+            <th>slug</th>
+            <th>link to post</th>
+            
+        </tr>
+        {% for post in posts %}
+        <tr>
+            <td class="dt">{{post.hours_ago}} hours ago</td>
+            <td class="dt">{{ post.title }}</td>
+            <td class="dt"><a href="{{ post.url }}">link</a></td>
+            <td class="dt">{{post.body|slice:"0:300"}}</td>
+            <td class="dt">{{ post.score }}</td>
+            <td class="dt">{{ post.subreddit.id }}</td>
+            <td class="dt">{{ post.slug }}</td>
+            <td class="dt"><a href="https://reddit.com/r/{{ post.subreddit.id }}/comments/{{ post.slug }}">Comments</a></td>
+
+        </tr>
+        {%endfor%}
+    </table>
+</html>

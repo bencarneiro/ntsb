@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.gis.db import models as gismodels
 
-
+import time
 
 # Create your models here.
 
@@ -4767,3 +4767,36 @@ class PodcastEpisode(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+class Subreddit(models.Model):
+    id = models.CharField(primary_key=True, max_length=255)
+
+class RedditPost(models.Model):
+    id = models.AutoField(primary_key=True)
+    slug = models.CharField(max_length=16)
+    subreddit = models.ForeignKey(Subreddit, on_delete=models.DO_NOTHING)
+    title = models.TextField(null=False, blank=False)
+    author = models.CharField(max_length=255, null=True, blank=True)
+    score = models.BigIntegerField()
+    url = models.TextField(null=True, blank=True)
+    created_utc = models.PositiveBigIntegerField(null=False, blank=False)
+    body = models.TextField(null=True, blank=True)
+    def hours_ago(self):
+        return round((int(time.time()) - self.created_utc)/3600, 2)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["subreddit", "slug"]),
+            models.Index(fields=["created_utc"]),
+        ]
+        unique_together = [["subreddit", "slug"]]
+        managed = True
+
+class MultiReddit(models.Model):
+
+    id = models.AutoField(primary_key=True)
+    slug = models.TextField(null=False)
+
+    class Meta:
+        db_table="multireddit"
