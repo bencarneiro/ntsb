@@ -24,7 +24,7 @@
     td {
       border: 1px solid #ddd;
       padding: 8px;
-      /* width: 50%; */
+      width: 20%;
       text-align: center;
       align-items: center;
       position: center;
@@ -48,9 +48,9 @@
       margin-right: auto
     }
     
-    #comments {
+    /* #comments {
         width:100%;
-      }
+      } */
 
     </style>
     <table>
@@ -59,7 +59,6 @@
             <th>title</th>
             <th>link</th>
             <th>body</th>
-            <th>author</th>
             <th>score</th>
             <th>subreddit</th>
             <th>slug</th>
@@ -70,11 +69,10 @@
         <tr>
             <td class="dt">{{post.created_utc}}</td>
             <td class="dt">{{ post.title }}</td>
-            <td class="dt">{{ post.url }}</td>
-            <td class="body">{{post.body|linebreaks}} </td>
-            <td class="dt">{{ post.author }}</td>
+            <td class="dt"><a href="{{ post.url }}">post links to</a></td>
+            <td class="dt">{{post.body|slice:"0:300"}}</td>
             <td class="dt">{{ post.score }}</td>
-            <td class="dt">{{ post.subreddit }}</td>
+            <td class="dt">{{ post.subreddit.id }}</td>
             <td class="dt">{{ post.slug }}</td>
             <td class="dt"><a href="https://reddit.com/r/{{ post.subreddit.id }}/comments/{{ post.slug }}">LINK TO POST</a></td>
 

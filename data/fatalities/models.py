@@ -4777,7 +4777,7 @@ class RedditPost(models.Model):
     slug = models.CharField(max_length=16)
     subreddit = models.ForeignKey(Subreddit, on_delete=models.DO_NOTHING)
     title = models.TextField(null=False, blank=False)
-    author = models.CharField(max_length=255)
+    author = models.CharField(max_length=255, null=True, blank=True)
     score = models.BigIntegerField()
     url = models.TextField(null=True, blank=True)
     created_utc = models.PositiveBigIntegerField(null=False, blank=False)
