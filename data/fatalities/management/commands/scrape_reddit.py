@@ -37,7 +37,7 @@ class Command(BaseCommand):
                 print(mr)
                 subreddit = reddit.subreddit(mr)
                 sleep(.6)
-                posts = subreddit.search(search_query, sort="new", limit=100)  # Adjust limit as needed
+                posts = subreddit.search(search_query, sort="new", limit=500)  # Adjust limit as needed
                 for post in posts:
                     sub = Subreddit.objects.get(id=post.subreddit_name_prefixed.split("/")[1].lower())
                     try:
