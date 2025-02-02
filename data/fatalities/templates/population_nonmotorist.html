@@ -87,8 +87,8 @@ margin: 0 0 5px;
 
 .map-overlay-inner button {
 display: inline-block;
-width: 36px;
-height: 20px;
+width: 35px;
+height: 35px;
 border: none;
 cursor: pointer;
 }
@@ -122,6 +122,12 @@ box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
     function toggleOff() {    
     toggleLayerVisibility('nonmotorist_fatalities', false); // Hide the layer
     }
+    function flatten() {
+        map.setPaintProperty('nonmotorist_fatalities','fill-extrusion-height', 0)
+    }
+    function unFlatten() {
+        map.setPaintProperty('nonmotorist_fatalities','fill-extrusion-height', ['get', 'ppsm'])
+    }
 </script>
 <body>
 
@@ -129,9 +135,12 @@ box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
     <div class="map-overlay top">
         <div class="map-overlay-inner">
             <h3>Per Capita Nonmotorist Fatality Rate By Census Tract (2001-2022)</h3>
+
+            <button onclick=toggleOn()>Display Data</button>
+            <button onclick=toggleOff()>Hide Data</button>
+            <button onclick=flatten()>2-D Map</button>
+            <button onclick=unFlatten()>3-D Map</button>
         </div>
-        <button onclick=toggleOn()>Display Data</button>
-        <button onclick=toggleOff()>Hide Data</button>
     </div>
 </body>
 
@@ -177,6 +186,7 @@ map.on('load', () => {
         id: "nonmotorist_fatalities",
         type: "fill-extrusion",
         source: {
+            // url: "pmtiles://http://127.0.0.1:8080/nonmotorist_fatalities.pmtiles",
             url: "pmtiles://static/tiles/population/nonmotorist_fatalities.pmtiles",
             type: "vector"
         },
@@ -187,7 +197,7 @@ map.on('load', () => {
                 'fill-extrusion-color': [
                       'interpolate',
                       ['linear'],
-                      ['get', 'nonmotorist_fatality_rate'],  0, "green", .001, 'red'
+                      ['get', 'nonmotorist_fatality_rate'],  0, "green", .0015, 'red'
                   ],
 
                 // Get fill-extrusion-height from the source 'height' property.
