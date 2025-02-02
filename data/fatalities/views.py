@@ -15,6 +15,7 @@ from data.filter_schemas import AccidentLocationFilterSchema
 from django.db.models import Q
 from django.contrib.gis.geoip2 import GeoIP2
 from fatalities.forms import CommentForm
+import time
 
 import csv
 
@@ -625,5 +626,5 @@ def population_nonmotorist(request):
 
 
 def reddit(request):
-    posts = RedditPost.objects.filter(created_utc__gt=1735689600).order_by("-created_utc")[:2500]
+    posts = RedditPost.objects.filter(created_utc__gt=round(time.time() - 1209600)).order_by("-created_utc")[:2500]
     return render(request, "reddit.html", {"posts": posts})
