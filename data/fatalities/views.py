@@ -235,7 +235,7 @@ def collect_email(request):
             }
             CustomerEmail.objects.create(**data_to_save)
             # redirect to a new URL:
-            return redirect(f"/info")
+            return redirect(f"/info?success=True")
     
     return redirect(f"/info")
 
@@ -480,8 +480,10 @@ def beta(request):
     return render(request, "beta.html", {})
 
 def info(request):
+    if "success" in request.GET:
+        return render(request, "info.html", {"form": EmailForm, "success_message": "You have been added to our newsletter"})
     
-    return render(request, "info.html", {"form": EmailForm})
+    return render(request, "info.html", {"form": EmailForm, "success_message": ""})
 
 
 def total_csv(request):

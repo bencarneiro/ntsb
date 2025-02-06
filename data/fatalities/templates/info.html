@@ -41,6 +41,10 @@ input {
   align-items: center;
 }
 
+.success {
+  color: lightcyan
+}
+
 .emailform input {
   color:black;
 }
@@ -146,6 +150,7 @@ h2, h4 {
           {{ form }}
           <input class="w3-button w3-round-xlarge w3-theme-l1 w3-border" type="submit" value="Submit">
       </form>
+      <p class="success">{{ success_message }}</p>
       </div>
 
     </div>
