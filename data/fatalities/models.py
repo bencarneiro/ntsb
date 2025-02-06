@@ -4717,6 +4717,14 @@ class Comment(models.Model):
         db_table = "comment"
         managed = True
 
+class CustomerEmail(models.Model):
+    created = models.DateTimeField(auto_now_add=True) 
+    email = models.CharField(max_length=255, null=False, blank=False)
+
+    class Meta:
+        db_table = "customer_email"
+        managed = True
+
 
 class FatalityTotals(models.Model):
     accident = models.OneToOneField(Accident, on_delete=models.DO_NOTHING)

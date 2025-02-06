@@ -22,12 +22,27 @@ body {
   background-color: black;
   padding-bottom: 5rem;
 }
+input {
+  color: black;
+}
 
 .links-container {
   display: flex;
   flex-direction: column;
-  jusify-content: center;
+  justify-content: center;
   align-items: center;
+}
+
+.emailform {
+  /* color:lightcyan; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.emailform input {
+  color:black;
 }
 
 .links-container a {
@@ -70,6 +85,10 @@ h2, h4 {
   font-size: 1.3rem;
   margin: 1rem
 }
+
+/* input {
+  width: 100%;
+} */
 
 @media (min-width: 768px) {
   .link {
@@ -116,6 +135,17 @@ h2, h4 {
         <a href="mailto:ben@roadway.report" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link">Email Me (ben@roadway.report)</a>
         <a href="https://censusmaps.org/resume" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Resume</a>
         <a href="https://github.com/bencarneiro" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Github</a>
+
+      </div>
+
+      <h4 class="margin-top-2" style="text-align: center;">Send Me Updates</h4>
+      <div class="emailform">
+
+        <form  action="/collect_email" method="post">
+          {% csrf_token %}
+          {{ form }}
+          <input class="w3-button w3-round-xlarge w3-theme-l1 w3-border" type="submit" value="Submit">
+      </form>
       </div>
 
     </div>

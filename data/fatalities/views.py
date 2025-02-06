@@ -14,7 +14,7 @@ from django.contrib.gis.db.models.functions import Distance
 from data.filter_schemas import AccidentLocationFilterSchema
 from django.db.models import Q
 from django.contrib.gis.geoip2 import GeoIP2
-from fatalities.forms import CommentForm
+from fatalities.forms import CommentForm, EmailForm
 import time
 
 import csv
@@ -218,6 +218,34 @@ def post_comment(request):
         form = CommentForm()
 
     return render(request, "name.html", {"form": form})
+
+
+def collect_email(request):
+    # if this is a POST request we need to process the form data
+    if request.method == "POST":
+        print(request)
+        print(request.POST)
+        # create a form instance and populate it with data from the request:
+        form = EmailForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            data_to_save = {
+                "email": request.POST['email']
+            }
+            CustomerEmail.objects.create(**data_to_save)
+            # redirect to a new URL:
+            return redirect(f"/info")
+    
+    return redirect(f"/info")
+
+    # if a GET (or any other method) we'll create a blank form
+    # else:
+    #     form = EmailForm()
+
+    # return render(request, "name.html", {"form": form})
+
+
 
 def county_dashboard(request, **kwargs):
     county = County.objects.get(id=kwargs['county_id'])
@@ -452,7 +480,8 @@ def beta(request):
     return render(request, "beta.html", {})
 
 def info(request):
-    return render(request, "info.html", {})
+    
+    return render(request, "info.html", {"form": EmailForm})
 
 
 def total_csv(request):
@@ -513,7 +542,7 @@ def comments(request):
 
 from django.contrib.syndication.views import Feed
 from django.urls import reverse
-from .models import PodcastEpisode, RedditPost  # Assume you have a model for episodes
+from .models import CustomerEmail, PodcastEpisode, RedditPost  # Assume you have a model for episodes
 
 from django.utils import feedgenerator
 
@@ -622,7 +651,8 @@ def population(request):
 def population_nonmotorist(request):
     return render(request, "population_nonmotorist.html", {})
 
-
+def newsletter_intake(request):
+    return render()
 
 
 def reddit(request):
