@@ -39,6 +39,7 @@ input {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
 }
 
 .success {
@@ -51,6 +52,20 @@ input {
 
 .links-container a {
   width: 80%;
+  align-content:center;
+}
+
+.emailform input {
+  width: 80%;
+  display: flex;
+  
+}
+
+.emailform form {
+  width: 100%;
+  text-align: center;
+  justify-items: center;
+  justify-self: center;
 }
 
 .w3-theme-l1:hover {
@@ -145,10 +160,12 @@ h2, h4 {
       <h4 class="margin-top-2" style="text-align: center;">Send Me Updates</h4>
       <div class="emailform">
 
-        <form  action="/collect_email" method="post">
+        <form action="/collect_email" method="post">
           {% csrf_token %}
           {{ form }}
-          <input class="w3-button w3-round-xlarge w3-theme-l1 w3-border" type="submit" value="Submit">
+          <input class="w3-button w3-round-xlarge w3-theme-l1 w3-border submit" type="submit" value="Submit">
+
+          <!-- <a href="https://github.com/bencarneiro"  target="_blank">Github</a> -->
       </form>
       <p class="success">{{ success_message }}</p>
       </div>
