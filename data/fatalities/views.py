@@ -235,9 +235,9 @@ def collect_email(request):
             }
             CustomerEmail.objects.create(**data_to_save)
             # redirect to a new URL:
-            return redirect(f"/info?success=True")
+            return redirect(f"/info?success=True#email")
     
-    return redirect(f"/info")
+    return redirect(f"/info#email")
 
     # if a GET (or any other method) we'll create a blank form
     # else:

@@ -50,12 +50,17 @@ input {
   color:black;
 }
 
-.links-container a {
+.links-container a   {
   width: 80%;
   align-content:center;
 }
+.links-container input  {
+  width: 80%;
+  align-content:center;
+  text-align: center;
+}
 
-.emailform input {
+/* .emailform input {
   width: 80%;
   display: flex;
   
@@ -66,7 +71,7 @@ input {
   text-align: center;
   justify-items: center;
   justify-self: center;
-}
+} */
 
 .w3-theme-l1:hover {
   background-color: white !important;
@@ -75,6 +80,14 @@ input {
 
 .margin-top-2 {
   margin-top: 32px;
+}
+.nightmare input {
+
+  /* width: 80%; */
+  
+  align-content:center;
+  text-align: center;
+  display: flex;
 }
 
 .bottom {
@@ -135,8 +148,11 @@ h2, h4 {
       <!-- Links section 1. Replace the # inside of the "" with your links. -->
       <div class="links-container">
         <a href="/beta" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link">Back to Map</a>
-        <a href="/pedestrian_safety" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Data on USA Pedestrian Safety Crisis</a>
+        <a href="/pedestrian_safety" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Data on USA<br>Pedestrian Safety Crisis</a>
         <a href="/county_selector" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Data By County</a>
+        <a href="/population" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Per Capita<br>Roadway Fatality Rates</a>
+        <a href="/population_nonmotorist" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Per Capita<br>Pedestrian Fatality Rates</a>
+
       </div>
 
       <!-- Links section 2. Replace the # inside of the "" with your links. -->
@@ -151,23 +167,23 @@ h2, h4 {
       <!-- Links section 3. Replace the # inside of the "" with your links. -->
       <h4 class="margin-top-2" style="text-align: center;">About Ben</h4>
       <div class="links-container">
-        <a href="mailto:ben@roadway.report" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link">Email Me (ben@roadway.report)</a>
+        <a href="mailto:ben@roadway.report" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link">Email Me<br>(ben@roadway.report)</a>
         <a href="https://censusmaps.org/resume" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Resume</a>
         <a href="https://github.com/bencarneiro" class="w3-button w3-round-xlarge w3-theme-l1 w3-border link" target="_blank">Github</a>
 
       </div>
 
-      <h4 class="margin-top-2" style="text-align: center;">Send Me Updates</h4>
-      <div class="emailform">
+      <h4 id="email" class="margin-top-2" style="text-align: center;">Send Me Updates</h4>
+      <div class="">
 
-        <form action="/collect_email" method="post">
+        <form class="links-container" action="/collect_email" method="post">
           {% csrf_token %}
           {{ form }}
-          <input class="w3-button w3-round-xlarge w3-theme-l1 w3-border submit" type="submit" value="Submit">
+          <input class="nightmare w3-button w3-center w3-round-xlarge w3-theme-l1 w3-border submit" type="submit" value="Submit">
 
           <!-- <a href="https://github.com/bencarneiro"  target="_blank">Github</a> -->
       </form>
-      <p class="success">{{ success_message }}</p>
+      <p style="text-align: center;" class="success">{{ success_message }}</p>
       </div>
 
     </div>
