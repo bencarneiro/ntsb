@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from fatalities.views import PodcastFeed, collect_email, reddit, crashes, favicon_view, texas, population, population_nonmotorist, pedestrian_safety, privacy, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes
+from fatalities.views import PodcastFeed, collect_email, gooner_army, reddit, crashes, favicon_view, texas, population, population_nonmotorist, pedestrian_safety, privacy, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes
 from .api import api
 from django.conf import settings
 from django.conf.urls.static import static
@@ -56,6 +56,12 @@ urlpatterns = [
     path("population", population, name="population"),
     path("population_nonmotorist", population_nonmotorist, name="population_nonmotorist"),
     path("reddit", reddit, name="reddit"),
+    path("goonarmy", gooner_army, name="goonarmy"),
+    path("goonerarmy", gooner_army, name="goonerarmy"),
+    path("goon-army", gooner_army, name="goon-army"),
+    path("gooner-army", gooner_army, name="gooner-army"),
+    path("goon_army", gooner_army, name="goon_army"),
+    path("gooner_army", gooner_army, name="gooner_army"),
     re_path(r'^favicon\.ico$', favicon_view),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
