@@ -195,6 +195,12 @@ def accident_summary(request, **kwargs):
     return render(request, "accident_details.html", {"accident": a, "form": CommentForm})
 
 
+def connection(request, **kwargs):
+    
+    a = MissedConnection.objects.get(id=kwargs['id'])
+    return render(request, "connection.html", {"connection": a})
+
+
 def post_comment(request):
     # if this is a POST request we need to process the form data
     if request.method == "POST":
@@ -544,7 +550,7 @@ def comments(request):
 
 from django.contrib.syndication.views import Feed
 from django.urls import reverse
-from .models import CustomerEmail, PodcastEpisode, RedditPost  # Assume you have a model for episodes
+from .models import CustomerEmail, MissedConnection, PodcastEpisode, RedditPost  # Assume you have a model for episodes
 
 from django.utils import feedgenerator
 
@@ -646,6 +652,38 @@ def privacy(request):
 
 def texas(request):
     return render(request, "texas.html", {})
+
+def missed_connections(request):
+    if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
+        ip = get_client_ip(request)
+        # print(ip)
+        try:
+            g = GeoIP2()
+            country = g.country(ip)
+            if country['country_code'] != "US":
+                return redirect("/missed_connections?lat=37.756745231&lon=-122.442857530&radius=4")
+            coordinates = g.lat_lon(ip)
+            return redirect(f"/missed_connections?lat={coordinates[0]}&lon={coordinates[1]}&radius=4")
+        except Exception as e:
+            print(e)
+            return redirect("/missed_connections?lat=37.756745231&lon=-122.442857530&radius=4")
+        
+    return render(request, "missed_connections.html", {})
+
+def create_missed_connection(request):
+    print(request)
+    print(request.POST)
+    data_to_save = {
+        "latitude": request.POST['latitude'],
+        "longitude": request.POST['longitude'],
+        "crash_dt": request.POST['crash_dt'],
+        "info": request.POST['info']
+        }
+    print(data_to_save)
+    MissedConnection.objects.create(**data_to_save)
+    # redirect to a new URL:
+    # return redirect(f"/connections/{request.POST['accident_id']}")
+    return redirect("/missed_connections")
 
 def population(request):
     return render(request, "population.html", {})

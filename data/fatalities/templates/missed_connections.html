@@ -1,0 +1,375 @@
+
+
+<link rel="stylesheet" href="static/css/maplibre-gl.css">
+<script src="static/js/maplibre-gl.js"></script>
+<script src="static/js/pmtiles.js"></script>
+<style>
+    body {
+        margin: 0;
+    }
+    html, body, #map {
+        height:100%; width:100%;
+    }
+    /* .popup .maplibregl-popup-content {
+        max-height: 50vh;
+        overflow-y: auto;
+    } */
+    h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 4rem;
+    }
+    h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 2rem;
+    }
+    h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 1.2rem;
+    }
+    .table{
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto
+    }
+    td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    width: 50%;
+    text-align: center;
+    align-items: center;
+    position: center;
+    }
+    .dt {
+        width:20%;
+        text-wrap: wrap;
+        word-break: break-word;
+    }
+.map-overlay {
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+position: absolute;
+width: 200px;
+top: 0;
+left: 0;
+padding: 10px;
+}
+
+.map-overlay .map-overlay-inner {
+background-color: #fff;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+border-radius: 3px;
+padding: 10px;
+margin-bottom: 10px;
+}
+
+.map-overlay-inner fieldset {
+border: none;
+padding: 0;
+margin: 0 0 10px;
+}
+
+.map-overlay-inner fieldset:last-child {
+margin: 0;
+}
+
+.map-overlay-inner select {
+width: 100%;
+}
+
+.map-overlay-inner label {
+display: block;
+font-weight: bold;
+margin: 0 0 5px;
+}
+
+.map-overlay-inner button {
+display: inline-block;
+width: 36px;
+height: 20px;
+border: none;
+cursor: pointer;
+}
+
+.map-overlay-inner button:focus {
+outline: none;
+}
+
+.map-overlay-inner button:hover {
+box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+#form-popup {
+            display: none;
+            position: absolute;
+            bottom:-1;
+            left: 0;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        #form-popup input, #form-popup textarea {
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        #form-popup button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #form-popup button:hover {
+            background-color: #45a049;
+        }
+
+
+</style>
+<head>
+    <title>Car Crash Missed Connections</title>
+</head>
+
+
+<body>
+
+    <div id="map"></div>
+
+    <div id="form-popup">
+        <form method="post" action="/create_missed_connection" id="popup-form">
+            {% csrf_token %}
+            <label for="crash_dt">Datetime:</label>
+            <input type="datetime-local" id="crash_dt" name="crash_dt" required>
+
+            <label for="latitude">Latitude:</label>
+            <input type="text" id="latitude" name="latitude" readonly>
+
+            <label for="longitude">Longitude:</label>
+            <input type="text" id="longitude" name="longitude" readonly>
+
+            <label for="info">Info:</label>
+            <textarea id="info" name="info" rows="3" required></textarea>
+
+            <button type="submit">Submit</button>
+            <button type="button" id="cancel-button">Cancel</button>
+        </form>
+    </div>
+
+
+    <div class="map-overlay top">
+        <div class="map-overlay-inner">
+            <h3>Car Crash Missed Conections</h3>
+            <h3><a href="info">More about roadway.report</a> </h3>
+            <h3>Search From</h3>
+            <input type="date" id="start_date" name="start_date">
+            <h3>Search Until</h3>
+            <input type="date" id="end_date" name="end_date">
+            <br>
+            <button style="width:100%; margin-top:1.5rem" onClick="main()">SEARCH</button>
+        </div>
+    </div>
+</body>
+
+<script>
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+var lat = urlParams.get('lat')
+var lon = urlParams.get('lon')
+console.log(lat)
+
+const formPopup = document.getElementById('form-popup');
+const popupForm = document.getElementById('popup-form');
+const cancelButton = document.getElementById('cancel-button');
+
+
+
+function getCurrentISOTime() {
+    const now = new Date();
+    return now.toISOString();
+}
+function getOneWeekAgoISOTime() {
+    const now = new Date();
+    const oneWeekAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000); // Subtract 7 days in milliseconds
+    return oneWeekAgo.toISOString();
+}
+
+console.log("GETISOTIME")
+console.log("GETISOTIME")
+console.log(typeof(getCurrentISOTime()))
+console.log(getCurrentISOTime().substring(0,10))
+const formattedStartDate = getOneWeekAgoISOTime().substring(0,10);
+const formattedEndDate = getCurrentISOTime().substring(0,10);
+document.getElementById('start_date').value = formattedStartDate;
+document.getElementById('end_date').value = formattedEndDate;
+console.log(getOneWeekAgoISOTime().substring(0,10))
+
+
+function getStart() {
+    const date = document.getElementById('start_date').value;
+
+    if (date) {
+        const dateTime = `${date}T00:00:00`; // Combines date and time in ISO format
+        console.log('Selected DateTime:', dateTime);
+        return dateTime
+        // You can now send this to an API or process it further
+    } else {
+        console.log('Please select both date and time.');
+        return getOneWeekAgoISOTime()
+    }
+}
+
+
+function getEnd() {
+    const date = document.getElementById('end_date').value;
+
+    if (date) {
+        const dateTime = `${date}T00:00:00`; // Combines date and time in ISO format
+        console.log('Selected DateTime:', dateTime);
+        return dateTime
+        // You can now send this to an API or process it further
+    } else {
+        console.log('Please select both date and time.');
+        return getCurrentISOTime()
+    }
+}
+
+async function fetchCoordinates() {
+    try {
+        startDate = getStart()
+        endDate = getEnd()
+        console.log(startDate)
+        console.log(endDate)
+        const response = await fetch(`/v1/connections?crash_dt__gte=${startDate}&crash_dt__lte=${endDate}`); // Replace with your API endpoint
+        
+        const data = await response.json();
+        console.log(data)
+        return data
+    } catch (error) {
+        console.error('Error fetching coordinates:', error);
+        return [];
+    }
+}
+
+function getLocalTime(isoDateTime) {
+    const localTime = isoDateTime.toLocaleDateString() + " " + isoDateTime.toLocaleTimeString();
+    return localTime
+}
+let mapMarkers = []
+
+function addMarkers(coordinates) {
+    coordinates.forEach(coord => {
+        console.log([coord.geometry.coordinates[0], coord.geometry.coordinates[1]])
+        console.log(coord)
+        const marker = new maplibregl.Marker()
+            .setLngLat([coord.geometry.coordinates[0], coord.geometry.coordinates[1]]) // Assuming each coordinate has 'lng' and 'lat' properties
+            .setPopup(new maplibregl.Popup().setHTML(`<table><tr><th>date</th><th>Info</th><th>Comments</th></tr><tr><td>${coord.properties.crash_dt.toLocaleString()}</td><td>${coord.properties.info}</td><td><a href="/connection/${coord.properties.id}/">LINK</a></td></tr></table>`))
+            .addTo(map);
+        
+    mapMarkers.push(marker)
+    });
+}
+
+// Main function to load the map and plot coordinates
+async function main() {
+
+    mapMarkers.forEach((marker) => marker.remove())
+    mapMarkers = []
+    
+    const coordinates = await fetchCoordinates();
+    console.log("response of fetchCoordinates")
+    console.log(coordinates)
+    if (coordinates.features.length > 0) {
+        addMarkers(coordinates.features);
+        // Optionally, center the map on the first coordinate
+        // map.setCenter([coordinates.features[0].geometry.coordinates[0], coordinates.features[0].geometry.coordinates[1]]);
+    } else {
+        console.log('No coordinates found.');
+    }
+}
+
+
+
+// Run the main function
+
+
+var map = new maplibregl.Map({
+    container: 'map',
+    style: {
+        version: 8,
+        sources: {
+            "base-raster": {
+                type: "raster",
+                tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+                tileSize: 256,
+                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a>"
+            
+            }
+        },
+        layers: [
+            {
+                id: "base-raster",
+                type: "raster",
+                source: "base-raster",
+                paint: {
+                    "raster-saturation": -1,
+                }
+            }
+        ]
+    },
+    // these are the loading coordinates
+    center: [lon, lat],
+    zoom: 5.5
+    
+});
+
+map.on('load', () => {
+    console.log("loaded")
+
+
+    main();
+
+})
+
+map.on('contextmenu', (event) => {
+            event.preventDefault();
+
+            // Get the coordinates of the click
+            const { lng, lat } = event.lngLat;
+
+            // Pre-fill latitude and longitude fields
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lng;
+
+            // Position the form popup at the click location
+            const { clientX, clientY } = event.originalEvent;
+            formPopup.style.display = 'block';
+        });
+
+        // Handle form submission
+        popupForm.addEventListener('submit', (e) => {
+            // e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(popupForm);
+            const data = Object.fromEntries(formData.entries());
+
+            // Log the form data to the console
+            console.log('Form Data:', data);
+
+            // Hide the form popup
+            formPopup.style.display = 'none';
+        });
+
+        // Handle cancel button click
+        cancelButton.addEventListener('click', () => {
+            formPopup.style.display = 'none';
+        });
+
+</script>

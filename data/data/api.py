@@ -1323,6 +1323,37 @@ def nonmotorist_accidents_by_location_geojson(request, filters: AccidentLocation
     return {"features": queryset}
 
 
+
+
+@api.get("/connections", response=MissedConnectionFeatureCollectionSchema)
+def geojson_accidents_by_loction(request, filters: MissedConnectionFilterSchema = Query(...)):
+    mcs = MissedConnection.objects.all()
+    print(mcs)
+    # print(mcs.__dict__)
+    # print(mcs.coordinates)
+#     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
+#         return "Required Parameters are lat, lon, radius"
+#     try:
+#         search_location = Point(x=float(request.GET['lon']), y=float(request.GET['lat']), srid=4326)
+#         radius_in_miles = float(request.GET['radius'])
+#     except:
+#         return list()
+
+#     queryset = Accident.objects.annotate(
+#         distance=Distance('location', search_location)
+#     ).order_by('distance').filter(location__distance_lte=(search_location, D(mi=radius_in_miles)))
+#     qe = filters.get_filter_expression()
+#     q = Q()
+#     for param in qe.deconstruct()[1]:
+#         if param[0] not in {'lat', 'lon', 'radius'}:
+#             q &= Q((param[0], param[1]))
+#     queryset = queryset.filter(q)
+#     if len(queryset) > 5000:
+#         queryset = queryset[:5000]
+    mcs = filters.filter(mcs)
+    return {"features": mcs}
+
+
 # @api.get("/accidents_by_person", response=List[ShortFeatureSchema])
 # @paginate
 # def accidents_by_person(request, filters: PersonFilterSchema = Query(...)):
