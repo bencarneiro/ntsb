@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from fatalities.views import PodcastFeed, collect_email, gooner_army, reddit, crashes, favicon_view, texas, missed_connections, create_missed_connection, connection, population, population_nonmotorist, pedestrian_safety, privacy, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes
+from fatalities.views import PodcastFeed, collect_email, gooner_army, reddit, crashes, favicon_view, texas, missed_connections, create_missed_connection, connection, population, population_nonmotorist, pedestrian_safety, privacy, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, post_missed_connection_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes
 from .api import api
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,6 +31,7 @@ urlpatterns = [
     path("testmap", testmap, name="testmap"),
     path("nonmotorist_map", nonmotorist_map, name="nonmotorist_map"),
     path("post_comment", post_comment, name="post_comment"),
+    path("post_missed_connection_comment", post_missed_connection_comment, name="post_missed_connection_comment"),
     path("collect_email", collect_email, name="collect_email"),
     path("county_selector", county_selector, name="county_selector"),
     path("county_table", county_table, name="county_table"),

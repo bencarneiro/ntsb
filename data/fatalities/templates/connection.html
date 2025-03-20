@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" href="/static/css/maplibre-gl.css">
+    <script src="/static/js/maplibre-gl.js"></script>
+  <style>
+
+    body {
+        /* margin: 0; */
+    }
+    html, body {
+        height:100%; width:100%;
+    }
+    /* .popup .maplibregl-popup-content {
+        max-height: 50vh;
+        overflow-y: auto;
+    } */
+    h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 4rem;
+    }
+    h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 4rem;
+    }
+    h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 1.2rem;
+    }
+    table{
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 100%;
+    width: 100%
+    /* border-collapse: collapse; */
+    }
+    td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    /* width: 50%; */
+    text-align: center;
+    align-items: center;
+    position: center;
+    }
+    .dt {
+        /* width:20%; */
+        text-wrap: wrap;
+        word-break: break-word;
+        font-size: 1.5rem
+    }
+
+    .comment-container{
+
+border-width: 5px;
+border-style: solid;
+border-color: black;
+      text-align: center;
+      justify-content: center;
+      /* background-color: lightcyan; */
+    }
+    p {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+    .details {
+
+      border-width: 5px;
+      border-style: solid;
+      border-color: black;
+    }
+    #map {
+        height:50%; width:100%;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Missed Connection</h1>
+<h2>{{ connection.crash_dt|date:"H:m A --- M d, Y" }}</h2>
+<p><a href="/missed_connections?lat={{ connection.coordinates.1 }}&lon={{ connection.coordinates.0 }}&radius=10">Back To "Missed Connections"</a></p>
+<div id="map"></div>
+<div class="details">
+<h2>Details</h2>
+<p>{{ connection.info}}
+</p>
+</div>
+<!-- <table>
+    <tr>
+        <th>date</th>
+        <th>location</th>
+        <th>info</th>
+    </tr>
+    <tr>
+        <td> {{ connection.crash_dt|date:"H:m A --- M d, Y" }} </td>
+        <td> <a href="https://maps.google.com/?q={{ connection.coordinates.1 }},{{ connection.coordinates.0 }}">google maps</a></td>
+        <td> {{ connection.info }} </td>
+    </tr>
+</table> -->
+
+
+<div class="comment-container">
+    <h1>Comments</h1>
+    <table>
+{% for comment in connection.missedconnectioncomment_set.all %}
+<tr><td class="dt">{{comment.created_dt}}</td><td class="comment">{{comment.comment|linebreaks}} </td></tr>
+{%endfor%}
+</table>
+    <form  action="/post_missed_connection_comment" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <input type="hidden" id="connection_id" name="connection_id" value="{{ connection.id }}" />
+      <input type="submit" value="Submit">
+  </form>
+  </div>
+
+</body>
+<script>
+    var map = new maplibregl.Map({
+    container: 'map',
+    style: {
+        version: 8,
+        sources: {
+            "base-raster": {
+                type: "raster",
+                tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+                tileSize: 256,
+                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a>"
+            
+            }
+        },
+        layers: [
+            {
+                id: "base-raster",
+                type: "raster",
+                source: "base-raster",
+                paint: {
+                    "raster-saturation": -1,
+                }
+            }
+        ]
+    },
+    // these are the loading coordinates
+    center: ["{{ connection.coordinates.0 }}", "{{ connection.coordinates.1 }}"],
+    zoom: 10
+    
+});
+const marker = new maplibregl.Marker()
+            .setLngLat(["{{ connection.coordinates.0 }}", "{{ connection.coordinates.1 }}"]) // Assuming each coordinate has 'lng' and 'lat' properties
+            .setPopup(new maplibregl.Popup({className:"tooltip", maxWidth: "1080px"}).setHTML(``))
+            .addTo(map);    
+</script>
+</html>
+

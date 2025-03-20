@@ -198,7 +198,33 @@ def accident_summary(request, **kwargs):
 def connection(request, **kwargs):
     
     a = MissedConnection.objects.get(id=kwargs['id'])
-    return render(request, "connection.html", {"connection": a})
+    return render(request, "connection.html", {"connection": a, "form": CommentForm})
+
+
+def post_missed_connection_comment(request):
+    # if this is a POST request we need to process the form data
+    if request.method == "POST":
+        print(request)
+        print(request.POST)
+        # create a form instance and populate it with data from the request:
+        form = CommentForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            data_to_save = {
+                "missed_connection_id": request.POST['connection_id'],
+                "comment": request.POST['comment']
+            }
+            MissedConnectionComment.objects.create(**data_to_save)
+            # redirect to a new URL:
+            return redirect(f"/connection/{request.POST['connection_id']}")
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CommentForm()
+
+    return render(request, "name.html", {"form": form})
+
 
 
 def post_comment(request):
@@ -550,7 +576,7 @@ def comments(request):
 
 from django.contrib.syndication.views import Feed
 from django.urls import reverse
-from .models import CustomerEmail, MissedConnection, PodcastEpisode, RedditPost  # Assume you have a model for episodes
+from .models import CustomerEmail, MissedConnection, MissedConnectionComment, PodcastEpisode, RedditPost  # Assume you have a model for episodes
 
 from django.utils import feedgenerator
 
