@@ -6,9 +6,60 @@
     <script src="/static/js/maplibre-gl.js"></script>
   <style>
 
-    body {
-        /* margin: 0; */
+
+@media (max-width:1080px) { 
+    .map-overlay {
+        width: 100%
     }
+    input, button{
+        font-size: 2rem; width:100%;
+    }
+    h1 {
+    font-size: 4rem;
+    }
+    h2 {
+    font-size: 3rem;
+    }
+    td, th {
+        font-size: 1.5rem
+    }
+    label {
+        font-size: 2rem;
+    }
+
+    p {
+        text-align: center;
+        font-size: 1.5rem;
+    }
+  } 
+  
+  @media (min-width:1080px) { 
+
+    h1 {
+    font-size: 2rem;
+    }
+    h2 {
+    font-size: 2rem;
+    }
+    td, th {
+        font-size: 1.2rem
+    }
+    .map-overlay {
+        width: 300px
+    }
+    input {
+        font-size: 1.2rem; width:100%;
+    }
+    button {height: 50px}
+    
+    p {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+    
+  } 
+
+
     html, body {
         height:100%; width:100%;
     }
@@ -45,12 +96,6 @@
     align-items: center;
     position: center;
     }
-    .dt {
-        /* width:20%; */
-        text-wrap: wrap;
-        word-break: break-word;
-        font-size: 1.5rem
-    }
 
     .comment-container{
 
@@ -61,10 +106,6 @@ border-color: black;
       justify-content: center;
       /* background-color: lightcyan; */
     }
-    p {
-        text-align: center;
-        font-size: 1.2rem;
-    }
     .details {
 
       border-width: 5px;
@@ -73,6 +114,13 @@ border-color: black;
     }
     #map {
         height:50%; width:100%;
+    }
+
+    label, button, input {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        padding:10px;
+        width: 90%;
     }
   </style>
 </head>
@@ -105,7 +153,7 @@ border-color: black;
     <h1>Comments</h1>
     <table>
 {% for comment in connection.missedconnectioncomment_set.all %}
-<tr><td class="dt">{{comment.created_dt}}</td><td class="comment">{{comment.comment|linebreaks}} </td></tr>
+<tr><td class="dt">{{comment.comment}}</td></tr>
 {%endfor%}
 </table>
     <form  action="/post_missed_connection_comment" method="post">
@@ -149,7 +197,7 @@ border-color: black;
 });
 const marker = new maplibregl.Marker()
             .setLngLat(["{{ connection.coordinates.0 }}", "{{ connection.coordinates.1 }}"]) // Assuming each coordinate has 'lng' and 'lat' properties
-            .setPopup(new maplibregl.Popup({className:"tooltip", maxWidth: "1080px"}).setHTML(``))
+            .setPopup(new maplibregl.Popup({className:"tooltip", maxWidth: "1080px"}).setHTML(`Crash Here`))
             .addTo(map);    
 </script>
 </html>

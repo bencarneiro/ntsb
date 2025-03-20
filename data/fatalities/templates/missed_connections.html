@@ -12,7 +12,7 @@
         width: 100%
     }
     input, button{
-        font-size: 2rem;width:100%; height: 50px;
+        font-size: 2rem; width:100%; height: 50px;
     }
     h1 {
     font-size: 4rem;
@@ -20,8 +20,14 @@
     h2 {
     font-size: 3rem;
     }
+    h5 {
+    font-size: 2rem;
+    }
     td, th {
         font-size: 2rem
+    }
+    label {
+        font-size: 2rem;
     }
   } 
   
@@ -31,7 +37,10 @@
     font-size: 2rem;
     }
     h2 {
-    font-size: 2rem;
+    font-size: 1.2rem;
+    }
+    h5 {
+    font-size: 1.5rem;
     }
     td, th {
         font-size: 1.2rem
@@ -39,9 +48,10 @@
     .map-overlay {
         width: 300px
     }
-    input, button {
+    input {
         font-size: 1.2rem;width:100%; height: 30px;
     }
+    button {height: 50px}
   } 
 
 
@@ -67,7 +77,11 @@
     h3 {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    }
+    h5 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
     }
     .table{
     font-family: Arial, Helvetica, sans-serif;
@@ -183,6 +197,8 @@ box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
     <div id="map"></div>
 
     <div id="form-popup">
+
+        <h5>Create A Missed Connection</h5>
         <form method="post" action="/create_missed_connection" id="popup-form">
             {% csrf_token %}
             <label for="crash_dt">Datetime:</label>
@@ -196,9 +212,8 @@ box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
 
             <label for="info">Info:</label>
             <textarea id="info" name="info" rows="3" required></textarea>
-
+            <br>
             <button type="submit">Submit</button>
-            <button type="button" id="cancel-button">Cancel</button>
         </form>
     </div>
 
@@ -206,11 +221,12 @@ box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
     <div class="map-overlay top">
         <div class="map-overlay-inner">
             <h1>Car Crash Missed Conections</h1>
-            <h2><a href="info">More about roadway.report</a> </h2>
+            <h2>Right click the map to create a missed connection</h2>
+            <!-- <h2><a href="info">More about roadway.report</a> </h2> -->
             <h3>Search From</h3>
             <input type="date" id="start_date" name="start_date">
             <h3>Search Until</h3>
-            <input type="date" id="end_date" name="end_date">
+            <input type="date" value = "new Date()" id="end_date" name="end_date">
             <br>
             <button style="width:100%; margin-top:1.5rem" onClick="main()">SEARCH</button>
         </div>
@@ -229,7 +245,6 @@ console.log(lat)
 
 const formPopup = document.getElementById('form-popup');
 const popupForm = document.getElementById('popup-form');
-const cancelButton = document.getElementById('cancel-button');
 
 
 
@@ -303,16 +318,24 @@ function addMarkers(coordinates) {
         console.log(getLocalTime(coord.properties.crash_dt))
         const marker = new maplibregl.Marker()
             .setLngLat([coord.geometry.coordinates[0], coord.geometry.coordinates[1]]) // Assuming each coordinate has 'lng' and 'lat' properties
-            .setPopup(new maplibregl.Popup({className:"tooltip", maxWidth: "1080px"}).setHTML(`<table><tr><th>Date</th><th>Info</th><th>Comments</th></tr><tr><td>${getLocalDate(coord.properties.crash_dt)}<br>${getLocalTime(coord.properties.crash_dt)}</td><td>${coord.properties.info}</td><td><a href="/connection/${coord.properties.id}/">LINK</a></td></tr></table>`))
+            .setPopup(new maplibregl.Popup({className:"tooltip", maxWidth: "1080px"}).setHTML(`<table><tr><th>Date</th><th>Info</th><th>Comments</th></tr><tr><td>${getLocalDate(coord.properties.crash_dt)}<br>${getLocalTime(coord.properties.crash_dt)}</td><td>${coord.properties.info.slice(0,500)}...</td><td><a href="/connection/${coord.properties.id}/">LINK</a></td></tr></table>`))
             .addTo(map);
         
     mapMarkers.push(marker)
     });
 }
 
+let newMarker
+
+function clearNewMarker() {
+    newMarker.remove()
+}
+
+
 // Main function to load the map and plot coordinates
 async function main() {
 
+    formPopup.style.display = 'none';
     mapMarkers.forEach((marker) => marker.remove())
     mapMarkers = []
     
@@ -323,6 +346,9 @@ async function main() {
         // map.setCenter([coordinates.features[0].geometry.coordinates[0], coordinates.features[0].geometry.coordinates[1]]);
     } else {
         console.log('No coordinates found.');
+    }
+    if (newMarker) {
+        clearNewMarker()
     }
 }
 
@@ -369,15 +395,31 @@ map.on('load', () => {
 
 })
 
+map.on('click', () => {
+    formPopup.style.display = 'none';
+    console.log(new Date().toISOString())
+    if (newMarker) {
+        clearNewMarker()
+    }
+
+})
+
 map.on('contextmenu', (event) => {
             event.preventDefault();
 
             // Get the coordinates of the click
             const { lng, lat } = event.lngLat;
+            if (newMarker) {
+                clearNewMarker()
+            }
+            newMarker = new maplibregl.Marker({"color": "red"}).setLngLat([lng, lat])
+            newMarker.addTo(map)
 
             // Pre-fill latitude and longitude fields
             document.getElementById('latitude').value = lat;
             document.getElementById('longitude').value = lng;
+            console.log(new Date().toISOString().slice(0, 16))
+            document.getElementById("crash_dt").value = new Date().toISOString().slice(0, 16)
 
             // Position the form popup at the click location
             const { clientX, clientY } = event.originalEvent;
@@ -397,11 +439,9 @@ map.on('contextmenu', (event) => {
 
             // Hide the form popup
             formPopup.style.display = 'none';
-        });
-
-        // Handle cancel button click
-        cancelButton.addEventListener('click', () => {
-            formPopup.style.display = 'none';
+            if (newMarker) {
+                clearNewMarker()
+            }
         });
 
 </script>
