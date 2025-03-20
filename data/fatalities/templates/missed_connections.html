@@ -102,7 +102,7 @@
     align-items: center;
     position: center;
     }
-    .dt {
+    td {
         /* width:20%; */
         text-wrap: wrap;
         word-break: break-word;
@@ -474,7 +474,7 @@ map.on('contextmenu', (event) => {
             // Get form data
             const formData = new FormData(popupForm);
             const data = Object.fromEntries(formData.entries());
-            
+
             // Hide the form popup
             formPopup.style.display = 'none';
             if (newMarker) {
