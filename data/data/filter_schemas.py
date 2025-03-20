@@ -4024,3 +4024,8 @@ class NonmotoristPriorActionFilterSchema(FilterSchema):
     person__accident__rail_grade_crossing_identifier: Optional[str] = None
 
 
+
+
+class MissedConnectionFilterSchema(FilterSchema):
+    crash_dt__lte: datetime
+    crash_dt__gte: datetime

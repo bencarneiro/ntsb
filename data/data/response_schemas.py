@@ -661,7 +661,30 @@ class ShortFeatureSchema(Schema):
     @staticmethod
     def resolve_properties(self):
         return self
+    
+
+class MissedConnectionSchema(Schema):
+    id: int
+    crash_dt: datetime
+    info: str
 
 class ShortFeatureCollectionSchema(Schema):
     type: str = Field("FeatureCollection", alias="not_applicable")
     features: list[ShortFeatureSchema]
+
+class MissedConnectionFeatureSchema(Schema): 
+    id: int
+    type: str = Field("Feature", alias="not_applicable")
+    properties: MissedConnectionSchema
+    geometry: GeometrySchema
+
+    @staticmethod
+    def resolve_geometry(self):
+        return self
+    @staticmethod
+    def resolve_properties(self):
+        return self
+    
+class MissedConnectionFeatureCollectionSchema(Schema):
+    type: str = Field("FeatureCollection", alias="not_applicable")
+    features: list[MissedConnectionFeatureSchema]

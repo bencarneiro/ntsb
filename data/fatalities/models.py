@@ -4802,9 +4802,39 @@ class RedditPost(models.Model):
         managed = True
 
 class MultiReddit(models.Model):
-
     id = models.AutoField(primary_key=True)
     slug = models.TextField(null=False)
 
     class Meta:
         db_table="multireddit"
+
+from django.contrib.auth.models import User
+
+class MissedConnection(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.DO_NOTHING)
+    crash_dt = models.DateTimeField(null=False, blank=False)
+    created_dt = models.DateTimeField(auto_now_add=True)
+    updated_dt = models.DateTimeField(auto_now_add=True)
+    latitude = models.FloatField(null=False, blank=False)
+    longitude = models.FloatField(null=False, blank=False)
+    location = gismodels.PointField(null=True, blank=True, geography=True)
+    info = models.TextField(null=True, blank=True)
+    
+
+    def coordinates(self):
+        if not self.longitude or not self.latitude:
+            return [-999.9999,99.9999]
+        return [self.longitude, self.latitude]
+    class Meta:
+        db_table="missed_connection"
+
+class MissedConnectionComment(models.Model):
+    missed_connection = models.ForeignKey(MissedConnection, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.DO_NOTHING)
+    comment = models.TextField(null=True, blank=True)
+    created_dt = models.DateTimeField(auto_now_add=True)
+    updated_dt = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table="missed_connection_comment"
