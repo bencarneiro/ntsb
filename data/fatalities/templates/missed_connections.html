@@ -405,6 +405,47 @@ map.on('click', () => {
 
 })
 
+let touchStartTime = null;
+    let touchLocation = null;
+    map.on('touchstart', (event) => {
+        touchStartTime = new Date().getTime();
+        touchLocation = event.point;
+    });
+
+map.on('touchend', (event) => {
+    const longTouchTimeMS = 500;
+    const touchTime = new Date().getTime() - touchStartTime;
+
+    const acceptableMoveDistance = 20;
+    const didNotMoveMap = Math.abs(event.point.x - touchLocation.x) < acceptableMoveDistance && Math.abs(event.point.y - touchLocation.y) < acceptableMoveDistance
+    if (touchStartTime && ( touchTime > longTouchTimeMS) && didNotMoveMap) {
+        // _doSomething(event.lngLat);
+        console.log("HIIIII")
+
+        console.log(event.lngLat)
+        const { lng, lat } = event.lngLat;
+            if (newMarker) {
+                clearNewMarker()
+            }
+            newMarker = new maplibregl.Marker({"color": "red"}).setLngLat([lng, lat])
+            newMarker.addTo(map)            // Pre-fill latitude and longitude fields
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lng;
+            console.log(new Date().toISOString().slice(0, 16))
+            document.getElementById("crash_dt").value = new Date().toISOString().slice(0, 16)
+
+            // Position the form popup at the click location
+            const { clientX, clientY } = event.originalEvent;
+            formPopup.style.display = 'block';
+        
+    }
+
+    touchStartTime = null;
+    touchLocation = null;
+});
+
+
+
 map.on('contextmenu', (event) => {
             event.preventDefault();
 
