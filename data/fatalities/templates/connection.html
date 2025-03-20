@@ -127,7 +127,7 @@ border-color: black;
 <body>
 
 <h1>Missed Connection</h1>
-<h2>{{ connection.crash_dt|date:"h:m A --- M d, Y" }}</h2>
+<h2>{{ connection.crash_dt|date:"h:i A --- M d, Y" }}</h2>
 <p><a href="/missed_connections?lat={{ connection.coordinates.1 }}&lon={{ connection.coordinates.0 }}&radius=10">Back To "Missed Connections"</a></p>
 <div id="map"></div>
 <div class="details">
