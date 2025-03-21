@@ -122,6 +122,13 @@ border-color: black;
         padding:10px;
         width: 90%;
     }
+
+    p {
+        /* width:20%; */
+        text-wrap: wrap;
+        word-break: break-word;
+    
+    }
   </style>
 </head>
 <body>
@@ -132,11 +139,11 @@ border-color: black;
 <div id="map"></div>
 <div class="details">
 <h2>Details</h2>
-<p>{{ connection.info|linebreaks}}
+<p class="dt">{{ connection.info|linebreaks}}
 </p>
 </div>
 <!-- <table>
-    <tr>
+    <tr>d
         <th>date</th>
         <th>location</th>
         <th>info</th>

@@ -432,7 +432,7 @@ map.on('touchend', (event) => {
             newMarker.addTo(map)            // Pre-fill latitude and longitude fields
             document.getElementById('latitude').value = lat;
             document.getElementById('longitude').value = lng;
-            document.getElementById("crash_dt").value = new Date().toISOString().slice(0, 16)
+            document.getElementById("crash_dt").value = new Date().toISOString().slice(0, 11) + new Date().toTimeString().slice(0,5)
 
             // Position the form popup at the click location
             const { clientX, clientY } = event.originalEvent;
