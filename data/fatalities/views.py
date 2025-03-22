@@ -783,7 +783,8 @@ def someone_died_here(request):
         font = ImageFont.load_default()
 
     # Draw the title
-    title_text_width, title_text_height = draw.textsize(title, font=font)
+    title_text_width = draw.textlength(title, font=font)
+    title_text_height = 200
     title_position = (
         (img_width - title_text_width) // 2,  # Center horizontally
         (title_height - title_text_height) // 2  # Center vertically
@@ -794,7 +795,8 @@ def someone_died_here(request):
     combined_img.paste(qr_img, (0, title_height))
 
     # Draw the footer
-    footer_text_width, footer_text_height = draw.textsize(footer, font=font)
+    footer_text_width = draw.textlength(footer, font=font)
+    footer_text_height = 200
     footer_position = (
         (img_width - footer_text_width) // 2,  # Center horizontally
         title_height + img_height + (footer_height - footer_text_height) // 2  # Position below QR code
