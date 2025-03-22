@@ -792,7 +792,7 @@ def someone_died_here(request):
     draw.text(title_position, title, fill='black', font=font)
 
     # Paste the QR code below the title
-    combined_img.paste(qr_img, ((0, title_height,img_width,title_height + img_height)), 0)
+    combined_img.paste(qr_img, (0, title_height))
 
     # Draw the footer
     footer_text_width = draw.textlength(footer, font=font)
