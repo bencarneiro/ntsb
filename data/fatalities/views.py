@@ -758,6 +758,8 @@ def someone_died_here(request):
 
     # Create an image from the QR Code instance
     qr_img = qr.make_image(fill='black', back_color='white')
+    qr_img = qr_img.convert('RGB')
+
 
     # Define heights for the title and footer
     title_height = 350  # Space for the title
@@ -792,7 +794,7 @@ def someone_died_here(request):
     draw.text(title_position, title, fill='black', font=font)
 
     # Paste the QR code below the title
-    combined_img.paste(qr_img, (0, title_height,img_width,title_height + img_height), None)
+    combined_img.paste(qr_img, box=(0, title_height,img_width,title_height + img_height), mask=None)
 
     # Draw the footer
     footer_text_width = draw.textlength(footer, font=font)
