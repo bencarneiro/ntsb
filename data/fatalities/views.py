@@ -15,7 +15,12 @@ from data.filter_schemas import AccidentLocationFilterSchema
 from django.db.models import Q
 from django.contrib.gis.geoip2 import GeoIP2
 from fatalities.forms import CommentForm, EmailForm
+
+from PIL import Image, ImageDraw, ImageFont
 import time
+
+import qrcode
+from io import BytesIO
 
 import csv
 
@@ -727,3 +732,79 @@ def reddit(request):
 
 def gooner_army(request):
     return redirect("https://ko-fi.com/roadwayreport")
+
+
+def someone_died_here(request):
+    # Get the link from the query parameters
+    crash_id = request.GET.get('id', None)
+    title = "Someone Died Here"
+    try:
+        crash_id = int(crash_id)
+    except:
+        return redirect("https://roadway.report")
+    
+    link = "https://roadway.report/accidents/" + str(crash_id) + "/"
+    footer = "roadway.report"
+    
+    # Generate the QR code
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=50,
+        border=4,
+    )
+    qr.add_data(link)
+    qr.make(fit=True)
+
+    # Create an image from the QR Code instance
+    qr_img = qr.make_image(fill='black', back_color='white')
+
+    # Define heights for the title and footer
+    title_height = 350  # Space for the title
+    footer_height = 350  # Space for the footer
+    img_width, img_height = qr_img.size
+
+    # Create a blank image with space for the title and footer
+    combined_img = Image.new(
+        'RGB',
+        (img_width, img_height + title_height + footer_height),
+        'white'
+    )
+
+    # Add the title to the image
+    draw = ImageDraw.Draw(combined_img)
+
+    # Use a custom font for the title and footer
+    try:
+        # Replace 'arial.ttf' with the path to your font file
+        font = ImageFont.truetype("arial.ttf", size=200)  # Increase size as needed
+    except IOError:
+        # Fallback to default font if custom font is not available
+        font = ImageFont.load_default()
+
+    # Draw the title
+    title_text_width, title_text_height = draw.textsize(title, font=font)
+    title_position = (
+        (img_width - title_text_width) // 2,  # Center horizontally
+        (title_height - title_text_height) // 2  # Center vertically
+    )
+    draw.text(title_position, title, fill='black', font=font)
+
+    # Paste the QR code below the title
+    combined_img.paste(qr_img, (0, title_height))
+
+    # Draw the footer
+    footer_text_width, footer_text_height = draw.textsize(footer, font=font)
+    footer_position = (
+        (img_width - footer_text_width) // 2,  # Center horizontally
+        title_height + img_height + (footer_height - footer_text_height) // 2  # Position below QR code
+    )
+    draw.text(footer_position, footer, fill='black', font=font)
+
+    # Save the combined image to a BytesIO object
+    buffer = BytesIO()
+    combined_img.save(buffer, format="PNG")
+    buffer.seek(0)
+
+    # Return the image as a response
+    return HttpResponse(buffer, content_type="image/png")
