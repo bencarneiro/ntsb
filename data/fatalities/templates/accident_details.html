@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Crash Details - {{  accident.datetime | date}} - roadway.report</title>
   <style>
     @media (max-width:1260px) { 
       .table {
@@ -124,7 +125,7 @@
 </head>
 <body>
 
-<h1>Accident Details</h1>
+<h1>Crash Details</h1>
 <div class="table-container">
   <h3 class="qr"><a href="/someone_died_here?id={{ accident.id }}">Print QR Code</a></h3>
 <table class="table" id="accident">
@@ -133,7 +134,7 @@
     <th class="header">Info</th>
   </tr>
   <tr>
-    <td>Accident ID</td>
+    <td>Crash ID</td>
     <td>{{ accident.id }}</td>
   </tr>
   <tr>
