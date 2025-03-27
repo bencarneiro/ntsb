@@ -37,6 +37,7 @@ urlpatterns = [
     path("county_table", county_table, name="county_table"),
     path("county_dashboard/<int:county_id>", county_dashboard, name="county_dashboard"),
     path("accidents/<int:id>/", accident_summary, name="accident_summary"),
+    path("crash/<int:id>/", accident_summary, name="crash_summary"),
     path("total_fatalities", total_fatalities, name="total_fatalities"),
     # path("new_map", new_map, name="new_map"),
     path("info", info, name="info"),

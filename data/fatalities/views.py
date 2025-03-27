@@ -743,7 +743,7 @@ def someone_died_here(request):
     except:
         return redirect("https://roadway.report")
     
-    link = "https://roadway.report/accidents/" + str(crash_id) + "/"
+    link = "https://roadway.report/crash/" + str(crash_id) + "/"
     footer = "roadway.report"
     
     # Generate the QR code
