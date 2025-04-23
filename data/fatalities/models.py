@@ -123,15 +123,23 @@ class Accident(models.Model):
     trafficway_identifier_2 = models.CharField(max_length=256, null=True, blank=True)
     #c11
     route_signing_choices = [
+        (0, "Not Signed"),
         (1, "Interstate"),
         (2, "U.S. Highway"),
         (3, "State Highway"),
-        (4, "County Road"),
-        (5, "Local Street - Township"),
-        (6, "Local Street - Municipality"),
+        (4, "County"),
+        (5, "Township"),
+        (6, "Municipal"),
         (7, "Local Street - Frontage Road"),
         (8, "Other"),
-        (9, "Unknown"),
+        # (9, "Unknown"),
+        (10, "Parkway Marker or Forest Route Marker"),
+        (11, "Off-Interstate Business Marker"),
+        (12, "Secondary Route"), 
+        (13, "Bureau of Indian Affairs"),
+        (95, "Other"),
+        (96, "Trafficway Not in State Inventory"),
+        (99, "Unknown/Not Reported")
     ]
     route_signing = models.PositiveSmallIntegerField(choices=route_signing_choices, default=9)
     #C12A

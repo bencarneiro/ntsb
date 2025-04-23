@@ -73,7 +73,9 @@ def route_signing_converter(route_signing, year):
             return 4
         if route_signing == 7:
             return 6
-            
+    if year < 2023:
+        if route_signing == 9:
+            return 99
     return route_signing 
 
 def land_use_converter(land_use, year):
