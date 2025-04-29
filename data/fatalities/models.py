@@ -154,8 +154,8 @@ class Accident(models.Model):
     #C12B
     functional_system_choices = [
         (1, "Interstate"),
-        (2, "Principal Arterial - Other Freeways and Expressways"),
-        (3, "Principal Arterial -Other"),
+        (2, "Other Freeways and Expressways"),
+        (3, "Other Principal Arterial"),
         (4, "Minor Arterial"),
         (5, "Major Collector"), 
         (6, "Minor Collector"),
