@@ -194,6 +194,7 @@ class Accident(models.Model):
         (72, 'Air Force'),
         (74, 'Navy/Marines'),
         (80, 'Army'),
+        (95, 'Other'),
         (96, 'Trafficway Not in State Inventory'),
         (98, 'Not Reported'),
         (99, 'Unknown')
