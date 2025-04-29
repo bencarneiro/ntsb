@@ -3786,6 +3786,7 @@ class CrashRelatedFactors(models.Model):
         (7, 'Surface Washed out (Caved in, Road Slippage)'),
         (10, 'Emergency Vehicle Related'),
         (12, 'Distracted Driver of a Non-Contact Vehicle'),
+        # 13 is deprecated in lieu of 102,103
         (13, 'Aggressive Driving/Road Rage by Non-Contact Vehicle Driver'),
         (14, 'Motor Vehicle Struck by Falling Cargo or Something That Came Loose From or Something That Was Set in Motion by a Vehicle'),
         (15, 'Non-Occupant Struck by Falling Cargo, or Something Came Loose From or Something That Was Set in Motion by a Vehicle'),
@@ -3805,7 +3806,9 @@ class CrashRelatedFactors(models.Model):
         (30, 'Obstructed Crosswalks'),
         (31, 'Related to a Bus Stop'),
         (42, "Uncontrolled Intersection or Railroad Crossing"),
-        (99, "Unknown")
+        (102, "Aggressive Driving by Non-Contact Vehicle Driver"),
+        (103, "Road Rage by Non-Contact Vehicle Driver"),
+        (999, "Unknown")
     ]
     crash_related_factor = models.PositiveSmallIntegerField(choices=crash_related_factor_choices, default=0)
     
