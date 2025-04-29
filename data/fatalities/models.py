@@ -176,7 +176,7 @@ class Accident(models.Model):
         (12, 'Local Park, Forest or Reservation Agency'),
         (21, 'Other State Agency'),
         (25, 'Other Local Agency'),
-        (26, 'Private (other than Railroad)'),
+        (26, 'Private (Other Than Railroad)'),
         (27, 'Railroad'),
         (31, 'State Toll Road'),
         (32, 'Local Toll Authority'),
