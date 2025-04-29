@@ -3906,6 +3906,7 @@ class DriverRelatedFactor(models.Model):
         (5, "Under the Influence of Alcohol, Drugs, or Medication (2003-2009)"),
         (6, 'Careless Driving, Inattentive Operation, Improper Driving, Driving Without Due Care'),
         (7, "Restricted to Wheelchair"),
+        # 8 deprecated for 102,103
         (8, 'Road Rage/Aggressive Driving'),
         (10, 'Looked but Did Not See'),
         (12, 'Mother of Dead Fetus/Mother of Infant Born Post Crash'),
@@ -3932,6 +3933,7 @@ class DriverRelatedFactor(models.Model):
         (34, 'Improper Passing Location'),
         (35, 'Passing With Insufficient Distance or Inadequate Visibility or Failing to Yield to Overtaking Vehicle'),
         (36, 'Operating the Vehicle in an Erratic, Reckless, Careless or Negligent Manner'),
+        #37 deprecated in favor of 104/105
         (37, 'Police Pursuing This Driver or Police Officer in Pursuit (See Police Pursuits in Appendix C: Additional Data Element Information)'),
         (38, 'Failure to Yield Right-of-Way'),
         (39, 'Failure to Obey Actual Traffic Signs, Traffic Control Devices or Traffic Officers, Failure to Observe Safety Zone Traffic Laws'),
@@ -3993,7 +3995,12 @@ class DriverRelatedFactor(models.Model):
         (96, 'Tow Operator'),
         (97, 'Transportation (i.e., Maintenance Workers, Safety Service Patrol Operators, etc.)'),
         (99, "Reported as Unknown"),
+        (100, "Using a Belt-Positioning Device or Other"),
         (101, "Carrying Hazardous Cargo Improperly (1994-2009)")
+        (102, "Aggressive Driving"),
+        (103, "Road Rage"),
+        (104, "Police Pursuing This Driver"),
+        (105, "Police Officer in Pursuit")
     ]
     driver_related_factor = models.PositiveSmallIntegerField(choices=driver_related_factor_choices, default=0)
 
