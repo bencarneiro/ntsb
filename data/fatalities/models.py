@@ -4783,7 +4783,7 @@ class NonmotoristPriorAction(models.Model):
 
     # MPR_ACT NMACTION NM13
     nonmotorist_prior_action_choices = [
-        (1, 'Going to or From School (K-12)'),
+        (1, 'Going to or From School [Pre-K-12]'),
         (2, 'Waiting to Cross Roadway'),
         (3, 'Crossing Roadway'),
         (4, 'Jogging/Running'),
