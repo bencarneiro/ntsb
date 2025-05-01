@@ -4477,6 +4477,68 @@ class Drugs(models.Model):
     # P19C/NM21C  DRUGRES
     drug_test_results = models.PositiveIntegerField(null=False, blank=False)
 
+    drug_test_method_choices = [
+        (0, 'Test Not Given'),
+        (1, 'Enzyme-Linked Immunosorbent Assay [ELISA]'),
+        (2, 'Enzyme-Multiplied Immunoassay Technique [EMIT]'),
+        (3, 'Liquid Chromatography/Tandem Mass Spectrometry [LC/MS-MS]'),
+        (4, 'Headspace Gas Chromatography [HS/GC]'),
+        (5, 'Liquid Chromatography/Time of Flight—Mass Spectrometry [LC/TOF-MS]'),
+        (6, 'Enzyme Immunoassay [EIA]'),
+        (8, 'Other Screening Test Method [Specify:]'),
+        (9, 'Unknown Screening Test Method'),
+        (11, 'High-Performance Liquid Chromatography [HPLC]'),
+        (12, 'Liquid Chromatography/Mass Spectrometry [LC/MS]'),
+        (13, 'Liquid Chromatography/Time of Flight—Mass Spectrometry [LC/TOF - MS]'),
+        (14, 'Gas Chromatography and Mass Spectrometry [GC/MS]'),
+        (15, 'Gas Chromatography [GC]'),
+        (16, 'Liquid Chromatography/Tandem Mass Spectrometry [LC/MS-MS]'),
+        (17, 'Liquid Chromatography/Time of Flight—Tandem Mass Spectrometry [LC/TOF-MS/MS]'),
+        (20, 'Quadrupole Time of Flight [QTOF]'),
+        (21, 'Liquid Chromatography/Quadrupole Time of Flight [LC/QTOF]'),
+        (22, 'Quadrupole Time of Flight Mass Spectrometry [QTOF MS]'),
+        (23, 'Gas Chromatography and Tandem Mass Spectrometry [GC/MS-MS]'),
+        (24, 'Headspace Gas Chromatography [HS-GC]'),
+        (25, 'Gas Chromatography With Flame Ionization Detection [GC FID]'),
+        (26, 'Headspace Gas Chromatography With Flame Ionization Detection [HS-GC FID]'),
+        (18, 'Other Confirmatory Test Method [Specify:]'),
+        (19, 'Unknown Confirmatory Test Method'),
+        (96, 'Not Reported'),
+        (97, 'Unknown Testing Method'),
+        (99, 'Reported as Unknown if Tested'),
+    ]
+    drug_test_method = models.PositiveSmallIntegerField(choices=drug_test_method_choices, null=True, blank=True)
+
+    drug_quantity_choices = [
+        (0, 'Test Not Given'),
+        (1, 'None Detected/Below Threshold'),
+        (2, 'Actual Drug Quantity'),
+        (3, 'Presumptive Positive'),
+        (4, 'Drugs Detected, Unknown Testing Method'),
+        (96, 'Not Reported'),
+        (97, 'Tested for Drugs, Results Unknown'),
+        (98, 'Tested for Drugs, Drugs Detected, Unknown Quantity'),
+        (99, 'Reported as Unknown if Tested for Drugs'),
+    ]
+    drug_quantity = models.PositiveSmallIntegerField(choices=drug_quantity_choices, null=True, blank=True)
+
+    actual_drug_quantity = models.FloatField(null=True, blank=True)
+
+    unit_of_measure_choices = [
+        (1, 'mg/dL'),
+        (2, 'mg/L'),
+        (3, 'mcg/L'),
+        (4, 'gm%'),
+        (5, 'ng/mL'),
+        (6, 'mcg/L'),
+        (7, '%'),
+        (8, 'Other [Specify:]'),
+        (-9, 'Not Applicable')
+    ]
+    unit_of_measure = models.SmallIntegerField(choices=unit_of_measure_choices, null=True, blank=True)
+
+
+
     def interpret_test_result(self):
         year = self.person.accident.year
         result = self.drug_test_results
@@ -4502,7 +4564,7 @@ class Drugs(models.Model):
             if result in {0}:
                 return "Test Not Given"
             if result in {1}:
-                return "Tested, No Drugs Found/Negative"
+                return "None Detected/Below Threshold"
             if result in {95}:
                 return "Not Reported"
             if result in {996}:
@@ -4540,7 +4602,7 @@ class Drugs(models.Model):
         if result in {9997}:
             return "Tested for Drugs, Results Unknown"
         if result in {9998}:
-            return "Tested for Drugs, Drugs Found, Type Unknown/Positive"
+            return "Tested for Drugs, Drugs Detected, Type Unknown/Positive"
         if result in {9999}:
             return "Reported as Unknown if Tested for Drugs"
         if result >= 1001 and result <= 2000:
