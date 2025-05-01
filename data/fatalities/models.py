@@ -4443,7 +4443,11 @@ class PersonRelatedFactor(models.Model):
         (96, 'Tow Operator'),
         (97, 'Transportation (Maintenance Workers, Safety Service Patrol Operators, etc.)'),
         (100, 'Using a Shared Micromobility Device'),
-        (101, 'Obstructed Sidewalk (for this Person)')
+        (101, 'Obstructed Sidewalk (for this Person)'),
+        (102, 'Motor Vehicle Occupant in Prior Crash'),
+        (103, 'Road Rage'),
+        (104, 'Using a Belt-Positioning Device or Other'),
+        (105, 'Paraplegic or in a Wheelchair')
     ]
     person_related_factor = models.PositiveSmallIntegerField(choices=person_related_factor_choices, default=0)
 
