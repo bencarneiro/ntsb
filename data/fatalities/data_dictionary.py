@@ -1630,9 +1630,16 @@ FARS_DATA_DICTIONARY = {
         {
             "range": {
                 "start": 2010,
-                "end": None
+                "end": 2022
             },
             "key": "vehicle.ACC_TYPE"
+        },
+        {
+            "range": {
+                "start": 2023,
+                "end": None
+            },
+            "key": "vehicle.ACC_CONFIG"
         }
     ],
 
@@ -3801,6 +3808,42 @@ FARS_DATA_DICTIONARY = {
                 "end": None
             },
             "key": "DRUGS.DRUGRES"
+        }
+    ],
+    "drugs.drug_test_method": [
+        {
+            "range": {
+                "start": 2023,
+                "end": None
+            },
+            "key": "DRUGS.DRUGMETHOD"
+        }
+    ],
+    "drugs.drug_quantity": [
+        {
+            "range": {
+                "start": 2023,
+                "end": None
+            },
+            "key": "DRUGS.DRUGQTY"
+        }
+    ],
+    "drugs.actual_drug_quantity": [
+        {
+            "range": {
+                "start": 2023,
+                "end": None
+            },
+            "key": "DRUGS.DRUGACTQTY"
+        }
+    ],
+    "drugs.unit_of_measure": [
+        {
+            "range": {
+                "start": 2023,
+                "end": None
+            },
+            "key": "DRUGS.DRUGUOM"
         }
     ],
     "race.race": [
