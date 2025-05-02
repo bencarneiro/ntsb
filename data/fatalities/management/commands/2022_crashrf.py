@@ -9,7 +9,7 @@ class Command(BaseCommand):
         csv = pd.read_csv(f"{CSV_PATH}2022/FARS2022NationalCSV/crashrf.csv", encoding='latin-1')
         for x in csv.index:
             
-            accident = Accident.objects.get(st_case=csv['ST_CASE'][x])
+            accident = Accident.objects.get(year=2022, st_case=csv['ST_CASE'][x])
 
             st_case = str(csv['ST_CASE'][x])
             if len(st_case) == 5:
