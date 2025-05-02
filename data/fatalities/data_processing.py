@@ -73,7 +73,9 @@ def route_signing_converter(route_signing, year):
             return 4
         if route_signing == 7:
             return 6
-            
+    if year < 2023:
+        if route_signing == 9:
+            return 99
     return route_signing 
 
 def land_use_converter(land_use, year):
@@ -1343,6 +1345,59 @@ def milepoint_converter(value, year):
         return abs(value)
     return value
 
+def crash_type_converter(value, year):
+    if year < 2023:
+        if value in {50}:
+            return 301
+        if value in {51}:
+            return 302
+        if value in {68}:
+            return 401
+        if value in {69}:
+            return 402
+        if value in {70}:
+            return 403
+        if value in {71}:
+            return 404
+        if value in {72}:
+            return 405
+        if value in {73}:
+            return 406
+        if value in {76}:
+            return 408
+        if value in {77}:
+            return 409
+        if value in {78}:
+            return 410
+        if value in {79}:
+            return 411
+        if value in {80}:
+            return 412
+        if value in {81}:
+            return 413
+        if value in {82}:
+            return 414
+        if value in {83}:
+            return 415
+        if value in {86}:
+            return 501
+        if value in {87}:
+            return 502
+        if value in {88}:
+            return 503
+        if value in {89}:
+            return 504
+        if value in {92}:
+            return 992
+        if value in {93}:
+            return 993
+        if value in {98}:
+            return 998
+        if value in {99}:
+            return 999
+    return value
+
+
 
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
@@ -1476,7 +1531,7 @@ FARS_DATA_CONVERTERS = {
     'vehicle.attempted_avoidance_maneuver': attempted_avoidance_maneuver_converter,
     'vehicle.precrash_stability': lambda value, year: value,
     'vehicle.preimpact_location': lambda value, year: value,
-    'vehicle.crash_type': lambda value, year: value,
+    'vehicle.crash_type': crash_type_converter,
     'person.person_number': lambda value, year: value,
     'person.age': age_converter,
     'person.sex': lambda value, year: value,

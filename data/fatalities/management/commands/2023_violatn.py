@@ -5,10 +5,10 @@ from fatalities.models import Violation, Vehicle
 
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
-        Violation.objects.filter(vehicle__accident__year=2022).delete()
-        csv = pd.read_csv(f"{CSV_PATH}2022/FARS2022NationalCSV/violatn.csv", encoding='latin-1')
+        Violation.objects.filter(vehicle__accident__year=2023).delete()
+        csv = pd.read_csv(f"{CSV_PATH}2023/FARS2023NationalCSV/violatn.csv", encoding='latin-1')
         for x in csv.index:
-            vehicle = Vehicle.objects.get(accident__year=2022, accident__st_case=csv['ST_CASE'][x], vehicle_number=csv['VEH_NO'][x])
+            vehicle = Vehicle.objects.get(accident__year=2023, accident__st_case=csv['ST_CASE'][x], vehicle_number=csv['VEH_NO'][x])
             st_case = str(csv['ST_CASE'][x])
             if len(st_case) == 5:
                 st_case = "0" + st_case
@@ -19,7 +19,7 @@ class Command(BaseCommand):
             new_violation_id = str(number_saved + 1)
             while len(new_violation_id) < 3:
                 new_violation_id = "0" + new_violation_id
-            primary_key = f"2022{st_case}{veh_no}{new_violation_id}"
+            primary_key = f"2023{st_case}{veh_no}{new_violation_id}"
 
             data_to_save = {"vehicle": vehicle, "id": primary_key}
             data_to_save['moving_violation'] = csv['VIOLATION'][x]

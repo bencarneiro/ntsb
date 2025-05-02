@@ -5,11 +5,11 @@ from fatalities.models import CrashRelatedFactors, Accident
 
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
-        CrashRelatedFactors.objects.filter(accident__year=2022).delete()
-        csv = pd.read_csv(f"{CSV_PATH}2022/FARS2022NationalCSV/crashrf.csv", encoding='latin-1')
+        CrashRelatedFactors.objects.filter(accident__year=2023).delete()
+        csv = pd.read_csv(f"{CSV_PATH}2023/FARS2023NationalCSV/crashrf.csv", encoding='latin-1')
         for x in csv.index:
             
-            accident = Accident.objects.get(year=2022, st_case=csv['ST_CASE'][x])
+            accident = Accident.objects.get(year=2023, st_case=csv['ST_CASE'][x])
 
             st_case = str(csv['ST_CASE'][x])
             if len(st_case) == 5:
@@ -18,7 +18,7 @@ class Command(BaseCommand):
             new_factor_id = str(number_of_saved_factors + 1)
             while len(new_factor_id) < 3:
                 new_factor_id = "0" + new_factor_id
-            primary_key = f"2022{st_case}{new_factor_id}"
+            primary_key = f"2023{st_case}{new_factor_id}"
 
             data_to_save = {
                 "id": primary_key,

@@ -123,15 +123,23 @@ class Accident(models.Model):
     trafficway_identifier_2 = models.CharField(max_length=256, null=True, blank=True)
     #c11
     route_signing_choices = [
+        (0, "Not Signed"),
         (1, "Interstate"),
         (2, "U.S. Highway"),
         (3, "State Highway"),
-        (4, "County Road"),
-        (5, "Local Street - Township"),
-        (6, "Local Street - Municipality"),
+        (4, "County"),
+        (5, "Township"),
+        (6, "Municipal"),
         (7, "Local Street - Frontage Road"),
         (8, "Other"),
-        (9, "Unknown"),
+        # (9, "Unknown"),
+        (10, "Parkway Marker or Forest Route Marker"),
+        (11, "Off-Interstate Business Marker"),
+        (12, "Secondary Route"), 
+        (13, "Bureau of Indian Affairs"),
+        (95, "Other"),
+        (96, "Trafficway Not in State Inventory"),
+        (99, "Unknown/Not Reported")
     ]
     route_signing = models.PositiveSmallIntegerField(choices=route_signing_choices, default=9)
     #C12A
@@ -146,8 +154,8 @@ class Accident(models.Model):
     #C12B
     functional_system_choices = [
         (1, "Interstate"),
-        (2, "Principal Arterial - Other Freeways and Expressways"),
-        (3, "Principal Arterial -Other"),
+        (2, "Other Freeways and Expressways"),
+        (3, "Other Principal Arterial"),
         (4, "Minor Arterial"),
         (5, "Major Collector"), 
         (6, "Minor Collector"),
@@ -168,7 +176,7 @@ class Accident(models.Model):
         (12, 'Local Park, Forest or Reservation Agency'),
         (21, 'Other State Agency'),
         (25, 'Other Local Agency'),
-        (26, 'Private (other than Railroad)'),
+        (26, 'Private (Other Than Railroad)'),
         (27, 'Railroad'),
         (31, 'State Toll Road'),
         (32, 'Local Toll Authority'),
@@ -186,6 +194,7 @@ class Accident(models.Model):
         (72, 'Air Force'),
         (74, 'Navy/Marines'),
         (80, 'Army'),
+        (95, 'Other'),
         (96, 'Trafficway Not in State Inventory'),
         (98, 'Not Reported'),
         (99, 'Unknown')
@@ -1705,8 +1714,8 @@ class Vehicle(models.Model):
         (47, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION F: SIDESWIPE/ANGLE - Changing Lanes to the Left'),
         (48, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION F: SIDESWIPE/ANGLE - Specifics Other'),
         (49, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - CONFIGURATION F: SIDESWIPE/ANGLE - Specifics Unknown'),
-        (50, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION G: HEAD-ON - Lateral Move (Left/Right)'),
-        (51, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION G: HEAD-ON - Lateral Move (Going Straight)'),
+        # (50, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION G: HEAD-ON - Lateral Move (Left/Right)'),
+        # (51, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION G: HEAD-ON - Lateral Move (Going Straight)'),
         (52, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION G: HEAD-ON - Specifics Other'),
         (53, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION G: HEAD-ON - Specifics Unknown'),
         (54, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION H: FORWARD IMPACT - Control/Traction Loss, Avoiding Non-Contact Vehicle- Vehicle’s Frontal Area Impacts Another Vehicle'),
@@ -1723,35 +1732,79 @@ class Vehicle(models.Model):
         (65, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION I: SIDESWIPE/ANGLE - Lateral Move (Going Straight)'),
         (66, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION I: SIDESWIPE/ANGLE - Specifics Other'),
         (67, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - CONFIGURATION I: SIDESWIPE/ANGLE - Specifics Unknown'),
-        (68, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Opposite Directions (Left/Right)'),
-        (69, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Opposite Directions (Going Straight)'),
-        (70, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Same Directions (Turning Right)'),
-        (71, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Same Directions (Going Straight)'),
-        (72, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Same Directions (Turning Left)'),
-        (73, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Same Directions (Going Straight)'),
+        # (68, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Opposite Directions (Left/Right)'),
+        # (69, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Opposite Directions (Going Straight)'),
+        # (70, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Same Directions (Turning Right)'),
+        # (71, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Same Directions (Going Straight)'),
+        # (72, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Same Directions (Turning Left)'),
+        # (73, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Initial Same Directions (Going Straight)'),
         (74, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Specifics Other'),
         (75, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION J: TURN ACROSS PATH - Specifics Unknown'),
-        (76, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Same Direction (Turning Left)'),
-        (77, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Same Direction (Going Straight)'),
-        (78, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Same Direction (Turning Right)'),
-        (79, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Same Direction (Going Straight)'),
-        (80, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Opposite Directions (Turning Right)'),
-        (81, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Opposite Directions (Going Straight)'),
-        (82, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Opposite Directions (Turning Left)'),
-        (83, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Opposite Directions (Going Straight)'),
+        # (76, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Same Direction (Turning Left)'),
+        # (77, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Same Direction (Going Straight)'),
+        # (78, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Same Direction (Turning Right)'),
+        # (79, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Same Direction (Going Straight)'),
+        # (80, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Opposite Directions (Turning Right)'),
+        # (81, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Opposite Directions (Going Straight)'),
+        # (82, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Opposite Directions (Turning Left)'),
+        # (83, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Turn Into Opposite Directions (Going Straight)'),
         (84, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Specifics Other'),
         (85, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - CONFIGURATION K: TURN INTO PATH - Specifics Unknown'),
-        (86, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Striking From the Right'),
-        (87, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Struck on the Right'),
-        (88, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Striking From the Left'),
-        (89, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Struck on the Left'),
+        # (86, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Striking From the Right'),
+        # (87, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Struck on the Right'),
+        # (88, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Striking From the Left'),
+        # (89, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Struck on the Left'),
         (90, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Specifics Other'),
         (91, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - CONFIGURATION L: STRAIGHT PATHS - Specifics Unknown'),
-        (92, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Backing Vehicle'),
-        (93, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Other Vehicle or Object (2010-2012)'),
-        (93, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Other Vehicle (2013-Later)'),
-        (98, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Other Crash Type'),
-        (99, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Unknown Crash Type'),
+        # (92, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Backing Vehicle'),
+        # (93, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Other Vehicle or Object (2010-2012)'),
+        # (93, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Other Vehicle (2013-Later)'),
+        # (98, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Other Crash Type'),
+        # (99, 'CATEGORY VI: MISCELLANEOUS - CONFIGURATION M: BACKING, ETC. - Unknown Crash Type'),
+        (101, 'CATEGORY I: SINGLE DRIVER - Right Roadside Departure'),
+        (102, 'CATEGORY I: SINGLE DRIVER - Left Roadside Departure'),
+        (103, 'CATEGORY I: SINGLE DRIVER - Struck Object While Moving Forward'),
+        (201, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - Rear End, Leading Vehicle'),
+        (202, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - Rear End, Trailing Vehicle'),
+        (203, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - Rear End, Other or Unknown'),
+        (204, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - Forward Impact, Frontal Impact After Maneuver'),
+        (205, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - Forward Impact, Rear End Impact After Maneuver'),
+        (206, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - Forward Impact, Other or Unknown'),
+        (207, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - Sideswipe Angle, Vehicle on Left'),
+        (208, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - Sideswipe Angle, Vehicle on Right'),
+        (209, 'CATEGORY II: SAME TRAFFICWAY, SAME DIRECTION - (Sideswipe Angle, Other or Unknown'),
+        (301, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - Lateral Move [Left/Right], Head-On, Sideswipe, or Angle'),
+        (302, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - Lateral Move [Going Straight], Head-On, Sideswipe, or Angle'),
+        (303, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - Lateral Move, Other or Unknown'),
+        (304, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - Frontal Impact After Maneuver, Departed Lane'),
+        (305, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - Frontal Impact After Maneuver, Remained in Lane'),
+        (306, 'CATEGORY III: SAME TRAFFICWAY, OPPOSITE DIRECTION - Frontal Impact After Maneuver, Other or Unknown'),
+        (401, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Across Path, Initial Opposite Directions [Left/Right]'),
+        (402, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Across Path, Initial Opposite Directions [Going Straight]'),
+        (403, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Across Path, Initial Same Directions [Turning Right]'),
+        (404, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Across Path, Initial Same Directions [Going Straight]'),
+        (405, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Across Path, Initial Same Directions [Turning Left]'),
+        (406, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Across Path, Initial Same Directions [Going Straight]'),
+        (407, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Across Path, Other or Unknown'),
+        (408, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Into Path, Turn into Same Direction [Turning Left]'),
+        (409, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Into Path, Turn into Same Direction [Going Straight]'),
+        (410, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Into Path, Turn into Same Direction [Turning Right]'),
+        (411, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Into Path, Turn into Same Direction [Going Straight]'),
+        (412, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Into Path, Turn into Opposite Directions [Turning Right]'),
+        (413, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Into Path, Turn into Opposite Directions [Going Straight]'),
+        (414, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Into Path, Turn into Opposite Directions [Turning Left]'),
+        (415, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Into Path, Turn into Opposite Directions [Going Straight]'),
+        (416, 'CATEGORY IV: CHANGING TRAFFICWAY, VEHICLE TURNING - Turn Into Path, Other or Unknown'),
+        (501, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - Straight Paths, Striking from the Right'),
+        (502, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - Straight Paths, Struck on the Right'),
+        (503, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - Straight Paths, Striking from the Left'),
+        (504, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - Straight Paths, Struck on the Left'),
+        (505, 'CATEGORY V: INTERSECTING PATHS (VEHICLE DAMAGE) - Straight Paths, Other or Unknown'),
+        (992, 'CATEGORY VI: MISCELLANEOUS - Backing Vehicle'),
+        (993, 'CATEGORY VI: MISCELLANEOUS - Other Vehicle'),
+        (998, 'CATEGORY VI: MISCELLANEOUS - Other Crash Type'),
+        (999, 'CATEGORY VI: MISCELLANEOUS - Unknown Crash Type'),
+
     ]
     crash_type = models.PositiveSmallIntegerField(choices = crash_type_choices, default=99)
 
@@ -3759,6 +3812,7 @@ class CrashRelatedFactors(models.Model):
         (7, 'Surface Washed out (Caved in, Road Slippage)'),
         (10, 'Emergency Vehicle Related'),
         (12, 'Distracted Driver of a Non-Contact Vehicle'),
+        # 13 is deprecated in lieu of 102,103
         (13, 'Aggressive Driving/Road Rage by Non-Contact Vehicle Driver'),
         (14, 'Motor Vehicle Struck by Falling Cargo or Something That Came Loose From or Something That Was Set in Motion by a Vehicle'),
         (15, 'Non-Occupant Struck by Falling Cargo, or Something Came Loose From or Something That Was Set in Motion by a Vehicle'),
@@ -3778,7 +3832,9 @@ class CrashRelatedFactors(models.Model):
         (30, 'Obstructed Crosswalks'),
         (31, 'Related to a Bus Stop'),
         (42, "Uncontrolled Intersection or Railroad Crossing"),
-        (99, "Unknown")
+        (102, "Aggressive Driving by Non-Contact Vehicle Driver"),
+        (103, "Road Rage by Non-Contact Vehicle Driver"),
+        (999, "Unknown")
     ]
     crash_related_factor = models.PositiveSmallIntegerField(choices=crash_related_factor_choices, default=0)
     
@@ -3876,6 +3932,7 @@ class DriverRelatedFactor(models.Model):
         (5, "Under the Influence of Alcohol, Drugs, or Medication (2003-2009)"),
         (6, 'Careless Driving, Inattentive Operation, Improper Driving, Driving Without Due Care'),
         (7, "Restricted to Wheelchair"),
+        # 8 deprecated for 102,103
         (8, 'Road Rage/Aggressive Driving'),
         (10, 'Looked but Did Not See'),
         (12, 'Mother of Dead Fetus/Mother of Infant Born Post Crash'),
@@ -3902,6 +3959,7 @@ class DriverRelatedFactor(models.Model):
         (34, 'Improper Passing Location'),
         (35, 'Passing With Insufficient Distance or Inadequate Visibility or Failing to Yield to Overtaking Vehicle'),
         (36, 'Operating the Vehicle in an Erratic, Reckless, Careless or Negligent Manner'),
+        #37 deprecated in favor of 104/105
         (37, 'Police Pursuing This Driver or Police Officer in Pursuit (See Police Pursuits in Appendix C: Additional Data Element Information)'),
         (38, 'Failure to Yield Right-of-Way'),
         (39, 'Failure to Obey Actual Traffic Signs, Traffic Control Devices or Traffic Officers, Failure to Observe Safety Zone Traffic Laws'),
@@ -3963,7 +4021,12 @@ class DriverRelatedFactor(models.Model):
         (96, 'Tow Operator'),
         (97, 'Transportation (i.e., Maintenance Workers, Safety Service Patrol Operators, etc.)'),
         (99, "Reported as Unknown"),
-        (101, "Carrying Hazardous Cargo Improperly (1994-2009)")
+        (100, "Using a Belt-Positioning Device or Other"),
+        (101, "Carrying Hazardous Cargo Improperly (1994-2009)"),
+        (102, "Aggressive Driving"),
+        (103, "Road Rage"),
+        (104, "Police Pursuing This Driver"),
+        (105, "Police Officer in Pursuit")
     ]
     driver_related_factor = models.PositiveSmallIntegerField(choices=driver_related_factor_choices, default=0)
 
@@ -4362,7 +4425,11 @@ class PersonRelatedFactor(models.Model):
         (96, 'Tow Operator'),
         (97, 'Transportation (Maintenance Workers, Safety Service Patrol Operators, etc.)'),
         (100, 'Using a Shared Micromobility Device'),
-        (101, 'Obstructed Sidewalk (for this Person)')
+        (101, 'Obstructed Sidewalk (for this Person)'),
+        (102, 'Motor Vehicle Occupant in Prior Crash'),
+        (103, 'Road Rage'),
+        (104, 'Using a Belt-Positioning Device or Other'),
+        (105, 'Paraplegic or in a Wheelchair')
     ]
     person_related_factor = models.PositiveSmallIntegerField(choices=person_related_factor_choices, default=0)
 
@@ -4396,6 +4463,68 @@ class Drugs(models.Model):
     # P19C/NM21C  DRUGRES
     drug_test_results = models.PositiveIntegerField(null=False, blank=False)
 
+    drug_test_method_choices = [
+        (0, 'Test Not Given'),
+        (1, 'Enzyme-Linked Immunosorbent Assay [ELISA]'),
+        (2, 'Enzyme-Multiplied Immunoassay Technique [EMIT]'),
+        (3, 'Liquid Chromatography/Tandem Mass Spectrometry [LC/MS-MS]'),
+        (4, 'Headspace Gas Chromatography [HS/GC]'),
+        (5, 'Liquid Chromatography/Time of Flight—Mass Spectrometry [LC/TOF-MS]'),
+        (6, 'Enzyme Immunoassay [EIA]'),
+        (8, 'Other Screening Test Method [Specify:]'),
+        (9, 'Unknown Screening Test Method'),
+        (11, 'High-Performance Liquid Chromatography [HPLC]'),
+        (12, 'Liquid Chromatography/Mass Spectrometry [LC/MS]'),
+        (13, 'Liquid Chromatography/Time of Flight—Mass Spectrometry [LC/TOF - MS]'),
+        (14, 'Gas Chromatography and Mass Spectrometry [GC/MS]'),
+        (15, 'Gas Chromatography [GC]'),
+        (16, 'Liquid Chromatography/Tandem Mass Spectrometry [LC/MS-MS]'),
+        (17, 'Liquid Chromatography/Time of Flight—Tandem Mass Spectrometry [LC/TOF-MS/MS]'),
+        (20, 'Quadrupole Time of Flight [QTOF]'),
+        (21, 'Liquid Chromatography/Quadrupole Time of Flight [LC/QTOF]'),
+        (22, 'Quadrupole Time of Flight Mass Spectrometry [QTOF MS]'),
+        (23, 'Gas Chromatography and Tandem Mass Spectrometry [GC/MS-MS]'),
+        (24, 'Headspace Gas Chromatography [HS-GC]'),
+        (25, 'Gas Chromatography With Flame Ionization Detection [GC FID]'),
+        (26, 'Headspace Gas Chromatography With Flame Ionization Detection [HS-GC FID]'),
+        (18, 'Other Confirmatory Test Method [Specify:]'),
+        (19, 'Unknown Confirmatory Test Method'),
+        (96, 'Not Reported'),
+        (97, 'Unknown Testing Method'),
+        (99, 'Reported as Unknown if Tested'),
+    ]
+    drug_test_method = models.PositiveSmallIntegerField(choices=drug_test_method_choices, null=True, blank=True)
+
+    drug_quantity_choices = [
+        (0, 'Test Not Given'),
+        (1, 'None Detected/Below Threshold'),
+        (2, 'Actual Drug Quantity'),
+        (3, 'Presumptive Positive'),
+        (4, 'Drugs Detected, Unknown Testing Method'),
+        (96, 'Not Reported'),
+        (97, 'Tested for Drugs, Results Unknown'),
+        (98, 'Tested for Drugs, Drugs Detected, Unknown Quantity'),
+        (99, 'Reported as Unknown if Tested for Drugs'),
+    ]
+    drug_quantity = models.PositiveSmallIntegerField(choices=drug_quantity_choices, null=True, blank=True)
+
+    actual_drug_quantity = models.FloatField(null=True, blank=True)
+
+    unit_of_measure_choices = [
+        (1, 'mg/dL'),
+        (2, 'mg/L'),
+        (3, 'mcg/L'),
+        (4, 'gm%'),
+        (5, 'ng/mL'),
+        (6, 'mcg/L'),
+        (7, '%'),
+        (8, 'Other [Specify:]'),
+        (-9, 'Not Applicable')
+    ]
+    unit_of_measure = models.SmallIntegerField(choices=unit_of_measure_choices, null=True, blank=True)
+
+
+
     def interpret_test_result(self):
         year = self.person.accident.year
         result = self.drug_test_results
@@ -4421,7 +4550,7 @@ class Drugs(models.Model):
             if result in {0}:
                 return "Test Not Given"
             if result in {1}:
-                return "Tested, No Drugs Found/Negative"
+                return "None Detected/Below Threshold"
             if result in {95}:
                 return "Not Reported"
             if result in {996}:
@@ -4459,7 +4588,7 @@ class Drugs(models.Model):
         if result in {9997}:
             return "Tested for Drugs, Results Unknown"
         if result in {9998}:
-            return "Tested for Drugs, Drugs Found, Type Unknown/Positive"
+            return "Tested for Drugs, Drugs Detected, Type Unknown/Positive"
         if result in {9999}:
             return "Reported as Unknown if Tested for Drugs"
         if result >= 1001 and result <= 2000:
@@ -4636,7 +4765,7 @@ class NonmotoristPriorAction(models.Model):
 
     # MPR_ACT NMACTION NM13
     nonmotorist_prior_action_choices = [
-        (1, 'Going to or From School (K-12)'),
+        (1, 'Going to or From School [Pre-K-12]'),
         (2, 'Waiting to Cross Roadway'),
         (3, 'Crossing Roadway'),
         (4, 'Jogging/Running'),

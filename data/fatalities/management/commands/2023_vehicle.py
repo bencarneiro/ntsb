@@ -6,7 +6,7 @@ import pandas as pd
 
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
-        Vehicle.objects.filter(accident__year=2022).delete()
+        Vehicle.objects.filter(accident__year=2023).delete()
         vehicle_model_fields = [
             'vehicle_number',
             'number_of_occupants',
@@ -93,7 +93,7 @@ class Command(BaseCommand):
             'preimpact_location',
             'crash_type'
         ]
-        csv = pd.read_csv(f"{CSV_PATH}2022/FARS2022NationalCSV/vehicle.csv", encoding='latin-1')
+        csv = pd.read_csv(f"{CSV_PATH}2023/FARS2023NationalCSV/vehicle.csv", encoding='latin-1')
         for x in csv.index:
 
             st_case = str(csv['ST_CASE'][x])
@@ -102,16 +102,16 @@ class Command(BaseCommand):
             veh_no = str(csv['VEH_NO'][x])
             while len(veh_no) < 3:
                 veh_no = "0" + veh_no
-            primary_key = f"2022{st_case}{veh_no}"
+            primary_key = f"2023{st_case}{veh_no}"
             
-            accident = Accident.objects.get(year=2022, st_case=csv['ST_CASE'][x])
+            accident = Accident.objects.get(year=2023, st_case=csv['ST_CASE'][x])
             data_to_save = {
                 "id": primary_key,
                 "accident": accident,
                 "hazardous_material_involvement": csv['HAZ_INV'][x] - 1
             }
             for model_field_name in vehicle_model_fields:
-                data_source = get_data_source("vehicle." + model_field_name, 2022)
+                data_source = get_data_source("vehicle." + model_field_name, 2023)
                 csv_field_name = data_source.split(".")[1]
                 data_to_save[model_field_name] = csv[csv_field_name][x]
             print(data_to_save)
