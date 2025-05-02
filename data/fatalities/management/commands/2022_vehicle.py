@@ -104,7 +104,7 @@ class Command(BaseCommand):
                 veh_no = "0" + veh_no
             primary_key = f"2022{st_case}{veh_no}"
             
-            accident = Accident.objects.get(st_case=csv['ST_CASE'][x])
+            accident = Accident.objects.get(year=2022, st_case=csv['ST_CASE'][x])
             data_to_save = {
                 "id": primary_key,
                 "accident": accident,
