@@ -31,7 +31,7 @@ def get_accident_datetime(a):
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
         counter = 0
-        for a in Accident.objects.all().order_by("st_case"):
+        for a in Accident.objects.filter(year=2023).order_by("st_case"):
             counter +=1
             print(a.month)
             print(a.day)
