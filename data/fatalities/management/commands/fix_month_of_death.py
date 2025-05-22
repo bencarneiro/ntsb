@@ -3,5 +3,8 @@ from fatalities.models import Person
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         Person.objects.filter(month_of_death=0, accident__year=2008).update(month_of_death=88)
+        Person.objects.filter(day_of_death=0, accident__year=2008).update(day_of_death=88)
         test = Person.objects.filter(month_of_death=0)
+        print(len(test))
+        test = Person.objects.filter(day_of_death=0)
         print(len(test))
