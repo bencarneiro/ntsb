@@ -31,5 +31,5 @@ class Command(BaseCommand):
         Vehicle.objects.filter(crash_type=89).update(crash_type=504)
         Vehicle.objects.filter(crash_type=92).update(crash_type=992)
         Vehicle.objects.filter(crash_type=93).update(crash_type=993)
-        Vehicle.objects.filter(crash_type=99).update(crash_type=998)
+        Vehicle.objects.filter(crash_type=98).update(crash_type=998)
         Vehicle.objects.filter(crash_type=99).update(crash_type=999)

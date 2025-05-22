@@ -346,7 +346,7 @@ class VehicleSchema(Schema):
     automated_driving_system_level__display: str = Field(..., alias='get_automated_driving_system_level_display')
     automated_driving_system_engaged: int = Field(..., alias='automated_driving_system_engaged')	
     automated_driving_system_engaged__display: str = Field(..., alias='get_automated_driving_system_engaged_display')
-    combined_make_model: int = Field(None, alias="combined_make_model")
+    combined_make_model: Optional[int] = Field(None, alias="combined_make_model")
         
     driver_drinking: int = Field(..., alias='driver_drinking')	
     driver_drinking__display: str = Field(..., alias='get_driver_drinking_display')
@@ -509,7 +509,7 @@ class ParkedVehicleSchema(Schema):
     most_harmful_event: int = Field(..., alias='most_harmful_event')	
     most_harmful_event__display: str = Field(..., alias='get_most_harmful_event_display')
     fire_occurence: bool
-    combined_make_model: int = Field(None, alias="combined_make_model_id")
+    combined_make_model: Optional[int] = Field(None, alias="combined_make_model")
     persons: List[ParkedVehiclePersonSchema] = Field(..., alias='person_set')
     parked_vehicle_related_factors: List[ParkedVehicleRelatedFactorSchema] = Field(..., alias='parkedvehiclerelatedfactor_set')
     number_of_occupants: int
@@ -554,8 +554,8 @@ class AccidentSchema(Schema):
     hour: int
     minute: int
     datetime: datetime
-    latitude: float = Field(None, alias="latitude")
-    longitude: float = Field(None, alias="longitude")
+    latitude: Optional[float] = Field(None, alias="latitude")
+    longitude: Optional[float] = Field(None, alias="longitude")
     number_of_vehicles: int = Field(0, alias="number_of_vehicles")
     number_of_vehicles_in_transport: int = Field(0, alias="number_of_vehicles_in_transport")
     number_of_parked_vehicles: int = Field(0, alias="number_of_parked_vehicles")

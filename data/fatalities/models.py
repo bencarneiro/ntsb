@@ -3878,7 +3878,9 @@ class VehicleRelatedFactor(models.Model):
         (31, "Hit-and-Run Vehicle (1982-2008)"),
         (32, 'Vehicle Registration for a Person with a Disability'),
         (33, 'Vehicle Being Pushed by Non-Motorist'),
+        (34, "Vehicle Impact Point-the Result of Something Set in Motion (1998-2003)"),
         (35, 'Reconstructed/Altered Vehicle'),
+        (36, "Electric/Alternative Fuel Vehicle (Since 1999)"),
         (37, 'Transporting Children to/From Head Start/Day Care'),
         (38, "Vehicle Went Airborne During Crash (2001-2003)"),
         (39, 'Highway Construction, Maintenance or Utility Vehicle, In-Transport (Inside or Outside Work Zone)'),
@@ -4164,6 +4166,7 @@ class VehicleFactor(models.Model):
         (18, "Horn"),
         (19, "Driver Seating and Control"),
         (97, 'Other'),
+        (98, 'Not Reported'),
         (99, 'Reported as Unknown'),
     ]
     contributing_cause = models.PositiveSmallIntegerField(choices=contributing_cause_choices, default=99)
