@@ -1004,13 +1004,13 @@ def died_en_route_converter(value, year):
     return value
 
 def month_of_death_converter(value, year):
-    if year < 2008:
+    if year < 2009:
         if value in {0}:
             return 88
     return value
 
 def day_of_death_converter(value, year):
-    if year < 2008:
+    if year < 2009:
         if value in {0}:
             return 88
     return value
