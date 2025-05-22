@@ -4084,6 +4084,7 @@ class DriverDistracted(models.Model):
     # MDRDSTRD DRDISTRACT PC16
     distracted_by_choices = [
         (0, 'Not Distracted'),
+        (1, 'Looked but Did Not See'),
         (3, 'By Other Occupant(s)'),
         (4, 'By a Moving Object in Vehicle'),
         (5, 'While Talking or Listening to Mobile Phone'),
