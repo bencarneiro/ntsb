@@ -2687,6 +2687,7 @@ class Person(models.Model):
         (2, 'Lap Belt Only Used'),
         (3, 'Shoulder and Lap Belt Used'),
         (4, 'Child Restraint - Type Unknown'),
+        (6, 'Racing-Style Harness Used'),
         (8, 'Restraint Used - Type Unknown'),
         (10, 'Child Restraint System - Forward Facing (Since 2008)'),
         (11, 'Child Restraint System - Rear Facing (Since 2008)'),
