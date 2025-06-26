@@ -22,8 +22,8 @@ class StateSchema(Schema):
     name: str
 
 class CountySchema(Schema):
-    id: int
-    name: str
+    id: int = Field(None, alias="id")
+    name: str = Field(None, alias="name")
 
 class CitySchema(Schema):
     id: int = Field(None, alias="id")

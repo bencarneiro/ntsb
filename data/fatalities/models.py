@@ -1868,6 +1868,7 @@ class ParkedVehicle(models.Model):
         (51, 'Jackknife (Harmful to This Vehicle)'),
         (52, 'Guardrail End'),
         (53, 'Mail Box'),
+        (54, 'Motor Vehicle In-Transport Strikes or Is Struck by Cargo, Persons or Objects Setin-Motion From/by Another Motor Vehicle In-Transport'),
         (55, 'Motor Vehicle in Motion Outside the Trafficway (Since 2008)'),
         (57, 'Cable Barrier (Since 2008)'),
         (58, 'Ground'),
@@ -2443,6 +2444,7 @@ class ParkedVehicle(models.Model):
         (22, 'Public Utility'),
         (23, 'Rental Truck Over 10,000 lbs'),
         (24, 'Truck Operating With Crash Attenuator Equipment'),
+        (98, 'Not Reported'),
         (99, 'Reported as Unknown (since 2018)')
     ]
     special_vehicle_use = models.PositiveSmallIntegerField(choices=special_vehicle_use_choices, default=99)
@@ -2687,6 +2689,7 @@ class Person(models.Model):
         (2, 'Lap Belt Only Used'),
         (3, 'Shoulder and Lap Belt Used'),
         (4, 'Child Restraint - Type Unknown'),
+        (6, 'Racing-Style Harness Used'),
         (8, 'Restraint Used - Type Unknown'),
         (10, 'Child Restraint System - Forward Facing (Since 2008)'),
         (11, 'Child Restraint System - Rear Facing (Since 2008)'),
@@ -3890,6 +3893,7 @@ class VehicleRelatedFactor(models.Model):
         (43, "Hazardous Materials/Cargo Released From This Vehicle (2005-2006)"),
         (44, 'Adaptive Equipment'),
         (45, 'Slide-in Camper'),
+        (999, "Reported as Unknown")
     ]
     vehicle_related_factor = models.PositiveSmallIntegerField(choices=vehicle_related_factor_choices, default=0)
 
@@ -3914,6 +3918,7 @@ class ParkedVehicleRelatedFactor(models.Model):
         (42, 'Other Working Vehicle (Not Construction, Maintenance, Utility, Police, Fire, or EMS Vehicle)'),
         (44, 'Adaptive Equipment'),
         (45, 'Slide-in Camper'),
+        (999, "Reported as Unknown")
     ]
     parked_vehicle_related_factor  = models.PositiveSmallIntegerField(choices=parked_vehicle_related_factor_choices, default=0)
 
@@ -4028,7 +4033,8 @@ class DriverRelatedFactor(models.Model):
         (102, "Aggressive Driving"),
         (103, "Road Rage"),
         (104, "Police Pursuing This Driver"),
-        (105, "Police Officer in Pursuit")
+        (105, "Police Officer in Pursuit"),
+        (999, "Reported as Unknown")
     ]
     driver_related_factor = models.PositiveSmallIntegerField(choices=driver_related_factor_choices, default=0)
 
@@ -4433,7 +4439,8 @@ class PersonRelatedFactor(models.Model):
         (102, 'Motor Vehicle Occupant in Prior Crash'),
         (103, 'Road Rage'),
         (104, 'Using a Belt-Positioning Device or Other'),
-        (105, 'Paraplegic or in a Wheelchair')
+        (105, 'Paraplegic or in a Wheelchair'),
+        (999, "Reported as Unknown")
     ]
     person_related_factor = models.PositiveSmallIntegerField(choices=person_related_factor_choices, default=0)
 
