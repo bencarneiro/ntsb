@@ -12,8 +12,8 @@ def stringify_id(id:int):
 
 # 2023
 def test_crash_details():
-    crashes = pd.read_csv('../../data/csvs/2023/FARS2023NationalCSV/accident.csv')[1000:]
+    crashes = pd.read_csv('../../data/csvs/2020/FARS2020NationalCSV/accident.csv', encoding='latin-1')[10900:]
     for crash_id in crashes['ST_CASE']:
-        r = get_crash_details("2023" + stringify_id(crash_id))
+        r = get_crash_details("2020" + stringify_id(crash_id))
         assert r.status_code == 200, f"assertion failed for id: {stringify_id(crash_id)} ---- STACKTRACE {r.text}"
     # break
