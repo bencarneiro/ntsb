@@ -1107,6 +1107,8 @@ def crash_related_factor_converter(value, year):
         
         
 def vehicle_related_factor_converter(value, year):
+    if value == 99:
+        return 999
     if year < 2020:
         if value > 28:
             return value
@@ -1114,6 +1116,8 @@ def vehicle_related_factor_converter(value, year):
     return value
 
 def parked_vehicle_related_factor_converter(value, year):
+    if value == 99:
+        return 999
     if year < 2010:
         if value > 28:
             return value
@@ -1261,6 +1265,8 @@ def visibility_converter(value, year):
         
 
 def person_related_factor_converter(value, year):
+    if value == 99:
+        return 999
     if year < 1982:
         if value in {1}:
             return 17
