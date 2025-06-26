@@ -954,7 +954,7 @@ def airbag_deployed_converter(value, year):
     if year < 2009:
         if value in {29}:
             return 99
-        if value in {30,31,32}:
+        if value in {28, 30,31,32}:
             return 20
         return value
     if value == 28:
