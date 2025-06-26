@@ -3916,6 +3916,7 @@ class ParkedVehicleRelatedFactor(models.Model):
         (42, 'Other Working Vehicle (Not Construction, Maintenance, Utility, Police, Fire, or EMS Vehicle)'),
         (44, 'Adaptive Equipment'),
         (45, 'Slide-in Camper'),
+        (999, "Reported as Unknown")
     ]
     parked_vehicle_related_factor  = models.PositiveSmallIntegerField(choices=parked_vehicle_related_factor_choices, default=0)
 
@@ -4436,7 +4437,8 @@ class PersonRelatedFactor(models.Model):
         (102, 'Motor Vehicle Occupant in Prior Crash'),
         (103, 'Road Rage'),
         (104, 'Using a Belt-Positioning Device or Other'),
-        (105, 'Paraplegic or in a Wheelchair')
+        (105, 'Paraplegic or in a Wheelchair'),
+        (999, "Reported as Unknown")
     ]
     person_related_factor = models.PositiveSmallIntegerField(choices=person_related_factor_choices, default=0)
 
