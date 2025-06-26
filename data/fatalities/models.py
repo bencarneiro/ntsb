@@ -1868,6 +1868,7 @@ class ParkedVehicle(models.Model):
         (51, 'Jackknife (Harmful to This Vehicle)'),
         (52, 'Guardrail End'),
         (53, 'Mail Box'),
+        (54, 'Motor Vehicle In-Transport Strikes or Is Struck by Cargo, Persons or Objects Setin-Motion From/by Another Motor Vehicle In-Transport'),
         (55, 'Motor Vehicle in Motion Outside the Trafficway (Since 2008)'),
         (57, 'Cable Barrier (Since 2008)'),
         (58, 'Ground'),
