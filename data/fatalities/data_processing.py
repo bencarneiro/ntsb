@@ -520,7 +520,7 @@ def ncsa_body_type_converter(value, year):
             return 9
     if value in {23,24,25}:
         return 21
-    if value in {30,31}:
+    if value in {30,31,32}:
         return 34
     if value in {68}:
         return 64
