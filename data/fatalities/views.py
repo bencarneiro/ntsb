@@ -812,3 +812,7 @@ def someone_died_here(request):
 
     # Return the image as a response
     return HttpResponse(buffer, content_type="image/png")
+
+
+def api_tutorial_notebook(request):
+    return render(request, "api_tutorial_notebook.html", {})

@@ -3914,6 +3914,7 @@ class ParkedVehicleRelatedFactor(models.Model):
         (35, 'Reconstructed/Altered Vehicle'),
         (37, 'Transporting Children to/From Head Start/Day Care'),
         (39, 'Highway Construction, Maintenance or Utility Vehicle, In-Transport (Inside or Outside Work Zone)'),
+        (40, "Highway Incident Response Vehicle(Since 2002)"),
         (41, 'Police Fire or EMS Vehicle Working at the Scene of an Emergency or Performing Other Traffic Control Activities'),
         (42, 'Other Working Vehicle (Not Construction, Maintenance, Utility, Police, Fire, or EMS Vehicle)'),
         (44, 'Adaptive Equipment'),
@@ -3941,6 +3942,8 @@ class DriverRelatedFactor(models.Model):
         (7, "Restricted to Wheelchair"),
         # 8 deprecated for 102,103
         (8, 'Road Rage/Aggressive Driving'),
+        # 9 deprecated for 94,95
+        (9, 'Emergency Services Personnel'),
         (10, 'Looked but Did Not See'),
         (12, 'Mother of Dead Fetus/Mother of Infant Born Post Crash'),
         (13, 'Person with an Intellectual, Cognitive, or Developmental Disability'),
@@ -4423,6 +4426,8 @@ class PersonRelatedFactor(models.Model):
         (83, 'Ice, Snow, Slush, Water, Sand, Dirt, Oil, Wet Leaves on Road'),
         (84, "Jaywalk (1982-1994)"),
         (85, "Jog (1982-1994)"),
+        # deprecated for 94,95
+        (86, "Emergency Services Personnel (Since 2007)"),
         (87, 'Police or Law Enforcement Officer'),
         (88, 'Seat Back Not in Normal Upright Position, Seat Back Reclined'),
         (89, 'Parked Motor Vehicle With Equipment Extending Into the Travel Lane'),
