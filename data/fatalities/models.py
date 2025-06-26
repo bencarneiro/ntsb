@@ -3891,6 +3891,7 @@ class VehicleRelatedFactor(models.Model):
         (43, "Hazardous Materials/Cargo Released From This Vehicle (2005-2006)"),
         (44, 'Adaptive Equipment'),
         (45, 'Slide-in Camper'),
+        (999, "Reported as Unknown")
     ]
     vehicle_related_factor = models.PositiveSmallIntegerField(choices=vehicle_related_factor_choices, default=0)
 
