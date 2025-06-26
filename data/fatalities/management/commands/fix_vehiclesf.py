@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from data.settings import CSV_PATH
 import pandas as pd
-from fatalities.models import VehicleRelatedFactor, ParkedVehicleRelatedFactor, PersonRelatedFactor, Vehicle, ParkedVehicle
+from fatalities.models import VehicleRelatedFactor, ParkedVehicleRelatedFactor, PersonRelatedFactor, Vehicle, ParkedVehicle, Person
 
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
@@ -11,3 +11,4 @@ class Command(BaseCommand):
         PersonRelatedFactor.objects.filter(person_related_factor=99).update(person_related_factor=999)
         Vehicle.objects.filter(body_type=32).update(body_type=34)
         ParkedVehicle.objects.filter(body_type=32).update(body_type=34)
+        Person.objects.filter(airbag_deployed=28).update(airbag_deployed=20)

@@ -957,6 +957,8 @@ def airbag_deployed_converter(value, year):
         if value in {30,31,32}:
             return 20
         return value
+    if value == 28:
+        return 20
     return value
 
 def alcohol_test_given_converter(value, year):
