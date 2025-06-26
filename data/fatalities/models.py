@@ -2444,6 +2444,7 @@ class ParkedVehicle(models.Model):
         (22, 'Public Utility'),
         (23, 'Rental Truck Over 10,000 lbs'),
         (24, 'Truck Operating With Crash Attenuator Equipment'),
+        (98, 'Not Reported'),
         (99, 'Reported as Unknown (since 2018)')
     ]
     special_vehicle_use = models.PositiveSmallIntegerField(choices=special_vehicle_use_choices, default=99)
