@@ -12,3 +12,4 @@ class Command(BaseCommand):
         Vehicle.objects.filter(body_type=32).update(body_type=34)
         ParkedVehicle.objects.filter(body_type=32).update(body_type=34)
         Person.objects.filter(airbag_deployed=28).update(airbag_deployed=20)
+        Person.objects.filter(non_motorist_location=15).update(non_motorist_location=20)

@@ -1071,6 +1071,8 @@ def nonmotorist_location_converter(value, year):
             return 25
         if value in {12}:
             return 11
+        if value in {15}:
+            return 20
         if value in {17,18}:
             return 25
         if value in {19}:
