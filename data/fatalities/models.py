@@ -4052,6 +4052,7 @@ class Damage(models.Model):
     vehicle = models.ForeignKey(Vehicle, null=True, blank= True, on_delete = models.CASCADE)
     # MDAREAS DAMAGE  V34B
     area_of_impact_choices = [
+        (0, "Non-Collision"),
         (1, "1 O'Clock"),
         (2, "2 O'Clock"),
         (3, "3 O'Clock"),
