@@ -305,7 +305,7 @@ class VehicleSchema(Schema):
     trailer_weight_rating_3__display: str = Field(..., alias='get_trailer_weight_rating_3_display')
     jackknife: int = Field(..., alias='jackknife')	
     jackknife__display: str = Field(..., alias='get_jackknife_display')
-    motor_carrier_identification_number: str
+    motor_carrier_identification_number: Optional[str]
     vehicle_configuration: int = Field(..., alias='vehicle_configuration')	
     vehicle_configuration__display: str = Field(..., alias='get_vehicle_configuration_display')
     cargo_body_type: int = Field(..., alias='cargo_body_type')	
@@ -478,7 +478,7 @@ class ParkedVehicleSchema(Schema):
     trailer_weight_rating_2__display: str = Field(..., alias='get_trailer_weight_rating_2_display')
     trailer_weight_rating_3: int = Field(..., alias='trailer_weight_rating_3')	
     trailer_weight_rating_3__display: str = Field(..., alias='get_trailer_weight_rating_3_display')
-    motor_carrier_identification_number: str
+    motor_carrier_identification_number: Optional[str]
     vehicle_configuration: int = Field(..., alias='vehicle_configuration')	
     vehicle_configuration__display: str = Field(..., alias='get_vehicle_configuration_display')
     cargo_body_type: int = Field(..., alias='cargo_body_type')	
