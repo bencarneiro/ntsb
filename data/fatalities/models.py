@@ -3912,6 +3912,7 @@ class ParkedVehicleRelatedFactor(models.Model):
         (32, 'Vehicle Registration for a Person with a Disability'),
         (33, 'Vehicle Being Pushed by Non-Motorist'),
         (35, 'Reconstructed/Altered Vehicle'),
+        (36, "Electric/Alternative Fuel Vehicle (Since 1999)"),
         (37, 'Transporting Children to/From Head Start/Day Care'),
         (39, 'Highway Construction, Maintenance or Utility Vehicle, In-Transport (Inside or Outside Work Zone)'),
         (40, "Highway Incident Response Vehicle(Since 2002)"),
@@ -4701,6 +4702,7 @@ class NonmotoristContributingCircumstance(models.Model):
         (20, 'Passing With Insufficient Distance or Inadequate Visibility or Failing to Yield to Overtaking Vehicle'),
         (21, 'Other'),
         (92, 'Contributing Circumstance - No Details'),
+        (98, 'Not Reported'),
         (99, 'Reported as Unknown'),
     ]
     nonmotorist_contributing_circumstance = models.PositiveSmallIntegerField(choices=nonmotorist_contributing_circumstance_choices, default=99)
