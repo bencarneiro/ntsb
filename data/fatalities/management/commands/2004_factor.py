@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from data.settings import CSV_PATH
 import pandas as pd
-from fatalities.data_processing import get_data_source, driver_impaired_converter
+from fatalities.data_processing import get_data_source, vehicle_factor_converter
 from fatalities.models import VehicleFactor, Vehicle
 
 
@@ -24,7 +24,7 @@ class Command(BaseCommand):
                 while len(new_factor_id) < 3:
                     new_factor_id = "0" + new_factor_id
                 primary_key = f"2004{st_case}{veh_no}{new_factor_id}"
-                factor = driver_impaired_converter(csv[code][x], 2004)
+                factor = vehicle_factor_converter(csv[code][x], 2004)
                 if factor:
                     data_to_save = {"vehicle": vehicle, "id": primary_key, "contributing_cause": factor}
                     print(data_to_save)
