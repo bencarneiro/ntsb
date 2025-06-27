@@ -352,37 +352,37 @@ class VehicleSchema(Schema):
     driver_drinking__display: str = Field(..., alias='get_driver_drinking_display')
     driver_present: int = Field(..., alias='driver_present')	
     driver_present__display: str = Field(..., alias='get_driver_present_display')
-    drivers_license_state: int = Field(..., alias='drivers_license_state')	
-    drivers_license_state__display: str = Field(..., alias='get_drivers_license_state_display')
-    driver_zip_code: int
-    non_cdl_license_type: int = Field(..., alias='non_cdl_license_type')	
-    non_cdl_license_type__display: str = Field(..., alias='get_non_cdl_license_type_display')
-    non_cdl_license_status: int = Field(..., alias='non_cdl_license_status')	
-    non_cdl_license_status__display: str = Field(..., alias='get_non_cdl_license_status_display')
-    cdl_license_status: int = Field(..., alias='cdl_license_status')	
-    cdl_license_status__display: str = Field(..., alias='get_cdl_license_status_display')
-    cdl_endorsements: int = Field(..., alias='cdl_endorsements')	
-    cdl_endorsements__display: str = Field(..., alias='get_cdl_endorsements_display')
-    license_compliance_with_class_of_vehicle: int = Field(..., alias='license_compliance_with_class_of_vehicle')	
-    license_compliance_with_class_of_vehicle__display: str = Field(..., alias='get_license_compliance_with_class_of_vehicle_display')
-    compliance_with_license_restrictions: int = Field(..., alias='compliance_with_license_restrictions')	
-    compliance_with_license_restrictions__display: str = Field(..., alias='get_compliance_with_license_restrictions_display')
-    driver_height: int
-    driver_weight: int
+    drivers_license_state: Optional[int] = Field(..., alias='drivers_license_state')	
+    drivers_license_state__display: Optional[str] = Field(..., alias='get_drivers_license_state_display')
+    driver_zip_code: Optional[int]
+    non_cdl_license_type: Optional[int] = Field(..., alias='non_cdl_license_type')	
+    non_cdl_license_type__display: Optional[str] = Field(..., alias='get_non_cdl_license_type_display')
+    non_cdl_license_status: Optional[int] = Field(..., alias='non_cdl_license_status')	
+    non_cdl_license_status__display: Optional[str] = Field(..., alias='get_non_cdl_license_status_display')
+    cdl_license_status: Optional[int] = Field(..., alias='cdl_license_status')	
+    cdl_license_status__display: Optional[str] = Field(..., alias='get_cdl_license_status_display')
+    cdl_endorsements: Optional[int] = Field(..., alias='cdl_endorsements')	
+    cdl_endorsements__display: Optional[str] = Field(..., alias='get_cdl_endorsements_display')
+    license_compliance_with_class_of_vehicle: Optional[int] = Field(..., alias='license_compliance_with_class_of_vehicle')	
+    license_compliance_with_class_of_vehicle__display: Optional[str] = Field(..., alias='get_license_compliance_with_class_of_vehicle_display')
+    compliance_with_license_restrictions: Optional[int] = Field(..., alias='compliance_with_license_restrictions')	
+    compliance_with_license_restrictions__display: Optional[str] = Field(..., alias='get_compliance_with_license_restrictions_display')
+    driver_height: Optional[int]
+    driver_weight: Optional[int]
         
-    previous_recorded_crashes: int
+    previous_recorded_crashes: Optional[int]
     previous_bac_suspensions_underage: Optional[int] = None
     previous_bac_suspensions: Optional[int] = None
-    previous_dwi_convictions: int
-    previous_speeding_convictions: int
-    previous_other_moving_violations: int
-    month_of_oldest_violation: int
-    year_of_oldest_violation: int
-    month_of_newest_violation: int
-    year_of_newest_violation: int
+    previous_dwi_convictions: Optional[int]
+    previous_speeding_convictions: Optional[int]
+    previous_other_moving_violations: Optional[int]
+    month_of_oldest_violation: Optional[int]
+    year_of_oldest_violation: Optional[int]
+    month_of_newest_violation: Optional[int]
+    year_of_newest_violation: Optional[int]
 
-    speeding_related: int = Field(..., alias='speeding_related')	
-    speeding_related__display: str = Field(..., alias='get_speeding_related_display')
+    speeding_related: Optional[int] = Field(..., alias='speeding_related')	
+    speeding_related__display: Optional[str] = Field(..., alias='get_speeding_related_display')
     trafficway_description: int = Field(..., alias='trafficway_description')	
     trafficway_description__display: str = Field(..., alias='get_trafficway_description_display')
     total_lanes_in_roadway: int = Field(..., alias='total_lanes_in_roadway')	
