@@ -14,3 +14,4 @@ class Command(BaseCommand):
         Person.objects.filter(airbag_deployed=28).update(airbag_deployed=20)
         Person.objects.filter(non_motorist_location=15).update(non_motorist_location=20)
         Vehicle.objects.filter(hazardous_material_class_number=21).update(hazardous_material_class_number=2)
+        Vehicle.objects.filter(hazardous_material_class_number=30).update(hazardous_material_class_number=3)

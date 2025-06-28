@@ -580,8 +580,11 @@ def cargo_body_type_converter(value, year):
 def hazardous_material_class_number_converter(value, year):
     if year == 2007 and value == 8:
         return 88
+    # these two rules are for two data artifacts in the actual federal spreadsheets. I checked these manually and they were simply incorrect. 
     if value == 21:
         return 2
+    if value == 30:
+        return 3
     return value
 
 def bus_use_converter(value, year):
