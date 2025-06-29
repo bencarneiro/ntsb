@@ -275,7 +275,7 @@ class VehicleSchema(Schema):
     registration_state__display: str = Field(..., alias='get_registration_state_display')
     registered_vehicle_owner: int = Field(..., alias='registered_vehicle_owner')	
     registered_vehicle_owner__display: str = Field(..., alias='get_registered_vehicle_owner_display')
-    vehicle_identification_number: str
+    vehicle_identification_number: Optional[str]
     vehicle_model_year: int
     vpic_make: Optional[int] = None
     vpic_model: Optional[int] = None
@@ -448,7 +448,7 @@ class ParkedVehicleSchema(Schema):
     registration_state__display: str = Field(..., alias='get_registration_state_display')
     registered_vehicle_owner: int = Field(..., alias='registered_vehicle_owner')	
     registered_vehicle_owner__display: str = Field(..., alias='get_registered_vehicle_owner_display')
-    vehicle_identification_number: str
+    vehicle_identification_number: Optional[str]
     vehicle_model_year: int
     vpic_make: Optional[int] = None
     vpic_model: Optional[int] = None

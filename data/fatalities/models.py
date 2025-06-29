@@ -3922,6 +3922,7 @@ class ParkedVehicleRelatedFactor(models.Model):
         (0, 'None Noted'),
         (29, 'Default Code Used for Vehicle Numbering'),
         (30, 'Multi-Wheeled Motorcycle Conversion'),
+        (31, "Hit-and-Run Vehicle (1982-2008)"),
         (32, 'Vehicle Registration for a Person with a Disability'),
         (33, 'Vehicle Being Pushed by Non-Motorist'),
         (35, 'Reconstructed/Altered Vehicle'),

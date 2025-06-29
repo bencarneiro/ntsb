@@ -1087,10 +1087,17 @@ def nonmotorist_location_converter(value, year):
     return value
 
 def hispanic_converter(value, year):
+    if value == 9:
+        return 99
     if year < 2000:
         if value in {5}:
             return 6
         return value
+    return value
+
+def race_converter(value, year):
+    if value == 9:
+        return 99
     return value
 
 def crash_related_factor_converter(value, year):

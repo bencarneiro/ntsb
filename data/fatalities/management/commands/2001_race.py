@@ -5,6 +5,7 @@ from data.settings import CSV_PATH
 import pandas as pd
 from fatalities.models import Race, Person
 from django.db.models import Q
+from fatalities.data_processing import race_converter
 
 # before 2001, only one race recorded at person level
 
@@ -35,7 +36,7 @@ class Command(BaseCommand):
             
             data_to_save = {"id": primary_key, "person": person}
 
-            data_to_save['race'] = csv['RACE'][x]
+            data_to_save['race'] = race_converter(csv['RACE'][x], 2001)
             data_to_save['is_multiple_races'] = 0
             data_to_save['order'] = 1
                 
