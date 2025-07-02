@@ -15,6 +15,7 @@ from data.filter_schemas import AccidentLocationFilterSchema
 from django.db.models import Q
 from django.contrib.gis.geoip2 import GeoIP2
 from fatalities.forms import CommentForm, EmailForm
+from data.settings import TILES_URL
 
 from PIL import Image, ImageDraw, ImageFont
 import time
@@ -514,7 +515,7 @@ def vehicle(request):
     return render(request, "vehicle.html", {})
 
 def beta(request):
-    return render(request, "beta.html", {})
+    return render(request, "beta.html", {"TILES_URL": TILES_URL})
 
 def info(request):
     if "success" in request.GET:
@@ -682,7 +683,7 @@ def privacy(request):
     return render(request, "privacy.html", {})
 
 def texas(request):
-    return render(request, "texas.html", {})
+    return render(request, "texas.html", {"TILES_URL": TILES_URL})
 
 def missed_connections(request):
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
