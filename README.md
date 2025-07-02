@@ -69,15 +69,22 @@ Application uses IP addresses to find user-location and load the map.
 [download the geographies](https://drive.google.com/drive/folders/1JCmyvSZVb2vcpceOAUwhy8gh2tzo5ucB?usp=sharing) and then then make sure they line up with the GEOIP_PATH in settings.py
 This doesn't really work in development anyway (you make requests both to-and-from 127.0.0.1) so the Geolocation from IP is bunk in dev. 
 
-Then let's rip in some test data, shall we?
-[download this db dump](https://drive.google.com/file/d/1Tlk9b8C4HqzdhZdzh8LZwrPqEKPZt5HQ/view?usp=sharing), which contains a whole year of traffic fatalities, and rip dump it into db
+Then let's rip in some data, shall we?
+[download this db dump](https://drive.google.com/file/d/1Q4yAmPdjduxtit8GTLbOQcyt9aSREyNt/view?usp=sharing), which contains a real copy of production (1.7 GB)
 ```
-sudo -u postgres psql crash < db_2022.sql
+sudo -u postgres psql crash < db_backup_2025_07_02.sql
 ```
 Then give it a boot
 ```
 python3 manage.py runserver
 ```
+Then boot up the tile server
+```
+cd fatalities/templates/static/tiles
+http-server . --cors
+```
+
+and then try to access your server at http://127.0.0.1:8000
 
 Feel free to reach out if something goes wrong ben@bencarneiro.com
 
