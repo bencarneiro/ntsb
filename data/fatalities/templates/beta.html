@@ -196,17 +196,17 @@
                     if (selector == "all") {
                         console.log("ALL")
                         layerName = `total_fatalities_${i}`
-                        sourceUrl =  `pmtiles://static/tiles/total_tiles/${i}.pmtiles`
+                        sourceUrl =  `{{ TILES_URL }}total_tiles/${i}.pmtiles`
                     }
                     if (selector == "vehicle") {
                         console.log("VEHICLE")
                         layerName = `vehicle_fatalities_${i}`
-                        sourceUrl =  `pmtiles://static/tiles/vehicle_tiles/${i}.pmtiles`
+                        sourceUrl =  `{{ TILES_URL }}vehicle_tiles/${i}.pmtiles`
                     }
                     if (selector == "nonmotorist") {
                         console.log("NONMOTORIST")
                         layerName = `nonmotorist_fatalities_${i}`
-                        sourceUrl =  `pmtiles://static/tiles/nonmotorist_tiles/${i}.pmtiles`
+                        sourceUrl =  `{{ TILES_URL }}nonmotorist_tiles/${i}.pmtiles`
                     }
 
                     map.addLayer({
@@ -260,17 +260,17 @@
                     if (e.target.value == "all") {
                         console.log("ALL")
                         layerName = `total_fatalities_${i}`
-                        sourceUrl =  `pmtiles://static/tiles/total_tiles/${i}.pmtiles`
+                        sourceUrl =  `{{ TILES_URL }}total_tiles/${i}.pmtiles`
                     }
                     if (e.target.value == "vehicle") {
                         console.log("VEHICLE")
                         layerName = `vehicle_fatalities_${i}`
-                        sourceUrl =  `pmtiles://static/tiles/vehicle_tiles/${i}.pmtiles`
+                        sourceUrl =  `{{ TILES_URL }}vehicle_tiles/${i}.pmtiles`
                     }
                     if (e.target.value == "nonmotorist") {
                         console.log("NONMOTORIST")
                         layerName = `nonmotorist_fatalities_${i}`
-                        sourceUrl =  `pmtiles://static/tiles/nonmotorist_tiles/${i}.pmtiles`
+                        sourceUrl =  `{{ TILES_URL }}nonmotorist_tiles/${i}.pmtiles`
                     }
 
                     map.addLayer({
@@ -404,7 +404,7 @@
                         id: `total_fatalities_${i}`,
                         type: "circle",
                         source: {
-                            url: `pmtiles://static/tiles/total_tiles/${i}.pmtiles`,
+                            url: `{{ TILES_URL }}total_tiles/${i}.pmtiles`,
                             type: "vector"
                         },
                         "source-layer": `total_fatalities_${i}`,
