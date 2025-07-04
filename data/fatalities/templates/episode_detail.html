@@ -9,7 +9,7 @@
             background-image: url("https://npr.brightspotcdn.com/dims4/default/17a4488/2147483647/strip/true/crop/5755x3837+0+0/resize/1760x1174!/format/webp/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F3e%2Fed%2Fa4d89c4e43f682203f4d0bc45a70%2Fa-bus-driver-walks-off-of-a-bus-in-between-routes-at-the-westgate-transit-center-in-austin-tx-on-july-8th-2022-karina-lujankut-52205559460-o.jpg");
         }
         div {width: 35%;background-color: antiquewhite;}
-        h1, h2, audio {text-align: center; width: 100%}
+        h1, h2, p, audio {text-align: center; width: 100%}
 
         /* Remove margins from "page content" on small screens */
         @media only screen and (max-width: 800px) {div {width: 80%}}
@@ -23,6 +23,7 @@
     <br><br>
     <h1>{{ episode.title }}</h1>
     <h2>Episode #{{ episode.id }}</a></h2>
+    <p> {{ episode.description }} </p>
 
     <audio controls>
         <source src="/podcasts/{{ episode.slug }}.mp3" type="audio/mpeg">
