@@ -1,10 +1,11 @@
 # [roadway.report](https://roadway.report)
 
-This repo powers [roadway.report](https://roadway.report), a web application in-development which will serve data on any traffic death in the USA since 1975
+This repo powers [roadway.report](https://roadway.report), a web application in-development which will serve data on any traffic death in the USA since 1975.
 
 ![Preview of roadway-report map](https://censusmaps.org/static/death.png)
 
 I want people to build nice, interactive maps ontop of these APIS. This can support a nationwide vision-zero viewer.
+
 Here's a crummy [proof of concept](https://roadway.report).
 
 Or get data straight from the API via the [docs](https://roadway.report/v1/docs) and [TUTORIAL](https://roadway.report/api_tutorial_notebook).
@@ -15,7 +16,7 @@ Based on this original data model:
 
 ![Screenshot from 2023-09-22 07-29-06](https://github.com/bencarneiro/ntsb/assets/63479105/52ab1a18-5d50-48c0-a416-cf2d4b148f4f)
 
-Is now represented by a much more modern and descriptive [Schema](https://roadway.report/schema).
+The data is now represented by a much more modern and descriptive [schema](https://roadway.report/schema).
 
 In the file `data_dictionary.py`, you can find a complete mapping of the government table/variable names to the more descriptive variable names used on roadway.report
 
