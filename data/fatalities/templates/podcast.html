@@ -14,20 +14,19 @@
         /* Remove margins from "page content" on small screens */
         @media only screen and (max-width: 800px) {div {width: 80%}}
     </style>
-    <div>
+    
+<br>
+
+<p ><a class="w3-padding-top" href="/">Back To Map</a></p>
     <h1>
     Are You Into Bus Stuff? <br>(The Podcast)
     </h1>
-
-    <p ><a class="w3-padding-top" href="/podcast">Back To Episodes</a></p>
-    <h2>The ONLY Comedy Podcast About Roadway Deaths. </h2><h2>Hosted by Ben Carneiro of roadway.report and Lucas Reilly of Blurbanist</h2>
     <br><br>
     <h1>{{ episode.title }}</h1>
-    <h2>Episode #{{ episode.id }}</a></h2>
+    <h2>Episode #{{ episode.id }}</h2>
     <p> {{ episode.description }} </p>
 
     <audio controls>
-        <source src="/podcasts/{{ episode.slug }}.mp3" type="audio/mpeg">
+        <source src="/podcasts/podcasts/{{ episode.slug }}.mp3" type="audio/mpeg">
     </audio>
-</div>
 </html>
