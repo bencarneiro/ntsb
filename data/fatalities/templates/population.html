@@ -386,13 +386,27 @@ map.on('load', () => {
         if (features.length == 0) return;
         let table = "<table><thead><tr><th>Tract</th><th>People Per Square Mile</th><th>Roadway Fatalities Per Capita</th></tr></thead>";
         let total = 0;
-        features.forEach((f, i) => {
+        if (features[0].sourceLayer == "total_fatalities") {
+            features.forEach((f, i) => {
+                table += "<tr>";
+                table += `<tr><td>${f.properties.NAME_x}</td>`;
+                table += `<td>${f.properties.ppsm}</td>`;
+                table += `<td>${Math.round(f.properties.total_fatality_rate * 100000) / 100000}</td>`;
+                table += "</tr>";
+                console.log("YES")
+                console.log(f.properties)
+            })
+        } else {
+            features.forEach((f, i) => {
             table += "<tr>";
             table += `<tr><td>${f.properties.NAME_x}</td>`;
             table += `<td>${f.properties.ppsm}</td>`;
-            table += `<td>${Math.round(f.properties.total_fatality_rate * 100000) / 100000}</td>`;
+            table += `<td>${Math.round(f.properties.nonmotorist_fatality_rate * 100000) / 100000}</td>`;
             table += "</tr>";
+            console.log("NO")
+                console.log(f.properties)
         })
+        }
         table += "</table>";
         new maplibregl.Popup()
             .setLngLat(e.lngLat)
