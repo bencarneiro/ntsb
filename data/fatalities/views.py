@@ -718,7 +718,7 @@ def create_missed_connection(request):
     return redirect("/missed_connections")
 
 def population(request):
-    return render(request, "population.html", {})
+    return render(request, "population.html", {"TILES_URL": TILES_URL})
 
 def population_nonmotorist(request):
     return render(request, "population_nonmotorist.html", {})
