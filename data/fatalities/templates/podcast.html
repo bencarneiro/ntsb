@@ -2,7 +2,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Are You Into Bus Stuff? (The Podcast)</title>
+        <title>{{ episode.title }} --- Are You Into Bus Stuff? Episode #{{ episode.id }}</title>
     </head>
     <style>
         html {
@@ -14,21 +14,19 @@
         /* Remove margins from "page content" on small screens */
         @media only screen and (max-width: 800px) {div {width: 80%}}
     </style>
+    
+<br>
 
-    <div>
+<p ><a class="w3-padding-top" href="/">Back To Map</a></p>
     <h1>
     Are You Into Bus Stuff? <br>(The Podcast)
     </h1>
-    <h2>The ONLY Comedy Podcast About Roadway Deaths. </h2><h2>Hosted by Ben Carneiro of roadway.report and Lucas Reilly of Blurbanist</h2>
-    {% for episode in episodes %}
     <br><br>
     <h1>{{ episode.title }}</h1>
-    <h2>Episode #{{ episode.id }} --- <a href="episode_detail/{{ episode.slug }}/">link</a></h2>
-    <p> {{ episode.description|slice:':75' }}...</p>
+    <h2>Episode #{{ episode.id }}</h2>
+    <p> {{ episode.description }} </p>
 
     <audio controls>
-        <source src="/podcasts/{{ episode.slug }}.mp3" type="audio/mpeg">
+        <source src="/podcasts/podcasts/{{ episode.slug }}.mp3" type="audio/mpeg">
     </audio>
-    {% endfor %}
-</div>
 </html>

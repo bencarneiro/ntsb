@@ -12,6 +12,9 @@
         <script src="static/js/maplibre-gl.js"></script>
         <script src="static/js/pmtiles.js"></script>
 
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="static/css/nouislider.css" rel="stylesheet">
         <script src="static/js/nouislider.js"></script>
         <style>
@@ -130,7 +133,31 @@
         .context-menu button:hover {
             background-color: #f0f0f0;
         }
+        #collapsibleMenu {
+            display: none;
+        }
+        #openButton {
+            display: block;
+        }
+        #closeButton {
+            display: none;
+        }
         </style>
+        <script>
+            function openMenu() {
+
+                document.getElementById("closeButton").style.display = "block";
+                document.getElementById("openButton").style.display = "none";
+                document.getElementById("collapsibleMenu").style.display = "block";
+                
+            }
+            function closeMenu() {
+
+                document.getElementById("closeButton").style.display = "none";
+                document.getElementById("openButton").style.display = "block";
+                document.getElementById("collapsibleMenu").style.display = "none";
+            }
+        </script>
 
     </head>
     <body>
@@ -142,7 +169,7 @@
         <div class="map-overlay top">
             <div class="map-overlay-inner">
                 <h3>USA Traffic Deaths 2001-2023</h3>
-                <h3><a href="info">More about roadway.report</a> </h3> 
+                <!-- <h3><a href="info">More about roadway.report</a> </h3>  -->
                 <fieldset>
                     <label for="layer">Select layer</label>
                     <select id="layer" name="layer">
@@ -153,7 +180,54 @@
                 </fieldset>
                 <br><br>
                 <div id="slider"></div>
+                <br>
+                <div class="collapsibleMenu w3-padding-large" id="collapsibleMenu">
+                    <!-- <h3 style="background-color: lightblue;">Other Resources</h3> -->
+
+                    <div onClick="window.location.href='/';" class="w3-button w3-small" style="width:100%">
+                        Map
+                    </div>
+                    <div onClick="window.location.href='/population';" class="w3-button w3-small" style="width:100%">
+                        Population<br>Adjusted Map
+                    </div>
+                    <div onClick="window.location.href='/county_selector';" class="w3-button w3-small" style="width:100%">
+                        Data By County
+                    </div>
+                    <div onClick="window.location.href='/pedestrian_safety';" class="w3-button w3-small" style="width:100%">
+                        Pedestrian<br>Dashboard
+                    </div>
+                    <div onClick="window.location.href='/missed_connections';" class="w3-button w3-small" style="width:100%">
+                        Missed<br>Connections
+                    </div>
+                    <!-- <h3 style="background-color: lightblue;">Support Us</h3> -->
+                    <div onClick="window.location.href='https://roadway-report.printify.me';" class="w3-button w3-small" style="width:100%">
+                        Merch
+                    </div>
+                    <div onClick="window.location.href='https://ko-fi.com/roadwayreport';" class="w3-button w3-small" style="width:100%">
+                        Donate
+                    </div>
+                    <div onClick="window.location.href='/podcast';" class="w3-button w3-small" style="width:100%">
+                        Podcast
+                    </div>
+                    <div onClick="window.location.href='/info';" class="w3-button w3-small" style="width:100%">
+                        About Us
+                    </div>
+                    
+                </div>
+                
+            <div id = "openButton" class="" >
+                <div onClick="openMenu()" class="w3-button w3-large" style="width:100%">
+                    <i class="fa fa-bars w3-middle"> Menu</i>
+                </div>
             </div>
+
+            <div id = "closeButton" class="" >
+                <div onClick="closeMenu()" class="w3-button w3-large" style="width:100%">
+                    <i class="fa fa-bars w3-middle"> Close Menu</i>
+                </div>
+            </div>
+            </div>
+
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js" integrity="sha512-igVQ7hyQVijOUlfg3OmcTZLwYJIBXU63xL9RC12xBHNpmGJAktDnzl9Iw0J4yrSaQtDxTTVlwhY730vphoVqJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script type="text/javascript">

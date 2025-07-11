@@ -294,7 +294,7 @@ def county_dashboard(request, **kwargs):
 def total_fatalities(request):
     county = County.objects.get(id=request.GET['county_id'])
 
-    years = [2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022]
+    years = [2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022, 2023]
 
     fatalities_by_year = Accident.objects.filter(county=county).values("year").annotate(total_fatalities=Sum("fatalities")).order_by("year")
     pedestrian_accidents_list = Person.objects.filter(accident__county=county, injury_severity=4, vehicle__isnull=True, parked_vehicle__isnull=True, person_type__in=[5,10,19]).values_list("accident_id", flat=True)
@@ -395,7 +395,7 @@ def nonmotorist(request):
 
 def pedestrian_safety(request):
     
-    years = [2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022]
+    years = [2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022, 2023]
 
     context = {
         "pedestrian_death_labels": years, 
@@ -718,7 +718,7 @@ def create_missed_connection(request):
     return redirect("/missed_connections")
 
 def population(request):
-    return render(request, "population.html", {})
+    return render(request, "population.html", {"TILES_URL": TILES_URL})
 
 def population_nonmotorist(request):
     return render(request, "population_nonmotorist.html", {})
