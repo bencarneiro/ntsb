@@ -3,6 +3,9 @@
 <link rel="stylesheet" href="static/css/maplibre-gl.css">
 <script src="static/js/maplibre-gl.js"></script>
 <script src="static/js/pmtiles.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     body {
         margin: 0;
@@ -51,7 +54,7 @@
 .map-overlay {
 font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 position: absolute;
-width: 200px;
+width: 250px;
 top: 0;
 left: 0;
 padding: 10px;
@@ -84,14 +87,14 @@ display: block;
 font-weight: bold;
 margin: 0 0 5px;
 }
-
+/* 
 .map-overlay-inner button {
 display: inline-block;
 width: 35px;
 height: 35px;
 border: none;
 cursor: pointer;
-}
+} */
 
 .map-overlay-inner button:focus {
 outline: none;
@@ -101,6 +104,16 @@ outline: none;
 box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
+#collapsibleMenu {
+            display: none;
+        }
+        #openButton {
+            display: block;
+        }
+        #closeButton {
+            display: none;
+        }
+
 </style>
 <head>
 
@@ -108,6 +121,90 @@ box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
 </head>
 
 <script>
+
+    function regularMap() {
+
+        map.getStyle().layers.forEach((layer) => {
+                    console.log(layer)
+                    if(layer.id != "base-raster"){
+                        map.removeLayer(layer.id);
+                        map.removeSource(layer.id);
+                        }
+                    });
+
+        map.addLayer({
+        id: "total_fatalities",
+        type: "fill-extrusion",
+        source: {
+            // url: "pmtiles://http://127.0.0.1:8080/total_fatalities.pmtiles",
+            url: "{{ TILES_URL }}population/total_fatalities.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "total_fatalities",
+        'paint': {
+                // See the MapLibre Style Specification for details on data expressions.
+                // https://maplibre.org/maplibre-style-spec/expressions/
+                'fill-extrusion-color': [
+                      'interpolate',
+                      ['linear'],
+                      ['get', 'total_fatality_rate'],  0, "green", .005, 'red'
+                  ],
+
+                // Get fill-extrusion-height from the source 'height' property.
+                'fill-extrusion-height': ['get', 'ppsm'],
+
+                // // Get fill-extrusion-base from the source 'base_height' property.
+                // 'fill-extrusion-base': ['get', 'base_height'],
+
+                // // Make extrusions slightly opaque for see through indoor walls.
+                'fill-extrusion-opacity': 0.8
+            }
+    })
+
+    }
+
+    function pedestrianMap() {
+
+        map.getStyle().layers.forEach((layer) => {
+                    console.log(layer)
+                    if(layer.id != "base-raster"){
+                        map.removeLayer(layer.id);
+                        map.removeSource(layer.id);
+                        }
+                    });
+
+        map.addLayer({
+        id: "total_fatalities",
+        type: "fill-extrusion",
+        source: {
+            // url: "pmtiles://http://127.0.0.1:8080/total_fatalities.pmtiles",
+            url: "{{ TILES_URL }}population/nonmotorist_fatalities.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "nonmotorist_fatalities",
+        'paint': {
+                // See the MapLibre Style Specification for details on data expressions.
+                // https://maplibre.org/maplibre-style-spec/expressions/
+                'fill-extrusion-color': [
+                      'interpolate',
+                      ['linear'],
+                      ['get', 'nonmotorist_fatality_rate'],  0, "green", .0015, 'red'
+                  ],
+
+                // Get fill-extrusion-height from the source 'height' property.
+                'fill-extrusion-height': ['get', 'ppsm'],
+
+                // // Get fill-extrusion-base from the source 'base_height' property.
+                // 'fill-extrusion-base': ['get', 'base_height'],
+
+                // // Make extrusions slightly opaque for see through indoor walls.
+                'fill-extrusion-opacity': 0.8
+            }
+    })
+
+
+    }
+
     function toggleLayerVisibility(layerId, isVisible) {
         map.setLayoutProperty(layerId, 'visibility', 
             isVisible ? 'visible' : 'none'
@@ -129,6 +226,21 @@ box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
         map.setPaintProperty('total_fatalities','fill-extrusion-height', ['get', 'ppsm'])
     }
 </script>
+<script>
+    function openMenu() {
+
+        document.getElementById("closeButton").style.display = "block";
+        document.getElementById("openButton").style.display = "none";
+        document.getElementById("collapsibleMenu").style.display = "block";
+        
+    }
+    function closeMenu() {
+
+        document.getElementById("closeButton").style.display = "none";
+        document.getElementById("openButton").style.display = "block";
+        document.getElementById("collapsibleMenu").style.display = "none";
+    }
+</script>
 <body>
 
     <div id="map"></div>
@@ -136,10 +248,60 @@ box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
         <div class="map-overlay-inner">
             <h3>Per Capita Roadway Fatality Rate By Census Tract (2001-2022)</h3>
 
-            <button onclick=toggleOn()>Display Data</button>
-            <button onclick=toggleOff()>Hide Data</button>
-            <button onclick=flatten()>2-D Map</button>
-            <button onclick=unFlatten()>3-D Map</button>
+            <button class="w3-button w3-small" onclick=toggleOn()>Display Data</button>
+            <button class="w3-button w3-small" onclick=toggleOff()>Hide Data</button>
+            <button class="w3-button w3-small" onclick=flatten()>2-D Map</button>
+            <button class="w3-button w3-small" onclick=unFlatten()>3-D Map</button>
+            <button class="w3-button w3-small" onclick=regularMap()>All Deaths</button>
+            <button class="w3-button w3-small" onclick=pedestrianMap()>Pedestrian Only</button>
+            
+            <br>
+            <div class="collapsibleMenu w3-padding-large" id="collapsibleMenu">
+                <!-- <h3 style="background-color: lightblue;">Other Resources</h3> -->
+
+                <div onClick="window.location.href='/';" class="w3-button w3-small" style="width:100%">
+                    Map
+                </div>
+                <div onClick="window.location.href='/population';" class="w3-button w3-small" style="width:100%">
+                    Population<br>Adjusted Map
+                </div>
+                <div onClick="window.location.href='/county_selector';" class="w3-button w3-small" style="width:100%">
+                    Data By County
+                </div>
+                <div onClick="window.location.href='/pedestrian_safety';" class="w3-button w3-small" style="width:100%">
+                    Pedestrian<br>Dashboard
+                </div>
+                <div onClick="window.location.href='/missed_connections';" class="w3-button w3-small" style="width:100%">
+                    Missed<br>Connections
+                </div>
+                <!-- <h3 style="background-color: lightblue;">Support Us</h3> -->
+                <div onClick="window.location.href='https://roadway-report.printify.me';" class="w3-button w3-small" style="width:100%">
+                    Merch
+                </div>
+                <div onClick="window.location.href='https://ko-fi.com/roadwayreport';" class="w3-button w3-small" style="width:100%">
+                    Donate
+                </div>
+                <div onClick="window.location.href='/podcast';" class="w3-button w3-small" style="width:100%">
+                    Podcast
+                </div>
+                <div onClick="window.location.href='/info';" class="w3-button w3-small" style="width:100%">
+                    About Us
+                </div>
+                
+                
+            </div>
+            
+        <div id = "openButton" class="" >
+            <div onClick="openMenu()" class="w3-button w3-large" style="width:100%">
+                <i class="fa fa-bars w3-middle"> Menu</i>
+            </div>
+        </div>
+
+        <div id = "closeButton" class="" >
+            <div onClick="closeMenu()" class="w3-button w3-large" style="width:100%">
+                <i class="fa fa-bars w3-middle"> Close Menu</i>
+            </div>
+        </div>
         </div>
     </div>
 </body>
@@ -187,7 +349,7 @@ map.on('load', () => {
         type: "fill-extrusion",
         source: {
             // url: "pmtiles://http://127.0.0.1:8080/total_fatalities.pmtiles",
-            url: "pmtiles://static/tiles/population/total_fatalities.pmtiles",
+            url: "{{ TILES_URL }}population/total_fatalities.pmtiles",
             type: "vector"
         },
         "source-layer": "total_fatalities",
