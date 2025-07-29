@@ -185,6 +185,9 @@
                 <div class="collapsibleMenu w3-padding-large" id="collapsibleMenu">
                     <!-- <h3 style="background-color: lightblue;">Other Resources</h3> -->
 
+                    <div onClick="window.location.href='/info';" class="w3-button w3-small" style="width:100%">
+                        About
+                    </div>
                     <div onClick="window.location.href='/';" class="w3-button w3-small" style="width:100%">
                         Map
                     </div>
@@ -209,9 +212,6 @@
                     </div>
                     <div onClick="window.location.href='/podcast';" class="w3-button w3-small" style="width:100%">
                         Podcast
-                    </div>
-                    <div onClick="window.location.href='/info';" class="w3-button w3-small" style="width:100%">
-                        About Us
                     </div>
                     
                 </div>
@@ -529,6 +529,9 @@
                 });
                 
             });
+        if (window.screen.width > 800) {
+            openMenu()
+        }
         </script>
     </body>
 </html>
