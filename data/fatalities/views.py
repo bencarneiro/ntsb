@@ -519,7 +519,7 @@ def beta(request):
 
 def info(request):
     if "success" in request.GET:
-        return render(request, "info.html", {"form": EmailForm, "success_message": "You have been added to our newsletter"})
+        return render(request, "info.html", {"form": EmailForm, "success_message": "Thank you for your information. We will be in touch shortly."})
     
     return render(request, "info.html", {"form": EmailForm, "success_message": ""})
 
