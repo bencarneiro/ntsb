@@ -4,6 +4,21 @@
     </head>
     <script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>
     <style>
+            .back-link {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background-color: #000;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: background-color 0.2s ease;
+        margin-bottom: 2rem;
+    }
+
+    .back-link:hover {
+        background-color: #d00;
+    }
                 .row {
         display: flex;
         margin-left:-5px;
@@ -39,7 +54,7 @@
     }
     </style>
     <body>
-        <p><a href="/">Back To Map</a></p>
+        <p><a class="back-link" href="/">Back To Map</a></p>
         <div class="row">
         <div class="column">
         <h1>States</h1>

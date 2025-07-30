@@ -1,10 +1,159 @@
 <!DOCTYPE html>
-<html>
-    <style>
-        h1 {text-align: center;}
-        h2 {text-align: center;}
-        h3 {text-align: center;}
-    </style>
+<html> <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html, body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        color: #000;
+        background-color: #fff;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        min-height: 100vh;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid #000;
+    }
+
+    .back-link {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background-color: #000;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: background-color 0.2s ease;
+        margin-bottom: 2rem;
+    }
+
+    .back-link:hover {
+        background-color: #d00;
+    }
+
+    .main-title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: #000;
+        letter-spacing: -0.02em;
+    }
+
+    .chart-section {
+        margin-bottom: 4rem;
+    }
+
+    .chart-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: #000;
+        text-align: center;
+    }
+
+    .chart-container {
+        background-color: #fff;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 350px;
+    }
+
+    canvas {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .footer-link {
+        text-align: center;
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 2px solid #000;
+    }
+
+    .footer-link a {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background-color: #d00;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: background-color 0.2s ease;
+        letter-spacing: 0.05em;
+    }
+
+    .footer-link a:hover {
+        background-color: #b00;
+    }
+
+    /* Mobile responsiveness */
+    @media only screen and (max-width: 768px) {
+        .container {
+            padding: 1.5rem 1rem;
+        }
+
+        .main-title {
+            font-size: 2rem;
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+        }
+
+        .chart-container {
+            padding: 1.5rem;
+            min-height: 300px;
+        }
+
+        canvas {
+            width: 100% !important;
+            max-width: 100%;
+        }
+
+        .back-link,
+        .footer-link a {
+            padding: 0.65rem 1.25rem;
+            font-size: 0.9rem;
+        }
+    }
+
+    @media only screen and (max-width: 480px) {
+        .container {
+            padding: 1rem 0.75rem;
+        }
+
+        .main-title {
+            font-size: 1.8rem;
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+        }
+
+        .chart-container {
+            padding: 1rem;
+            min-height: 250px;
+        }
+    }
+</style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
     <script>
@@ -291,41 +440,81 @@
   </head>
 
   <body>
-    <p><a href="/">Back To Map</a></p>
-    <h1>
-        USA Pedestrian and Bike Fatality Data
-    </h1>
-    <h2>Annual Pedestrian Deaths</h2>
-    <canvas id="pedestrian-fatalities" width="800" height="300"></canvas>
-    
-    <h2>Annual Bicycle Deaths</h2>
-    <canvas id="bicycle-fatalities" width="800" height="300"></canvas>
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">USA Pedestrian and Bike Fatality Data</h1>
+            <br>
+            <a class="back-link" href="/">Back To Map</a>
+        </div>
 
-    <h2>Pedestrian Position (Fatal Crashes) 2014-2023</h2>
-    <canvas id="pedestrian-position" width="800" height="300"></canvas>
-    
-    <h2>Pedestrian Location (Fatal Crashes) 2014-2023</h2>
-    <canvas id="pedestrian-location" width="800" height="300"></canvas>
 
-    <h2>Pedestrian Crash Group (Fatal Crashes) 2014-2023</h2>
-    <canvas id="pedestrian-crash-group" width="800" height="300"></canvas>
-    
-    <h2>Pedestrian Crash Type (Fatal Crashes) 2014-2023</h2>
-    <canvas id="pedestrian-crash-type" width="800" height="300"></canvas>
-    
-    <h2>Bicycle Position (Fatal Crashes) 2014-2023</h2>
-    <canvas id="bicycle-position" width="800" height="300"></canvas>
-    
-    <h2>Bicycle Location (Fatal Crashes) 2014-2023</h2>
-    <canvas id="bicycle-location" width="800" height="300"></canvas>
-    
-    <h2>Bicycle Crash Type (Fatal Crashes) 2014-2023</h2>
-    <canvas id="bicycle-crash-type" width="800" height="300"></canvas>
-    
-    <h2>
-        <a href="/">BACK TO THE MAP</a>
-    </h2>
+        <div class="chart-section">
+            <h2 class="chart-title">Annual Pedestrian Deaths</h2>
+            <div class="chart-container">
+                <canvas id="pedestrian-fatalities" width="800" height="300"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-section">
+            <h2 class="chart-title">Annual Bicycle Deaths</h2>
+            <div class="chart-container">
+                <canvas id="bicycle-fatalities" width="800" height="300"></canvas>
+            </div>
+        </div>
 
+        <div class="chart-section">
+            <h2 class="chart-title">Pedestrian Position (Fatal Crashes) 2014-2023</h2>
+            <div class="chart-container">
+                <canvas id="pedestrian-position" width="800" height="300"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-section">
+            <h2 class="chart-title">Pedestrian Location (Fatal Crashes) 2014-2023</h2>
+            <div class="chart-container">
+                <canvas id="pedestrian-location" width="800" height="300"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-section">
+            <h2 class="chart-title">Pedestrian Crash Group (Fatal Crashes) 2014-2023</h2>
+            <div class="chart-container">
+                <canvas id="pedestrian-crash-group" width="800" height="300"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-section">
+            <h2 class="chart-title">Pedestrian Crash Type (Fatal Crashes) 2014-2023</h2>
+            <div class="chart-container">
+                <canvas id="pedestrian-crash-type" width="800" height="300"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-section">
+            <h2 class="chart-title">Bicycle Position (Fatal Crashes) 2014-2023</h2>
+            <div class="chart-container">
+                <canvas id="bicycle-position" width="800" height="300"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-section">
+            <h2 class="chart-title">Bicycle Location (Fatal Crashes) 2014-2023</h2>
+            <div class="chart-container">
+                <canvas id="bicycle-location" width="800" height="300"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-section">
+            <h2 class="chart-title">Bicycle Crash Type (Fatal Crashes) 2014-2023</h2>
+            <div class="chart-container">
+                <canvas id="bicycle-crash-type" width="800" height="300"></canvas>
+            </div>
+        </div>
+
+        <div class="footer-link">
+            <a href="/">BACK TO THE MAP</a>
+        </div>
+    </div>
 
     <script> 
         
