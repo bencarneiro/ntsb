@@ -291,7 +291,7 @@ def county_dashboard(request, **kwargs):
     return render(request, "county_dashboard.html", {"county": county})
 
 
-
+@cache_page(60 * 60 * 24 * 30)
 def total_fatalities(request):
     county = County.objects.get(id=request.GET['county_id'])
 
