@@ -728,7 +728,7 @@ def newsletter_intake(request):
 
 
 def reddit(request):
-    posts = RedditPost.objects.filter(created_utc__gt=round(time.time() - 1209600)).order_by("-created_utc")[:2500]
+    posts = RedditPost.objects.filter(created_utc__gt=round(time.time() - 1209600)).order_by("-created_utc")[:500]
     return render(request, "reddit.html", {"posts": posts})
 
 def gooner_army(request):
