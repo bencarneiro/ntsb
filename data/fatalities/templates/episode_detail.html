@@ -2,6 +2,211 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Are You Into Bus Stuff? (The Podcast)</title>
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html, body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                color: #000;
+                background-color: #fff;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 2rem 1rem;
+                min-height: 100vh;
+            }
+
+            .header {
+                text-align: center;
+                margin-bottom: 3rem;
+                padding-bottom: 2rem;
+                border-bottom: 2px solid #000;
+            }
+
+            .main-title {
+                font-size: 2.5rem;
+                font-weight: 900;
+                margin-bottom: 0.5rem;
+                color: #000;
+                letter-spacing: -0.02em;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+                color: #d00;
+                font-weight: 600;
+            }
+
+            .hosts {
+                font-size: 1rem;
+                color: #666;
+                margin-bottom: 1.5rem;
+            }
+
+            .back-link {
+                display: inline-block;
+                padding: 0.75rem 1.5rem;
+                background-color: #000;
+                color: #fff;
+                text-decoration: none;
+                border-radius: 4px;
+                font-weight: 500;
+                transition: background-color 0.2s ease;
+            }
+
+            .back-link:hover {
+                background-color: #d00;
+            }
+
+            .episode {
+                margin-bottom: 3rem;
+                padding: 2rem;
+                border: 1px solid #eee;
+                border-radius: 8px;
+                background-color: #fff;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            }
+
+            .episode-title {
+                font-size: 1.8rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+                color: #000;
+            }
+
+            .episode-meta {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+                color: #666;
+            }
+
+            .episode-link {
+                color: #d00;
+                text-decoration: none;
+                font-weight: 500;
+            }
+
+            .episode-link:hover {
+                text-decoration: underline;
+            }
+
+            .episode-description {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+                color: #333;
+                line-height: 1.7;
+            }
+
+            .audio-player {
+                width: 100%;
+                height: 40px;
+                background-color: #f8f8f8;
+                border-radius: 20px;
+                outline: none;
+            }
+
+            .audio-player::-webkit-media-controls-panel {
+                background-color: #f8f8f8;
+                border-radius: 20px;
+            }
+
+            .audio-player::-webkit-media-controls-play-button,
+            .audio-player::-webkit-media-controls-pause-button {
+                background-color: #d00;
+                border-radius: 50%;
+            }
+
+            /* Mobile responsiveness */
+            @media only screen and (max-width: 768px) {
+                .container {
+                    padding: 1.5rem 1rem;
+                }
+
+                .main-title {
+                    font-size: 2rem;
+                }
+
+                .subtitle {
+                    font-size: 1.1rem;
+                }
+
+                .hosts {
+                    font-size: 0.9rem;
+                }
+
+                .episode {
+                    padding: 1.5rem;
+                    margin-bottom: 2rem;
+                }
+
+                .episode-title {
+                    font-size: 1.5rem;
+                }
+
+                .back-link {
+                    padding: 0.65rem 1.25rem;
+                    font-size: 0.9rem;
+                }
+            }
+
+            @media only screen and (max-width: 480px) {
+                .container {
+                    padding: 1rem 0.75rem;
+                }
+
+                .main-title {
+                    font-size: 1.8rem;
+                }
+
+                .episode {
+                    padding: 1.25rem;
+                }
+
+                .episode-title {
+                    font-size: 1.3rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <h1 class="main-title">Are You Into Bus Stuff?<br>(The Podcast)</h1>
+                <h2 class="subtitle">The ONLY Comedy Podcast About Roadway Deaths.</h2>
+                <p class="hosts">Hosted by Ben Carneiro of roadway.report and Lucas Reilly of Blurbanist</p>
+                <a class="back-link" href="/podcast">Back To Episodes</a>
+            </header>
+
+            <article class="episode">
+                <h1 class="episode-title">{{ episode.title }}</h1>
+                <div class="episode-meta">
+                    Episode #{{ episode.id }}
+                </div>
+                <p class="episode-description">{{ episode.description}}</p>
+                <audio class="audio-player" controls>
+                    <source src="/podcasts/{{ episode.slug }}.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </article>
+        </div>
+    </body>
+</html>
+
+<!-- 
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ episode.title }} --- Are You Into Bus Stuff? Episode #{{ episode.id }}</title>
         <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
     </head>
@@ -32,4 +237,4 @@
         <source src="/podcasts/{{ episode.slug }}.mp3" type="audio/mpeg">
     </audio>
 </div>
-</html>
+</html> -->
