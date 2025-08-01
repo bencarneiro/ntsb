@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 
+from django.views.decorators.cache import cache_page
 from django.db.models import Q, Sum, Count, Min
 from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
 from django.contrib.gis.geos import GEOSGeometry
@@ -393,6 +394,7 @@ def nonmotorist(request):
     return render(request, "nonmotorist.html", {})
 
 
+@cache_page(60 * 60 * 24 * 30)
 def pedestrian_safety(request):
     
     years = [2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022, 2023]
