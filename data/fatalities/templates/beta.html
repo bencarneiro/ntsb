@@ -445,7 +445,7 @@
                 var latitude = e.lngLat.lat.toFixed(10)
                 var longitude = e.lngLat.lng.toFixed(10)
                 
-                var redirectUrl = `https://roadway.report/beta?latitude=${latitude}&longitude=${longitude}&zoom=18`
+                var redirectUrl = `https://roadway.report?latitude=${latitude}&longitude=${longitude}&zoom=18`
                 var googleUrl = `https://google.com/maps/@${latitude},${longitude}`
                 contextMenu.innerHTML=`<button onclick="navigator.clipboard.writeText('${redirectUrl}'); alert('${redirectUrl} is copied to your clipboard')">Share This Location</button><button onclick="window.open('https://google.com/maps/place/${latitude},${longitude}');">Open in Google Maps</button>`
                 
