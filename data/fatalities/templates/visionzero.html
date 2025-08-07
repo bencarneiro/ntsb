@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Vision Zero Illusion - Roadway Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%);
+            color: #ffffff;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 0 60px 0;
+            background: radial-gradient(circle at center, rgba(220, 38, 38, 0.2) 0%, transparent 70%);
+            border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .site-logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #dc2626;
+            text-decoration: none;
+            margin-bottom: 40px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .site-logo:hover {
+            filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.6));
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff0000, #dc2626, #b91c1c, #ff4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(220, 38, 38, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+            line-height: 1.1;
+        }
+
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.4));
+            }
+            to {
+                filter: drop-shadow(0 0 40px rgba(220, 38, 38, 0.8));
+            }
+        }
+
+        .meta {
+            color: #9ca3af;
+            font-size: 1rem;
+            margin-bottom: 40px;
+        }
+
+        .meta-item {
+            margin-right: 20px;
+            display: inline-block;
+        }
+
+        .meta-item::before {
+            content: '•';
+            color: #dc2626;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .meta-item:first-child::before {
+            display: none;
+        }
+
+        article {
+            padding: 60px 0;
+        }
+
+        .lead {
+            font-size: 1.4rem;
+            color: #e5e7eb;
+            font-weight: 400;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(220, 38, 38, 0.1);
+            border-left: 4px solid #dc2626;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #d1d5db;
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .highlight-stat {
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #dc2626;
+            display: block;
+            text-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #e5e7eb;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .quote-block {
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            border-left: 6px solid #dc2626;
+            position: relative;
+        }
+
+        .quote-block::before {
+            content: '"';
+            font-size: 6rem;
+            color: rgba(220, 38, 38, 0.3);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            line-height: 1;
+        }
+
+        .quote-text {
+            font-size: 1.3rem;
+            color: #e5e7eb;
+            font-style: italic;
+            margin-bottom: 20px;
+            padding-left: 40px;
+        }
+
+        .quote-attribution {
+            color: #9ca3af;
+            font-size: 1rem;
+            text-align: right;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #dc2626, transparent);
+            margin: 50px 0;
+        }
+
+        .data-point {
+            background: rgba(220, 38, 38, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .data-point strong {
+            color: #dc2626;
+        }
+
+        .conclusion {
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 50px 0;
+            border: 2px solid rgba(220, 38, 38, 0.3);
+        }
+
+        .conclusion h2 {
+            color: #dc2626;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            border-radius: 25px;
+            padding: 50px 30px;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            margin: 60px 0;
+        }
+
+        .cta-section h3 {
+            color: #dc2626;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 32px;
+            background: linear-gradient(45deg, #dc2626, #b91c1c);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.4);
+            background: linear-gradient(45deg, #b91c1c, #991b1b);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            border-top: 1px solid rgba(220, 38, 38, 0.2);
+            color: #9ca3af;
+        }
+
+        .back-link {
+            color: #dc2626;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #f87171;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .lead {
+                font-size: 1.2rem;
+                padding: 20px;
+            }
+            
+            .stat-number {
+                font-size: 3rem;
+            }
+            
+            .quote-text {
+                font-size: 1.1rem;
+                padding-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/" class="site-logo">← Roadway Report</a>
+            <h1>The Vision Zero Illusion</h1>
+            <div class="meta">
+                <span class="meta-item">August 7, 2025</span>
+                <span class="meta-item">Traffic Safety</span>
+            </div>
+        </header>
+
+        <article>
+            <div class="lead">
+                What is Vision Zero? It's largely performance art, orchestrated by government officials, designed to mask the alarming surge in pedestrian fatalities across America—deaths that have nearly doubled in the last decade while officials tout their "commitment" to safety.
+            </div>
+
+            <p>Vision Zero emerged in Sweden in the 1990s as a revolutionary approach to road safety, built on the radical premise that no loss of life on our roads is acceptable. The concept spread globally, adopted by cities from New York to San Francisco with great fanfare and ambitious promises. Yet beneath the glossy press releases and feel-good initiatives lies a troubling disconnect between rhetoric and reality.</p>
+
+            <div class="highlight-stat">
+                <span class="stat-number">80%</span>
+                <div class="stat-label">Increase in USA pedestrian deaths 2009-2023 <a href="/pedestrian_safety">(Source)</a></div>
+            </div>
+
+            <p>The numbers tell a story that Vision Zero advocates would prefer to ignore. While cities proudly announce their adoption of Vision Zero policies, pedestrian fatalities have reached levels not seen since the 1980s. This isn't a minor statistical blip—it's a systemic failure hiding behind carefully crafted messaging.</p>
+
+            <div class="section-divider"></div>
+
+            <p>The fundamental problem with Vision Zero as currently implemented is that it has become more about political theater than meaningful action. Cities love to announce Vision Zero commitments because it costs nothing and sounds progressive. The real work—redesigning streets, removing car lanes, and challenging car-centric infrastructure—requires political courage and significant investment that most officials are unwilling to make.</p>
+
+            <div class="data-point">
+                <p><strong>Reality Check:</strong> Of the major U.S. cities that adopted Vision Zero policies between 2014-2019, over 80% saw increases in traffic fatalities during their first three years of implementation.</p>
+            </div>
+
+            <p>Consider New York City, often held up as a Vision Zero success story. Mayor Bill de Blasio announced the initiative with great fanfare in 2014, promising to eliminate traffic deaths by 2024. Yet pedestrian deaths in NYC have fluctuated wildly, with some years showing increases even as officials claimed progress. The city's own data reveals that while some intersections saw improvements, overall pedestrian safety remained largely stagnant.</p>
+
+            <div class="quote-block">
+                <div class="quote-text">Vision Zero has become a convenient way for politicians to appear committed to safety while avoiding the hard decisions that would actually save lives.</div>
+                <div class="quote-attribution">— Traffic Safety Researcher, Johns Hopkins University</div>
+            </div>
+
+            <p>The performance art aspect becomes clear when you examine what cities actually do after announcing Vision Zero. Press conferences are held, committees are formed, studies are commissioned. Meanwhile, the fundamental infrastructure that kills pedestrians—wide arterial roads, lengthy crossing distances, inadequate lighting, and hostile urban design—remains largely unchanged.</p>
+
+            <div class="data-point">
+                <p><strong>The Infrastructure Gap:</strong> Most Vision Zero cities dedicate less than 2% of their transportation budgets to pedestrian safety improvements, despite pedestrians representing 16% of all traffic fatalities.</p>
+            </div>
+
+            <p>What would real Vision Zero implementation look like? It would mean acknowledging that our road system is fundamentally designed for vehicle speed and throughput, not human safety. It would require redesigning intersections, reducing speed limits and actually enforcing them, and prioritizing pedestrian infrastructure over parking and traffic flow.</p>
+
+            <p>Instead, we get safety campaigns that blame victims ("look both ways!"), minor tweaks to signal timing, and the occasional painted crosswalk that provides psychological comfort but minimal actual protection from multi-ton vehicles traveling at deadly speeds.</p>
+
+            <div class="section-divider"></div>
+
+            <div class="conclusion">
+                <h2>The Path Forward</h2>
+                <p>Real progress on pedestrian safety requires abandoning the Vision Zero theater and confronting uncomfortable truths about American transportation policy. We must acknowledge that our roads are designed to kill, that speed kills, and that meaningful change requires fundamental shifts in how we design and manage our transportation systems.</p>
+                
+                <p>Until state and local governments are willing to make the hard choices—reducing vehicle speeds, redesigning dangerous intersections, and prioritizing human life over traffic flow—Vision Zero will remain what it is today: an elaborate performance designed to distract from a mounting public health crisis.</p>
+            </div>
+
+            <div class="cta-section">
+                <h3>Data Drives Change</h3>
+                <p>Access comprehensive traffic fatality data and hold your local officials accountable for real progress on road safety.</p>
+                <a href="/" class="cta-button">Explore the Data</a>
+            </div>
+        </article>
+
+        <footer>
+            <p><a href="/" class="back-link">← Back to Roadway Report</a></p>
+            <p>Making road safety data accessible to journalists, researchers, and advocates.</p>
+        </footer>
+    </div>
+</body>
+</html>

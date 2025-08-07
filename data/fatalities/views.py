@@ -516,6 +516,9 @@ def pedestrian_safety(request):
 def vehicle(request):
     return render(request, "vehicle.html", {})
 
+def visionzero(request):
+    return render(request, "visionzero.html", {})
+
 def beta(request):
     return render(request, "beta.html", {"TILES_URL": TILES_URL})
 

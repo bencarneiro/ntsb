@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from fatalities.views import PodcastFeed, collect_email, gooner_army, reddit, beta_redirect, favicon_view, texas, missed_connections, create_missed_connection, someone_died_here, connection, population, population_nonmotorist, pedestrian_safety, privacy, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, post_missed_connection_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes, api_tutorial_notebook
+from fatalities.views import PodcastFeed, collect_email, gooner_army, visionzero, reddit, beta_redirect, favicon_view, texas, missed_connections, create_missed_connection, someone_died_here, connection, population, population_nonmotorist, pedestrian_safety, privacy, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, post_missed_connection_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes, api_tutorial_notebook
 from .api import api
 from django.conf import settings
 from django.conf.urls.static import static
@@ -46,6 +46,7 @@ urlpatterns = [
     path("nonmotorist_csv", nonmotorist_csv, name="nonmotorist_csv"),
     path("nonmotorist", nonmotorist, name="nonmotorist"),
     path("vehicle", vehicle, name="vehicle"),
+    path("visionzero", visionzero, name="visionzero"),
     path("beta", beta_redirect, name="beta"),
     path("pedestrian_safety", pedestrian_safety, name="pedestrian_safety"),
     path("v1/", api.urls),
