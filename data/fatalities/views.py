@@ -51,8 +51,8 @@ def get_client_ip(request):
     return ip
 
 
-def crashes(request):
-    return redirect("beta")
+def beta_redirect(request):
+    return redirect("/")
     # return render(request, "landing_page.html", context={})
 
 def schema(request):
