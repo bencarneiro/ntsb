@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://roadway.report/</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <!-- Data and Analytics Pages -->
+  <url>
+    <loc>https://roadway.report/county_selector</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://roadway.report/population</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+
+
+  <!-- Safety and Vision Zero -->
+  <url>
+    <loc>https://roadway.report/visionzero</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://roadway.report/pedestrian_safety</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+
+  <!-- Information and Documentation -->
+  <url>
+    <loc>https://roadway.report/info</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>https://roadway.report/schema</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://roadway.report/api_tutorial_notebook</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <!-- Podcast -->
+  <url>
+    <loc>https://roadway.report/podcast</loc>
+    <priority>0.9</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>https://roadway.report/podcast/feed.xml</loc>
+    <priority>0.6</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <!-- Community Features -->
+  <url>
+    <loc>https://roadway.report/comments</loc>
+    <priority>0.6</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>https://roadway.report/missed_connections</loc>
+    <priority>0.6</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <!-- Regional Pages -->
+  <url>
+    <loc>https://roadway.report/texas</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <!-- Social and External -->
+  <url>
+    <loc>https://roadway.report/reddit</loc>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <!-- Legal and Privacy -->
+  <url>
+    <loc>https://roadway.report/privacy</loc>
+    <priority>0.4</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+
+
+</urlset>
