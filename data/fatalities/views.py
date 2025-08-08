@@ -826,3 +826,6 @@ def someone_died_here(request):
 
 def api_tutorial_notebook(request):
     return render(request, "api_tutorial_notebook.html", {})
+
+def sitemap(request):
+    return HttpResponse(open('fatalities/templates/sitemap.xml').read())
