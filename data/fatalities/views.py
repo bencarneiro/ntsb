@@ -16,7 +16,7 @@ from data.filter_schemas import AccidentLocationFilterSchema
 from django.db.models import Q
 from django.contrib.gis.geoip2 import GeoIP2
 from fatalities.forms import CommentForm, EmailForm
-from data.settings import TILES_URL
+from data.settings import TILES_URL, TEMPLATES_PATH
 
 from PIL import Image, ImageDraw, ImageFont
 import time
@@ -828,4 +828,4 @@ def api_tutorial_notebook(request):
     return render(request, "api_tutorial_notebook.html", {})
 
 def sitemap(request):
-    return HttpResponse(open('fatalities/templates/sitemap.xml').read())
+    return HttpResponse(open(f'{TEMPLATES_PATH}sitemap.xml').read())
