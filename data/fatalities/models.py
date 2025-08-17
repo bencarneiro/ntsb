@@ -1811,7 +1811,7 @@ class Vehicle(models.Model):
         (999, 'CATEGORY VI: MISCELLANEOUS - Unknown Crash Type'),
 
     ]
-    crash_type = models.PositiveSmallIntegerField(choices = crash_type_choices, default=99)
+    crash_type = models.PositiveSmallIntegerField(choices = crash_type_choices, default=999)
 
     class Meta:
         unique_together = [["accident", "vehicle_number"]]
