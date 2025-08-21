@@ -32,9 +32,10 @@ class Command(BaseCommand):
             per_no = str(csv['PER_NO'][x])
             while len(per_no) < 3:
                 per_no = "0" + per_no
+            number_of_factors_saved = 0
             for factor in ["P_CF1", "P_CF2", "P_CF3"]:
-                number_saved = len(PersonRelatedFactor.objects.filter(person=person))
-                new_factor_id = str(number_saved + 1)
+                # number_saved = len(PersonRelatedFactor.objects.filter(person=person))
+                new_factor_id = str(number_of_factors_saved + 1)
                 while len(new_factor_id) < 3:
                     new_factor_id = "0" + new_factor_id
                 primary_key = f"2000{st_case}{veh_no}{per_no}{new_factor_id}"
@@ -49,6 +50,7 @@ class Command(BaseCommand):
 
                 factor_code = person_related_factor_converter(csv[factor][x], 2000)
                 if factor_code:
+                    number_of_factors_saved += 1
                     new_personrf_object = PersonRelatedFactor(id=primary_key, person=person, person_related_factor=factor_code)
                     bulk_data_upload += [new_personrf_object]
                     print(new_personrf_object)
