@@ -13,7 +13,13 @@ class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
         Race.objects.filter(person__accident__year=2000).delete()
         csv = pd.read_csv(f"{CSV_PATH}2000/PERSON.CSV", encoding='latin-1')
+        bulk_data_upload = []
         for x in csv.index:
+            if x % 1000 == 999:
+                print(new_race_object)
+                Race.objects.bulk_create(bulk_data_upload)
+                bulk_data_upload = []
+                print("WE HIT THE DB")
             if csv['VEH_NO'][x] == 0:
                 person = Person.objects.get(accident__year=2000, person_number=csv['PER_NO'][x], accident__st_case=csv['ST_CASE'][x], vehicle__vehicle_number__isnull=True, parked_vehicle__vehicle_number__isnull=True)
             else:
@@ -34,11 +40,16 @@ class Command(BaseCommand):
                 new_race_id = "0" + new_race_id
             primary_key = f"2000{st_case}{veh_no}{per_no}{new_race_id}"
             
-            data_to_save = {"id": primary_key, "person": person}
+            new_race_object = Race(id=primary_key, person=person, race=race_converter(csv['RACE'][x], 2000), is_multiple_races=0, order=1)
+            bulk_data_upload += [new_race_object]
 
-            data_to_save['race'] = race_converter(csv['RACE'][x], 2000)
-            data_to_save['is_multiple_races'] = 0
-            data_to_save['order'] = 1
+        Race.objects.bulk_create(bulk_data_upload)
+        print(f"we hit it again")
+            # print(f"added new race object {new_race_object}")
+            # data_to_save = {"id": primary_key, "person": person}
+
+            # data_to_save['race'] = race_converter(csv['RACE'][x], 2000)
+            # data_to_save['is_multiple_races'] = 0
+            # data_to_save['order'] = 1
                 
-            print(data_to_save)
-            Race.objects.create(**data_to_save)
+            # print(data_to_save)
