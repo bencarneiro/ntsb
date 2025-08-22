@@ -40,4 +40,8 @@ class Command(BaseCommand):
                         vehicle=vehicle,
                         driver_related_factor=factor_code
                     )
+                    bulk_data_upload += [new_factor_object]
                     number_of_factors_saved += 1
+        
+        DriverRelatedFactor.objects.bulk_create(bulk_data_upload)
+        print("we hit the database one last time")
