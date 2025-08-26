@@ -10,24 +10,42 @@ class Command(BaseCommand):
         csv = pd.read_csv(f"{CSV_PATH}2000/ACCIDENT.CSV", encoding='latin-1')
         # 2000 - 2000 
         # need to pull from weather1/weather2
+        bulk_data_upload = []
         for x in csv.index:
+            if x % 1000 == 999:
+                print(new_weather_object)
+                Weather.objects.bulk_create(bulk_data_upload)
+                bulk_data_upload = []
+                print("WE HIT THE DB")
             accident = Accident.objects.get(year=2000, st_case=csv['ST_CASE'][x])
 
             st_case = str(csv['ST_CASE'][x])
             if len(st_case) == 5:
                 st_case = "0" + st_case
             weather_records_to_be_saved = atmospheric_condition_converter(csv['WEATHER'][x], 2000)
+            number_of_weathers_saved = 0
             for record in weather_records_to_be_saved:
                 if record:
-                    number_of_saved_weathers = len(Weather.objects.filter(accident=accident))
-                    new_weather_id = str(number_of_saved_weathers + 1)
+                    # number_of_saved_weathers = len(Weather.objects.filter(accident=accident))
+                    new_weather_id = str(number_of_weathers_saved + 1)
                     while len(new_weather_id) < 3:
                         new_weather_id = "0" + new_weather_id
                     primary_key = f"2000{st_case}{new_weather_id}"
-                    data_to_save = {
-                        "id": primary_key,
-                        "accident": accident,
-                        "atmospheric_condition": record
-                    }
-                    print(data_to_save)
-                    Weather.objects.create(**data_to_save)
+                    new_weather_object = Weather(
+                        id=primary_key,
+                        accident=accident,
+                        atmospheric_condition=record
+                    )
+                    bulk_data_upload += [new_weather_object]
+                    # data_to_save = {
+                    #     "id": primary_key,
+                    #     "accident": accident,
+                    #     "atmospheric_condition": record
+                    # }
+                    # print(data_to_save)
+                    # Weather.objects.create(**data_to_save)
+                    number_of_weathers_saved += 1
+        print(new_weather_object)
+        Weather.objects.bulk_create(bulk_data_upload)
+        # bulk_data_upload = []
+        print("WE HIT THE DB one last time")
