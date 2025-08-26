@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from fatalities.views import PodcastFeed, sitemap, collect_email, gooner_army, visionzero, reddit, beta_redirect, favicon_view, texas, missed_connections, create_missed_connection, someone_died_here, connection, population, population_nonmotorist, pedestrian_safety, privacy, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, post_missed_connection_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes, api_tutorial_notebook
+from fatalities.views import PodcastFeed, sitemap, accident_list, get_counties_by_state, collect_email, gooner_army, visionzero, reddit, beta_redirect, favicon_view, texas, missed_connections, create_missed_connection, someone_died_here, connection, population, population_nonmotorist, pedestrian_safety, privacy, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, post_missed_connection_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes, api_tutorial_notebook
 from .api import api
 from django.conf import settings
 from django.conf.urls.static import static
@@ -32,6 +32,8 @@ urlpatterns = [
     path("testmap", testmap, name="testmap"),
     path("nonmotorist_map", nonmotorist_map, name="nonmotorist_map"),
     path("post_comment", post_comment, name="post_comment"),
+    path('accidents/', accident_list, name='accident_list'),
+    path('accidents/counties/', get_counties_by_state, name='get_counties_by_state'),
     path("post_missed_connection_comment", post_missed_connection_comment, name="post_missed_connection_comment"),
     path("collect_email", collect_email, name="collect_email"),
     path("county_selector", county_selector, name="county_selector"),
@@ -40,7 +42,6 @@ urlpatterns = [
     path("accidents/<int:id>/", accident_summary, name="accident_summary"),
     path("crash/<int:id>/", accident_summary, name="crash_summary"),
     path("total_fatalities", total_fatalities, name="total_fatalities"),
-    # path("new_map", new_map, name="new_map"),
     path("info", info, name="info"),
     path("total_csv", total_csv, name="total_csv"),
     path("vehicle_csv", vehicle_csv, name="vehicle_csv"),

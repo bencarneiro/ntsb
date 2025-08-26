@@ -1,0 +1,368 @@
+<!-- templates/accidents/accident_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accident Records</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        
+        .stats {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .accident-id {
+            font-family: monospace;
+            background-color: #e9ecef;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .datetime {
+            color: #6c757d;
+            white-space: nowrap;
+        }
+        
+        .county {
+            font-weight: 500;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .pagination a, .pagination .current {
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            background: white;
+            color: #495057;
+        }
+        
+        .pagination a:hover {
+            background-color: #e9ecef;
+        }
+        
+        .pagination .current {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        .pagination .disabled {
+            color: #6c757d;
+            pointer-events: none;
+            background-color: #f8f9fa;
+        }
+        
+        .no-records {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        
+        .search-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .search-row {
+            display: flex;
+            align-items: end;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .search-field {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+        }
+        
+        .search-field label {
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #495057;
+        }
+        
+        .search-field select {
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .search-field select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .search-field input {
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .search-field input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        
+        .search-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-btn, .clear-btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.2s;
+        }
+        
+        .search-btn {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .search-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .clear-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .clear-btn:hover {
+            background-color: #5a6268;
+        }
+        
+        @media (max-width: 768px) {
+            .search-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-field {
+                min-width: auto;
+            }
+            
+            .search-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Accident Records</h1>
+        <div class="stats">
+            Total Records: {{ total_count }} | 
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </div>
+    </div>
+
+    <!-- Search Filters -->
+    <div class="search-container">
+        <form method="get" id="searchForm">
+            <div class="search-row">
+                <div class="search-field">
+                    <label for="state">State:</label>
+                    <select name="state" id="state" 
+                            hx-get="{% url 'get_counties_by_state' %}" 
+                            hx-target="#county" 
+                            hx-trigger="change"
+                            hx-swap="outerHTML">
+                        <option value="">All States</option>
+                        {% for state in states %}
+                            <option value="{{ state.id }}" {% if selected_state.id == state.id %}selected{% endif %}>
+                                {{ state.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="search-field">
+                    <label for="county">County:</label>
+                    <select name="county" id="county">
+                        <option value="">All Counties</option>
+                        {% for county in counties %}
+                            <option value="{{ county.id }}" {% if selected_county.id == county.id %}selected{% endif %}>
+                                {{ county.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="search-field">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" name="start_date" id="start_date" value="{{ selected_start_date }}">
+                    </input>
+                </div>
+                <div class="search-field">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" name="end_date" id="end_date" value="{{ selected_end_date }}">
+                    </input>
+                </div>
+                <div class="search-buttons">
+                    <button type="submit" class="search-btn">Search</button>
+                    <a href="{% url 'accident_list' %}" class="clear-btn">Clear</a>
+                </div>
+            </div>
+            
+            <!-- Preserve page parameter when filtering -->
+            {% if request.GET.page and not request.GET.state and not request.GET.county %}
+                <input type="hidden" name="page" value="{{ request.GET.page }}">
+            {% endif %}
+        </form>
+    </div>
+
+    {% if page_obj %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>County</th>
+                        <th>State</th>
+                        <th>Persons</th>
+                        <th>Date & Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for accident in page_obj %}
+                        <tr onClick="window.location.href='/accidents/{{ accident.id }}'">
+                            <td>
+                                <span class="accident-id">{{ accident.id }}</span>
+                            </td>
+                            <td class="county">
+                                {{ accident.county.name|default:"Unknown" }}
+                            </td>
+                            <td class="state">
+                                {{ accident.state.name|default:"Unknown" }}
+                            </td>
+                            <td class="fatalities">
+                                <!-- {{ accident.fatalitytotals.total_fatalities|default:"Unknown" }} -->
+                                
+                                {% for person in accident.person_set.all %}
+                                <div>{{ person.get_injury_severity_display }} --- {{ person.age }} year old {{ person.get_sex_display }} {{ person.get_person_type_display|slice:"0:23" }}...</div>
+                                {{ list1 }}
+                                {{ list2 }}
+                                {% endfor %}
+                            </td>
+                            <td class="datetime">
+                                {{ accident.datetime|date:"M d, Y g:i A" }}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3" class="no-records">
+                                No accident records found.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.county %}&county={{ request.GET.county }}{% endif %}">First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.county %}&county={{ request.GET.county }}{% endif %}">Previous</a>
+                {% else %}
+                    <span class="disabled">First</span>
+                    <span class="disabled">Previous</span>
+                {% endif %}
+
+                <span class="current">{{ page_obj.number }}</span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.county %}&county={{ request.GET.county }}{% endif %}">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.county %}&county={{ request.GET.county }}{% endif %}">Last</a>
+                {% else %}
+                    <span class="disabled">Next</span>
+                    <span class="disabled">Last</span>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="no-records">
+            <h2>No Records Available</h2>
+            <p>There are no accident records to display.</p>
+        </div>
+    {% endif %}
+</body>
+</html>
