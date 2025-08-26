@@ -8,7 +8,13 @@ class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
         Damage.objects.filter(vehicle__accident__year=2000).delete()
         csv = pd.read_csv(f"{CSV_PATH}2000/VEHICLE.CSV", encoding='latin-1')
+        bulk_data_upload = []
         for x in csv.index:
+            if x % 1000 == 999:
+                print(new_damage_object)
+                Damage.objects.bulk_create(bulk_data_upload)
+                bulk_data_upload = []
+                print("WE HIT THE DB")
             vehicle = Vehicle.objects.get(accident__year=2000, accident__st_case=csv['ST_CASE'][x], vehicle_number=csv['VEH_NO'][x])
 
 
@@ -24,17 +30,24 @@ class Command(BaseCommand):
                 new_damage_id = "0" + new_damage_id
             primary_key = f"2000{st_case}{veh_no}{new_damage_id}"
             
-            data_to_save = {"vehicle": vehicle, "id": primary_key}
             impact_1 = area_of_impact_converter(csv['IMPACT1'][x], 2000)
             impact_2 = area_of_impact_converter(csv['IMPACT2'][x], 2000)
-            data_to_save['area_of_impact'] = impact_1
-            Damage.objects.create(**data_to_save)
-            print(data_to_save)
-            if impact_1 != impact_2:
-                data_to_save['area_of_impact'] = impact_2
-                data_to_save['id'] = data_to_save['id'][:-1]
-                data_to_save['id'] += "2"
-                Damage.objects.create(**data_to_save)
-                print(data_to_save)
+            new_damage_object = Damage(
+                id=primary_key,
+                vehicle=vehicle,
+                area_of_impact=impact_1
+            )
+            bulk_data_upload += [new_damage_object]
 
-            
+            if impact_1 != impact_2:
+                primary_key = primary_key[:-1] + "2"
+                new_damage_object = Damage(
+                    id=primary_key,
+                    vehicle=vehicle,
+                    area_of_impact=impact_2
+                )
+                bulk_data_upload += [new_damage_object]
+        print(new_damage_object)
+        Damage.objects.bulk_create(bulk_data_upload)
+        # bulk_data_upload = []
+        print("WE HIT THE DB one last time")
