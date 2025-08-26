@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 
+from django.core.paginator import Paginator
 from django.views.decorators.cache import cache_page
 from django.db.models import Q, Sum, Count, Min
 from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
@@ -396,6 +397,87 @@ def new_map(request):
 
 def nonmotorist(request):
     return redirect("/")
+
+def accident_list(request):
+    # Get filter parameters
+    state_id = request.GET.get('state')
+    county_id = request.GET.get('county')
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    
+    # Start with all accidents
+    accidents = Accident.objects.order_by('-datetime')
+    
+    # Apply filters
+    if state_id:
+        accidents = accidents.filter(county__state_id=state_id)
+    if county_id:
+        accidents = accidents.filter(county_id=county_id)
+
+    selected_start_date = None
+    selected_end_date = None
+    if start_date:
+        accidents = accidents.filter(datetime__gte=start_date)
+        selected_start_date = start_date
+    if end_date:
+        accidents = accidents.filter(datetime__lte=end_date)
+        selected_end_date = end_date
+    
+
+    # Get all states for the dropdown
+    states = State.objects.all().order_by('name')
+    
+    # Get counties for selected state (if any)
+    counties = County.objects.none()
+    selected_state = None
+    selected_county = None
+    
+    if state_id:
+        try:
+            selected_state = State.objects.get(id=state_id)
+            counties = County.objects.filter(state_id=state_id).order_by('name')
+        except State.DoesNotExist:
+            pass
+    
+    if county_id:
+        try:
+            selected_county = County.objects.get(id=county_id)
+        except County.DoesNotExist:
+            pass
+    
+    # Set up pagination (25 records per page - adjust as needed)
+    paginator = Paginator(accidents, 25)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'page_obj': page_obj,
+        'total_count': accidents.count(),
+        'states': states,
+        'counties': counties,
+        'selected_state': selected_state,
+        'selected_county': selected_county,
+        'selected_start_date': selected_start_date,
+        'selected_end_date': selected_end_date,
+    }
+    
+    return render(request, 'accident_list.html', context)
+
+def get_counties_by_state(request):
+    """HTMX endpoint to get counties for a selected state"""
+    state_id = request.GET.get('state')
+    
+    # Start with empty county select
+    county_options = '<select name="county" id="county"><option value="">All Counties</option>'
+    
+    if state_id:
+        counties = County.objects.filter(state_id=state_id).order_by('name')
+        for county in counties:
+            county_options += f'<option value="{county.id}">{county.name}</option>'
+    
+    county_options += '</select>'
+    
+    return HttpResponse(county_options)
 
 
 @cache_page(60 * 60 * 24 * 30)
