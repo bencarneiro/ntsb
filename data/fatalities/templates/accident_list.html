@@ -338,7 +338,7 @@
                                 <!-- {{ accident.fatalitytotals.total_fatalities|default:"Unknown" }} -->
                                 <ul>
                                 {% for person in accident.person_set.all %}
-                                <li>{{ person.get_injury_severity_display }} --- {{ person.age }} year old {{ person.get_sex_display }} <div><i>{{ person.get_person_type_display}}</i></div></li>
+                                <li>{{ person.get_injury_severity_display }} --- {% if person.age == 999 or person.age == 998 %}Unknown Age{% else %} {{ person.age }} year old{% endif %} {% if person.sex == 8 or person.sex == 9%}Sex Unknown{%else%}{{ person.get_sex_display }}{%endif%} <div><i>{{ person.get_person_type_display}}</i></div></li>
                                 {% endfor %}
                             </ul>
                             </td>
