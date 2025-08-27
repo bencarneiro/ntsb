@@ -2907,7 +2907,7 @@ class Person(models.Model):
     #p23B
     minute_of_death = models.IntegerField(null=True, blank=True)
     #p100a
-    lag_hours = models.PositiveSmallIntegerField(null=True, blank=True)
+    lag_hours = models.SmallIntegerField(null=True, blank=True)
     #p100b
     lag_minutes = models.PositiveSmallIntegerField(null=True, blank=True)
     #NM4
