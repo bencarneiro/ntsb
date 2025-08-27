@@ -84,3 +84,5 @@ python3 manage.py 1995_vehiclesf > /var/log/1995_vehiclesf.txt
 python3 manage.py 1995_driverrf > /var/log/1995_driverrf.txt
 python3 manage.py 1995_drugs > /var/log/1995_drugs.txt
 python3 manage.py 1995_personrf > /var/log/1995_personrf.txt
+
+python3 manage.py fatality_totals > /var/log/1995_fatality_totals.txt
