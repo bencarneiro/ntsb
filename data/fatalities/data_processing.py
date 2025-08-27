@@ -717,7 +717,9 @@ def year_of_violation_converter(value, year):
     if year < 1998:
         if value in {99}:
             return 9999
-        return int("19"+str(value))
+        if not value:
+            return 0.0
+        return int(float("19"+str(value)))
     return value
 
 def speeding_related_converter(value, source, year):
