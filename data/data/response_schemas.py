@@ -566,7 +566,7 @@ class AccidentSchema(Schema):
     number_of_persons_not_in_motor_vehicles_in_transport: int = Field(0, alias="number_of_persons_not_in_motor_vehicles_in_transport")
 
 
-    trafficway_identifier_1: str
+    trafficway_identifier_1: Optional[str] = None
     trafficway_identifier_2: Optional[str] = None
 
     route_signing: int = Field(..., alias='route_signing')
