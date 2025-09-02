@@ -1365,6 +1365,8 @@ def area_of_impact_converter(value, year):
     return value
 
 def milepoint_converter(value, year):
+    if not value:
+        return value
     if value < 0:
         return abs(value)
     return value
