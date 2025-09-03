@@ -300,7 +300,7 @@ def county_dashboard(request, **kwargs):
 def total_fatalities(request):
     county = County.objects.get(id=request.GET['county_id'])
 
-    years = [1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022, 2023]
+    years = [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022, 2023]
 
     fatalities_by_year = Accident.objects.filter(county=county).values("year").annotate(total_fatalities=Sum("fatalities")).order_by("year")
     pedestrian_fatalities_qs = Accident.objects.filter(county=county).values("year").annotate(pedestrian_fatalities=Sum("fatalitytotals__ped_fatalities")).order_by("year")
@@ -481,7 +481,7 @@ def get_counties_by_state(request):
 @cache_page(60 * 60 * 24 * 30)
 def pedestrian_safety(request):
     
-    years = [1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022, 2023]
+    years = [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022, 2023]
 
     context = {
         "pedestrian_death_labels": years, 
