@@ -1,0 +1,82 @@
+
+python3 manage.py 1994_accident > /var/log/1994_accident.txt
+python3 manage.py 1994_vehicle > /var/log/1994_vehicle.txt
+python3 manage.py 1994_person > /var/log/1994_person.txt
+python3 manage.py 1994_crashrf > /var/log/1994_crashrf.txt
+python3 manage.py 1994_weather > /var/log/1994_weather.txt
+python3 manage.py 1994_damage > /var/log/1994_damage.txt
+python3 manage.py 1994_drimpair > /var/log/1994_drimpair.txt
+python3 manage.py 1994_factor > /var/log/1994_factor.txt
+python3 manage.py 1994_maneuver > /var/log/1994_maneuver.txt
+python3 manage.py 1994_violatn > /var/log/1994_violatn.txt
+python3 manage.py 1994_vision > /var/log/1994_vision.txt
+python3 manage.py 1994_vehiclesf > /var/log/1994_vehiclesf.txt
+python3 manage.py 1994_driverrf > /var/log/1994_driverrf.txt
+python3 manage.py 1994_drugs > /var/log/1994_drugs.txt
+python3 manage.py 1994_personrf > /var/log/1994_personrf.txt
+
+python3 manage.py 1993_accident > /var/log/1993_accident.txt
+python3 manage.py 1993_vehicle > /var/log/1993_vehicle.txt
+python3 manage.py 1993_person > /var/log/1993_person.txt
+python3 manage.py 1993_crashrf > /var/log/1993_crashrf.txt
+python3 manage.py 1993_weather > /var/log/1993_weather.txt
+python3 manage.py 1993_damage > /var/log/1993_damage.txt
+python3 manage.py 1993_drimpair > /var/log/1993_drimpair.txt
+python3 manage.py 1993_factor > /var/log/1993_factor.txt
+python3 manage.py 1993_maneuver > /var/log/1993_maneuver.txt
+python3 manage.py 1993_violatn > /var/log/1993_violatn.txt
+python3 manage.py 1993_vision > /var/log/1993_vision.txt
+python3 manage.py 1993_vehiclesf > /var/log/1993_vehiclesf.txt
+python3 manage.py 1993_driverrf > /var/log/1993_driverrf.txt
+python3 manage.py 1993_drugs > /var/log/1993_drugs.txt
+python3 manage.py 1993_personrf > /var/log/1993_personrf.txt
+
+python3 manage.py 1992_accident > /var/log/1992_accident.txt
+python3 manage.py 1992_vehicle > /var/log/1992_vehicle.txt
+python3 manage.py 1992_person > /var/log/1992_person.txt
+python3 manage.py 1992_crashrf > /var/log/1992_crashrf.txt
+python3 manage.py 1992_weather > /var/log/1992_weather.txt
+python3 manage.py 1992_damage > /var/log/1992_damage.txt
+python3 manage.py 1992_drimpair > /var/log/1992_drimpair.txt
+python3 manage.py 1992_factor > /var/log/1992_factor.txt
+python3 manage.py 1992_maneuver > /var/log/1992_maneuver.txt
+python3 manage.py 1992_violatn > /var/log/1992_violatn.txt
+python3 manage.py 1992_vision > /var/log/1992_vision.txt
+python3 manage.py 1992_vehiclesf > /var/log/1992_vehiclesf.txt
+python3 manage.py 1992_driverrf > /var/log/1992_driverrf.txt
+python3 manage.py 1992_drugs > /var/log/1992_drugs.txt
+python3 manage.py 1992_personrf > /var/log/1992_personrf.txt
+
+python3 manage.py 1991_accident > /var/log/1991_accident.txt
+python3 manage.py 1991_vehicle > /var/log/1991_vehicle.txt
+python3 manage.py 1991_person > /var/log/1991_person.txt
+python3 manage.py 1991_crashrf > /var/log/1991_crashrf.txt
+python3 manage.py 1991_weather > /var/log/1991_weather.txt
+python3 manage.py 1991_damage > /var/log/1991_damage.txt
+python3 manage.py 1991_drimpair > /var/log/1991_drimpair.txt
+python3 manage.py 1991_factor > /var/log/1991_factor.txt
+python3 manage.py 1991_maneuver > /var/log/1991_maneuver.txt
+python3 manage.py 1991_violatn > /var/log/1991_violatn.txt
+python3 manage.py 1991_vision > /var/log/1991_vision.txt
+python3 manage.py 1991_vehiclesf > /var/log/1991_vehiclesf.txt
+python3 manage.py 1991_driverrf > /var/log/1991_driverrf.txt
+python3 manage.py 1991_drugs > /var/log/1991_drugs.txt
+python3 manage.py 1991_personrf > /var/log/1991_personrf.txt
+
+python3 manage.py 1990_accident > /var/log/1990_accident.txt
+python3 manage.py 1990_vehicle > /var/log/1990_vehicle.txt
+python3 manage.py 1990_person > /var/log/1990_person.txt
+python3 manage.py 1990_crashrf > /var/log/1990_crashrf.txt
+python3 manage.py 1990_weather > /var/log/1990_weather.txt
+python3 manage.py 1990_damage > /var/log/1990_damage.txt
+python3 manage.py 1990_drimpair > /var/log/1990_drimpair.txt
+python3 manage.py 1990_factor > /var/log/1990_factor.txt
+python3 manage.py 1990_maneuver > /var/log/1990_maneuver.txt
+python3 manage.py 1990_violatn > /var/log/1990_violatn.txt
+python3 manage.py 1990_vision > /var/log/1990_vision.txt
+python3 manage.py 1990_vehiclesf > /var/log/1990_vehiclesf.txt
+python3 manage.py 1990_driverrf > /var/log/1990_driverrf.txt
+python3 manage.py 1990_personrf > /var/log/1990_personrf.txt
+
+
+python3 manage.py fatality_totals > /var/log/1990_fatality_totals.txt
