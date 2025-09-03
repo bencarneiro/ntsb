@@ -300,13 +300,11 @@ def county_dashboard(request, **kwargs):
 def total_fatalities(request):
     county = County.objects.get(id=request.GET['county_id'])
 
-    years = [2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022, 2023]
+    years = [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022, 2023]
 
     fatalities_by_year = Accident.objects.filter(county=county).values("year").annotate(total_fatalities=Sum("fatalities")).order_by("year")
-    pedestrian_accidents_list = Person.objects.filter(accident__county=county, injury_severity=4, vehicle__isnull=True, parked_vehicle__isnull=True, person_type__in=[5,10,19]).values_list("accident_id", flat=True)
-    pedestrian_fatalities_qs = Accident.objects.filter(id__in=list(pedestrian_accidents_list)).values("year").annotate(pedestrian_fatalities=Sum("fatalities")).order_by("year")
-    bicycle_accidents_list = Person.objects.filter(accident__county=county, injury_severity=4, vehicle__isnull=True, parked_vehicle__isnull=True, person_type__in=[6,7,8]).values_list("accident_id", flat=True)
-    bicycle_fatalities_qs = Accident.objects.filter(id__in=list(bicycle_accidents_list)).values("year").annotate(bicycle_fatalities=Sum("fatalities")).order_by("year")
+    pedestrian_fatalities_qs = Accident.objects.filter(county=county).values("year").annotate(pedestrian_fatalities=Sum("fatalitytotals__ped_fatalities")).order_by("year")
+    bicycle_fatalities_qs = Accident.objects.filter(county=county).values("year").annotate(bike_fatalities=Sum("fatalitytotals__bike_fatalities")).order_by("year")
     list_of_cars_which_hit_people = Person.objects.filter(accident__county=county, person_type__in=[5,6,7,8,10,19], injury_severity=4).values_list("vehicle_which_struck_non_motorist__id", flat=True)
     
     
@@ -330,7 +328,7 @@ def total_fatalities(request):
         micromobility_deaths = 0
         for f in bicycle_fatalities_qs:
             if f['year'] == year:
-                micromobility_deaths = f['bicycle_fatalities']
+                micromobility_deaths = f['bike_fatalities']
                 break
         nonmotorist_deaths = pedestrian_deaths + micromobility_deaths
         vehicle_deaths = total_deaths - nonmotorist_deaths
@@ -483,7 +481,7 @@ def get_counties_by_state(request):
 @cache_page(60 * 60 * 24 * 30)
 def pedestrian_safety(request):
     
-    years = [2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022, 2023]
+    years = [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022, 2023]
 
     context = {
         "pedestrian_death_labels": years, 

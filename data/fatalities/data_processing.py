@@ -484,6 +484,8 @@ def ncsa_body_type_converter(value, year):
             return 49
         if value in {67}:
             return 19
+        if value in {68}:
+            return 99
         if value in {69}:
             return 49
         if value in {70}:
@@ -1365,6 +1367,8 @@ def area_of_impact_converter(value, year):
     return value
 
 def milepoint_converter(value, year):
+    if not value:
+        return value
     if value < 0:
         return abs(value)
     return value

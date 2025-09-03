@@ -581,7 +581,7 @@ class AccidentSchema(Schema):
     national_highway_system__display: str = Field(..., alias='get_national_highway_system_display')
     special_jurisdiction: int = Field(..., alias="special_jurisdiction")
     special_jurisdiction__display: str = Field(..., alias='get_special_jurisdiction_display')
-    milepoint: int = Field(None, alias="milepoint")
+    milepoint: Optional[int] = Field(None, alias="milepoint")
     first_harmful_event: int = Field(..., alias="first_harmful_event")
     first_harmful_event__display: str = Field(..., alias='get_first_harmful_event_display')
     manner_of_collision_of_first_harmful_event: int = Field(..., alias="manner_of_collision_of_first_harmful_event")
