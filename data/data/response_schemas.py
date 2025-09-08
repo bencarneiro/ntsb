@@ -604,12 +604,12 @@ class AccidentSchema(Schema):
     atmospheric_condition__display: str = Field(..., alias="get_atmospheric_condition_display")
     school_bus_related: bool
     rail_grade_crossing_identifier: str
-    ems_notified_hour: int
-    ems_notified_minute: int
-    ems_arrived_hour: int
-    ems_arrived_minute: int
-    arrived_at_hospital_hour: int
-    arrived_at_hospital_minute: int
+    ems_notified_hour: Optional[int] = None
+    ems_notified_minute: Optional[int] = None
+    ems_arrived_hour: Optional[int] = None
+    ems_arrived_minute: Optional[int] = None
+    arrived_at_hospital_hour: Optional[int] = None
+    arrived_at_hospital_minute: Optional[int] = None
 
 
     vehicles: List[VehicleSchema] = Field(..., alias='vehicle_set')

@@ -1285,7 +1285,7 @@ def visibility_converter(value, year):
         
 
 def person_related_factor_converter(value, year):
-    if value == 99:
+    if value in {98,99}:
         return 999
     if year < 1982:
         if value in {1}:
