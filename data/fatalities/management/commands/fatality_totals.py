@@ -4,7 +4,7 @@ from fatalities.models import Accident, FatalityTotals
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
         # FatalityTotals.objects.all().delete()
-        for year in range(1985,1990):
+        for year in range(1991,1995):
             for a in Accident.objects.filter(year=year):
                 people = a.person_set.filter(injury_severity=4)
 
