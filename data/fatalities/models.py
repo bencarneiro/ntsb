@@ -4311,6 +4311,8 @@ class Violation(models.Model):
         (97, 'Not Reported'),
         (98, 'Other Moving Violation'),
         (99, 'Unknown Violations'),
+        (101, "Yes"),
+        (102, "Pending")
     ]
     moving_violation = models.PositiveSmallIntegerField(choices=moving_violation_choices, default=0)
 

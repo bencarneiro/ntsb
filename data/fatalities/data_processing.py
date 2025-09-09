@@ -1314,9 +1314,11 @@ def violation_converter(value, year):
             return 0
         if value in {9}:
             return 99
-        if value in {1,2}:
-            return 98
-        return value
+        if value in {1}:
+            return 101
+        if value in {2}:
+            return 102
+        return None
     if year < 1997:
         if value in {4}:
             return 2
