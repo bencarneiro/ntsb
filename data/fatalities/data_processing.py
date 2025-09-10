@@ -5,6 +5,7 @@ from decimal import Decimal
 from django.contrib.gis.geos import Point
 
 def get_accident_datetime(a):
+    # print(a.st_case)
     year = str(a.year)
     month = str(a.month)
     if len(str(a.month)) == 1:
@@ -18,8 +19,11 @@ def get_accident_datetime(a):
     minute = str(a.minute)
     if len(str(a.minute)) == 1:
         minute = "0" + str(a.minute)
+
+    # print(f"{year}-{month}-{day} {hour}:{minute}:00+0000")
     if month == "99":
-        return f"{year}-01-01 00:00:00Z-00+0000", True
+        # print("first return")
+        return f"{year}-01-01 00:00:00+0000", True
     if day == "99":
         return f"{year}-{month}-01 00:00:00+0000", True
     if hour in {"24", "99"}:
@@ -58,6 +62,8 @@ def get_county(state_id, county_id):
 
 def year_converter(year_field, year):
     if year < 1998:
+        if int(year_field) == 99:
+            return int(year)
         return 1900 + int(year_field)
     return int(year_field)
 
@@ -670,6 +676,8 @@ def fire_occurence_converter(value, year):
         return 0
     if value == 2:
         return 1
+    if value == 9:
+        return 0
     return value
 
 def driver_present_converter(value, year):
