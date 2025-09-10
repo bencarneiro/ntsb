@@ -40,6 +40,58 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "127.0.0.1:8000", "roadway.report", "
 
 CSV_PATH = os.environ.get("CSV_PATH", "/home/tonydeals/app/ntsb/data/csvs/")
 
+ACCIDENT_CSV_PATHS = {
+    1975: '1975/ACCIDENT.CSV',
+    1976: '1976/ACCIDENT.CSV',
+    1977: '1977/ACCIDENT.CSV',
+    1978: '1978/ACCIDENT.CSV',
+    1979: '1979/ACCIDENT.CSV',
+    1980: '1980/ACCIDENT.CSV',
+    1981: '1981/ACCIDENT.CSV',
+    1982: '1982/ACCIDENT.CSV',
+    1983: '1983/ACCIDENT.CSV',
+    1984: '1984/ACCIDENT.CSV',
+    1985: '1985/ACCIDENT.CSV',
+    1986: '1986/ACCIDENT.CSV',
+    1987: '1987/ACCIDENT.CSV',
+    1988: '1988/ACCIDENT.CSV',
+    1989: '1989/ACCIDENT.CSV',
+    1990: '1990/ACCIDENT.CSV',
+    1991: '1991/ACCIDENT.CSV',
+    1992: '1992/ACCIDENT.CSV',
+    1993: '1993/ACCIDENT.CSV',
+    1994: '1994/ACCIDENT.CSV',
+    1995: '1995/ACCIDENT.CSV',
+    1996: '1996/ACCIDENT.CSV',
+    1997: '1997/ACCIDENT.CSV',
+    1998: '1998/ACCIDENT.CSV',
+    1999: '1999/ACCIDENT.CSV',
+    2000: '2000/ACCIDENT.CSV',
+    2001: '2001/ACCIDENT.CSV',
+    2002: '2002/ACCIDENT.CSV',
+    2003: '2003/ACCIDENT.CSV',
+    2004: '2004/ACCIDENT.CSV',
+    2005: '2005/ACCIDENT.CSV',
+    2006: '2006/FARS2006NationalCSV/ACCIDENT.CSV',
+    2007: '2007/FARS2007NationalCSV/ACCIDENT.CSV',
+    2008: '2008/FARS2008NationalCSV/ACCIDENT.CSV',
+    2009: '2009/FARS2009NationalCSV/ACCIDENT.CSV',
+    2010: '2010/FARS2010NationalCSV/ACCIDENT.CSV',
+    2011: '2011/FARS2011NationalCSV/ACCIDENT.CSV',
+    2012: '2012/FARS2012NationalCSV/ACCIDENT.csv',
+    2013: '2013/FARS2013NationalCSV/ACCIDENT.csv',
+    2014: '2014/FARS2014NationalCSV/ACCIDENT.csv',
+    2015: '2015/FARS2015NationalCSV/accident.csv',
+    2016: '2016/accident.CSV',
+    2017: '2017/accident.CSV',
+    2018: '2018/accident.csv',
+    2019: '2019/FARS2019NationalCSV/accident.CSV',
+    2020: '2020/FARS2020NationalCSV/accident.csv',
+    2021: '2021/FARS2021NationalCSV/accident.csv',
+    2022: '2022/FARS2022NationalCSV/accident.csv',
+    2023: '2023/FARS2023NationalCSV/accident.csv'
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -147,24 +199,24 @@ CACHES = {
     }
 }
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "file": {
-            "level": "ERROR",
-            "class": "logging.FileHandler",
-            "filename": "/var/log/django_errors.log",
-        },
-    },
-    "loggers": {
-        "django": {
-            "handlers": ["file"],
-            "level": "ERROR",
-            "propagate": True,
-        },
-    },
-}
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "handlers": {
+#         "file": {
+#             "level": "ERROR",
+#             "class": "logging.FileHandler",
+#             "filename": "/var/log/django_errors.log",
+#         },
+#     },
+#     "loggers": {
+#         "django": {
+#             "handlers": ["file"],
+#             "level": "ERROR",
+#             "propagate": True,
+#         },
+#     },
+# }
 
 MASTODON_FIRST_SECRET = os.environ.get("MASTODON_FIRST_SECRET", "")
 MASTODON_LOGIN_PASSWORD = os.environ.get("MASTODON_LOGIN_PASSWORD", "")
