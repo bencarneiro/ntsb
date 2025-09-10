@@ -347,6 +347,8 @@ def registration_state_converter(value, year):
             return 93
         if value in {95,96}:
             return 94
+    if value is None:
+        return 99
     return value
 
 def model_year_converter(value, year):
@@ -619,6 +621,8 @@ def underride_override_converter(value, year):
     return value
 
 def rollover_converter(value, year):
+    if value is None:
+        return 0
     if value in {1,2,9}:
         return 3
     return value
@@ -1375,6 +1379,11 @@ def milepoint_converter(value, year):
         return abs(value)
     return value
 
+def jackknife_converter(value, year):
+    if value is None:
+        return 0
+    return value
+
 def crash_type_converter(value, year):
     if year < 2023:
         if value in {50}:
@@ -1496,7 +1505,7 @@ FARS_DATA_CONVERTERS = {
     'vehicle.trailer_weight_rating_1': lambda value, year: value,
     'vehicle.trailer_weight_rating_2': lambda value, year: value,
     'vehicle.trailer_weight_rating_3': lambda value, year: value,
-    'vehicle.jackknife': lambda value, year: value,
+    'vehicle.jackknife': jackknife_converter,
     'vehicle.motor_carrier_identification_number': lambda value, year: value,
     'vehicle.vehicle_configuration': vehicle_configuration_converter,
     'vehicle.cargo_body_type': cargo_body_type_converter,
