@@ -166,6 +166,8 @@ def longitude_converter(longitude, year):
 
 def soe_converter(soe, year):
     if year < 1982:
+        if soe is None:
+            return 99
         if soe in {16}:
             return 18
         if soe in {17}:
@@ -532,6 +534,8 @@ def ncsa_body_type_converter(value, year):
 
 def vehicle_trailing_converter(value, year):
     if year < 1982:
+        if value is None:
+            return 9
         if value in {1}:
             return 4
         return value
@@ -603,6 +607,13 @@ def bus_use_converter(value, year):
 def special_use_converter(value, year):
     if value in {13}:
         return 11
+    if value is None:
+        return 98
+    return value
+
+def emergency_vehicle_converter(value, year):
+    if value is None:
+        return 8
     return value
 
 def underride_override_converter(value, year):
@@ -628,6 +639,8 @@ def rollover_converter(value, year):
     return value
 
 def vehicle_towed_converter(value, year):
+    if value is None:
+        return 8
     if year < 1976:
         if value in {2}:
             return 6
@@ -653,6 +666,8 @@ def vehicle_towed_converter(value, year):
     return value
 
 def fire_occurence_converter(value, year):
+    if value is None:
+        return 0
     if value == 2:
         return 1
     return value
@@ -1436,7 +1451,20 @@ def crash_type_converter(value, year):
             return 999
     return value
 
+def initial_contact_point_converter(value, year):
+    if value is None:
+        return 98
+    return value
 
+def extent_of_damage_converter(value, year):
+    if value is None:
+        return 8
+    return value
+
+def fatalities_converter(value, year):
+    if value is None:
+        return 0
+    return value
 
 FARS_DATA_CONVERTERS = {
     'accident.st_case': lambda value, year: value,
@@ -1481,7 +1509,7 @@ FARS_DATA_CONVERTERS = {
     'accident.ems_arrived_minute': lambda value, year: value,
     'accident.arrived_at_hospital_hour': lambda value, year: value,
     'accident.arrived_at_hospital_minute': lambda value, year: value,
-    'accident.fatalities': lambda value, year: value,
+    'accident.fatalities': fatalities_converter,
     'vehicle.vehicle_number': lambda value, year: value,
     'vehicle.number_of_occupants': lambda value, year: value,
     'vehicle.hit_and_run': hit_and_run_converter,
@@ -1516,13 +1544,13 @@ FARS_DATA_CONVERTERS = {
     'vehicle.release_of_hazardous_material': lambda value, year: value,
     'vehicle.bus_use': bus_use_converter,
     'vehicle.special_vehicle_use': special_use_converter,
-    'vehicle.emergency_vehicle_use': lambda value, year: value,
+    'vehicle.emergency_vehicle_use': emergency_vehicle_converter,
     'vehicle.travel_speed': lambda value, year: value,
     'vehicle.underride_override': underride_override_converter,
     'vehicle.rollover': rollover_converter,
     'vehicle.rollover_location': lambda value, year: value,
-    'vehicle.initial_contact_point': lambda value, year: value,
-    'vehicle.extent_of_damage': lambda value, year: value,
+    'vehicle.initial_contact_point': initial_contact_point_converter,
+    'vehicle.extent_of_damage': extent_of_damage_converter,
     'vehicle.vehicle_towed': vehicle_towed_converter,
     'vehicle.most_harmful_event': soe_converter,
     'vehicle.first_harmful_event': soe_converter,
@@ -1531,7 +1559,7 @@ FARS_DATA_CONVERTERS = {
     'vehicle.automated_driving_system_level': lambda value, year: value,
     'vehicle.automated_driving_system_engaged': lambda value, year: value,
     'vehicle.combined_make_model_id': lambda value, year: value,
-    'vehicle.fatalities': lambda value, year: value,
+    'vehicle.fatalities': fatalities_converter,
     'vehicle.driver_drinking': lambda value, year: value,
     'vehicle.driver_present': driver_present_converter,
     'vehicle.drivers_license_state': lambda value, year: value,
@@ -1649,7 +1677,7 @@ FARS_DATA_CONVERTERS = {
     'parked_vehicle.vehicle_towed': vehicle_towed_converter,
     'parked_vehicle.most_harmful_event': soe_converter,
     'parked_vehicle.fire_occurence': fire_occurence_converter,
-    'parked_vehicle.fatalities': lambda value, year: value,
+    'parked_vehicle.fatalities': fatalities_converter,
     'parked_vehicle.combined_make_model_id': lambda value, year: value,
     'pedestrian_type.age': age_converter,
     'pedestrian_type.sex': lambda value, year: value,
