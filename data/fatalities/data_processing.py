@@ -1381,6 +1381,8 @@ def maneuver_converter(value, year):
     return value
 
 def area_of_impact_converter(value, year):
+    if value is None:
+        return 99
     if year < 2012:
         if value in {15}:
             return 17
