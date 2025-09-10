@@ -160,3 +160,8 @@ python3 manage.py 1975_driverrf > /var/log/1975_driverrf.txt
 python3 manage.py 1975_personrf > /var/log/1975_personrf.txt
 
 python3 manage.py fatality_totals > /var/log/1975_fatality_totals.txt
+
+
+
+python3 manage.py find_missing_counties > /var/log/find_missing_counties.txt
+
