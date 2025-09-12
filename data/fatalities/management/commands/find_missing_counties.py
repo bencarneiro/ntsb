@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from data.settings import ACCIDENT_CSV_PATHS
+from data.settings import ACCIDENT_CSV_PATHS, CSV_PATH
 from fatalities.models import Accident, County, State
 import pandas as pd
 
@@ -57,7 +57,7 @@ class Command(BaseCommand):
 
         result_dict = {}
         for year in range(1975,2024):
-            accident_csv = pd.read_csv(f"/home/tonydeals/app/ntsb/data/csvs/{ACCIDENT_CSV_PATHS[year]}", encoding="latin-1")
+            accident_csv = pd.read_csv(f"{CSV_PATH}{ACCIDENT_CSV_PATHS[year]}", encoding="latin-1")
             countyless_crashes = Accident.objects.filter(year=year, county__isnull=True)
             for crash in countyless_crashes:
                 st_case = str(crash.id)[4:]
