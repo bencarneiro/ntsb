@@ -127,28 +127,29 @@ let protocol = new pmtiles.Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
 var map = new maplibregl.Map({
     container: 'map',
-    style: {
-        version: 8,
-        sources: {
-            "base-raster": {
-                type: "raster",
-                tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-                tileSize: 256,
-                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a>"
+    style: 'https://tiles.openfreemap.org/styles/positron',
+    // style: {
+    //     version: 8,
+    //     sources: {
+    //         "base-raster": {
+    //             type: "raster",
+    //             tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+    //             tileSize: 256,
+    //             attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a>"
             
-            }
-        },
-        layers: [
-            {
-                id: "base-raster",
-                type: "raster",
-                source: "base-raster",
-                paint: {
-                    "raster-saturation": -1,
-                }
-            }
-        ]
-    },
+    //         }
+    //     },
+    //     layers: [
+    //         {
+    //             id: "base-raster",
+    //             type: "raster",
+    //             source: "base-raster",
+    //             paint: {
+    //                 "raster-saturation": -1,
+    //             }
+    //         }
+    //     ]
+    // },
     // these are the loading coordinates
     center: [-100,32],
     zoom: 5.5

@@ -57,27 +57,28 @@
 
             var map = new maplibregl.Map({
                 container: 'map',
-                style: {
-                    version: 8,
-                    sources: {
-                        "base-raster": {
-                            type: "raster",
-                            tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-                            tileSize: 256,
-                            attribution: "<a href='/info' target='_blank'>MORE ABOUT ROADWAY.REPORT</a> | <a href='/testmap' target='_blank'>Alternative Map For Slow Internet</a>"
-                        }
-                    },
-                    layers: [
-                        {
-                            id: "base-raster",
-                            type: "raster",
-                            source: "base-raster",
-                            paint: {
-                                "raster-saturation": -1,
-                            }
-                        }
-                    ]
-                },
+                style: 'https://tiles.openfreemap.org/styles/positron',
+                // style: {
+                //     version: 8,
+                //     sources: {
+                //         "base-raster": {
+                //             type: "raster",
+                //             tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+                //             tileSize: 256,
+                //             attribution: "<a href='/info' target='_blank'>MORE ABOUT ROADWAY.REPORT</a> | <a href='/testmap' target='_blank'>Alternative Map For Slow Internet</a>"
+                //         }
+                //     },
+                //     layers: [
+                //         {
+                //             id: "base-raster",
+                //             type: "raster",
+                //             source: "base-raster",
+                //             paint: {
+                //                 "raster-saturation": -1,
+                //             }
+                //         }
+                //     ]
+                // },
                 center: [-120, 45],
                 zoom: 3
             });

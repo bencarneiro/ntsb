@@ -175,28 +175,29 @@ border-color: black;
 <script>
     var map = new maplibregl.Map({
     container: 'map',
-    style: {
-        version: 8,
-        sources: {
-            "base-raster": {
-                type: "raster",
-                tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-                tileSize: 256,
-                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a></a>"
+    style: 'https://tiles.openfreemap.org/styles/positron',
+    // style: {
+    //     version: 8,
+    //     sources: {
+    //         "base-raster": {
+    //             type: "raster",
+    //             tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+    //             tileSize: 256,
+    //             attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a></a>"
             
-            }
-        },
-        layers: [
-            {
-                id: "base-raster",
-                type: "raster",
-                source: "base-raster",
-                paint: {
-                    "raster-saturation": -1,
-                }
-            }
-        ]
-    },
+    //         }
+    //     },
+    //     layers: [
+    //         {
+    //             id: "base-raster",
+    //             type: "raster",
+    //             source: "base-raster",
+    //             paint: {
+    //                 "raster-saturation": -1,
+    //             }
+    //         }
+    //     ]
+    // },
     // these are the loading coordinates
     center: ["{{ connection.coordinates.0 }}", "{{ connection.coordinates.1 }}"],
     zoom: 10
