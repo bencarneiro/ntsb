@@ -150,6 +150,7 @@ DATABASES = {
 }
 
 
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
