@@ -165,7 +165,7 @@ class Accident(models.Model):
         (99, "Unknown")
 
     ]
-    functional_system = models.PositiveSmallIntegerField(choices=functional_system_choices, default=9)
+    functional_system = models.PositiveSmallIntegerField(choices=functional_system_choices, default=99)
     #C13
     road_owner_choices = [
         (1, 'State Highway Agency'),
