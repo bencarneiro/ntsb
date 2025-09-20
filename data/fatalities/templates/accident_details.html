@@ -78,51 +78,37 @@
         word-break: break-word;
       }
       .qr {text-align: center; font-size: 2rem}
+      .collapse { display: none; }
+      .toggle-button {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: center;
+      background-color: lightgray;
+      color: black;
+      border: 1px solid #ddd;
+      padding: 8px;
+      }
 
   </style>
-<!-- <style>
-#customers {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+
+<script>
+  function toggle(n) {
+  var rows = document.querySelectorAll('.hidden');
+  rows.forEach(row => row.classList.toggle('collapse'));
+  var toggleButtons = document.querySelectorAll(".toggle-button");
+
+  for (button of toggleButtons) {
+
+    if (button.textContent === "See Additional Data") {
+      button.textContent = "Collapse Table"
+    } else {
+      button.textContent = "See Additional Data"
+    }
+  }
+;
 }
+</script>
 
-#customers td, #customers th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-#customers tr:nth-child(even){background-color: #f2f2f2;}
-
-#customers tr:hover {background-color: #ddd;}
-
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #04AA6D;
-  color: white;
-}
-
-#comment th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: center;
-  background-color: #04AA6D;
-  color: white;
-
-
-}
-.comment-container{
-  margin-top:1REM; 
-  border: solid; 
-  border-radius: 2px; 
-  border-color: black; 
-  text-align: center; 
-  justify-content: center;
-  width:100%
-}
-
-</style> -->
 </head>
 <body>
 
@@ -165,66 +151,68 @@
   {% if accident.longitude %}<tr><td>Google Maps</td><td>{{accident.map_link|safe}}</td></tr>{% endif %}
   <tr><td>Latitude</td><td> {{accident.latitude}} </td></tr>
 <tr><td>Longitude</td><td> {{accident.longitude}} </td></tr>
-  <tr><td>Number of Vehicles</td><td> {{accident.number_of_vehicles}} </td></tr>
-    <tr><td>Number of Vehicles in Transport</td><td> {{accident.number_of_vehicles_in_transport}} </td></tr>
-    <tr><td>Number of Parked Vehicles</td><td> {{accident.number_of_parked_vehicles}} </td></tr>
-    <tr><td>Number of Persons in Motor Vehicles</td><td> {{accident.number_of_persons_in_motor_vehicles}} </td></tr>
-    <tr><td>Number of Persons in Motor Vehicles in Transport</td><td> {{accident.number_of_persons_in_motor_vehicles_in_transport}} </td></tr>
-    <tr><td>Number of Persons in Parked Vehicles</td><td> {{accident.number_of_persons_in_parked_vehicles}} </td></tr>
-    <tr><td>Number of Nonmotorists</td><td> {{accident.number_of_persons_not_in_motor_vehicles}} </td></tr>
-    <tr><td>Street Name 1</td><td> {{accident.trafficway_identifier_1}} </td></tr>
-    <tr><td>Street Name 2</td><td> {{accident.trafficway_identifier_2}} </td></tr>
+<tr><td>Street Name 1</td><td> {{accident.trafficway_identifier_1}} </td></tr>
+<tr><td>Street Name 2</td><td> {{accident.trafficway_identifier_2}} </td></tr>
 
-    <tr><td>Route Signing</td><td> {{accident.get_route_signing_display}} </td></tr>
+  <tr class="hidden"><td>Number of Vehicles</td><td> {{accident.number_of_vehicles}} </td></tr>
+    <tr class="hidden"><td>Number of Vehicles in Transport</td><td> {{accident.number_of_vehicles_in_transport}} </td></tr>
+    <tr class="hidden"><td>Number of Parked Vehicles</td><td> {{accident.number_of_parked_vehicles}} </td></tr>
+    <tr class="hidden"><td>Number of Persons in Motor Vehicles</td><td> {{accident.number_of_persons_in_motor_vehicles}} </td></tr>
+    <tr class="hidden"><td>Number of Persons in Motor Vehicles in Transport</td><td> {{accident.number_of_persons_in_motor_vehicles_in_transport}} </td></tr>
+    <tr class="hidden"><td>Number of Persons in Parked Vehicles</td><td> {{accident.number_of_persons_in_parked_vehicles}} </td></tr>
+    <tr class="hidden"><td>Number of Nonmotorists</td><td> {{accident.number_of_persons_not_in_motor_vehicles}} </td></tr>
 
-    <tr><td>Rural / Urban</td><td> {{accident.get_rural_urban_display}} </td></tr>
+    <tr class="hidden"><td>Route Signing</td><td> {{accident.get_route_signing_display}} </td></tr>
 
-    <tr><td>Functional System</td><td> {{accident.get_functional_system_display}} </td></tr>
+    <tr class="hidden"><td>Rural / Urban</td><td> {{accident.get_rural_urban_display}} </td></tr>
 
-    <tr><td>Road Owner</td><td> {{accident.get_road_owner_display}} </td></tr>
+    <tr class="hidden"><td>Functional System</td><td> {{accident.get_functional_system_display}} </td></tr>
 
-    <tr><td>National Highway System</td><td> {{accident.get_national_highway_system_display}} </td></tr>
+    <tr class="hidden"><td>Road Owner</td><td> {{accident.get_road_owner_display}} </td></tr>
 
-    <tr><td>Special Jurisdiction</td><td> {{accident.get_special_jurisdiction_display}} </td></tr>
-        <tr><td>Milepoint</td><td> {{accident.milepoint}} </td></tr>
+    <tr class="hidden"><td>National Highway System</td><td> {{accident.get_national_highway_system_display}} </td></tr>
 
-    <tr><td>First Harmful Event</td><td> {{accident.get_first_harmful_event_display}} </td></tr>
+    <tr class="hidden"><td>Special Jurisdiction</td><td> {{accident.get_special_jurisdiction_display}} </td></tr>
+        <tr class="hidden"><td>Milepoint</td><td> {{accident.milepoint}} </td></tr>
 
-    <tr><td>Manner of Collision</td><td> {{accident.get_manner_of_collision_of_first_harmful_event_display}} </td></tr>
+    <tr class="hidden"><td>First Harmful Event</td><td> {{accident.get_first_harmful_event_display}} </td></tr>
 
-    <tr><td>At Intersection</td><td> {{accident.get_within_interchange_area_display}} </td></tr>
+    <tr class="hidden"><td>Manner of Collision</td><td> {{accident.get_manner_of_collision_of_first_harmful_event_display}} </td></tr>
 
-    <tr><td>Relation to Junction</td><td> {{accident.get_relation_to_junction_display}} </td></tr>
+    <tr class="hidden"><td>At Intersection</td><td> {{accident.get_within_interchange_area_display}} </td></tr>
 
-    <tr><td>Type of Intersection</td><td> {{accident.get_type_of_intersection_display}} </td></tr>
+    <tr class="hidden"><td>Relation to Junction</td><td> {{accident.get_relation_to_junction_display}} </td></tr>
 
-    <tr><td>Relation to Road</td><td> {{accident.get_relation_to_road_display}} </td></tr>
+    <tr class="hidden"><td>Type of Intersection</td><td> {{accident.get_type_of_intersection_display}} </td></tr>
 
-    <tr><td>Work Zone</td><td> {{accident.get_work_zone_display}} </td></tr>
+    <tr class="hidden"><td>Relation to Road</td><td> {{accident.get_relation_to_road_display}} </td></tr>
 
-    <tr><td>Light Condition</td><td> {{accident.get_light_condition_display}} </td></tr>
+    <tr class="hidden"><td>Work Zone</td><td> {{accident.get_work_zone_display}} </td></tr>
 
-    <tr><td>Atmospheric Condition</td><td> {{accident.get_atmospheric_condition_display}} </td></tr>
-    <tr><td>School Bus Related</td><td> {{accident.school_bus_related}} </td></tr>
-    <tr><td>Rail Grade Crossing ID</td><td> {{accident.rail_grade_crossing_identifier}} </td></tr>
+    <tr class="hidden"><td>Light Condition</td><td> {{accident.get_light_condition_display}} </td></tr>
+
+    <tr class="hidden"><td>Atmospheric Condition</td><td> {{accident.get_atmospheric_condition_display}} </td></tr>
+    <tr class="hidden"><td>School Bus Related</td><td> {{accident.school_bus_related}} </td></tr>
+    <tr class="hidden"><td>Rail Grade Crossing ID</td><td> {{accident.rail_grade_crossing_identifier}} </td></tr>
     {% if accident.ems_notified_hour < 99 %}
-    <tr><td>EMS Notified Hour</td><td> {{accident.ems_notified_hour}} </td></tr>
+    <tr class="hidden"><td>EMS Notified Hour</td><td> {{accident.ems_notified_hour}} </td></tr>
     {% endif %}
     {% if accident.ems_notified_minute < 99 %}
-    <tr><td>EMS Notified Minute</td><td> {{accident.ems_notified_minute}} </td></tr>
+    <tr class="hidden"><td>EMS Notified Minute</td><td> {{accident.ems_notified_minute}} </td></tr>
     {% endif %}
     {% if accident.ems_arrived_hour < 99 %}
-    <tr><td>EMS Arrived Hour</td><td> {{accident.ems_arrived_hour}} </td></tr>
+    <tr class="hidden"><td>EMS Arrived Hour</td><td> {{accident.ems_arrived_hour}} </td></tr>
     {% endif %}
     {% if accident.ems_arrived_minute < 99 %}
-    <tr><td>EMS Arrived Minute</td><td> {{accident.ems_arrived_minute}} </td></tr>
+    <tr class="hidden"><td>EMS Arrived Minute</td><td> {{accident.ems_arrived_minute}} </td></tr>
     {% endif %}
     {% if accident.arrived_at_hospital_hour < 99 %}
-    <tr><td>Arrived At Hospital Hour</td><td> {{accident.arrived_at_hospital_hour}} </td></tr>
+    <tr class="hidden"><td>Arrived At Hospital Hour</td><td> {{accident.arrived_at_hospital_hour}} </td></tr>
     {% endif %}
     {% if accident.arrived_at_hospital_minute < 99 %}
-    <tr><td>Arrived at Hospital Minute</td><td> {{accident.arrived_at_hospital_minute}} </td></tr>
+    <tr class="hidden"><td>Arrived at Hospital Minute</td><td> {{accident.arrived_at_hospital_minute}} </td></tr>
     {% endif %}
+    <tr><th class="toggle-button" onclick="toggle(0)">Collapse Table</th><th class="toggle-button" onclick="toggle(0)">Collapse Table</th></tr>
 </table>
 </div>
 <h1>Vehicles In Transport</h1>
@@ -700,7 +688,10 @@
   </form>
   </div>
 </div>
+<script>
 
+toggle(0)
+</script>
 
 </body>
 </html>
