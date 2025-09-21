@@ -25,14 +25,15 @@
       font-family: Arial, Helvetica, sans-serif;
       border-collapse: collapse;
       margin-left: auto;
-      margin-right: auto
+      margin-right: auto;
+      margin-bottom: 30px;
     }
     .header{
       padding-top: 12px;
       padding-bottom: 12px;
       text-align: center;
-      background-color: #04AA6D;
-      color: white;
+      background-color: #b5e6d4;
+      color: black;
       border: 1px solid #ddd;
       padding: 8px;
     }
@@ -78,65 +79,106 @@
         word-break: break-word;
       }
       .qr {text-align: center; font-size: 2rem}
+      .collapse { display: none; }
+      .toggle-accident-button {
+        cursor: pointer; 
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: center;
+      background-color: lightgray;
+      color: black;
+      border: 1px solid #ddd;
+      padding: 8px;
+      }
+      
+      .toggle {
+        cursor: pointer; 
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: center;
+      background-color: lightgray;
+      color: black;
+      border: 1px solid #ddd;
+      padding: 8px;
+      }
+      a {
+        color: black
+      }
+
+      .back-link {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background-color: #000;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: background-color 0.2s ease;
+        margin-bottom: 2rem;
+    }
+
+    .back-link:hover {
+        background-color: #d00;
+    }
 
   </style>
-<!-- <style>
-#customers {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+
+<script>
+  function toggleAccident(n) {
+  var rows = document.querySelectorAll('.hidden-accident');
+  rows.forEach(row => row.classList.toggle('collapse'));
+  var toggleButtons = document.querySelectorAll(".toggle-accident-button");
+
+  for (button of toggleButtons) {
+    if (button.textContent === "See Additional Data") {
+      button.textContent = "Collapse Table"
+    } else {
+      button.textContent = "See Additional Data"
+    }
+  };
+}
+function toggleVehicle(n) {
+  var vehicleClassStr = `.hidden-vehicle-${n}`
+  var rows = document.querySelectorAll(vehicleClassStr);
+  rows.forEach(row => row.classList.toggle('collapse'));
+  var toggleButtons = document.querySelectorAll(`.toggle-vehicle-button-${n}`);
+
+  for (button of toggleButtons) {
+    if (button.textContent === "See Additional Data") {
+      button.textContent = "Collapse Table"
+    } else {
+      button.textContent = "See Additional Data"
+    }
+  };
 }
 
-#customers td, #customers th {
-  border: 1px solid #ddd;
-  padding: 8px;
+function togglePerson(n) {
+  var personClassStr = `.hidden-person-${n}`
+  var rows = document.querySelectorAll(personClassStr);
+  rows.forEach(row => row.classList.toggle('collapse'));
+  var toggleButtons = document.querySelectorAll(`.toggle-person-button-${n}`);
+
+  for (button of toggleButtons) {
+    if (button.textContent === "See Additional Data") {
+      button.textContent = "Collapse Table"
+    } else {
+      button.textContent = "See Additional Data"
+    }
+  };
 }
+</script>
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
-
-#customers tr:hover {background-color: #ddd;}
-
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #04AA6D;
-  color: white;
-}
-
-#comment th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: center;
-  background-color: #04AA6D;
-  color: white;
-
-
-}
-.comment-container{
-  margin-top:1REM; 
-  border: solid; 
-  border-radius: 2px; 
-  border-color: black; 
-  text-align: center; 
-  justify-content: center;
-  width:100%
-}
-
-</style> -->
 </head>
 <body>
 
-<h1>Crash Details</h1>
+  <p><a class="back-link" href="/">Back To Map</a></p>
+<h1>Fatal Crash Report</h1>
 <div class="table-container">
   <h3 class="qr"><a href="/someone_died_here?id={{ accident.id }}">Print QR Code</a></h3>
 <table class="table" id="accident">
   <tr>
-    <th class="header">Property</th>
-    <th class="header">Info</th>
-  </tr>
-  <tr>
-    <td>Crash ID</td>
-    <td>{{ accident.id }}</td>
+    <th class="header">Crash #{{ accident.id }}</th>
+    <th class="header">Crash #{{ accident.id }}</th>
   </tr>
   <tr>
     <td>Fatalities</td>
@@ -163,479 +205,494 @@
     <td> {{  accident.datetime | time}}</td>
   </tr>
   {% if accident.longitude %}<tr><td>Google Maps</td><td>{{accident.map_link|safe}}</td></tr>{% endif %}
-  <tr><td>Latitude</td><td> {{accident.latitude}} </td></tr>
-<tr><td>Longitude</td><td> {{accident.longitude}} </td></tr>
-  <tr><td>Number of Vehicles</td><td> {{accident.number_of_vehicles}} </td></tr>
-    <tr><td>Number of Vehicles in Transport</td><td> {{accident.number_of_vehicles_in_transport}} </td></tr>
-    <tr><td>Number of Parked Vehicles</td><td> {{accident.number_of_parked_vehicles}} </td></tr>
-    <tr><td>Number of Persons in Motor Vehicles</td><td> {{accident.number_of_persons_in_motor_vehicles}} </td></tr>
-    <tr><td>Number of Persons in Motor Vehicles in Transport</td><td> {{accident.number_of_persons_in_motor_vehicles_in_transport}} </td></tr>
-    <tr><td>Number of Persons in Parked Vehicles</td><td> {{accident.number_of_persons_in_parked_vehicles}} </td></tr>
-    <tr><td>Number of Nonmotorists</td><td> {{accident.number_of_persons_not_in_motor_vehicles}} </td></tr>
-    <tr><td>Street Name 1</td><td> {{accident.trafficway_identifier_1}} </td></tr>
-    <tr><td>Street Name 2</td><td> {{accident.trafficway_identifier_2}} </td></tr>
+<tr><td>Street Name 1</td><td> {{accident.trafficway_identifier_1}} </td></tr>
+<tr><td>Street Name 2</td><td> {{accident.trafficway_identifier_2}} </td></tr>
 
-    <tr><td>Route Signing</td><td> {{accident.get_route_signing_display}} </td></tr>
+  <tr class="hidden-accident"><td>Number of Vehicles</td><td> {{accident.number_of_vehicles}} </td></tr>
+    <tr class="hidden-accident"><td>Number of Vehicles in Transport</td><td> {{accident.number_of_vehicles_in_transport}} </td></tr>
+    <tr class="hidden-accident"><td>Number of Parked Vehicles</td><td> {{accident.number_of_parked_vehicles}} </td></tr>
+    <tr class="hidden-accident"><td>Number of Persons in Motor Vehicles</td><td> {{accident.number_of_persons_in_motor_vehicles}} </td></tr>
+    <tr class="hidden-accident"><td>Number of Persons in Motor Vehicles in Transport</td><td> {{accident.number_of_persons_in_motor_vehicles_in_transport}} </td></tr>
+    <tr class="hidden-accident"><td>Number of Persons in Parked Vehicles</td><td> {{accident.number_of_persons_in_parked_vehicles}} </td></tr>
+    <tr class="hidden-accident"><td>Number of Nonmotorists</td><td> {{accident.number_of_persons_not_in_motor_vehicles}} </td></tr>
 
-    <tr><td>Rural / Urban</td><td> {{accident.get_rural_urban_display}} </td></tr>
+    <tr class="hidden-accident"><td>Route Signing</td><td> {{accident.get_route_signing_display}} </td></tr>
 
-    <tr><td>Functional System</td><td> {{accident.get_functional_system_display}} </td></tr>
+    <tr class="hidden-accident"><td>Rural / Urban</td><td> {{accident.get_rural_urban_display}} </td></tr>
 
-    <tr><td>Road Owner</td><td> {{accident.get_road_owner_display}} </td></tr>
+    <tr class="hidden-accident"><td>Functional System</td><td> {{accident.get_functional_system_display}} </td></tr>
 
-    <tr><td>National Highway System</td><td> {{accident.get_national_highway_system_display}} </td></tr>
+    <tr class="hidden-accident"><td>Road Owner</td><td> {{accident.get_road_owner_display}} </td></tr>
 
-    <tr><td>Special Jurisdiction</td><td> {{accident.get_special_jurisdiction_display}} </td></tr>
-        <tr><td>Milepoint</td><td> {{accident.milepoint}} </td></tr>
+    <tr class="hidden-accident"><td>National Highway System</td><td> {{accident.get_national_highway_system_display}} </td></tr>
 
-    <tr><td>First Harmful Event</td><td> {{accident.get_first_harmful_event_display}} </td></tr>
+    <tr class="hidden-accident"><td>Special Jurisdiction</td><td> {{accident.get_special_jurisdiction_display}} </td></tr>
+        <tr class="hidden-accident"><td>Milepoint</td><td> {{accident.milepoint}} </td></tr>
 
-    <tr><td>Manner of Collision</td><td> {{accident.get_manner_of_collision_of_first_harmful_event_display}} </td></tr>
+    <tr class="hidden-accident"><td>First Harmful Event</td><td> {{accident.get_first_harmful_event_display}} </td></tr>
 
-    <tr><td>At Intersection</td><td> {{accident.get_within_interchange_area_display}} </td></tr>
+    <tr class="hidden-accident"><td>Manner of Collision</td><td> {{accident.get_manner_of_collision_of_first_harmful_event_display}} </td></tr>
 
-    <tr><td>Relation to Junction</td><td> {{accident.get_relation_to_junction_display}} </td></tr>
+    <tr class="hidden-accident"><td>At Intersection</td><td> {{accident.get_within_interchange_area_display}} </td></tr>
 
-    <tr><td>Type of Intersection</td><td> {{accident.get_type_of_intersection_display}} </td></tr>
+    <tr class="hidden-accident"><td>Relation to Junction</td><td> {{accident.get_relation_to_junction_display}} </td></tr>
 
-    <tr><td>Relation to Road</td><td> {{accident.get_relation_to_road_display}} </td></tr>
+    <tr class="hidden-accident"><td>Type of Intersection</td><td> {{accident.get_type_of_intersection_display}} </td></tr>
 
-    <tr><td>Work Zone</td><td> {{accident.get_work_zone_display}} </td></tr>
+    <tr class="hidden-accident"><td>Relation to Road</td><td> {{accident.get_relation_to_road_display}} </td></tr>
 
-    <tr><td>Light Condition</td><td> {{accident.get_light_condition_display}} </td></tr>
+    <tr class="hidden-accident"><td>Work Zone</td><td> {{accident.get_work_zone_display}} </td></tr>
 
-    <tr><td>Atmospheric Condition</td><td> {{accident.get_atmospheric_condition_display}} </td></tr>
-    <tr><td>School Bus Related</td><td> {{accident.school_bus_related}} </td></tr>
-    <tr><td>Rail Grade Crossing ID</td><td> {{accident.rail_grade_crossing_identifier}} </td></tr>
+    <tr class="hidden-accident"><td>Light Condition</td><td> {{accident.get_light_condition_display}} </td></tr>
+
+    <tr class="hidden-accident"><td>Atmospheric Condition</td><td> {{accident.get_atmospheric_condition_display}} </td></tr>
+    <tr class="hidden-accident"><td>School Bus Related</td><td> {{accident.school_bus_related}} </td></tr>
+    <tr class="hidden-accident"><td>Rail Grade Crossing ID</td><td> {{accident.rail_grade_crossing_identifier}} </td></tr>
     {% if accident.ems_notified_hour < 99 %}
-    <tr><td>EMS Notified Hour</td><td> {{accident.ems_notified_hour}} </td></tr>
+    <tr class="hidden-accident"><td>EMS Notified Hour</td><td> {{accident.ems_notified_hour}} </td></tr>
     {% endif %}
     {% if accident.ems_notified_minute < 99 %}
-    <tr><td>EMS Notified Minute</td><td> {{accident.ems_notified_minute}} </td></tr>
+    <tr class="hidden-accident"><td>EMS Notified Minute</td><td> {{accident.ems_notified_minute}} </td></tr>
     {% endif %}
     {% if accident.ems_arrived_hour < 99 %}
-    <tr><td>EMS Arrived Hour</td><td> {{accident.ems_arrived_hour}} </td></tr>
+    <tr class="hidden-accident"><td>EMS Arrived Hour</td><td> {{accident.ems_arrived_hour}} </td></tr>
     {% endif %}
     {% if accident.ems_arrived_minute < 99 %}
-    <tr><td>EMS Arrived Minute</td><td> {{accident.ems_arrived_minute}} </td></tr>
+    <tr class="hidden-accident"><td>EMS Arrived Minute</td><td> {{accident.ems_arrived_minute}} </td></tr>
     {% endif %}
     {% if accident.arrived_at_hospital_hour < 99 %}
-    <tr><td>Arrived At Hospital Hour</td><td> {{accident.arrived_at_hospital_hour}} </td></tr>
+    <tr class="hidden-accident"><td>Arrived At Hospital Hour</td><td> {{accident.arrived_at_hospital_hour}} </td></tr>
     {% endif %}
     {% if accident.arrived_at_hospital_minute < 99 %}
-    <tr><td>Arrived at Hospital Minute</td><td> {{accident.arrived_at_hospital_minute}} </td></tr>
+    <tr class="hidden-accident"><td>Arrived at Hospital Minute</td><td> {{accident.arrived_at_hospital_minute}} </td></tr>
     {% endif %}
+    <tr><th class="toggle-accident-button" onclick="toggleAccident(0)">Collapse Table</th><th class="toggle-accident-button" onclick="toggleAccident(0)">Collapse Table</th></tr>
 </table>
 </div>
-<h1>Vehicles In Transport</h1>
+
+
+<h1>Persons</h1>
+{% for person in accident.person_set.all %}
+<table class="table" id="person-{{ person.id }}">
+    <tr>
+      {% if person.vehicle_or_parked_vehicle_number == None %}
+
+      <th class="header">Person #{{ person.person_number }} (Pedestrian)</th>
+      <th class="header">Person #{{ person.person_number }} (Pedestrian)</th>
+      {% else %}
+      <th class="header">Person #{{ person.person_number }} in <a href="#vehicle-{{ person.vehicle_or_parked_vehicle_id }}">Vehicle #{{ person.vehicle_or_parked_vehicle_number }}</a></th>
+      <th class="header">Person #{{ person.person_number }} in <a href="#vehicle-{{ person.vehicle_or_parked_vehicle_id }}">Vehicle #{{ person.vehicle_or_parked_vehicle_number }}</a></th>
+      {% endif %}
+    </tr>
+<tr><td>Age</td><td>{{person.age}} </td></tr>
+
+<tr><td>Sex</td><td>{{person.get_sex_display}} </td></tr>
+
+<tr><td>Person Type</td><td>{{person.get_person_type_display}} </td></tr>
+
+<tr><td>Injury Severity</td><td>{{person.get_injury_severity_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Seating Position</td><td>{{person.get_seating_position_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Restraint System Use</td><td>{{person.get_restraint_system_use_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Restraint System Misuse</td><td>{{person.get_restraint_system_misuse_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Helmet Use</td><td>{{person.get_helmet_use_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Helmet Misuse</td><td>{{person.get_helmet_misuse_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Airbag Deployed</td><td>{{person.get_airbag_deployed_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Ejection</td><td>{{person.get_ejection_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Ejection Path</td><td>{{person.get_ejection_path_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Extrication</td><td>{{person.get_extrication_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Police Reported Alcohol Involvement</td><td>{{person.get_police_reported_alcohol_involvement_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Alcohol Test Given</td><td>{{person.get_alcohol_test_given_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Alcohol Test Type</td><td>{{person.get_alcohol_test_type_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Alcohol Test Result</td><td>{{person.interpret_alcohol_test_result}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Police Reported Drug Involvement</td><td>{{person.get_police_reported_drug_involvement_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Drug Tested</td><td>{{person.get_drug_tested_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Transported To Medical Facility By</td><td>{{person.get_transported_to_medical_facility_by_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Died En Route</td><td>{{person.get_died_en_route_display}} </td></tr>
+{% if person.injury_severity == 4 %}
+<tr class="hidden-person-{{ person.id }}"><td>Month of Death</td><td>{{person.get_month_of_death_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Day of Death</td><td>{{person.day_of_death}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Year of Death</td><td>{{person.year_of_death}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Hour of Death</td><td>{{person.hour_of_death}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Minute of Death</td><td>{{person.minute_of_death}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Lag Hours</td><td>{{person.lag_hours}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Lag Minutes</td><td>{{person.lag_minutes}} </td></tr>
+{% endif %}
+<tr class="hidden-person-{{ person.id }}"><td>Vehicle which Struck Non Motorist</td><td>{%if person.vehicle_which_struck_non_motorist%}#{%endif%}{{person.vehicle_which_struck_non_motorist.vehicle_number}} </td></tr>
+
+{% if accident.year > 2021 %}
+<tr class="hidden-person-{{ person.id }}"><td>Non Motorist Device Type</td><td>{{person.get_non_motorist_device_type_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Non Motorist Device Motorization</td><td>{{person.get_non_motorist_device_motorization_display}} </td></tr>
+{% endif %}
+<tr class="hidden-person-{{ person.id }}"><td>Non Motorist Location</td><td>{{person.get_non_motorist_location_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>At Work</td><td>{{person.get_at_work_display}} </td></tr>
+
+<tr class="hidden-person-{{ person.id }}"><td>Hispanic</td><td>{{person.get_hispanic_display}} </td></tr>
+
+{%for race in person.race_set.all %}
+<tr class="hidden-person-{{ person.id }}"><td>Race</td><td> {{race.get_race_display}} </td></tr>
+{%endfor%}
+{%for drugs in person.drugs_set.all %}
+{% if person.drug_test_type > 0 %}
+<tr class="hidden-person-{{ person.id }}"><td>Drug Test Type</td><td> {{drugs.get_drug_test_type_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Drug Test Results</td><td> {{drugs.interpret_test_result}} </td></tr>
+{% endif %}
+{%endfor%}
+{%for rf in person.personrelatedfactor_set.all %}
+<tr class="hidden-person-{{ person.id }}"><td>Person Related Factor</td><td> {{rf.get_person_related_factor_display}} </td></tr>
+{%endfor%}
+
+
+{% if person.safetyequipment.get_helmet_display %} 
+<tr class="hidden-person-{{ person.id }}"><td>Nonmotorist Bicycle Helmet</td><td>{{person.safetyequipment.get_helmet_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Nonmotorist Pads</td><td>{{person.safetyequipment.get_pads_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Nonmotorist Lights</td><td>{{person.safetyequipment.get_lights_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Nonmotorist Reflectors</td><td>{{person.safetyequipment.get_reflective_equipment_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Nonmotorist Other Protective Equipment</td><td>{{person.safetyequipment.get_other_protective_equipment_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Nonmotorist Other Preventative Equipment</td><td>{{person.safetyequipment.get_other_preventative_equipment_display}} </td></tr>
+{% endif %}
+{% if person.pedestriantype.get_pedestrian_location_display %} 
+<tr class="hidden-person-{{ person.id }}"><td>Nonmotorist Marked Crosswalk Present</td><td>{{person.pedestriantype.get_marked_crosswalk_present_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Nonmotorist Sidewalk Present</td><td>{{person.pedestriantype.get_sidewalk_present_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Nonmotorist In School Zone</td><td>{{person.pedestriantype.get_in_school_zone_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Pedestrian Crash Type</td><td>{{person.pedestriantype.get_pedestrian_crash_type_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Bicycle Crash Type</td><td>{{person.pedestriantype.get_bicycle_crash_type_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Pedestrian Location</td><td>{{person.pedestriantype.get_pedestrian_location_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Pedestrian Position</td><td>{{person.pedestriantype.get_pedestrian_position_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Pedestrian Direction</td><td>{{person.pedestriantype.get_pedestrian_direction_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Bicycle Location</td><td>{{person.pedestriantype.get_bicycle_location_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Bicycle Position</td><td>{{person.pedestriantype.get_bicycle_position_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Bicycle Direction</td><td>{{person.pedestriantype.get_bicycle_direction_display}} </td></tr>
+<tr class="hidden-person-{{ person.id }}"><td>Motorist Direction</td><td>{{person.pedestriantype.get_motorist_direction_display}} </td></tr>
+{% endif %}
+
+{%for rf in person.nonmotoristprioraction_set.all %}
+<tr class="hidden-person-{{ person.id }}"><td>Nonmotorist Prior Action</td><td> {{rf.get_nonmotorist_prior_action_display}} </td></tr>
+{%endfor%}
+{%for rf in person.nonmotoristimpaired_set.all %}
+<tr class="hidden-person-{{ person.id }}"><td>Nonmotorist Impaired</td><td> {{rf.get_nonmotorist_impaired_display}} </td></tr>
+{%endfor%}
+{%for rf in person.nonmotoristdistracted_set.all %}
+<tr class="hidden-person-{{ person.id }}"><td>Nonmotorist Distracted</td><td> {{rf.get_nonmotorist_distracted_by_display}} </td></tr>
+{%endfor%}
+{%for rf in person.nonmotoristcontributingcircumstance_set.all %}
+<tr class="hidden-person-{{ person.id }}"><td>Nonmotorist Contributing Circumstance</td><td> {{rf.get_nonmotorist_contributing_circumstance_display}} </td></tr>
+{%endfor%}
+<tr><th class="toggle toggle-person-button-{{ person.id }}" onclick="togglePerson('{{ person.id }}')">Collapse Table</th><th class="toggle toggle-person-button-{{ person.id }}" onclick="togglePerson('{{ person.id }}')">Collapse Table</th></tr>
+</table>
+
+
+<script>
+  togglePerson('{{ person.id }}')
+</script>    
+
+{% endfor %}
+
+<h1>Moving Vehicles</h1>
     {% for vehicle in accident.vehicle_set.all %}
-    <table class="table" id="vehicle">
+    <table class="table" id="vehicle-{{ vehicle.id }}">
         <tr>
-          <th class="header">Property</th>
-          <th class="header">Info</th>
+          <th class="header">Vehicle #{{ vehicle.vehicle_number }}</th>
+          <th class="header">Vehicle #{{ vehicle.vehicle_number }}</th>
         </tr>
-        <tr><td>Vehicle ID</td><td> {{vehicle.vehicle_number}} </td></tr>
 
 
 <tr><td>Fatalities</td><td> {{vehicle.fatalities}} </td></tr>
-<tr><td>Number of Occupants</td><td> {{vehicle.number_of_occupants}} </td></tr>
+<tr><td>Number of <a href="#person-{{ vehicle.id }}001">Occupants</a></td><td> {{vehicle.number_of_occupants}} </td></tr>
 
 <tr><td>Hit and Run</td><td> {{vehicle.get_hit_and_run_display}} </td></tr>
 
-<tr><td>Registration State</td><td> {{vehicle.get_registration_state_display}} </td></tr>
-
-<tr><td>Registered Vehicle Owner</td><td> {{vehicle.get_registered_vehicle_owner_display}} </td></tr>
-<tr><td>VIN</td><td> {{vehicle.vehicle_identification_number}} </td></tr>
-<tr><td>Model Year</td><td> {{vehicle.vehicle_model_year}} </td></tr>
-<tr><td>VPIC Make ID</td><td> {{vehicle.vpic_make}} </td></tr>
-<tr><td>VPIC Model ID</td><td> {{vehicle.vpic_model}} </td></tr>
-
-<tr><td>VPIC Body Class</td><td> {{vehicle.get_vpic_body_class_display}} </td></tr>
-
 <tr><td>NCSA Make</td><td> {{vehicle.get_ncsa_make_display}} </td></tr>
-<tr><td>NCSA Model</td><td> {{vehicle.ncsa_model}} </td></tr>
-
 <tr><td>Body Type</td><td> {{vehicle.get_body_type_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>NCSA Model</td><td> {{vehicle.ncsa_model}} </td></tr>
 
-<tr><td>Body Class</td><td> {{vehicle.get_final_stage_body_class_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Registration State</td><td> {{vehicle.get_registration_state_display}} </td></tr>
 
-<tr><td>Lower Weight Rating</td><td> {{vehicle.get_gross_vehicle_weight_rating_lower_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Registered Vehicle Owner</td><td> {{vehicle.get_registered_vehicle_owner_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>VIN</td><td> {{vehicle.vehicle_identification_number}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Model Year</td><td> {{vehicle.vehicle_model_year}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>VPIC Make ID</td><td> {{vehicle.vpic_make}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>VPIC Model ID</td><td> {{vehicle.vpic_model}} </td></tr>
 
-<tr><td>Upper Weight Rating</td><td> {{vehicle.get_gross_vehicle_weight_rating_upper_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>VPIC Body Class</td><td> {{vehicle.get_vpic_body_class_display}} </td></tr>
 
-<tr><td>Vehicle Trailing</td><td> {{vehicle.get_vehicle_trailing_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Body Class</td><td> {{vehicle.get_final_stage_body_class_display}} </td></tr>
+
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Lower Weight Rating</td><td> {{vehicle.get_gross_vehicle_weight_rating_lower_display}} </td></tr>
+
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Upper Weight Rating</td><td> {{vehicle.get_gross_vehicle_weight_rating_upper_display}} </td></tr>
+
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Vehicle Trailing</td><td> {{vehicle.get_vehicle_trailing_display}} </td></tr>
 {% if vehicle.vehicle_trailing > 0 %}
-<tr><td>Trailer VIN 1</td><td> {{vehicle.trailer_vin_1}} </td></tr>
-<tr><td>Trailer VIN 2</td><td> {{vehicle.trailer_vin_2}} </td></tr>
-<tr><td>Trailer VIN 3</td><td> {{vehicle.trailer_vin_3}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Trailer VIN 1</td><td> {{vehicle.trailer_vin_1}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Trailer VIN 2</td><td> {{vehicle.trailer_vin_2}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Trailer VIN 3</td><td> {{vehicle.trailer_vin_3}} </td></tr>
 
-<tr><td>Trailer Weight Rating 1</td><td> {{vehicle.get_trailer_weight_rating_1_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Trailer Weight Rating 1</td><td> {{vehicle.get_trailer_weight_rating_1_display}} </td></tr>
 
-<tr><td>Trailer Weight Rating 2</td><td> {{vehicle.get_trailer_weight_rating_2_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Trailer Weight Rating 2</td><td> {{vehicle.get_trailer_weight_rating_2_display}} </td></tr>
 
-<tr><td>Trailer Weight Rating 3</td><td> {{vehicle.get_trailer_weight_rating_3_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Trailer Weight Rating 3</td><td> {{vehicle.get_trailer_weight_rating_3_display}} </td></tr>
 {% endif %}
 
-<tr><td>Jackknife</td><td> {{vehicle.get_jackknife_display}} </td></tr>
-<tr><td>Motor Carrier ID</td><td> {{vehicle.motor_carrier_identification_number}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Jackknife</td><td> {{vehicle.get_jackknife_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Motor Carrier ID</td><td> {{vehicle.motor_carrier_identification_number}} </td></tr>
 
-<tr><td>Vehicle Configuration</td><td> {{vehicle.get_vehicle_configuration_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Vehicle Configuration</td><td> {{vehicle.get_vehicle_configuration_display}} </td></tr>
 
-<tr><td>Cargo Body Type</td><td> {{vehicle.get_cargo_body_type_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Cargo Body Type</td><td> {{vehicle.get_cargo_body_type_display}} </td></tr>
 {% if vehicle.hazardous_material_involvement %}
-<tr><td>Hazardous Material Involvement</td><td> {{vehicle.hazardous_material_involvement}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Hazardous Material Involvement</td><td> {{vehicle.hazardous_material_involvement}} </td></tr>
 
-<tr><td>Hazardous Material Placard</td><td> {{vehicle.get_hazardous_material_placard_display}} </td></tr>
-<tr><td>Hazardous Material ID</td><td> {{vehicle.hazardous_material_id}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Hazardous Material Placard</td><td> {{vehicle.get_hazardous_material_placard_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Hazardous Material ID</td><td> {{vehicle.hazardous_material_id}} </td></tr>
 
-<tr><td>Hazardous Material Class Number</td><td> {{vehicle.get_hazardous_material_class_number_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Hazardous Material Class Number</td><td> {{vehicle.get_hazardous_material_class_number_display}} </td></tr>
 
-<tr><td>Relase of Hazardous Material</td><td> {{vehicle.get_release_of_hazardous_material_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Relase of Hazardous Material</td><td> {{vehicle.get_release_of_hazardous_material_display}} </td></tr>
 {%endif%}
 
-<tr><td>Bus Use</td><td> {{vehicle.get_bus_use_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Bus Use</td><td> {{vehicle.get_bus_use_display}} </td></tr>
 
-<tr><td>Special Vehicle Use</td><td> {{vehicle.get_special_vehicle_use_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Special Vehicle Use</td><td> {{vehicle.get_special_vehicle_use_display}} </td></tr>
 
-<tr><td>Emergency Vehicle Use</td><td> {{vehicle.get_emergency_vehicle_use_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Emergency Vehicle Use</td><td> {{vehicle.get_emergency_vehicle_use_display}} </td></tr>
 
-<tr><td>Speed Limit</td><td> {% if vehicle.speed_limit < 97 %}{{vehicle.speed_limit}}{% else %}Unknown{% endif %} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Speed Limit</td><td> {% if vehicle.speed_limit < 97 %}{{vehicle.speed_limit}}{% else %}Unknown{% endif %} </td></tr>
 
 {% if accident.year < 2009 %}
-<tr><td>Travel Speed</td><td> {% if vehicle.travel_speed < 97 %}{{vehicle.travel_speed}}{% else %}Unknown{% endif %} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Travel Speed</td><td> {% if vehicle.travel_speed < 97 %}{{vehicle.travel_speed}}{% else %}Unknown{% endif %} </td></tr>
 {% else %}
-<tr><td>Travel Speed</td><td> {% if vehicle.travel_speed < 995 %}{{vehicle.travel_speed}}{% else %}Unknown{% endif %} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Travel Speed</td><td> {% if vehicle.travel_speed < 995 %}{{vehicle.travel_speed}}{% else %}Unknown{% endif %} </td></tr>
 {% endif %}
 
-<tr><td>Underride / Override</td><td> {{vehicle.get_underride_override_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Underride / Override</td><td> {{vehicle.get_underride_override_display}} </td></tr>
 
-<tr><td>Rollover</td><td> {{vehicle.get_rollover_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Rollover</td><td> {{vehicle.get_rollover_display}} </td></tr>
 
-<tr><td>Rollover Location</td><td> {{vehicle.get_rollover_location_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Rollover Location</td><td> {{vehicle.get_rollover_location_display}} </td></tr>
 
-<tr><td>Initial Contact Point</td><td> {{vehicle.get_initial_contact_point_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Initial Contact Point</td><td> {{vehicle.get_initial_contact_point_display}} </td></tr>
 
-<tr><td>Extent of Damage</td><td> {{vehicle.get_extent_of_damage_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Extent of Damage</td><td> {{vehicle.get_extent_of_damage_display}} </td></tr>
 
-<tr><td>Vehicle Towed</td><td> {{vehicle.get_vehicle_towed_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Vehicle Towed</td><td> {{vehicle.get_vehicle_towed_display}} </td></tr>
 
-<tr><td>Most Harmful Event</td><td> {{vehicle.get_most_harmful_event_display}} </td></tr>
-<tr><td>Fire Occurence</td><td> {{vehicle.fire_occurence}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Most Harmful Event</td><td> {{vehicle.get_most_harmful_event_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Fire Occurence</td><td> {{vehicle.fire_occurence}} </td></tr>
 {% if accident.year > 2018 %}
-<tr><td>Automated Driving System Present</td><td> {{vehicle.get_automated_driving_system_present_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Automated Driving System Present</td><td> {{vehicle.get_automated_driving_system_present_display}} </td></tr>
 
-<tr><td>Automated Driving System Level</td><td> {{vehicle.get_automated_driving_system_level_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Automated Driving System Level</td><td> {{vehicle.get_automated_driving_system_level_display}} </td></tr>
 
-<tr><td>Automated Driving System Engaged</td><td> {{vehicle.get_automated_driving_system_engaged_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Automated Driving System Engaged</td><td> {{vehicle.get_automated_driving_system_engaged_display}} </td></tr>
 {% endif %}
 
-<tr><td>Driver Drinking</td><td> {{vehicle.get_driver_drinking_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Driver Drinking</td><td> {{vehicle.get_driver_drinking_display}} </td></tr>
 
-<tr><td>Driver Present</td><td> {{vehicle.get_driver_present_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Driver Present</td><td> {{vehicle.get_driver_present_display}} </td></tr>
 
-<tr><td>Drivers License State</td><td> {{vehicle.get_drivers_license_state_display}} </td></tr>
-<tr><td>Driver Zip Code</td><td> {{vehicle.driver_zip_code}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Drivers License State</td><td> {{vehicle.get_drivers_license_state_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Driver Zip Code</td><td> {{vehicle.driver_zip_code}} </td></tr>
 
-<tr><td>Non CDL License Type</td><td> {{vehicle.get_non_cdl_license_type_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Non CDL License Type</td><td> {{vehicle.get_non_cdl_license_type_display}} </td></tr>
 
-<tr><td>Non CDL License Status</td><td> {{vehicle.get_non_cdl_license_status_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Non CDL License Status</td><td> {{vehicle.get_non_cdl_license_status_display}} </td></tr>
 
-<tr><td>CDL License Status</td><td> {{vehicle.get_cdl_license_status_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>CDL License Status</td><td> {{vehicle.get_cdl_license_status_display}} </td></tr>
 
-<tr><td>CDL Endorsements</td><td> {{vehicle.get_cdl_endorsements_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>CDL Endorsements</td><td> {{vehicle.get_cdl_endorsements_display}} </td></tr>
 
-<tr><td>License Compliance With Class of Vehicle</td><td> {{vehicle.get_license_compliance_with_class_of_vehicle_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>License Compliance With Class of Vehicle</td><td> {{vehicle.get_license_compliance_with_class_of_vehicle_display}} </td></tr>
 
-<tr><td>Compliance with LIcense Restrictions</td><td> {{vehicle.get_compliance_with_license_restrictions_display}} </td></tr>
-<tr><td>Driver Height</td><td> {{vehicle.driver_height}} </td></tr>
-<tr><td>Driver Weight</td><td> {{vehicle.driver_weight}} </td></tr>
-<tr><td>Previous Recorded Crashes</td><td> {{vehicle.previous_recorded_crashes}} </td></tr>
-<tr><td>Previous BAC Suspensions (Underage)</td><td> {{vehicle.previous_bac_suspensions_underage}} </td></tr>
-<tr><td>Previous BAC Suspensions</td><td> {{vehicle.previous_bac_suspensions}} </td></tr>
-<tr><td>Previous Other Suspensions</td><td> {{vehicle.previous_other_suspensions}} </td></tr>
-<tr><td>Previous DWI</td><td> {{vehicle.previous_dwi_convictions}} </td></tr>
-<tr><td>Previous Speeding Convictions</td><td> {{vehicle.previous_speeding_convictions}} </td></tr>
-<tr><td>Previous Other Moving Violations</td><td> {{vehicle.previous_other_moving_violations}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Compliance with LIcense Restrictions</td><td> {{vehicle.get_compliance_with_license_restrictions_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Driver Height</td><td> {{vehicle.driver_height}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Driver Weight</td><td> {{vehicle.driver_weight}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Previous Recorded Crashes</td><td> {{vehicle.previous_recorded_crashes}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Previous BAC Suspensions (Underage)</td><td> {{vehicle.previous_bac_suspensions_underage}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Previous BAC Suspensions</td><td> {{vehicle.previous_bac_suspensions}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Previous Other Suspensions</td><td> {{vehicle.previous_other_suspensions}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Previous DWI</td><td> {{vehicle.previous_dwi_convictions}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Previous Speeding Convictions</td><td> {{vehicle.previous_speeding_convictions}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Previous Other Moving Violations</td><td> {{vehicle.previous_other_moving_violations}} </td></tr>
 
-<tr><td>Month of Oldest Violation</td><td> {{vehicle.get_month_of_oldest_violation_display}} </td></tr>
-<tr><td>Year of Oldest Violation</td><td> {{vehicle.year_of_oldest_violation}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Month of Oldest Violation</td><td> {{vehicle.get_month_of_oldest_violation_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Year of Oldest Violation</td><td> {{vehicle.year_of_oldest_violation}} </td></tr>
 
-<tr><td>Month of Newest Violation</td><td> {{vehicle.get_month_of_newest_violation_display}} </td></tr>
-<tr><td>Year of Newest Violation</td><td> {{vehicle.year_of_newest_violation}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Month of Newest Violation</td><td> {{vehicle.get_month_of_newest_violation_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Year of Newest Violation</td><td> {{vehicle.year_of_newest_violation}} </td></tr>
 
-<tr><td>Speeding Related</td><td> {{vehicle.get_speeding_related_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Speeding Related</td><td> {{vehicle.get_speeding_related_display}} </td></tr>
 
-<tr><td>Trafficway Description</td><td> {{vehicle.get_trafficway_description_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Trafficway Description</td><td> {{vehicle.get_trafficway_description_display}} </td></tr>
 
-<tr><td>Total Lanes in Roadway</td><td> {{vehicle.get_total_lanes_in_roadway_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Total Lanes in Roadway</td><td> {{vehicle.get_total_lanes_in_roadway_display}} </td></tr>
 
-<tr><td>Roadway Alignment</td><td> {{vehicle.get_roadway_alignment_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Roadway Alignment</td><td> {{vehicle.get_roadway_alignment_display}} </td></tr>
 
-<tr><td>Roadway Grade</td><td> {{vehicle.get_roadway_grade_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Roadway Grade</td><td> {{vehicle.get_roadway_grade_display}} </td></tr>
 
-<tr><td>Roadway Surface Type</td><td> {{vehicle.get_roadway_surface_type_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Roadway Surface Type</td><td> {{vehicle.get_roadway_surface_type_display}} </td></tr>
 
-<tr><td>Roadway Surface Condition</td><td> {{vehicle.get_roadway_surface_condition_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Roadway Surface Condition</td><td> {{vehicle.get_roadway_surface_condition_display}} </td></tr>
 
-<tr><td>Traffic Control Device</td><td> {{vehicle.get_traffic_control_device_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Traffic Control Device</td><td> {{vehicle.get_traffic_control_device_display}} </td></tr>
 
-<tr><td>Traffic Control Device Functioning</td><td> {{vehicle.get_traffic_control_device_functioning_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Traffic Control Device Functioning</td><td> {{vehicle.get_traffic_control_device_functioning_display}} </td></tr>
 
-<tr><td>Pre Event Movement</td><td> {{vehicle.get_pre_event_movement_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Pre Event Movement</td><td> {{vehicle.get_pre_event_movement_display}} </td></tr>
 
-<tr><td>Critical Precrash Event</td><td> {{vehicle.get_critical_precrash_event_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Critical Precrash Event</td><td> {{vehicle.get_critical_precrash_event_display}} </td></tr>
 
-<tr><td>Attempted Avoidance Maneuver</td><td> {{vehicle.get_attempted_avoidance_maneuver_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Attempted Avoidance Maneuver</td><td> {{vehicle.get_attempted_avoidance_maneuver_display}} </td></tr>
 
-<tr><td>Precrash Stability</td><td> {{vehicle.get_precrash_stability_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Precrash Stability</td><td> {{vehicle.get_precrash_stability_display}} </td></tr>
 
-<tr><td>Pre-impact Location</td><td> {{vehicle.get_preimpact_location_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Pre-impact Location</td><td> {{vehicle.get_preimpact_location_display}} </td></tr>
 
-<tr><td>Crash Type</td><td> {{vehicle.get_crash_type_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Crash Type</td><td> {{vehicle.get_crash_type_display}} </td></tr>
 {%for vrf in vehicle.vehiclerelatedfactor_set.all %}
-<tr><td>Vehicle Related Factor</td><td> {{vrf.get_vehicle_related_factor_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Vehicle Related Factor</td><td> {{vrf.get_vehicle_related_factor_display}} </td></tr>
 {%endfor%}
 {%for vrf in vehicle.driverrelatedfactor_set.all %}
 
-<tr><td>Driver Related Factor</td><td> {{vrf.get_driver_related_factor_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Driver Related Factor</td><td> {{vrf.get_driver_related_factor_display}} </td></tr>
 {%endfor%}
 {%for vrf in vehicle.vision_set.all %}
-<tr><td>Visibility Obstructions</td><td> {{vrf.get_visibility_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Visibility Obstructions</td><td> {{vrf.get_visibility_display}} </td></tr>
 {%endfor%}
 {%for vrf in vehicle.violation_set.all %}
-<tr><td>Moving Violations</td><td> {{vrf.get_moving_violation_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Moving Violations</td><td> {{vrf.get_moving_violation_display}} </td></tr>
 {%endfor%}
 {%for vrf in vehicle.maneuver_set.all %}
-<tr><td>Driver Maneuvered to Avoid</td><td> {{vrf.get_driver_maneuvered_to_avoid_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Driver Maneuvered to Avoid</td><td> {{vrf.get_driver_maneuvered_to_avoid_display}} </td></tr>
 {%endfor%}
 {%for vrf in vehicle.vehiclefactor_set.all %}
-<tr><td>Vehicle Factors</td><td> {{vrf.get_contributing_cause_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Vehicle Factors</td><td> {{vrf.get_contributing_cause_display}} </td></tr>
 {%endfor%}
 {%for vrf in vehicle.damage_set.all %}
-<tr><td>Damaged Areas</td><td> {{vrf.get_area_of_impact_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Damaged Areas</td><td> {{vrf.get_area_of_impact_display}} </td></tr>
 {%endfor%}
 {%for vrf in vehicle.driverdistracted_set.all %}
-<tr><td>Driver Distracted</td><td> {{vrf.get_distracted_by_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Driver Distracted</td><td> {{vrf.get_distracted_by_display}} </td></tr>
 {%endfor%}
 {%for vrf in vehicle.driverimpaired_set.all %}
-<tr><td>Driver Impaired</td><td> {{vrf.get_driver_impaired_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Driver Impaired</td><td> {{vrf.get_driver_impaired_display}} </td></tr>
 {%endfor%}
 {%for vsoe in vehicle.vehiclesequenceofevents_set.all %}
-<tr><td>Vehicle Event {{ vsoe.vehicle_event_number }}</td><td> {{vsoe.get_sequence_of_events_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Vehicle Event {{ vsoe.vehicle_event_number }}</td><td> {{vsoe.get_sequence_of_events_display}} </td></tr>
 {%endfor%}
+
+<tr><th class="toggle toggle-vehicle-button-{{ vehicle.id }}" onclick="toggleVehicle('{{ vehicle.id }}')">Collapse Table</th><th class="toggle toggle-vehicle-button-{{ vehicle.id }}" onclick="toggleVehicle('{{ vehicle.id }}')">Collapse Table</th></tr>
     </table>
+    <script>
+      toggleVehicle('{{ vehicle.id }}')
+    </script>
     {% endfor %}
+
+
 
     {% if accident.parkedvehicle_set.all|length > 0 %}
-    <h1>Parked Vehicles</h1>
+    <h1>Parked / Working Vehicles</h1>
     {% endif %}
     {% for vehicle in accident.parkedvehicle_set.all %}
-    <table class="table" id="parked_vehicle">
+    <table class="table" id="vehicle-{{ vehicle.id }}">
         <tr>
-          <th class="header">Property</th>
-          <th class="header">Info</th>
+          <th class="header">Vehicle #{{ vehicle.vehicle_number }}</th>
+          <th class="header">Vehicle #{{ vehicle.vehicle_number }}</th>
         </tr>
-
-        <tr><td>Vehicle ID</td><td> {{vehicle.vehicle_number}} </td></tr>
-
-
 <tr><td>Fatalities</td><td> {{vehicle.fatalities}} </td></tr>
-<tr><td>Number of Occupants</td><td> {{vehicle.number_of_occupants}} </td></tr>
-
-<tr><td>Hit and Run</td><td> {{vehicle.get_hit_and_run_display}} </td></tr>
-
-<tr><td>Registration State</td><td> {{vehicle.get_registration_state_display}} </td></tr>
-
-<tr><td>Registered Vehicle Owner</td><td> {{vehicle.get_registered_vehicle_owner_display}} </td></tr>
-<tr><td>VIN</td><td> {{vehicle.vehicle_identification_number}} </td></tr>
-<tr><td>Model Year</td><td> {{vehicle.vehicle_model_year}} </td></tr>
-{% if accident.year > 2019 %}
-<tr><td>VPIC Make ID</td><td> {{vehicle.vpic_make}} </td></tr>
-<tr><td>VPIC Model ID</td><td> {{vehicle.vpic_model}} </td></tr>
-
-<tr><td>VPIC Body Class</td><td> {{vehicle.get_vpic_body_class_display}} </td></tr>
-{% endif %}
-
+<tr><td>Number of <a href="#person-{{ vehicle.id }}001">Occupants</a><td> {{vehicle.number_of_occupants}} </td></tr>
 <tr><td>NCSA Make</td><td> {{vehicle.get_ncsa_make_display}} </td></tr>
+<tr><td>Body Type</td><td> {{vehicle.get_body_type_display}} </td></tr>
+<tr><td>Hit and Run</td><td> {{vehicle.get_hit_and_run_display}} </td></tr>
 <tr><td>NCSA Model</td><td> {{vehicle.ncsa_model}} </td></tr>
 
-<tr><td>Body Type</td><td> {{vehicle.get_body_type_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Registration State</td><td> {{vehicle.get_registration_state_display}} </td></tr>
 
-<tr><td>Body Class</td><td> {{vehicle.get_final_stage_body_class_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Registered Vehicle Owner</td><td> {{vehicle.get_registered_vehicle_owner_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>VIN</td><td> {{vehicle.vehicle_identification_number}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Model Year</td><td> {{vehicle.vehicle_model_year}} </td></tr>
+{% if accident.year > 2019 %}
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>VPIC Make ID</td><td> {{vehicle.vpic_make}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>VPIC Model ID</td><td> {{vehicle.vpic_model}} </td></tr>
 
-<tr><td>Lower Weight Rating</td><td> {{vehicle.get_gross_vehicle_weight_rating_lower_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>VPIC Body Class</td><td> {{vehicle.get_vpic_body_class_display}} </td></tr>
+{% endif %}
 
-<tr><td>Upper Weight Rating</td><td> {{vehicle.get_gross_vehicle_weight_rating_upper_display}} </td></tr>
 
-<tr><td>Vehicle Trailing</td><td> {{vehicle.get_vehicle_trailing_display}} </td></tr>
-<tr><td>Trailer VIN 1</td><td> {{vehicle.trailer_vin_1}} </td></tr>
-<tr><td>Trailer VIN 2</td><td> {{vehicle.trailer_vin_2}} </td></tr>
-<tr><td>Trailer VIN 3</td><td> {{vehicle.trailer_vin_3}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Body Class</td><td> {{vehicle.get_final_stage_body_class_display}} </td></tr>
 
-<tr><td>Trailer Weight Rating 1</td><td> {{vehicle.get_trailer_weight_rating_1_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Lower Weight Rating</td><td> {{vehicle.get_gross_vehicle_weight_rating_lower_display}} </td></tr>
 
-<tr><td>Trailer Weight Rating 2</td><td> {{vehicle.get_trailer_weight_rating_2_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Upper Weight Rating</td><td> {{vehicle.get_gross_vehicle_weight_rating_upper_display}} </td></tr>
 
-<tr><td>Trailer Weight Rating 3</td><td> {{vehicle.get_trailer_weight_rating_3_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Vehicle Trailing</td><td> {{vehicle.get_vehicle_trailing_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Trailer VIN 1</td><td> {{vehicle.trailer_vin_1}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Trailer VIN 2</td><td> {{vehicle.trailer_vin_2}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Trailer VIN 3</td><td> {{vehicle.trailer_vin_3}} </td></tr>
 
-<tr><td>Motor Carrier ID</td><td> {{vehicle.motor_carrier_identification_number}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Trailer Weight Rating 1</td><td> {{vehicle.get_trailer_weight_rating_1_display}} </td></tr>
 
-<tr><td>Vehicle Configuration</td><td> {{vehicle.get_vehicle_configuration_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Trailer Weight Rating 2</td><td> {{vehicle.get_trailer_weight_rating_2_display}} </td></tr>
 
-<tr><td>Cargo Body Type</td><td> {{vehicle.get_cargo_body_type_display}} </td></tr>
-<tr><td>Hazardous Material Involvement</td><td> {{vehicle.hazardous_material_involvement}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Trailer Weight Rating 3</td><td> {{vehicle.get_trailer_weight_rating_3_display}} </td></tr>
 
-<tr><td>Hazardous Material Placard</td><td> {{vehicle.get_hazardous_material_placard_display}} </td></tr>
-<tr><td>Hazardous Materia ID</td><td> {{vehicle.hazardous_material_id}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Motor Carrier ID</td><td> {{vehicle.motor_carrier_identification_number}} </td></tr>
 
-<tr><td>Hazardous Material Class Number</td><td> {{vehicle.get_hazardous_material_class_number_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Vehicle Configuration</td><td> {{vehicle.get_vehicle_configuration_display}} </td></tr>
 
-<tr><td>Relase of Hazardous Material</td><td> {{vehicle.get_release_of_hazardous_material_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Cargo Body Type</td><td> {{vehicle.get_cargo_body_type_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Hazardous Material Involvement</td><td> {{vehicle.hazardous_material_involvement}} </td></tr>
 
-<tr><td>Bus Use</td><td> {{vehicle.get_bus_use_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Hazardous Material Placard</td><td> {{vehicle.get_hazardous_material_placard_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Hazardous Materia ID</td><td> {{vehicle.hazardous_material_id}} </td></tr>
 
-<tr><td>Special Vehicle Use</td><td> {{vehicle.get_special_vehicle_use_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Hazardous Material Class Number</td><td> {{vehicle.get_hazardous_material_class_number_display}} </td></tr>
 
-<tr><td>Emergency Vehicle Use</td><td> {{vehicle.get_emergency_vehicle_use_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Relase of Hazardous Material</td><td> {{vehicle.get_release_of_hazardous_material_display}} </td></tr>
 
-<tr><td>Underride / Override</td><td> {{vehicle.get_underride_override_display}} </td></tr>
-<tr><td>Initial Contact Point</td><td> {{vehicle.get_initial_contact_point_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Bus Use</td><td> {{vehicle.get_bus_use_display}} </td></tr>
 
-<tr><td>Extent of Damage</td><td> {{vehicle.get_extent_of_damage_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Special Vehicle Use</td><td> {{vehicle.get_special_vehicle_use_display}} </td></tr>
 
-<tr><td>Vehicle Towed</td><td> {{vehicle.get_vehicle_towed_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Emergency Vehicle Use</td><td> {{vehicle.get_emergency_vehicle_use_display}} </td></tr>
 
-<tr><td>Most Harmful Event</td><td> {{vehicle.get_most_harmful_event_display}} </td></tr>
-<tr><td>Fire Occurence</td><td> {{vehicle.fire_occurence}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Underride / Override</td><td> {{vehicle.get_underride_override_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Initial Contact Point</td><td> {{vehicle.get_initial_contact_point_display}} </td></tr>
+
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Extent of Damage</td><td> {{vehicle.get_extent_of_damage_display}} </td></tr>
+
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Vehicle Towed</td><td> {{vehicle.get_vehicle_towed_display}} </td></tr>
+
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Most Harmful Event</td><td> {{vehicle.get_most_harmful_event_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Fire Occurence</td><td> {{vehicle.fire_occurence}} </td></tr>
 {%for vrf in vehicle.parkedvehiclerelatedfactor_set.all %}
-<tr><td>Related Factors</td><td> {{vrf.get_parked_vehicle_related_factor_display}} </td></tr>
+<tr class="hidden-vehicle-{{ vehicle.id }}"><td>Related Factors</td><td> {{vrf.get_parked_vehicle_related_factor_display}} </td></tr>
 {%endfor%}
 
+<tr><th class="toggle toggle-vehicle-button-{{ vehicle.id }}" onclick="toggleVehicle('{{ vehicle.id }}')">Collapse Table</th><th class="toggle toggle-vehicle-button-{{ vehicle.id }}" onclick="toggleVehicle('{{ vehicle.id }}')">Collapse Table</th></tr>
     </table>
-    </table>
-    {% endfor %}
-
-    <h1>Persons</h1>
-    {% for person in accident.person_set.all %}
-    <table class="table" id="person">
-        <tr>
-          <th class="header">Property</th>
-          <th class="header">Info</th>
-        </tr>
-    <tr><td>Person ID</td><td>{{person.person_number}} </td></tr>
-    <tr><td>Vehicle ID</td><td>{{ person.vehicle_or_parked_vehicle_number }}</td></tr>
-    <tr><td>Age</td><td>{{person.age}} </td></tr>
-
-    <tr><td>Sex</td><td>{{person.get_sex_display}} </td></tr>
-
-    <tr><td>Person Type</td><td>{{person.get_person_type_display}} </td></tr>
-
-    <tr><td>injury Severity</td><td>{{person.get_injury_severity_display}} </td></tr>
-
-    <tr><td>Seating Position</td><td>{{person.get_seating_position_display}} </td></tr>
-
-    <tr><td>Restraint System Use</td><td>{{person.get_restraint_system_use_display}} </td></tr>
-
-    <tr><td>Restraint System Misuse</td><td>{{person.get_restraint_system_misuse_display}} </td></tr>
-
-    <tr><td>Helmet Use</td><td>{{person.get_helmet_use_display}} </td></tr>
-
-    <tr><td>Helmet Misuse</td><td>{{person.get_helmet_misuse_display}} </td></tr>
-
-    <tr><td>Airbag Deployed</td><td>{{person.get_airbag_deployed_display}} </td></tr>
-
-    <tr><td>Ejection</td><td>{{person.get_ejection_display}} </td></tr>
-
-    <tr><td>Ejection Path</td><td>{{person.get_ejection_path_display}} </td></tr>
-
-    <tr><td>Extrication</td><td>{{person.get_extrication_display}} </td></tr>
-
-    <tr><td>Police Reported Alcohol Involvement</td><td>{{person.get_police_reported_alcohol_involvement_display}} </td></tr>
-
-    <tr><td>Alcohol Test Given</td><td>{{person.get_alcohol_test_given_display}} </td></tr>
-
-    <tr><td>Alcohol Test Type</td><td>{{person.get_alcohol_test_type_display}} </td></tr>
-    <tr><td>Alcohol Test Result</td><td>{{person.interpret_alcohol_test_result}} </td></tr>
-
-    <tr><td>Police Reported Drug Involvement</td><td>{{person.get_police_reported_drug_involvement_display}} </td></tr>
-
-    <tr><td>Drug Tested</td><td>{{person.get_drug_tested_display}} </td></tr>
-
-    <tr><td>Transported To Medical Facility By</td><td>{{person.get_transported_to_medical_facility_by_display}} </td></tr>
-
-    <tr><td>Died En Route</td><td>{{person.get_died_en_route_display}} </td></tr>
-    {% if person.injury_severity == 4 %}
-    <tr><td>Month of Death</td><td>{{person.get_month_of_death_display}} </td></tr>
-    <tr><td>Day of Death</td><td>{{person.day_of_death}} </td></tr>
-    <tr><td>Year of Death</td><td>{{person.year_of_death}} </td></tr>
-    <tr><td>Hour of Death</td><td>{{person.hour_of_death}} </td></tr>
-    <tr><td>Minute of Death</td><td>{{person.minute_of_death}} </td></tr>
-    <tr><td>Lag Hours</td><td>{{person.lag_hours}} </td></tr>
-    <tr><td>Lag Minutes</td><td>{{person.lag_minutes}} </td></tr>
-    {% endif %}
-    <tr><td>Vehicle which Struck Non Motorist</td><td>{%if person.vehicle_which_struck_non_motorist%}#{%endif%}{{person.vehicle_which_struck_non_motorist.vehicle_number}} </td></tr>
-
-    {% if accident.year > 2021 %}
-    <tr><td>Non Motorist Device Type</td><td>{{person.get_non_motorist_device_type_display}} </td></tr>
-
-    <tr><td>Non Motorist Device Motorization</td><td>{{person.get_non_motorist_device_motorization_display}} </td></tr>
-    {% endif %}
-    <tr><td>Non Motorist Location</td><td>{{person.get_non_motorist_location_display}} </td></tr>
-
-    <tr><td>At Work</td><td>{{person.get_at_work_display}} </td></tr>
-
-    <tr><td>Hispanic</td><td>{{person.get_hispanic_display}} </td></tr>
-    
-  {%for race in person.race_set.all %}
-  <tr><td>Race</td><td> {{race.get_race_display}} </td></tr>
-  {%endfor%}
-  {%for drugs in person.drugs_set.all %}
-  {% if person.drug_test_type > 0 %}
-  <tr><td>Drug Test Type</td><td> {{drugs.get_drug_test_type_display}} </td></tr>
-  <tr><td>Drug Test Results</td><td> {{drugs.interpret_test_result}} </td></tr>
-  {% endif %}
-  {%endfor%}
-  {%for rf in person.personrelatedfactor_set.all %}
-  <tr><td>Person Related Factor</td><td> {{rf.get_person_related_factor_display}} </td></tr>
-  {%endfor%}
-
-
-    {% if person.safetyequipment.get_helmet_display %} 
-    <tr><td>Nonmotorist Bicycle Helmet</td><td>{{person.safetyequipment.get_helmet_display}} </td></tr>
-    <tr><td>Nonmotorist Pads</td><td>{{person.safetyequipment.get_pads_display}} </td></tr>
-    <tr><td>Nonmotorist Lights</td><td>{{person.safetyequipment.get_lights_display}} </td></tr>
-    <tr><td>Nonmotorist Reflectors</td><td>{{person.safetyequipment.get_reflective_equipment_display}} </td></tr>
-    <tr><td>Nonmotorist Other Protective Equipment</td><td>{{person.safetyequipment.get_other_protective_equipment_display}} </td></tr>
-    <tr><td>Nonmotorist Other Preventative Equipment</td><td>{{person.safetyequipment.get_other_preventative_equipment_display}} </td></tr>
-    {% endif %}
-    {% if person.pedestriantype.get_pedestrian_location_display %} 
-    <tr><td>Nonmotorist Marked Crosswalk Present</td><td>{{person.pedestriantype.get_marked_crosswalk_present_display}} </td></tr>
-    <tr><td>Nonmotorist Sidewalk Present</td><td>{{person.pedestriantype.get_sidewalk_present_display}} </td></tr>
-    <tr><td>Nonmotorist In School Zone</td><td>{{person.pedestriantype.get_in_school_zone_display}} </td></tr>
-    <tr><td>Pedestrian Crash Type</td><td>{{person.pedestriantype.get_pedestrian_crash_type_display}} </td></tr>
-    <tr><td>Bicycle Crash Type</td><td>{{person.pedestriantype.get_bicycle_crash_type_display}} </td></tr>
-    <tr><td>Pedestrian Location</td><td>{{person.pedestriantype.get_pedestrian_location_display}} </td></tr>
-    <tr><td>Pedestrian Position</td><td>{{person.pedestriantype.get_pedestrian_position_display}} </td></tr>
-    <tr><td>Pedestrian Direction</td><td>{{person.pedestriantype.get_pedestrian_direction_display}} </td></tr>
-    <tr><td>Bicycle Location</td><td>{{person.pedestriantype.get_bicycle_location_display}} </td></tr>
-    <tr><td>Bicycle Position</td><td>{{person.pedestriantype.get_bicycle_position_display}} </td></tr>
-    <tr><td>Bicycle Direction</td><td>{{person.pedestriantype.get_bicycle_direction_display}} </td></tr>
-    <tr><td>Motorist Direction</td><td>{{person.pedestriantype.get_motorist_direction_display}} </td></tr>
-    {% endif %}
-    
-  {%for rf in person.nonmotoristprioraction_set.all %}
-  <tr><td>Nonmotorist Prior Action</td><td> {{rf.get_nonmotorist_prior_action_display}} </td></tr>
-  {%endfor%}
-  {%for rf in person.nonmotoristimpaired_set.all %}
-  <tr><td>Nonmotorist Impaired</td><td> {{rf.get_nonmotorist_impaired_display}} </td></tr>
-  {%endfor%}
-  {%for rf in person.nonmotoristdistracted_set.all %}
-  <tr><td>Nonmotorist Distracted</td><td> {{rf.get_nonmotorist_distracted_by_display}} </td></tr>
-  {%endfor%}
-  {%for rf in person.nonmotoristcontributingcircumstance_set.all %}
-  <tr><td>Nonmotorist Contributing Circumstance</td><td> {{rf.get_nonmotorist_contributing_circumstance_display}} </td></tr>
-  {%endfor%}
-    </table>
+    <script>
+      toggleVehicle('{{ vehicle.id }}')
+    </script>
     {% endfor %}
 
     {% if accident.crashevent_set.all|length > 0 %}
@@ -700,7 +757,11 @@
   </form>
   </div>
 </div>
+<script>
 
+toggleAccident(0)
+
+</script>
 
 </body>
 </html>
