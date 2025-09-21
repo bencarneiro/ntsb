@@ -208,6 +208,9 @@ function togglePerson(n) {
 <tr><td>Street Name 1</td><td> {{accident.trafficway_identifier_1}} </td></tr>
 <tr><td>Street Name 2</td><td> {{accident.trafficway_identifier_2}} </td></tr>
 
+{% for crf in accident.weather_set.all %}
+<tr><td>Weather</td><td>{{crf.get_atmospheric_condition_display}} </td></tr>
+{%endfor%}
   <tr class="hidden-accident"><td>Number of Vehicles</td><td> {{accident.number_of_vehicles}} </td></tr>
     <tr class="hidden-accident"><td>Number of Vehicles in Transport</td><td> {{accident.number_of_vehicles_in_transport}} </td></tr>
     <tr class="hidden-accident"><td>Number of Parked Vehicles</td><td> {{accident.number_of_parked_vehicles}} </td></tr>
@@ -701,15 +704,20 @@ function togglePerson(n) {
     {% for ce in accident.crashevent_set.all %}
     <table class="table" id="crash_event">
         <tr>
-          <th class="header">Property</th>
-          <th class="header">Info</th>
+          <th class="header">Event #{{ ce.crash_event_number }}</th>
+          <th class="header">Event #{{ ce.crash_event_number }}</th>
         </tr>
-    <tr><td>ID</td><td>{{ce.crash_event_number}} </td></tr>
-    <tr><td>Vehicle 1</td><td>{{ce.vehicle_number_1}} </td></tr>
-    <tr><td>Area Of Impact 1</td><td>{{ce.get_area_of_impact_1_display}} </td></tr>
+    <tr><td>Vehicle</td><td><a href="#vehicle-{{ ce.vehicle_id_1 }}">Vehicle #{{ce.vehicle_number_1}}</a></td></tr>
+    <tr><td>Area Of Impact</td><td>{{ce.get_area_of_impact_1_display}} </td></tr>
       <tr><td>Sequence of Events</td><td>{{ce.get_sequence_of_events_display}}</td></tr>
-    <tr><td>Vehicle 2</td><td>{{ce.vehicle_number_2}} </td></tr>
-    <tr><td>Area Of Impact 2</td><td>{{ce.get_area_of_impact_2_display}} </td></tr>
+    <tr><td>Vehicle</td>
+      {% if ce.vehicle_id_2 %}
+      <td><a href="#vehicle-{{ ce.vehicle_id_2 }}">Vehicle #{{ce.vehicle_number_2}}</a>
+        {% else %}
+        <td>None</td>
+        {% endif %}
+    </td></tr>
+    <tr><td>Area Of Impact</td><td>{{ce.get_area_of_impact_2_display}} </td></tr>
     </table>
     {%endfor%}
 
@@ -727,16 +735,6 @@ function togglePerson(n) {
     </table>
     {% endif %}
 
-    <h1>Weather</h1>
-    <table class="table" id="weather">
-        <tr>
-          <th class="header">Weather</th>
-        </tr>
-
-    {% for crf in accident.weather_set.all %}
-    <tr><td>{{crf.get_atmospheric_condition_display}} </td></tr>
-    {%endfor%}
-    </table>
 
 
     <div class="comment-container">
