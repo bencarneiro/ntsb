@@ -171,7 +171,7 @@ function togglePerson(n) {
 </head>
 <body>
 
-  <p><a class="back-link" href="/">Back To Map</a></p>
+  <p><a class="back-link" href="/">Back To Map</a>   <a class="back-link" href="/">Search Crashes</a></p>
 <h1>Fatal Crash Report</h1>
 <div class="table-container">
   <h3 class="qr"><a href="/someone_died_here?id={{ accident.id }}">Print QR Code</a></h3>
@@ -284,9 +284,9 @@ function togglePerson(n) {
       <th class="header">Person #{{ person.person_number }} in <a href="#vehicle-{{ person.vehicle_or_parked_vehicle_id }}">Vehicle #{{ person.vehicle_or_parked_vehicle_number }}</a></th>
       {% endif %}
     </tr>
-<tr><td>Age</td><td>{{person.age}} </td></tr>
+<tr><td>Age</td><td>{% if person.age == 999 or person.age == 998 %}Unknown Age{% else %} {{ person.age }} year(s) old{% endif %} </td></tr>
 
-<tr><td>Sex</td><td>{{person.get_sex_display}} </td></tr>
+<tr><td>Sex</td><td>{% if person.sex == 8 or person.sex == 9%}Sex Unknown{%else%}{{ person.get_sex_display }}{%endif%} </td></tr>
 
 <tr><td>Person Type</td><td>{{person.get_person_type_display}} </td></tr>
 
