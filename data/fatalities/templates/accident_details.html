@@ -269,6 +269,10 @@ function togglePerson(n) {
     {% if accident.arrived_at_hospital_minute < 99 %}
     <tr class="hidden-accident"><td>Arrived at Hospital Minute</td><td> {{accident.arrived_at_hospital_minute}} </td></tr>
     {% endif %}
+
+    {% for crf in accident.crashrelatedfactors_set.all %}
+    <tr class="hidden-accident"><td>Crash Related Factor</td><td>{{crf.get_crash_related_factor_display}} </td></tr>
+    {% endfor %}
     <tr><th class="toggle-accident-button" onclick="toggleAccident(0)">Collapse Table</th><th class="toggle-accident-button" onclick="toggleAccident(0)">Collapse Table</th></tr>
 </table>
 </div>
@@ -726,18 +730,9 @@ function togglePerson(n) {
     {%endfor%}
 
 
-    {% if accident.crashrelatedfactor_set.all|length > 0 %}
-    <h1>Crash Related Factors</h1>
-    <table class="table" id="crash_related_factor">
-        <tr>
-          <th class="header">Crash Related Factor</th>
-        </tr>
 
-    {% for crf in accident.crashrelatedfactors_set.all %}
-    <tr><td>{{crf.get_crash_related_factor_display}} </td></tr>
-    {%endfor%}
-    </table>
-    {% endif %}
+
+    <table></table>
 
 
 
