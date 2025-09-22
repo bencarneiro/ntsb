@@ -298,6 +298,7 @@ function togglePerson(n) {
 <tr><td>Person Type</td><td>{{person.get_person_type_display}} </td></tr>
 
 <tr><td>Injury Severity</td><td>{{person.get_injury_severity_display}} </td></tr>
+{%if person.vehicle_which_struck_non_motorist%}<tr><td>Vehicle which Struck Non Motorist</td><td><a href="#vehicle-{{ person.vehicle_which_struck_non_motorist.id}}">Vehicle #{{person.vehicle_which_struck_non_motorist.vehicle_number}}</td></tr> {%endif%}
 
 <tr class="hidden-person-{{ person.id }}"><td>Seating Position</td><td>{{person.get_seating_position_display}} </td></tr>
 
@@ -340,7 +341,6 @@ function togglePerson(n) {
 <tr class="hidden-person-{{ person.id }}"><td>Lag Hours</td><td>{{person.lag_hours}} </td></tr>
 <tr class="hidden-person-{{ person.id }}"><td>Lag Minutes</td><td>{{person.lag_minutes}} </td></tr>
 {% endif %}
-<tr class="hidden-person-{{ person.id }}"><td>Vehicle which Struck Non Motorist</td><td>{%if person.vehicle_which_struck_non_motorist%}#{%endif%}{{person.vehicle_which_struck_non_motorist.vehicle_number}} </td></tr>
 
 {% if accident.year > 2021 %}
 <tr class="hidden-person-{{ person.id }}"><td>Non Motorist Device Type</td><td>{{person.get_non_motorist_device_type_display}} </td></tr>
