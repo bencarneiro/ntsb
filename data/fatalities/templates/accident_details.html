@@ -418,7 +418,13 @@ function togglePerson(n) {
 
 
 <tr><td>Fatalities</td><td> {{vehicle.fatalities}} </td></tr>
-<tr><td>Number of <a href="#person-{{ vehicle.id }}001">Occupants</a></td><td> {{vehicle.number_of_occupants}} </td></tr>
+<tr><td>Number of <a href="#person-{{ vehicle.id }}001">Occupants</a></td>
+  {% if vehicle.number_of_occupants == 99 %}
+  <td>Unknown</td>
+  {% else %}
+  <td> {{vehicle.number_of_occupants}} </td>
+  {% endif %}
+</tr>
 
 <tr><td>Hit and Run</td><td> {{vehicle.get_hit_and_run_display}} </td></tr>
 
@@ -710,14 +716,12 @@ function togglePerson(n) {
     <tr><td>Vehicle</td><td><a href="#vehicle-{{ ce.vehicle_id_1 }}">Vehicle #{{ce.vehicle_number_1}}</a></td></tr>
     <tr><td>Area Of Impact</td><td>{{ce.get_area_of_impact_1_display}} </td></tr>
       <tr><td>Sequence of Events</td><td>{{ce.get_sequence_of_events_display}}</td></tr>
-    <tr><td>Vehicle</td>
       {% if ce.vehicle_id_2 %}
+      <tr><td>Vehicle</td>
       <td><a href="#vehicle-{{ ce.vehicle_id_2 }}">Vehicle #{{ce.vehicle_number_2}}</a>
-        {% else %}
-        <td>None</td>
+        <tr><td>Area Of Impact</td><td>{{ce.get_area_of_impact_2_display}} </td></tr>
         {% endif %}
     </td></tr>
-    <tr><td>Area Of Impact</td><td>{{ce.get_area_of_impact_2_display}} </td></tr>
     </table>
     {%endfor%}
 

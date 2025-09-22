@@ -519,7 +519,7 @@ class CrashEventSchema(Schema):
     id: int
     crash_event_number: int
     vehicle_1: int = Field(None, alias='vehicle_id_1')
-    vehicle_2: int = Field(None, alias='vehicle_id_2')
+    vehicle_2: Optional[int] = Field(None, alias='vehicle_id_2')
     area_of_impact_1: int
     area_of_impact_1_display: str = Field(..., alias='get_area_of_impact_1_display')
     sequence_of_events: int
