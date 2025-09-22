@@ -64,9 +64,6 @@
       margin-right: auto
     }
     
-    #comments {
-        width:100%;
-      }
 
     .comment {
         width:80%;
@@ -731,11 +728,38 @@ function togglePerson(n) {
 
 
 
+    <h1>Comments</h1>
+    <div class="table-container">
+    <table id="comments" class="table">
+      
+      <tr>
+        <th class="header">Date</th>
+        <th class="header">Comment</th>
+      </tr>
+    {% for comment in accident.comment_set.all %}
+    <tr><td>{{comment.created|date}} - {{comment.created|time}} </td><td>{{comment.comment|linebreaks}} </td></tr>
+    {%endfor%}
+    <tr>
+      
+    <form  action="/post_comment" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <input type="hidden" id="accident_id" name="accident_id" value="{{ accident.id }}" />
+      <td>
+        
+    </td>
+    <td>
+    <input type="submit" value="Submit">
+  </td>
+    </tr>
+  </form>
+  
+  
+    </tr>
+    </table>
+  </div>
 
-    <table></table>
-
-
-
+<!-- 
     <div class="comment-container">
     <h1>Comments / Obituaries / Links / Articles</h1>
     <table id="comments">
@@ -745,15 +769,13 @@ function togglePerson(n) {
     {%endfor%}
     </table>
     <br>
-    <div class="comment-container">
     <form  action="/post_comment" method="post">
       {% csrf_token %}
       {{ form }}
       <input type="hidden" id="accident_id" name="accident_id" value="{{ accident.id }}" />
       <input type="submit" value="Submit">
   </form>
-  </div>
-</div>
+</div> -->
 <script>
 
 toggleAccident(0)
