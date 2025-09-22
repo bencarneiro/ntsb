@@ -255,7 +255,7 @@ def post_comment(request):
             }
             Comment.objects.create(**data_to_save)
             # redirect to a new URL:
-            return redirect(f"/accidents/{request.POST['accident_id']}")
+            return redirect(f"/accidents/{request.POST['accident_id']}" + "#comments")
 
     # if a GET (or any other method) we'll create a blank form
     else:
