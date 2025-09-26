@@ -9,10 +9,13 @@ class State(models.Model):
     id = models.PositiveSmallIntegerField(primary_key=True)
     short_name = models.CharField(max_length=16, null=True, blank=True)
     name = models.CharField(max_length=256, null=False)
+    dot_name = models.CharField(max_length=128, null=True, blank=True)
+    population_description = models.CharField(max_length=128, null=True, blank=True)
 
     class Meta:
         db_table = "state"
         managed = True
+
 
 
 class County(models.Model):

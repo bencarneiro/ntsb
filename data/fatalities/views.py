@@ -296,6 +296,34 @@ def county_dashboard(request, **kwargs):
     return render(request, "county_dashboard.html", {"county": county})
 
 
+def blog(request, **kwargs):
+    return render(request, "blog.html", {})
+
+
+@cache_page(60 * 60 * 24 * 30)
+def state_blog(request, **kwargs):
+    try:
+        state_kwarg = kwargs['state']
+        if "-" in kwargs['state']:
+            state_kwarg = " ".join(kwargs['state'].split("-"))
+
+        state = State.objects.get(name=state_kwarg.upper())
+        state_name = ""
+        for word in state.name.split(" "):
+            state_name += word[0]
+            state_name += word[1:].lower()
+            state_name += " "
+        state_name = state_name[:-1]
+        print(state_name)
+
+        top_cities = Person.objects.filter(accident__state_id=state.id, injury_severity=4, accident__city__isnull=False).values("accident__city__name").annotate(total_deaths=Count("id")).order_by("-total_deaths")[:10]
+        top_counties = Person.objects.filter(accident__state_id=state.id, injury_severity=4, accident__county__isnull=False).values("accident__county__name").annotate(total_deaths=Count("id")).order_by("-total_deaths")[:10]
+        return render(request, "blog_state.html", {"state": state_name, "state_id": state.id, "major_cities": top_cities, "major_counties": top_counties, "state_dot": state.dot_name, "state_population": state.population_description})
+    except Exception as e:
+        print(e)
+        return render(request, "blog_state.html", {})
+    
+
 @cache_page(60 * 60 * 24 * 30)
 def total_fatalities(request):
     county = County.objects.get(id=request.GET['county_id'])
