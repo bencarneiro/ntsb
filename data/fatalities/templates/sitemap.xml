@@ -90,6 +90,12 @@
   </url>
 
   <url>
+    <loc>https://roadway.report/blog</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  
+  <url>
     <loc>https://roadway.report/blog/alabama/</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
