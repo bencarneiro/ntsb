@@ -641,6 +641,43 @@ def info(request):
     return render(request, "info.html", {"form": EmailForm, "success_message": ""})
 
 
+def denver_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    # year = request.GET['year']
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="denver_fatalities.csv"'},
+    )
+
+    writer = csv.writer(response)
+    writer.writerow(["st_case", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
+
+    crashes = Accident.objects.filter(year__gte=2001, county_id = 8031)
+    for crash in crashes:
+        writer.writerow([crash.id, crash.fatalitytotals.total_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
+
+    return response
+
+
+
+def new_mexico_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    # year = request.GET['year']
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="new_mexico_fatalities.csv"'},
+    )
+
+    writer = csv.writer(response)
+    writer.writerow(["id", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
+
+    crashes = Accident.objects.filter(year__gte=2001, state_id=35, latitude__isnull=False)
+    for crash in crashes:
+        writer.writerow([crash.id, crash.fatalitytotals.total_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
+
+    return response
+
+
 def total_csv(request):
     # Create the HttpResponse object with the appropriate CSV header.
     year = request.GET['year']
@@ -801,6 +838,9 @@ def privacy(request):
 
 def texas(request):
     return render(request, "texas.html", {"TILES_URL": TILES_URL})
+
+def denver(request):
+    return render(request, "denver.html", {"TILES_URL": TILES_URL})
 
 def missed_connections(request):
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
