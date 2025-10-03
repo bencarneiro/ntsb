@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "base.html" %}
+{% block header%}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Accident Reports: Complete Fatal Car Crash Data Since 1975 | Roadway.report</title>
@@ -12,10 +11,11 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            max-width: 60%;
+            /* padding: 20px; */
+            margin: auto;
             background-color: #f8f9fa;
+            display: flex;
         }
         
         .container {
@@ -114,21 +114,22 @@
         }
         
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
             
+            body{
+                max-width: 100%;
+            }
             .container {
                 padding: 20px;
             }
             
             h1 {
                 font-size: 1.8em;
+                padding-top: 2rem;
             }
         }
     </style>
-</head>
-<body>
+    {% endblock %}
+    {% block body %}
     <div class="container">
         <header>
             <h1>Free Accident Reports: Complete Fatal Car Crash Database Since 1975</h1>
@@ -245,5 +246,5 @@
             <p>&copy; 2024 <a href="/">roadway.report</a> - Your trusted source for free fatal accident reports since 1975</p>
         </footer>
     </div>
-</body>
-</html>
+    
+    {% endblock %}
