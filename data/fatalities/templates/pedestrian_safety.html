@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html> <style>
+{% extends "base.html" %}
+{% block header %}
+<style>
     * {
         margin: 0;
         padding: 0;
@@ -18,6 +19,9 @@
         margin: 0 auto;
         padding: 2rem 1rem;
         min-height: 100vh;
+    }
+    h1 {
+        padding-top: 3rem;
     }
 
     .header {
@@ -433,18 +437,15 @@
 
         }
     </script>
-  <head>
     <title>Pedestrian and Bike Crash Data</title>
     <meta charset="UTF-8" />
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
-  </head>
-
-  <body>
+ 
+{% endblock %}
+{% block body %}
     <div class="container">
         <div class="header">
             <h1 class="main-title">USA Pedestrian and Bike Fatality Data</h1>
-            <br>
-            <a class="back-link" href="/">Back To Map</a>
         </div>
 
 
@@ -520,5 +521,5 @@
         
         get_data()
         </script>
-  </body>
-</html>
+
+{% endblock %}
