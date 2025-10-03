@@ -1,5 +1,5 @@
-<html>
-    <head>
+{% extends "base.html" %}
+{% block header %}
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Are You Into Bus Stuff? (The Podcast)</title>
@@ -33,6 +33,7 @@
             }
 
             .main-title {
+                padding-top: 3rem;
                 font-size: 2.5rem;
                 font-weight: 900;
                 margin-bottom: 0.5rem;
@@ -177,8 +178,8 @@
                 }
             }
         </style>
-    </head>
-    <body>
+{% endblock %}
+{% block body %}
         <div class="container">
             <header class="header">
                 <h1 class="main-title">Are You Into Bus Stuff?<br>(The Podcast)</h1>
@@ -199,8 +200,7 @@
                 </audio>
             </article>
         </div>
-    </body>
-</html>
+        {% endblock %}
 
 <!-- 
 <html>
