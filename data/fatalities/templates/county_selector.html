@@ -1,24 +1,10 @@
-<html>
-    <head>
+
+{% extends "base.html" %}
+{% block header %}
         <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
-    </head>
+   
     <script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>
     <style>
-            .back-link {
-        display: inline-block;
-        padding: 0.75rem 1.5rem;
-        background-color: #000;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 4px;
-        font-weight: 500;
-        transition: background-color 0.2s ease;
-        margin-bottom: 2rem;
-    }
-
-    .back-link:hover {
-        background-color: #d00;
-    }
                 .row {
         display: flex;
         margin-left:-5px;
@@ -27,7 +13,7 @@
         .column {
             flex: 50%;
             padding: 5px;
-            border: 7px solid black; text-align: center; ;
+            border: 3px solid black; text-align: center; ;
             }
     table{
       font-family: Arial, Helvetica, sans-serif;
@@ -36,7 +22,9 @@
       margin-right: 0px;
       width: 100%
     }
+    h1 {padding-top:3rem}
     .header{
+    
       padding-top: 12px;
       padding-bottom: 12px;
       text-align: center;
@@ -53,9 +41,10 @@
       width: 100%
     }
     </style>
-    <body>
-        <p><a class="back-link" href="/">Back To Map</a></p>
+    
+{% endblock %}
 
+{% block body %}
         <h1 style="text-align: center;">Roadway Fatality Data by County</h1>
         <div class="row">
         <div class="column">
@@ -78,5 +67,4 @@
         <table id="county-table"></table>
     </div>
 </div>
-    </body>
-</html>
+{% endblock %}
