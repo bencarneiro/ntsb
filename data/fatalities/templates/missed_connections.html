@@ -1,5 +1,7 @@
 
+{% extends "base.html" %}
 
+{% block header %}
 <link rel="stylesheet" href="static/css/maplibre-gl.css">
 <script src="static/js/maplibre-gl.js"></script>
 <script src="static/js/pmtiles.js"></script>
@@ -12,22 +14,22 @@
         width: 100%
     }
     input, button{
-        font-size: 2rem; width:100%; height: 50px;
+        font-size: 1rem; width:30%; height: 30px;
     }
     h1 {
-    font-size: 4rem;
+    font-size: 20px;
     }
     h2 {
-    font-size: 3rem;
+    font-size: 1rem;
     }
     h5 {
-    font-size: 2rem;
+    font-size: 1rem;
     }
     td, th {
         font-size: 2rem
     }
     label {
-        font-size: 2rem;
+        font-size: 1rem;
     }
     #form-popup {
         width:95%
@@ -37,7 +39,8 @@
   @media (min-width:1080px) { 
 
     h1 {
-    font-size: 2rem;
+    font-size: 40px;
+    color: black;
     }
     h2 {
     font-size: 1.2rem;
@@ -49,10 +52,10 @@
         font-size: 1.2rem
     }
     .map-overlay-top {
-        width: 300px
+        width: 300px;
     }
     input {
-        font-size: 1.2rem;width:100%; height: 30px;
+        font-size: 1.2rem;width:30%; height: 30px;
     }
     button {height: 50px}
 
@@ -75,6 +78,7 @@
     h1 {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
+    
     }
     h2{
 
@@ -114,7 +118,11 @@ position: absolute;
 /* width: 300px; */
 top: 0;
 left: 0;
-padding: 10px;
+padding-top: 30px;
+}
+
+.map-overlay-inner{
+    margin-top: 1rem;
 }
 
 .map-overlay .map-overlay-inner {
@@ -164,7 +172,7 @@ box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
             bottom:-1;
             left: 0;
             background: white;
-            padding: 20px;
+            padding: 5px;
             border: 1px solid #ccc;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
@@ -213,13 +221,12 @@ box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
         }
 
 </style>
-<head>
     <title>Car Crash Missed Connections</title>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
-</head>
 
+{% endblock %}
 
-<body>
+{% block body %}
 
     <div id="map"></div>
 
@@ -231,11 +238,11 @@ box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
             <label for="crash_dt">Datetime:</label>
             <input type="datetime-local" id="crash_dt" name="crash_dt" required>
 
-            <label for="latitude">Latitude:</label>
-            <input type="text" id="latitude" name="latitude" readonly>
+            <!-- <label for="latitude">Latitude:</label> -->
+            <input type="text" id="latitude" name="latitude" readonly style="display: none">
 
-            <label for="longitude">Longitude:</label>
-            <input type="text" id="longitude" name="longitude" readonly>
+            <!-- <label for="longitude">Longitude:</label> -->
+            <input type="text" id="longitude" name="longitude" readonly style="display: none">
 
             <label for="info">Info:</label>
             <textarea id="info" name="info" rows="3" required></textarea>
@@ -247,20 +254,16 @@ box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
 
     <div class="map-overlay top">
         <div class="map-overlay-inner">
-            
-            <p><a class="back-link" href="/">Back To Map</a></p>
-            <h1>Car Crash Missed Conections</h1>
-            <h2>Right click the map to create a missed connection</h2>
+            <h1 style="font-size: 1.5rem;">Missed Connections</h1>
             <!-- <h2><a href="info">More about roadway.report</a> </h2> -->
-            <h3>Search From</h3>
-            <input type="date" id="start_date" name="start_date">
-            <h3>Search Until</h3>
+            From <input type="date" id="start_date" name="start_date"> to 
             <input type="date" id="end_date" name="end_date">
             <br>
-            <button style="width:100%; margin-top:1.5rem" onClick="main()">SEARCH</button>
+            <button style="width:100%; margin-top:1rem" onClick="main()">SEARCH</button>
+
+            <h2 style="font-size: 1rem;">Or Right Click to Create</h1>
         </div>
     </div>
-</body>
 
 <script>
 
@@ -505,3 +508,4 @@ map.on('contextmenu', (event) => {
         });
 
 </script>
+{% endblock %}

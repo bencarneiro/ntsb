@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
+{% extends "base.html" %}
+        {% block header %}
         <title>roadway.report is a map of every traffic death in the USA (2001-2023)</title>
         <meta name="description" content="The Nationwide Vision-Zero Map">
         <meta name="keywords" content="car, cars, automobiles, automobile, crash, crashes, bike, bikes, bicycle, bicylcles, pedestrian, pedestrians, pedestrian safety, bicycle safety, automobile safety, roadway, roadways, car safety, car crash, car crashes, accidents, car accident, car accidents, fatal accident, fatal car accident, car wreck, car wrecks, FARS, nhtsa, USDOT, DOT, FHA, highway, roadway, freeway, lanes, road width, danger, dangerous, dangerous roads, dangerous highway, dangerous street, stroad, urbanism, vision zero, vision-zero, urbanist, city, cities, transportation, urban planning, public transit, driving, buses, bus, train, trains, drivers, drive, autonomous vehicle, vision zero, vision, zero, vision-zero">
@@ -23,6 +22,7 @@
                 margin: 0;
             }
             html, body, #map {
+                position:relative;
                 height:100%; width:100%;
             }
             .popup .maplibregl-popup-content {
@@ -67,13 +67,13 @@
         font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
         position: absolute;
         width: 200px;
-        top: 0;
+        top: 3rem;
         left: 0;
         padding: 10px;
     }
 
     .map-overlay .map-overlay-inner {
-        background-color: #fff;
+        background-color: white;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         border-radius: 3px;
         padding: 10px;
@@ -160,13 +160,11 @@
             }
         </script>
 
-    </head>
-    <body>
+    {% endblock %}
+    
+    {% block body %}
         <div id="map"></div>
 
-    <div id="context-menu" class="context-menu">
-        <button onclick="alert('Hello!')">Hello</button>
-    </div>
         <div class="map-overlay top">
             <div class="map-overlay-inner">
                 <h3>USA Traffic Deaths 2001-2023</h3>
@@ -181,55 +179,7 @@
                 </fieldset>
                 <br><br>
                 <div id="slider"></div>
-                <br>
-                <div class="collapsibleMenu w3-padding-large" id="collapsibleMenu">
-                    <!-- <h3 style="background-color: lightblue;">Other Resources</h3> -->
-
-                    <div onClick="window.location.href='/info';" class="w3-button w3-small" style="width:100%">
-                        About
-                    </div>
-                    <div onClick="window.location.href='/';" class="w3-button w3-small" style="width:100%">
-                        Map
-                    </div>
-                    <div onClick="window.location.href='/population';" class="w3-button w3-small" style="width:100%">
-                        Population<br>Adjusted Map
-                    </div>
-                    <div onClick="window.location.href='/accidents/';" class="w3-button w3-small" style="width:100%">
-                        Search Crashes
-                    </div>
-                    <div onClick="window.location.href='/county_selector';" class="w3-button w3-small" style="width:100%">
-                        Data By County
-                    </div>
-                    <div onClick="window.location.href='/pedestrian_safety';" class="w3-button w3-small" style="width:100%">
-                        Pedestrian<br>Dashboard
-                    </div>
-                    <div onClick="window.location.href='/missed_connections';" class="w3-button w3-small" style="width:100%">
-                        Missed<br>Connections
-                    </div>
-                    <!-- <h3 style="background-color: lightblue;">Support Us</h3> -->
-                    <div onClick="window.location.href='https://roadwayreport.printify.me';" class="w3-button w3-small" style="width:100%">
-                        Merch
-                    </div>
-                    <div onClick="window.location.href='https://ko-fi.com/roadwayreport';" class="w3-button w3-small" style="width:100%">
-                        Donate
-                    </div>
-                    <div onClick="window.location.href='/podcast';" class="w3-button w3-small" style="width:100%">
-                        Podcast
-                    </div>
-                    
-                </div>
-                
-            <div id = "openButton" class="" >
-                <div onClick="openMenu()" class="w3-button w3-large" style="width:100%">
-                    <i class="fa fa-bars w3-middle"> Menu</i>
-                </div>
-            </div>
-
-            <div id = "closeButton" class="" >
-                <div onClick="closeMenu()" class="w3-button w3-large" style="width:100%">
-                    <i class="fa fa-bars w3-middle"> Close Menu</i>
-                </div>
-            </div>
+               
             </div>
 
         </div>
@@ -238,6 +188,7 @@
             var startYear = 2001
             var endYear = 2023
             var slider = document.getElementById('slider');
+            slider.style.zIndex=0;
 
             noUiSlider.create(slider, {
                 start: [startYear, endYear],
@@ -453,6 +404,7 @@
                 contextMenu.innerHTML=`<button onclick="navigator.clipboard.writeText('${redirectUrl}'); alert('${redirectUrl} is copied to your clipboard')">Share This Location</button><button onclick="window.open('https://google.com/maps/place/${latitude},${longitude}');">Open in Google Maps</button>`
                 
                 contextMenu.style.display = 'block';
+                contextMenu.style.zIndex = 200;
             });
 
             // Hide the context menu on map click
@@ -472,9 +424,9 @@
                     positionOptions: {
                         enableHighAccuracy: true
                     },
-                    trackUserLocation: true
+                    trackUserLocation: true,
                 })
-            );   
+            );
             // https://hotgarbo.github.io/nhtsa-fars/tiles/2018.pmtiles
             map.on('load', () => {
                 for (i = startYear; i < endYear + 1; i++) {
@@ -535,7 +487,25 @@
         if (window.screen.width > 800) {
             openMenu()
         }
-        </script>
-    </body>
-</html>
 
+        </script>
+    {% endblock %}
+
+{% block footer %}
+
+<script>
+window.onload = (event) => { 
+    let ctrl = document.getElementsByClassName("maplibregl-ctrl-group")
+                console.log("CONTROL")
+                console.log(ctrl)
+                console.log(ctrl[0])
+    // ctrl[0].style.position="absolute";
+    ctrl[0].style.position="fixed";
+    ctrl[0].style.bottom=".2rem";
+    ctrl[0].style.left=".2rem";
+    // ctrl[0].style.zIndex=-1;
+
+    let control = document.getElementsByClassName("maplibregl-ctrl")
+    control[0].style.zIndex=0;}
+</script>
+{% endblock %}

@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html>
+
+{% extends "base.html" %}
+{% block header %}
     <style>        * {
         margin: 0;
         padding: 0;
@@ -44,6 +45,7 @@
     }
 
     .main-title {
+        margin-top: 3rem;
         font-size: 2.5rem;
         font-weight: 900;
         color: #000;
@@ -1189,19 +1191,17 @@
         }
         
     </script>
-  <head>
     <title>{{county.name}} County Dashboard</title>
     <meta charset="UTF-8" />
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
-  </head>
-
-  <body>
+ 
+{% endblock %}
+  {% block body %}
     <div class="container">
         <div class="header">
             <h1 class="main-title">{{county.name}} County Dashboard</h1>
-            <a class="back-link" href="/">Back To Map</a>
+            <a class="back-link" href="/county_selector">Other Counties</a>
             <a class="back-link" href="/accidents?state={{ state.id }}&county={{ county.id }}">{{ county.name }} County Crash Reports</a>
-            <h3 class="county-selector"><a href="/county_selector">See Other Counties</a></h3>
         </div>
 
         <div class="chart-section">
@@ -1266,5 +1266,5 @@
         
         get_data()
         </script>
-  </body>
-</html>
+        
+{% endblock %}
