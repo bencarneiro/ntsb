@@ -1,0 +1,158 @@
+<html>
+    <head>
+        {% block header %}
+        {% endblock %}
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+
+            .dropdown {
+            float: left;
+            overflow: hidden;
+            }
+
+            .dropdown .dropbtn {
+            /* font-size: 16px;   */
+            border: none;
+            outline: none;
+            color: black;
+            /* padding: 14px 16px; */
+            margin: 0;
+            }
+
+            .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: red;
+            }
+
+            .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            }
+
+            .dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            }
+
+            .dropdown-content a:hover {
+            background-color: #ddd;
+            }
+
+            .dropdown:hover .dropdown-content {
+            display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navbar (sit on top) -->
+        <div class="w3-top">
+            <div class="w3-bar w3-white w3-card" id="myNavbar">
+            <a href="/" class="w3-bar-item w3-button w3-wide"><b>roadway.report</b></a>
+            <!-- Right-sided navbar links -->
+            <div class="w3-right w3-hide-small">
+                <a href="/info" class="w3-bar-item w3-button">ABOUT</a>
+                <a href="/accidents/" class="w3-bar-item w3-button">SEARCH</a>
+                <a href="/county_selector" class="w3-bar-item w3-button"></i>COUNTIES</a>
+                <a href="#pricing" class="w3-bar-item w3-button"></i>PEDESTRIAN DASHBOARD</a>
+                <div class="w3-bar-item w3-button dropdown">
+                  <a class="dropbtn">DATA 
+                  </a>
+                  <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                  </div>
+                </div> 
+            </div>
+            <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+        
+<!-- 
+            <div onClick="window.location.href='/info';" class="w3-button w3-small" style="width:100%">
+                About
+            </div>
+            <div onClick="window.location.href='/';" class="w3-button w3-small" style="width:100%">
+                Map
+            </div>
+            <div onClick="window.location.href='/population';" class="w3-button w3-small" style="width:100%">
+                Population<br>Adjusted Map
+            </div>
+            <div onClick="window.location.href='/accidents/';" class="w3-button w3-small" style="width:100%">
+                Search Crashes
+            </div>
+            <div onClick="window.location.href='/county_selector';" class="w3-button w3-small" style="width:100%">
+                Data By County
+            </div>
+            <div onClick="window.location.href='/pedestrian_safety';" class="w3-button w3-small" style="width:100%">
+                Pedestrian<br>Dashboard
+            </div>
+            <div onClick="window.location.href='/missed_connections';" class="w3-button w3-small" style="width:100%">
+                Missed<br>Connections
+            </div>
+            <div onClick="window.location.href='https://roadwayreport.printify.me';" class="w3-button w3-small" style="width:100%">
+                Merch
+            </div>
+            <div onClick="window.location.href='https://ko-fi.com/roadwayreport';" class="w3-button w3-small" style="width:100%">
+                Donate
+            </div>
+            <div onClick="window.location.href='/podcast';" class="w3-button w3-small" style="width:100%">
+                Podcast
+            </div> -->
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+                <i class="fa fa-bars"></i>
+            </a>
+            </div>
+        </div>
+
+
+        <!-- Sidebar on small screens when clicking the menu icon -->
+        <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+            <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+            <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
+            <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">TEAM</a>
+            <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">WORK</a>
+            <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">PRICING</a>
+            <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
+        </nav>
+
+        
+        
+        {% block body %}
+        {% endblock %}
+
+        <script>
+            // Toggle between showing and hiding the sidebar when clicking the menu icon
+            var mySidebar = document.getElementById("mySidebar");
+
+            function w3_open() {
+            if (mySidebar.style.display === 'block') {
+                mySidebar.style.display = 'none';
+            } else {
+                mySidebar.style.display = 'block';
+            }
+            }
+
+            // Close the sidebar with the close button
+            function w3_close() {
+                mySidebar.style.display = "none";
+            }
+
+
+        </script>
+    </body>
+    <footer>
+        {% block footer %}
+        {% endblock %}
+    </footer>
+</html>

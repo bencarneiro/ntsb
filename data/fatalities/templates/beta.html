@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
+{% extends "base.html" %}
+        {% block header %}
         <title>roadway.report is a map of every traffic death in the USA (2001-2023)</title>
         <meta name="description" content="The Nationwide Vision-Zero Map">
         <meta name="keywords" content="car, cars, automobiles, automobile, crash, crashes, bike, bikes, bicycle, bicylcles, pedestrian, pedestrians, pedestrian safety, bicycle safety, automobile safety, roadway, roadways, car safety, car crash, car crashes, accidents, car accident, car accidents, fatal accident, fatal car accident, car wreck, car wrecks, FARS, nhtsa, USDOT, DOT, FHA, highway, roadway, freeway, lanes, road width, danger, dangerous, dangerous roads, dangerous highway, dangerous street, stroad, urbanism, vision zero, vision-zero, urbanist, city, cities, transportation, urban planning, public transit, driving, buses, bus, train, trains, drivers, drive, autonomous vehicle, vision zero, vision, zero, vision-zero">
@@ -23,6 +22,7 @@
                 margin: 0;
             }
             html, body, #map {
+                position:relative;
                 height:100%; width:100%;
             }
             .popup .maplibregl-popup-content {
@@ -67,7 +67,7 @@
         font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
         position: absolute;
         width: 200px;
-        top: 0;
+        top: 3rem;
         left: 0;
         padding: 10px;
     }
@@ -160,13 +160,11 @@
             }
         </script>
 
-    </head>
-    <body>
+    {% endblock %}
+    
+    {% block body %}
         <div id="map"></div>
 
-    <div id="context-menu" class="context-menu">
-        <button onclick="alert('Hello!')">Hello</button>
-    </div>
         <div class="map-overlay top">
             <div class="map-overlay-inner">
                 <h3>USA Traffic Deaths 2001-2023</h3>
@@ -472,9 +470,9 @@
                     positionOptions: {
                         enableHighAccuracy: true
                     },
-                    trackUserLocation: true
+                    trackUserLocation: true,
                 })
-            );   
+            );
             // https://hotgarbo.github.io/nhtsa-fars/tiles/2018.pmtiles
             map.on('load', () => {
                 for (i = startYear; i < endYear + 1; i++) {
@@ -535,7 +533,21 @@
         if (window.screen.width > 800) {
             openMenu()
         }
-        </script>
-    </body>
-</html>
 
+        </script>
+    {% endblock %}
+
+{% block footer %}
+
+<script>
+window.onload = (event) => { 
+    let ctrl = document.getElementsByClassName("maplibregl-ctrl-group")
+                console.log("CONTROL")
+                console.log(ctrl)
+                console.log(ctrl[0])
+    // ctrl[0].style.position="absolute";
+    ctrl[0].style.position="fixed";
+    ctrl[0].style.bottom="2rem";
+    ctrl[0].style.left="2rem";}
+</script>
+{% endblock %}
