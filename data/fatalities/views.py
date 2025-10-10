@@ -631,6 +631,9 @@ def vehicle(request):
 def visionzero(request):
     return render(request, "visionzero.html", {})
 
+def visionzeroblog(request):
+    return render(request, "visionzeroblog.html", {})
+
 def beta(request):
     return render(request, "beta.html", {"TILES_URL": TILES_URL})
 

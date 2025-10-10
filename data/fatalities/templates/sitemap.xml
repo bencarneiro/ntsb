@@ -37,6 +37,13 @@
   </url>
 
   <url>
+    <loc>https://roadway.report/vision-zero-map</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+
+  <url>
     <loc>https://roadway.report/pedestrian_safety</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>

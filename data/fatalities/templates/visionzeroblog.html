@@ -1,0 +1,612 @@
+{% extends "base.html" %} 
+{% block header %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Zero Map: Free Traffic Fatality Map for All 50 States | Roadway Report</title>
+    <meta name="description" content="Access the most comprehensive Vision Zero map in America. Free traffic fatality map, car accident map, and car death map covering every county, city, and rural area in the United States with decades of data.">
+    <meta name="keywords" content="vision zero map, traffic fatality map, car accident map, car death map, pedestrian death map, traffic death data, road safety map, crash data map">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #000000;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 0 60px 0;
+            background: radial-gradient(circle at center, rgba(220, 38, 38, 0.05) 0%, transparent 70%);
+            border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .site-logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #000000;
+            text-decoration: none;
+            margin-bottom: 40px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .site-logo:hover {
+            filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.6));
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff0000, #dc2626, #b91c1c, #ff4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(220, 38, 38, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+            line-height: 1.1;
+        }
+
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.4));
+            }
+            to {
+                filter: drop-shadow(0 0 40px rgba(220, 38, 38, 0.8));
+            }
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            color: #000000;
+            margin: 50px 0 25px 0;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            color: #000000;
+            margin: 35px 0 20px 0;
+            font-weight: 600;
+        }
+
+        .meta {
+            color: #000000;
+            font-size: 1rem;
+            margin-bottom: 40px;
+        }
+
+        .meta-item {
+            margin-right: 20px;
+            display: inline-block;
+        }
+
+        .meta-item::before {
+            content: '•';
+            color: #dc2626;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .meta-item:first-child::before {
+            display: none;
+        }
+
+        article {
+            padding: 60px 0;
+        }
+
+        .lead {
+            font-size: 1.4rem;
+            color: #1a1a1a;
+            font-weight: 400;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(220, 38, 38, 0.05);
+            border-left: 4px solid #dc2626;
+            border-radius: 0 10px 10px 0;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .map-preview {
+            background: #f9fafb;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            border: 2px solid rgba(220, 38, 38, 0.3);
+            text-align: center;
+        }
+
+        .map-preview-image {
+            width: 100%;
+            height: 400px;
+            background: #e5e7eb;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .comparison-card {
+            background: #f9fafb;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .comparison-card h4 {
+            color: #000000;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .comparison-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-card li {
+            padding: 10px 0;
+            color: #1a1a1a;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .comparison-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .local-maps {
+            background: #f9fafb;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .location-tag {
+            background: rgba(220, 38, 38, 0.05);
+            padding: 12px 18px;
+            border-radius: 8px;
+            text-align: center;
+            color: #1a1a1a;
+            font-size: 0.95rem;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            cursor: pointer;
+        }
+
+        .feature-list {
+            background: #f9fafb;
+            padding: 35px;
+            border-radius: 15px;
+            margin: 40px 0;
+            border: 2px solid rgba(220, 38, 38, 0.3);
+        }
+
+        .feature-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 15px 0;
+            color: #1a1a1a;
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 35px;
+            border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #dc2626;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .highlight-box {
+            background: rgba(220, 38, 38, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border-left: 4px solid #dc2626;
+        }
+
+        .highlight-box strong {
+            color: #dc2626;
+            font-size: 1.15rem;
+        }
+
+        .cta-section {
+            text-align: center;
+            background: #f9fafb;
+            border-radius: 25px;
+            padding: 50px 30px;
+            border: 2px solid rgba(220, 38, 38, 0.3);
+            margin: 60px 0;
+        }
+
+        .cta-section h3 {
+            color: #dc2626;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(45deg, #dc2626, #b91c1c);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.4);
+            background: linear-gradient(45deg, #b91c1c, #991b1b);
+        }
+
+        .data-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .stat-box {
+            background: #f9fafb;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #000000;
+            display: block;
+            margin-bottom: 10px;
+            text-shadow: none;
+        }
+
+        .stat-label {
+            color: #1a1a1a;
+            font-size: 1rem;
+        }
+
+        .use-cases {
+            margin: 50px 0;
+        }
+
+        .use-case {
+            background: #f9fafb;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 4px solid #dc2626;
+        }
+
+        .use-case h4 {
+            color: #f87171;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            border-top: 1px solid rgba(220, 38, 38, 0.2);
+            color: #9ca3af;
+        }
+
+        .back-link {
+            color: #dc2626;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #f87171;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .lead {
+                font-size: 1.2rem;
+                padding: 20px;
+            }
+
+            .map-preview-image {
+                height: 250px;
+            }
+        }
+    </style>
+    
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <header>
+            <!-- <a href="/" class="site-logo">← roadway.report</a> -->
+            <h1><a href="/" >The Vision Zero Map America Needs</a></h1>
+            <div class="meta">
+                <span class="meta-item">Updated January 2025</span>
+                <span class="meta-item">National Coverage</span>
+                <span class="meta-item">Free Access</span>
+            </div>
+        </header>
+
+        <article>
+            <div class="lead">
+                Every city and county deserves access to comprehensive traffic fatality data. Roadway Report provides the only Vision Zero map that works anywhere in America—from major cities to rural communities—with decades of crash data, all free and open to the public.
+            </div>
+
+            <h2>What is a Vision Zero Map?</h2>
+            
+            <p>A Vision Zero map is an interactive traffic fatality map that displays car accidents, pedestrian deaths, and crash data on a geographic interface. These maps are essential tools for understanding where traffic deaths occur, identifying dangerous intersections, and advocating for safer street design.</p>
+
+            <p>Traditionally, Vision Zero maps have been created by individual cities and counties with the resources to commission custom mapping projects. New York City has a Vision Zero map. San Francisco has one. Chicago developed their own traffic death map. But what about everywhere else?</p>
+
+            <div class="highlight-box">
+                <p><strong>The Problem:</strong> Most communities in America don't have access to a local Vision Zero map. Rural areas, small cities, and under-resourced counties are left without the data visualization tools necessary to understand and address their traffic safety challenges.</p>
+            </div>
+
+            <h2>A National Traffic Fatality Map for Everyone</h2>
+
+            <p>Roadway Report solves this problem by providing a comprehensive car accident map that covers all 50 states. Our traffic death map includes every fatal crash reported in the United States, making it the most complete Vision Zero map available anywhere.</p>
+
+            <div class="map-preview">
+                <div>
+                    <img style="cursor: pointer;" onclick="location.href='/'" class="map-preview-image" src="/static/map.jpg"/>
+                </div>
+                <a href="/" class="cta-button">Launch the Map</a>
+            </div>
+
+            <div class="data-stats">
+                <div class="stat-box">
+                    <span class="stat-number">50</span>
+                    <div class="stat-label">States Covered</div>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">3,000+</span>
+                    <div class="stat-label">Counties</div>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">22+</span>
+                    <div class="stat-label">Years of Data</div>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">Free</span>
+                    <div class="stat-label">Always</div>
+                </div>
+            </div>
+
+            <h2>Why Choose Roadway Report's Vision Zero Map?</h2>
+
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h4>Local City Maps</h4>
+                    <ul>
+                        <li>Limited to city boundaries</li>
+                        <li>Often 2-5 years of data</li>
+                        <li>May cost taxpayers millions</li>
+                        <li>Infrequent updates</li>
+                        <li>Only in well-funded cities</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h4>Roadway Report Map</h4>
+                    <ul>
+                        <li>Covers entire United States</li>
+                        <li>20+ years of historical data</li>
+                        <li>Completely free to use</li>
+                        <li>Regular data updates</li>
+                        <li>Works in rural & urban areas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>Our Car Death Map Works Everywhere</h2>
+
+            <p>Whether you're researching traffic safety in a major metropolitan area or advocating for better roads in a rural county, Roadway Report's traffic fatality map provides the data you need. Our car accident map includes:</p>
+
+            <div class="feature-list">
+                <ul>
+                    <li>Every fatal traffic crash reported in the United States</li>
+                    <li>Detailed location data for each fatality</li>
+                    <li>Historical trends spanning more than a decade</li>
+                    <li>Pedestrian, cyclist, and vehicle occupant deaths</li>
+                    <li>Crash circumstances and contributing factors</li>
+                    <li>Interactive filtering and search capabilities</li>
+                    <li>Export tools for researchers and journalists</li>
+                </ul>
+            </div>
+
+            <h3>Vision Zero Maps for Cities Without Resources</h3>
+
+            <p>The communities that need traffic safety data the most are often the ones least able to afford custom mapping solutions. Rural counties, small towns, and under-resourced urban areas face significant traffic safety challenges but lack the budget to develop their own Vision Zero map.</p>
+
+            <p>Roadway Report democratizes access to traffic death data. Our car death map works just as well for a town of 5,000 people as it does for a city of 5 million. No community should be left without the tools to understand and address their traffic fatality problem.</p>
+
+            <div class="local-maps">
+                <h4 style="color: #dc2626; font-size: 1.4rem; margin-bottom: 15px;">Your Community Has Data</h4>
+                <p style="margin-bottom: 20px;">Search our traffic fatality map for data in your area:</p>
+                <div class="location-grid">
+                    <div onclick = "location.href='/'" class="location-tag">Alabama</div>
+                    <div onclick = "location.href='/'" class="location-tag">Alaska</div>
+                    <div onclick = "location.href='/'" class="location-tag">Arizona</div>
+                    <div onclick = "location.href='/'" class="location-tag">Arkansas</div>
+                    <div onclick = "location.href='/'" class="location-tag">California</div>
+                    <div onclick = "location.href='/'" class="location-tag">Colorado</div>
+                    <div onclick = "location.href='/'" class="location-tag">Connecticut</div>
+                    <div onclick = "location.href='/'" class="location-tag">Delaware</div>
+                    <div onclick = "location.href='/'" class="location-tag">Florida</div>
+                    <div onclick = "location.href='/'" class="location-tag">Georgia</div>
+                    <div onclick = "location.href='/'" class="location-tag">Rural Counties</div>
+                    <div onclick = "location.href='/'" class="location-tag">Small Cities</div>
+                    <div onclick = "location.href='/'" class="location-tag">Urban Areas</div>
+                    <div onclick = "location.href='/'" class="location-tag">+ 40 More States</div>
+                </div>
+            </div>
+
+            <h2>Who Uses Our Traffic Death Map?</h2>
+
+            <div class="use-cases">
+                <div class="use-case">
+                    <h4>Traffic Safety Advocates</h4>
+                    <p>Use our car accident map to identify dangerous intersections, build cases for street redesigns, and hold officials accountable for Vision Zero commitments.</p>
+                </div>
+
+                <div class="use-case">
+                    <h4>Journalists & Researchers</h4>
+                    <p>Access comprehensive traffic fatality data for investigative reporting, academic research, and data-driven journalism about road safety.</p>
+                </div>
+
+                <div class="use-case">
+                    <h4>City Planners & Engineers</h4>
+                    <p>Analyze crash patterns, evaluate infrastructure improvements, and prioritize safety investments using our Vision Zero map data.</p>
+                </div>
+
+                <div class="use-case">
+                    <h4>Community Organizations</h4>
+                    <p>Educate residents about local traffic safety issues and organize grassroots campaigns for safer streets using data from our car death map.</p>
+                </div>
+            </div>
+
+            <h2>Faster, More Comprehensive Than Local Maps</h2>
+
+            <p>Even in cities that have invested in their own Vision Zero maps, Roadway Report often provides superior functionality. Our traffic fatality map typically includes:</p>
+
+            <ul style="padding-left: 30px; color: black;">
+                <li style="margin-bottom: 12px;">More years of historical data than most local maps</li>
+                <li style="margin-bottom: 12px;">Faster load times and more responsive interface</li>
+                <li style="margin-bottom: 12px;">Cross-jurisdictional data (see patterns across city/county lines)</li>
+                <li style="margin-bottom: 12px;">Consistent data methodology across all locations</li>
+                <li style="margin-bottom: 12px;">Advanced filtering and export capabilities</li>
+            </ul>
+
+            <h2>Beyond the Map: Understanding Traffic Deaths</h2>
+
+            <p>A Vision Zero map is only valuable if people use it to drive change. Our car accident map is designed to be accessible to everyone—not just data scientists and traffic engineers. Whether you're a concerned parent, a local activist, or a city council member, you can use our traffic death map to:</p>
+
+            <div class="feature-list">
+                <ul>
+                    <li>Identify the most dangerous roads in your community</li>
+                    <li>Track whether safety interventions are working</li>
+                    <li>Compare your area's traffic fatality rate to others</li>
+                    <li>Understand patterns in pedestrian and cyclist deaths</li>
+                    <li>Build evidence-based cases for infrastructure changes</li>
+                </ul>
+            </div>
+
+            <h2>Free, Open, and Always Available</h2>
+
+            <p>Roadway Report's Vision Zero map is free to use and will always remain free. We believe traffic safety data should be a public good, accessible to everyone regardless of budget or technical expertise.</p>
+
+            <p>Our car death map represents thousands of hours of data processing, cleaning, and visualization work—but we provide it at no cost because we believe every community deserves the tools to make their streets safer.</p>
+
+            <div class="highlight-box">
+                <p><strong>For Developers & Researchers:</strong> Need programmatic access to our traffic fatality data? We offer a free API with 100 requests per day. Paid plans with unlimited access are available for larger projects.</p>
+            </div>
+
+            <h2>Start Exploring Traffic Data Today</h2>
+
+            <p>Whether you're searching for a "vision zero map near me," trying to understand traffic patterns in your rural county, or conducting research on pedestrian safety nationwide, Roadway Report's traffic fatality map provides the comprehensive data you need.</p>
+
+            <p>Our car accident map is updated regularly with the latest available data from official sources. We're committed to maintaining the most accurate and complete traffic death map available to the public.</p>
+
+            <div class="cta-section">
+                <h3>Access the National Vision Zero Map</h3>
+                <p style="color: #d1d5db; margin-bottom: 25px;">Explore traffic fatality data for any location in the United States. Free, fast, and comprehensive.</p>
+                <a href="/" class="cta-button">Launch Interactive Map</a>
+            </div>
+
+            <h2>Making Vision Zero Real</h2>
+
+            <p>A Vision Zero map alone won't eliminate traffic deaths. But it's an essential tool for understanding the problem, tracking progress, and holding decision-makers accountable. By providing free access to comprehensive traffic death data, Roadway Report empowers communities everywhere to work toward the goal of zero traffic fatalities.</p>
+
+            <p>Every dot on our car death map represents a life lost, a family devastated, a preventable tragedy. Our traffic fatality map exists to honor those lives by providing the transparency and data access necessary to prevent future deaths.</p>
+
+            <p>Whether your community has a formal Vision Zero policy or not, the data matters. Start exploring our traffic death map today and join the movement for safer streets in America.</p>
+
+        </article>
+
+        <footer>
+            <p><a href="/" class="back-link">← Back to Roadway Report</a></p>
+            <p style="margin-top: 20px;">The most comprehensive Vision Zero map and traffic fatality database in America</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">Keywords: vision zero map, traffic fatality map, car accident map, car death map, pedestrian death map, crash data visualization</p>
+        </footer>
+    </div>
+</body>
+{% endblock %}
