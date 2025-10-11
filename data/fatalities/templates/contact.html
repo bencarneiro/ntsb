@@ -1,0 +1,320 @@
+{% extends "base.html" %}
+
+{% block header %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - roadway.report</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #1a1a1a;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem;
+        padding-top: 4rem;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 3rem;
+        background: #ffffff;
+        border-radius: 25px;
+        padding: 3rem 2rem;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #212529;
+        margin-bottom: 0.5rem;
+        letter-spacing: -2px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+        color: #dc2626;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        color: #212529;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .team-section {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 3rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        border: 1px solid #dee2e6;
+    }
+
+    h2 {
+        color: #212529;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .team-member {
+        text-align: center;
+        padding: 2rem;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 15px;
+        border: 1px solid #dee2e6;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .team-member:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .headshot-ben {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+        background-image: url("/static/ben.png");
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: #6c757d;
+        border: 3px solid #dc2626;
+    }
+
+    .headshot-lucas {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+        background-image: url("/static/lucas.png");
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: #6c757d;
+        border: 3px solid #dc2626;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .team-member h3 {
+        color: #212529;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .team-member .role {
+        color: #6c757d;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        font-style: italic;
+    }
+
+    .team-member a {
+        color: #dc2626;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .team-member a:hover {
+        color: #991b1b;
+        text-decoration: underline;
+    }
+
+    .general-contact {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        border: 1px solid #dee2e6;
+        text-align: center;
+    }
+
+    .general-contact h3 {
+        color: #212529;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .general-contact a {
+        color: #dc2626;
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    .general-contact a:hover {
+        color: #991b1b;
+        text-decoration: underline;
+    }
+
+    .contact-form {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 3rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        border: 1px solid #dee2e6;
+    }
+
+    .contact-form h3 {
+        color: #212529;
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .contact-form input[type="email"],
+    .contact-form input[type="text"],
+    .contact-form textarea {
+        width: 100%;
+        padding: 0.8rem;
+        margin: 1rem 0;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        background: #f8f9fa;
+        color: #212529;
+        font-size: 1rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .contact-form input[type="email"]:focus,
+    .contact-form input[type="text"]:focus,
+    .contact-form textarea:focus {
+        outline: none;
+        border-color: #dc2626;
+        background: #ffffff;
+    }
+
+    .contact-form input[type="submit"] {
+        background: #dc2626;
+        color: #ffffff;
+        padding: 1rem 2.5rem;
+        border: 2px solid #dc2626;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .contact-form input[type="submit"]:hover {
+        background: #991b1b;
+        border-color: #991b1b;
+        transform: translateY(-2px);
+    }
+
+    .success {
+        color: #28a745;
+        font-weight: 500;
+        margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 1rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        .team-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .header {
+            padding: 2rem 1rem;
+        }
+
+        .team-section,
+        .contact-form {
+            padding: 2rem 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="header">
+        <div onclick="location.href='/'" class="logo">roadway.report</div>
+        <h1><a href="mailto:ben@roadway.report,lucas@roadway.report">Contact Us</a></h1>
+    </div>
+
+    <div class="team-section">
+        <h2 style="padding-bottom: 2rem;">Our Team</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="headshot-ben"></div>
+                <h3>Ben Carneiro</h3>
+                <div class="role">CEO / Founder</div>
+                <a href="mailto:ben@roadway.report">ben@roadway.report</a>
+            </div>
+            <div class="team-member">
+                <div class="headshot-lucas"></div>
+                <h3>Lucas Reilly</h3>
+                <div class="role">CFO / Founder</div>
+                <a href="mailto:lucas@roadway.report">lucas@roadway.report</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="general-contact">
+        <h3>General Inquiries</h3>
+        <a href="mailto:hello@roadway.report">hello@roadway.report</a>
+    </div>
+
+    <div class="contact-form">
+        <form action="/collect_email" method="post">
+            {% csrf_token %}
+            <h3>Want More Info?</h3>
+            {{ form }}
+            <input type="submit" value="Submit">
+            <p id="email" class="success">{{ success_message }}</p>
+        </form>
+    </div>
+</div>
+{% endblock %}

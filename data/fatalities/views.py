@@ -279,9 +279,9 @@ def collect_email(request):
             }
             CustomerEmail.objects.create(**data_to_save)
             # redirect to a new URL:
-            return redirect(f"/info?success=True#email")
+            return redirect(f"/contact?success=True#email")
     
-    return redirect(f"/info#email")
+    return redirect(f"/contact#email")
 
     # if a GET (or any other method) we'll create a blank form
     # else:
@@ -633,6 +633,12 @@ def visionzero(request):
 
 def visionzeroblog(request):
     return render(request, "visionzeroblog.html", {})
+
+def contact(request):
+    if "success" in request.GET:
+        return render(request, "contact.html", {"form": EmailForm, "success_message": "Thank you for your information. We will be in touch shortly."})
+    
+    return render(request, "contact.html", {"form": EmailForm, "success_message": ""})
 
 def beta(request):
     return render(request, "beta.html", {"TILES_URL": TILES_URL})

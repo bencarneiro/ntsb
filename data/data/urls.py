@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from fatalities.views import PodcastFeed, new_mexico_csv, visionzeroblog, denver, denver_csv, state_blog, blog, sitemap, accident_list, get_counties_by_state, collect_email, gooner_army, visionzero, reddit, beta_redirect, favicon_view, texas, missed_connections, create_missed_connection, someone_died_here, connection, population, population_nonmotorist, pedestrian_safety, privacy, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, post_missed_connection_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes, api_tutorial_notebook
+from fatalities.views import PodcastFeed, new_mexico_csv, contact, visionzeroblog, denver, denver_csv, state_blog, blog, sitemap, accident_list, get_counties_by_state, collect_email, gooner_army, visionzero, reddit, beta_redirect, favicon_view, texas, missed_connections, create_missed_connection, someone_died_here, connection, population, population_nonmotorist, pedestrian_safety, privacy, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, post_missed_connection_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes, api_tutorial_notebook
 from .api import api
 from django.conf import settings
 from django.conf.urls.static import static
@@ -30,6 +30,7 @@ urlpatterns = [
     path("schema", schema, name="schema"),
     path("leaflet", leaflet, name="leaflet"),
     path("testmap", testmap, name="testmap"),
+    path("contact", contact, name="contact"),
     path("nonmotorist_map", nonmotorist_map, name="nonmotorist_map"),
     path("post_comment", post_comment, name="post_comment"),
     path('accidents/', accident_list, name='accident_list'),
