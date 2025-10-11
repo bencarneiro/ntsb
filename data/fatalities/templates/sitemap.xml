@@ -56,6 +56,13 @@
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
   </url>
+  
+  <url>
+    <loc>https://roadway.report/contact</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
 
 
   <url>
