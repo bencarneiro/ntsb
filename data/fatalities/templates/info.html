@@ -3,7 +3,7 @@
     {% block header %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roadway Report - Every Life Matters</title>
+    <title>roadway.report - Mapping every traffic death in the USA</title>
     <style>
         * {
             margin: 0;
@@ -14,8 +14,8 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #ffffff;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             min-height: 100vh;
         }
 
@@ -23,36 +23,36 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
+            padding-top: 4rem;
         }
 
         .header {
             text-align: center;
             margin-bottom: 4rem;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
+            background: #ffffff;
             border-radius: 25px;
             padding: 4rem 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid #dee2e6;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
         }
 
         .logo {
             font-size: 5rem;
             font-weight: 700;
-            color: #ffffff;
+            color: #212529;
             margin-bottom: 1rem;
-            text-shadow: 3px 3px 0px #dc2626, 6px 6px 10px rgba(0, 0, 0, 0.5);
             letter-spacing: -2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .logo:hover{
-            color: red;
-            text-shadow: 3px 3px 0px white, 6px 6px 10px white;
+        .logo:hover {
+            color: #dc2626;
         }
 
         .tagline {
             font-size: 1.8rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: black;
             margin-bottom: 2rem;
             font-weight: 300;
             font-style: italic;
@@ -60,8 +60,8 @@
 
         .subtitle {
             font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.8);
-            max-width: 800px;
+            color:  black;
+            max-width: 700px;
             margin: 0 auto;
             line-height: 1.8;
         }
@@ -71,28 +71,28 @@
             justify-content: space-around;
             margin: 3rem 0;
             padding: 2rem;
-            background: rgba(0, 0, 0, 0.2);
+            background: #f8f9fa;
             border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid #dee2e6;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
         }
 
         .stat-item {
             text-align: center;
-            color: white;
+            color: #212529;
         }
 
         .stat-number {
             font-size: 3rem;
-            font-weight: 200;
+            font-weight: 700;
             margin-bottom: 0.5rem;
             color: #dc2626;
-            text-shadow: 0 0 10px rgba(220, 38, 38, 0.3);
         }
 
         .stat-label {
             font-size: 1rem;
-            opacity: 0.9;
-            font-weight: 300;
+            font-weight: 400;
+            color: black;
         }
 
         .main-content {
@@ -103,24 +103,24 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.95);
+            background: #ffffff;
             border-radius: 20px;
             padding: 3rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid #dee2e6;
         }
 
         .card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
         }
 
         .card h2 {
-            color: #2d3748;
+            color: #212529;
             margin-bottom: 2rem;
             font-size: 2rem;
-            font-weight: 300;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -129,51 +129,50 @@
         .card-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(45deg, #dc2626, #991b1b);
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: #ffffff;
             font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
 
         .card p {
-            color: #333333;
+            color: black;
             margin-bottom: 1.5rem;
             font-size: 1.1rem;
             line-height: 1.8;
         }
 
-        .memorial-card {
-            background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
-            color: white;
-            border: 1px solid #dc2626;
-        }
-
-        .memorial-card h2 {
-            color: #ffffff;
-        }
-
-        .memorial-card p {
-            color: rgba(255, 255, 255, 0.9);
+        .impact-statement {
+            background: #fff5f5;
+            border-left: 4px solid #dc2626;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: black;
+            border: 1px solid #fee;
         }
 
         .services {
-            background: rgba(255, 255, 255, 0.95);
+            background: #ffffff;
             border-radius: 20px;
             padding: 3rem;
             margin-bottom: 4rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid #dee2e6;
         }
 
         .services h2 {
-            color: #333333;
+            color: #212529;
             margin-bottom: 2rem;
             font-size: 2.5rem;
             text-align: center;
-            font-weight: 300;
+            font-weight: 600;
         }
 
         .services-grid {
@@ -183,151 +182,20 @@
             margin-bottom: 3rem;
         }
 
-        .pricing {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 3rem;
-            margin-bottom: 4rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .pricing h2 {
-            color: #333333;
-            margin-bottom: 3rem;
-            font-size: 2.5rem;
-            text-align: center;
-            font-weight: 300;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .pricing-tier {
-            background: #ffffff;
-            border: 2px solid #e5e5e5;
-            border-radius: 15px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pricing-tier:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border-color: #dc2626;
-        }
-
-        .pricing-tier.featured {
-            border-color: #dc2626;
-            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.2);
-        }
-
-        .pricing-tier.featured::before {
-            content: 'Most Popular';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #dc2626;
-            color: white;
-            padding: 0.5rem;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-
-        .pricing-tier.featured {
-            padding-top: 3.5rem;
-        }
-
-        .tier-name {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #333333;
-            margin-bottom: 1rem;
-        }
-
-        .tier-price {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #dc2626;
-            margin-bottom: 0.5rem;
-        }
-
-        .tier-period {
-            color: #666666;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .tier-features {
-            list-style: none;
-            margin-bottom: 2rem;
-            text-align: left;
-        }
-
-        .tier-features li {
-            padding: 0.8rem 0;
-            color: #555555;
-            border-bottom: 1px solid #f0f0f0;
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .tier-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #dc2626;
-            font-weight: bold;
-        }
-
-        .tier-button {
-            display: inline-block;
-            background: #dc2626;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .tier-button:hover {
-            background: #991b1b;
-            transform: translateY(-2px);
-        }
-
-        .tier-button.secondary {
-            background: transparent;
-            border: 2px solid #dc2626;
-            color: #dc2626;
-        }
-
-        .tier-button.secondary:hover {
-            background: #dc2626;
-            color: white;
-        }
-
         .service-item {
-            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             padding: 2.5rem;
             border-radius: 15px;
             text-align: center;
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            border: 1px solid #dee2e6;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            color: #333333;
+            color: #212529;
         }
 
         .service-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
         }
 
         .service-icon {
@@ -337,26 +205,34 @@
         }
 
         .service-item h3 {
-            color: #333333;
+            color: #212529;
             margin-bottom: 1rem;
             font-size: 1.5rem;
-            font-weight: 400;
+            font-weight: 600;
+        }
+
+        .service-item p {
+            color: black;
         }
 
         .cta-section {
             text-align: center;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
+            background: white;
             border-radius: 25px;
             padding: 4rem 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid #495057;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
         }
 
         .cta-section h2 {
-            color: #ffffff;
+            color: black;
             margin-bottom: 1.5rem;
             font-size: 2.5rem;
-            font-weight: 300;
+            font-weight: 600;
+        }
+
+        .cta-section p {
+            color: black;
         }
 
         .cta-buttons {
@@ -371,92 +247,114 @@
             padding: 1.2rem 2.5rem;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            border: 2px solid transparent;
         }
 
         .cta-primary {
-            background: linear-gradient(45deg, #dc2626, #991b1b);
-            color: white;
+            background: #dc2626;
+            color: #ffffff;
+            border-color: #dc2626;
         }
 
-        .cta-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        .cta-primary:hover {
+            background: #991b1b;
+            border-color: #991b1b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
         }
 
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .impact-statement {
-            background: rgba(220, 38, 38, 0.1);
-            border-left: 4px solid #dc2626;
-            padding: 2rem;
-            margin: 2rem 0;
-            border-radius: 0 10px 10px 0;
-            font-style: italic;
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
 
         .email-popup {
-            position: fixed; /* Sit on top of the page content */
-            display: none; /* Hidden by default */
-            width: 70%; /* Full width (cover the whole page) */
-            height: 10%; /* Full height (cover the whole page) */
-            top: 45%;
-            left: 15%;
-            bottom: 0;
-            background-color: transparent; 
-            z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-            cursor: pointer; /* Add a pointer on hover */
-            }
+            position: fixed;
+            display: none;
+            width: 70%;
+            height: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 2;
+            cursor: pointer;
+        }
 
         .links-container {
             text-align: center;
-            background-color: white;
-            color: black;
-            border-width: 10px;
-            border-color: maroon;
-            border-style: solid;
-            border-radius:5px;
+            background-color: #ffffff;
+            color: #212529;
+            border: 8px solid #dc2626;
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
-.links-container h3 {
-    text-align: center;
-    background-color: white;
-    color: black;
-    margin-top: 5px;
-}
+        .links-container h3 {
+            text-align: center;
+            background-color: #ffffff;
+            color: #212529;
+            margin-top: 5px;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
 
+        .links-container input[type="email"],
+        .links-container input[type="text"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            background: #f8f9fa;
+            color: #212529;
+            font-size: 1rem;
+        }
 
+        .links-container input[type="email"]:focus,
+        .links-container input[type="text"]:focus {
+            outline: none;
+            border-color: #dc2626;
+            background: #ffffff;
+        }
+
+        .links-container input[type="submit"] {
+            background: #dc2626;
+            color: #ffffff;
+            padding: 0.8rem 2rem;
+            border: 2px solid #dc2626;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .links-container input[type="submit"]:hover {
+            background: #991b1b;
+            border-color: #991b1b;
+            transform: translateY(-2px);
+        }
 
         .close {
-        position: absolute;
-        margin: 5px;
-        right: 10px;
-        top: 0px;
-        transition: all 200ms;
-        font-size: 30px;
-        font-weight: bold;
-        text-decoration: none;
-        color: #333;
-        text-align: right;
+            position: absolute;
+            margin: 5px;
+            right: 15px;
+            top: 5px;
+            transition: all 200ms;
+            font-size: 35px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #6c757d;
+            text-align: right;
+            cursor: pointer;
+            line-height: 1;
         }
-        .popup .close:hover {
-        color: #06D85F;
+
+        .close:hover {
+            color: #dc2626;
         }
-        .tier-button {
-            cursor:pointer;
-            }
-        .logo {
-            cursor:pointer;
-            }
 
         @media (max-width: 768px) {
             .main-content {
@@ -484,7 +382,10 @@
                 flex-direction: column;
                 align-items: center;
             }
-            
+
+            .email-popup {
+                width: 90%;
+            }
         }
     </style>
 
@@ -500,24 +401,23 @@
     {% block body %}
     <div class="container">
         <header class="header">
-            <div onclick="window.location.replace('/')" class="logo">roadway.report</div>
-            <div class="tagline">Every Life Matters</div>
+            <h1 onclick="location.href='/'" class="logo">roadway.report</h1>
+            <div class="tagline">Mapping Every Traffic Death in the USA</div>
             <div class="subtitle">
-                An interactive memorial mapping every traffic death in the United States—
-                bearing witness to the human cost of dangerous infrastructure and advocating for safer streets.
+                A comprehensive database of over 50 years of fatal crash records, completely free and open to the public. Our Vision Zero map visualizes every traffic death in the United States, providing essential tools for traffic safety research and advocacy.
             </div>
             <div class="stats">
                 <div class="stat-item">
-                    <div class="stat-number">42K+</div>
-                    <div class="stat-label">Lives Lost Annually</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">900K+</div>
+                    <div class="stat-number">900,000+</div>
                     <div class="stat-label">Deaths Mapped</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">All 50</div>
-                    <div class="stat-label">States Covered</div>
+                    <div class="stat-number">2,000,000+</div>
+                    <div class="stat-label">Fatalities tracked</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Years Covered</div>
                 </div>
             </div>
         </header>
@@ -561,63 +461,14 @@
             </div>
         </div>
 
-        <div class="pricing">
-            <h2>Access & Pricing</h2>
-            <div class="pricing-grid">
-                <div class="pricing-tier">
-                    <div class="tier-name">Free</div>
-                    <div class="tier-price">$0</div>
-                    <div class="tier-period">Always free</div>
-                    <ul class="tier-features">
-                        <li>Interactive <a href="/">web map</a> access</li>
-                        <li>View all traffic fatality data</li>
-                        <li>100 API requests per day</li>
-                        <li>Basic documentation</li>
-                        <li>Community support</li>
-                    </ul>
-                    <a href="/accidents/" class="tier-button secondary">Search Crash Records</a>
-                </div>
-                
-                <div class="pricing-tier featured">
-                    <div class="tier-name">Professional</div>
-                    <div class="tier-price">$99</div>
-                    <div class="tier-period">per month</div>
-                    <ul class="tier-features">
-                        <li>Everything in Free tier</li>
-                        <li>Unlimited API access</li>
-                        <li>Priority support team access</li>
-                        <li>Advanced documentation</li>
-                        <li>Historical data exports</li>
-                        <li>Custom query assistance</li>
-                    </ul>
-                    <a onClick=openPopup() class="tier-button">Get Started</a>
-                </div>
-                
-                <div class="pricing-tier">
-                    <div class="tier-name">Enterprise</div>
-                    <div class="tier-price">Custom</div>
-                    <div class="tier-period">Contact us</div>
-                    <ul class="tier-features">
-                        <li>Full-service data integration</li>
-                        <li>Custom system implementation</li>
-                        <li>Dedicated consultation</li>
-                        <li>White-label solutions</li>
-                        <li>24/7 support</li>
-                        <li>Training & onboarding</li>
-                    </ul>
-                    <a onClick=openPopup() class="tier-button">Contact Sales</a>
-                </div>
-            </div>
-        </div>
-
         <div class="cta-section">
             <h2>Join the Movement for Safer Streets</h2>
-            <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem; font-size: 1.2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            <p style="margin-bottom: 2rem; font-size: 1.2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
                 Together, we can honor those we've lost by building a transportation system that values human life above all else.
             </p>
             <div class="cta-buttons">
                 <a href="/" class="cta-button cta-primary">Explore the Map</a>
-                <a href="mailto:ben@roadway.report" class="cta-button cta-secondary">Get in Touch</a>
+                <a href="/accidents/" class="cta-button cta-primary">Search our Database</a>
             </div>
         </div>
     </div>
@@ -658,53 +509,6 @@
                 observer.observe(card);
             });
 
-            // Animated counter for statistics
-            const statNumbers = document.querySelectorAll('.stat-number');
-            const animateStats = () => {
-                statNumbers.forEach(stat => {
-                    const text = stat.textContent;
-                    const isThousands = text.includes('K');
-                    const isAll = text.includes('All');
-                    
-                    if (isAll) return; // Skip "All 50"
-                    
-                    const target = parseInt(text.replace(/[^\d]/g, ''));
-                    const multiplier = isThousands ? 1000 : 1;
-                    const actualTarget = target * multiplier;
-                    
-                    let current = 0;
-                    const increment = actualTarget / 60;
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= actualTarget) {
-                            current = actualTarget;
-                            clearInterval(timer);
-                        }
-                        
-                        const displayValue = isThousands ? 
-                            Math.floor(current / 1000) + 'K+' : 
-                            Math.floor(current).toLocaleString();
-                        
-                        stat.textContent = displayValue;
-                    }, 40);
-                });
-            };
-
-            // Trigger animation when stats come into view
-            const statsObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateStats();
-                        statsObserver.unobserve(entry.target);
-                    }
-                });
-            });
-
-            const statsSection = document.querySelector('.stats');
-            if (statsSection) {
-                statsObserver.observe(statsSection);
-            }
-        });
 
         const params = new URLSearchParams(window.location.search);
 
