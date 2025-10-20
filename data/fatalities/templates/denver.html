@@ -200,6 +200,21 @@ map.on('load', () => {
     })
 
     map.addLayer({
+        id: "transit",
+        type: "line",
+        source: {
+            url: "{{ TILES_URL }}denver/transit.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "transit_priority_streets",
+        paint: {
+            'line-color': 'purple',
+            'line-opacity': .35,
+            'line-width': 10,
+            'line-dasharray': [2, 1]
+        }
+    })
+    map.addLayer({
         id: "denver",
         type: "circle",
         source: {
