@@ -157,6 +157,35 @@ var map = new maplibregl.Map({
 map.on('load', () => {
 
     map.addLayer({
+        id: "city_limits",
+        type: "fill",
+        source: {
+            url: "{{ TILES_URL }}denver/city_limits.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "city_limits",
+        paint: {
+            'fill-color': 'yellow',
+            'fill-opacity': .1,
+            'fill-outline-color': "black"
+        }
+    })
+
+    map.addLayer({
+        id: "equity",
+        type: "fill",
+        source: {
+            url: "{{ TILES_URL }}denver/equity.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "denver_equity_index",
+        paint: {
+            'fill-color': 'green',
+            'fill-opacity': .3
+        }
+    })
+    
+    map.addLayer({
         id: "denver_hin",
         type: "line",
         source: {
@@ -169,6 +198,7 @@ map.on('load', () => {
             'line-width': 3
         }
     })
+
     map.addLayer({
         id: "denver",
         type: "circle",
