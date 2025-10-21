@@ -1,5 +1,5 @@
-
-
+{% extends "base.html" %}
+{% block header %}
 <link rel="stylesheet" href="static/css/maplibre-gl.css">
 <script src="static/js/maplibre-gl.js"></script>
 <script src="static/js/pmtiles.js"></script>
@@ -52,7 +52,7 @@
 font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 position: absolute;
 width: 200px;
-top: 0;
+top: 2.25rem;
 left: 0;
 padding: 10px;
 }
@@ -100,25 +100,35 @@ outline: none;
 .map-overlay-inner button:hover {
 box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
+.boxlabel{
+    padding: 5px;
+    font-size: 1rem
+}
+input {
+    padding: 10px
+}
 
 </style>
-<head>
 
     <title>Denver Automobile Deaths & High-Injury Network</title>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
-</head>
+{% endblock %}
 
-
-<body>
+{% block body %}
 
     <div id="map"></div>
     <div class="map-overlay top">
         <div class="map-overlay-inner">
-            <h3>Denver Automobile Deaths & High-Injury Network</h3>
-            <h3><a href="info">More about roadway.report</a> </h3>
+            <h3>Denver Fatal Traffic Collisions</h3>
+
+            <div class = "boxlabel"><input type="checkbox" id="deaths" checked> Roadway Deaths 2001-2023</div>
+            <div class = "boxlabel"><input type="checkbox" id="hin" checked> High-Injury Network (Yellow)</div>
+            <div class = "boxlabel"><input type="checkbox" id="transit" checked> Transit Priority Corridors (Purple)</div>
+            <div class = "boxlabel"><input type="checkbox" id="equity" checked> Areas of Need - Denver Equity Index (Green)</div>
+            <div class = "boxlabel"><input type="checkbox" id="city_limits" checked> Denver City Limits</div>
         </div>
     </div>
-</body>
+
 
 <script>
 
@@ -157,6 +167,35 @@ var map = new maplibregl.Map({
 map.on('load', () => {
 
     map.addLayer({
+        id: "city_limits",
+        type: "fill",
+        source: {
+            url: "{{ TILES_URL }}denver/city_limits.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "city_limits",
+        paint: {
+            'fill-color': 'yellow',
+            'fill-opacity': .1,
+            'fill-outline-color': "black"
+        }
+    })
+
+    map.addLayer({
+        id: "equity",
+        type: "fill",
+        source: {
+            url: "{{ TILES_URL }}denver/equity.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "denver_equity_index",
+        paint: {
+            'fill-color': 'green',
+            'fill-opacity': .25
+        }
+    })
+    
+    map.addLayer({
         id: "denver_hin",
         type: "line",
         source: {
@@ -166,9 +205,40 @@ map.on('load', () => {
         "source-layer": "hin",
         paint: {
             'line-color': 'yellow',
-            'line-width': 3
+            'line-width': 5,
         }
     })
+
+    map.addLayer({
+        id: "transit",
+        type: "line",
+        source: {
+            url: "{{ TILES_URL }}denver/transit.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "transit_priority_streets",
+        paint: {
+            'line-color': 'purple',
+            'line-opacity': .35,
+            'line-width': 10,
+            'line-dasharray': [2, 1]
+        }
+    })
+
+    map.addLayer({
+        id: "denver_hin",
+        type: "line",
+        source: {
+            url: "{{ TILES_URL }}denver/denver_hin.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "hin",
+        paint: {
+            'line-color': 'yellow',
+            'line-width': 5,
+        }
+    })
+
     map.addLayer({
         id: "denver",
         type: "circle",
@@ -210,7 +280,7 @@ map.on('load', () => {
             let table = "<table><thead><tr><th>Date</th><th>Deaths</th><th></th></tr></thead>";
                     let total = 0;
                     features.forEach((f, i) => {
-                        if (!f.properties.GlobalID) {
+                        if (f.properties.fatalities) {
                             table += "<tr>";
                             let date = new Date(f.properties.year, f.properties.month-1, f.properties.day);
                             table += `<tr><td>${date.toDateString()}</td>`;
@@ -231,7 +301,9 @@ map.on('load', () => {
                         .addClassName("popup");
         }
         else {
-            console.log("This is part of the HIN")
+            console.log("OTHER LAYER")
+            if (features[0].properties.StreetName) {
+                console.log("HIN HIN HIN")
             let table = "<h3>High Injury Network</h3><table><thead><tr><th>Street Name</th><th>Tier</th><th>Object ID</th></tr></thead>"
             table += `<tr><td>${features[0].properties.StreetName}</td><td>${features[0].properties.Tier}</td><td>${features[0].properties.OBJECTID}</td></tr>`
             
@@ -241,6 +313,14 @@ map.on('load', () => {
                     .setHTML(table)
                     .addTo(map)
                     .addClassName("popup");
+            } else {
+                new maplibregl.Popup()
+                    .setLngLat(e.lngLat)
+                    .setHTML(`<h3>${features[0].properties.name}</h3>`)
+                    .addTo(map)
+                    .addClassName("popup");
+                
+            }
         }
         // console.log(features[0])
         // let table = "<table><thead><tr><th>Date</th><th>Person Type</th><th>Severity</th><th>Age</th><th>Gender</th><th>Ethnicity</th></tr></thead>";
@@ -262,3 +342,59 @@ map.on('load', () => {
     });
 })
 </script>
+<script>
+
+    function toggleLayerVisibility(layerId, isVisible) {
+        map.setLayoutProperty(layerId, 'visibility', 
+            isVisible ? 'visible' : 'none'
+        );
+    }
+
+    const deaths = document.getElementById('deaths');
+    deaths.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("denver", true)
+        } else {
+            toggleLayerVisibility("denver", false)
+        }
+    })
+
+    const hin = document.getElementById('hin');
+    hin.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("denver_hin", true)
+        } else {
+            toggleLayerVisibility("denver_hin", false)
+        }
+    })
+
+    const transit = document.getElementById('transit');
+    transit.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("transit", true)
+        } else {
+            toggleLayerVisibility("transit", false)
+        }
+    })
+
+    const equity = document.getElementById('equity');
+    equity.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("equity", true)
+        } else {
+            toggleLayerVisibility("equity", false)
+        }
+    })
+
+    const city = document.getElementById('city_limits');
+    city.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("city_limits", true)
+        } else {
+            toggleLayerVisibility("city_limits", false)
+        }
+    })
+
+
+</script>
+{% endblock %}
