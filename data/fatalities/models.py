@@ -4930,6 +4930,11 @@ class PodcastEpisode(models.Model):
     def __str__(self):
         return self.title
     
+class PodcastDownload(models.Model):
+    episode = models.ForeignKey(PodcastEpisode, on_delete=models.DO_NOTHING)
+    dt = models.DateTimeField(null=True, blank=True)
+    log = models.TextField(null=True, blank=True)
+    
 
 class Subreddit(models.Model):
     id = models.CharField(primary_key=True, max_length=255)
