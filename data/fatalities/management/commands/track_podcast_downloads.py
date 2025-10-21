@@ -6,7 +6,7 @@ from datetime import datetime
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
-        with open("/home/tonydeals/app/ntsb/access.log.1") as f:
+        with open("/var/log/nginx/access.log.1") as f:
             for x in f:
                 if "/podcasts/" in x:
                     episode_slug = x.split("/podcasts/")[1].split(".mp3")[0]
