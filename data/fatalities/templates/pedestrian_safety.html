@@ -15,7 +15,7 @@
     }
 
     .container {
-        max-width: 100%;
+        max-width: 200%;
         margin: 0 auto;
         padding: 2rem 1rem;
         min-height: 100vh;
@@ -75,11 +75,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 350px;
+        min-height: 650px;
     }
 
     canvas {
-        max-width: 100%;
+        max-width: 200%;
         height: auto;
         display: block;
     }
@@ -112,6 +112,8 @@
     @media only screen and (max-width: 768px) {
         .container {
             padding: 1.5rem 1rem;
+            max-width: 150%;
+            width: 150%;
         }
 
         .main-title {
@@ -142,6 +144,13 @@
     @media only screen and (max-width: 480px) {
         .container {
             padding: 1rem 0.75rem;
+            width: 150% !important;
+            max-width: 150%;
+        }
+
+        canvas {
+            width: 100% !important;
+            max-width: 100%;
         }
 
         .main-title {
