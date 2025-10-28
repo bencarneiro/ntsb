@@ -5,7 +5,7 @@ from django.views.decorators.cache import cache_page
 from django.db.models import Q, Sum, Count, Min
 from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
 from django.contrib.gis.geos import GEOSGeometry
-from fatalities.models import Accident, Comment, County, PedestrianType, Person, State, Vehicle
+from fatalities.models import Accident, Comment, County, PedestrianType, Person, State, Vehicle, InjuryAccident
 from django.http import JsonResponse, HttpResponse
 import json
 import folium
@@ -738,6 +738,27 @@ def nonmotorist_csv(request):
         writer.writerow([crash.st_case, crash.fatalitytotals.nonmotorist_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
 
     return response
+
+
+
+def colorado_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="colorado_injuries.csv"'},
+    )
+
+    writer = csv.writer(response)
+    writer.writerow(["id", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
+
+    crashes = InjuryAccident.objects.filter(death_count=0, state_id=8)
+    for crash in crashes:
+        writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
+
+    return response
+
+
 
 def comments(request):
     comments = Comment.objects.all().order_by("-created")
