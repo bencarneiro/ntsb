@@ -96,7 +96,7 @@ class Command(BaseCommand):
                     injury_accident=new_injury_accident,
                     age=age,
                     sex=sex,
-                    person_type=data['ACCTYPE'][x],
+                    person_type="Nonmotorist",
                     injury_severity=injury_severity
                 )
                 new_injury_person.save()
@@ -146,7 +146,7 @@ class Command(BaseCommand):
                         injury_accident=new_injury_accident,
                         age=age,
                         sex=sex,
-                        person_type=data['ACCTYPE'][x],
+                        person_type="Nonmotorist",
                         injury_severity=injury_severity
                     )
                     new_injury_person.save()
@@ -196,7 +196,7 @@ class Command(BaseCommand):
                         injury_accident=new_injury_accident,
                         age=age,
                         sex=sex,
-                        person_type=data['ACCTYPE'][x],
+                        person_type="Nonmotorist",
                         injury_severity=injury_severity
                     )
                     new_injury_person.save()
