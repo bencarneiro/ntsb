@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block header %}
+  <title>Crash Report - {{  accident.dt | date}} - roadway.report</title>
+  <style>
+
+@media (max-width:1260px) { 
+      .table {
+        width: 100%
+      }
+    } 
+
+    @media (min-width:1260px) { 
+      .table {
+        width: 50%;
+      }
+    } 
+h1 {
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      font-size: 4rem;
+      padding-top: 3rem;
+    }
+
+    .table{
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 30px;
+    }
+    .header{
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: center;
+      background-color: #b5e6d4;
+      color: black;
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      width: 50%;
+      text-align: center;
+      align-items: center;
+      position: center;
+    }
+  </style>
+  {% endblock %}
+  {% block body %}
+
+<h1>Serious Injury Crash Report</h1>
+<table class="table" id="accident">
+    <tr>
+      <th class="header">Crash #{{ accident.id }}</th>
+      <th class="header">Crash #{{ accident.id }}</th>
+    </tr>
+    <tr>
+      <td>State</td>
+      <td>{{ accident.state.name }}</td>
+    </tr>
+    <tr>
+      <td>County</td>
+      <td>{{ accident.county }}</td>
+    </tr>
+    <tr>
+      <td>City</td>
+      <td>{{ accident.city }}</td>
+    </tr>
+    <tr>
+      <td>Date</td>
+      <td> {{  accident.dt | date}}</td>
+    </tr>
+    <tr>
+      <td>Time</td>
+      <td> {{  accident.dt | time}}</td>
+    </tr>
+    {% if accident.longitude %}<tr><td>Google Maps</td><td>{{accident.map_link|safe}}</td></tr>{% endif %}
+  <tr><td>Street Name 1</td><td> {{accident.street_1}} </td></tr>
+  <tr><td>Street Name 2</td><td> {{accident.street_2}} </td></tr>
+  <tr><td>Crash Type</td><td> {{accident.crash_type}} </td></tr>
+  <tr>
+    <td>Serious Injuries</td>
+    <td>{{ accident.severe_injury_count }}</td>
+  </tr>
+  <tr>
+    <td>Fatalities</td>
+    <td>{{ accident.death_count }}</td>
+  </tr>
+</table>
+
+<h1>Persons</h1>
+{% for person in accident.injuryperson_set.all %}
+<table class="table" id="person-{{ person.id }}">
+<tr>
+    <th class="header">{{person.person_type}}{% if person.injury_vehicle_id %} in vehicle #{{ person.injury_vehicle.vehicle_number }}{% endif %} </th>
+    <th class="header">{{person.person_type}}{% if person.injury_vehicle_id %} in vehicle #{{ person.injury_vehicle.vehicle_number }}{% endif %} </th>
+</tr>
+<tr><td>Vehicle Number</td><td>{{person.injury_vehicle.vehicle_number}} </td></tr>
+<tr><td>Age</td><td>{{person.age}} </td></tr>
+<tr><td>Sex</td><td>{{person.sex}} </td></tr>
+<tr><td>Injury Severity</td><td>{{person.get_injury_severity_display}} </td></tr>
+</table>
+{% endfor %}
+
+<h1>Vehicles</h1>
+{% for vehicle in accident.injuryvehicle_set.all %}
+<table class="table" id="vehicle-{{ vehicle.id }}">
+
+    <tr>
+        <th class="header">Vehicle #{{ vehicle.vehicle_number }}</th>
+        <th class="header">Vehicle #{{ vehicle.vehicle_number }}</th>
+      </tr>
+<tr><td>Vehicle Number</td><td>{{vehicle.vehicle_number}} </td></tr>
+<tr><td>Type</td><td>{{vehicle.body_type}} </td></tr>
+{% if vehicle.make %}
+<tr><td>Make</td><td>{{vehicle.make}} </td></tr>
+{% endif %}
+{% if vehicle.model %}
+<tr><td>Model</td><td>{{vehicle.model}} </td></tr>
+{% endif %}
+{% if vehicle.violation and vehicle.violation != "nan" %}
+<tr><td>Violation</td><td>{{vehicle.violation}} </td></tr>
+{% endif %}
+</table>
+{% endfor %}
+
+
+  {% endblock %}

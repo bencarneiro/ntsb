@@ -5013,6 +5013,8 @@ class InjuryAccident(models.Model):
     crash_type = models.TextField(null=True, blank=True)
     death_count = models.PositiveSmallIntegerField(null=True, blank=True)
     severe_injury_count = models.PositiveSmallIntegerField(null=True, blank=True)
+    def map_link(self):
+        return f"<a href='https://www.google.com/maps/search/?api=1&query={self.latitude},{self.longitude}'>({self.latitude}, {self.longitude})</a>"
 
 class InjuryVehicle(models.Model):
     injury_accident = models.ForeignKey(InjuryAccident, on_delete=models.CASCADE)
