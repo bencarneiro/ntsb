@@ -63,6 +63,8 @@ class Command(BaseCommand):
                 county=county,
                 street_1=location_1,
                 street_2=location_2,
+                death_count=death_count,
+                severe_injury_count=serious_injury_count,
                 crash_type = crash_type
             )
             new_injury_accident.save()
