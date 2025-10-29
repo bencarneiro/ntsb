@@ -39,6 +39,7 @@ DEBUG = (bool(int(os.environ.get('DEBUG',1))))
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "127.0.0.1:8000", "roadway.report", "www.roadway.report", "45.33.29.42"]
 
 CSV_PATH = os.environ.get("CSV_PATH", "/home/tonydeals/app/ntsb/data/csvs/")
+COLORADO_PATH = os.environ.get("COLORADO_PATH", "/home/tonydeals/app/ntsb/colorado/")
 
 ACCIDENT_CSV_PATHS = {
     1975: '1975/ACCIDENT.CSV',

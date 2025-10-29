@@ -5,7 +5,7 @@ from django.views.decorators.cache import cache_page
 from django.db.models import Q, Sum, Count, Min
 from ninja import Schema, Field, FilterSchema, Query, Redoc, NinjaAPI
 from django.contrib.gis.geos import GEOSGeometry
-from fatalities.models import Accident, Comment, County, PedestrianType, Person, State, Vehicle
+from fatalities.models import Accident, Comment, County, PedestrianType, Person, State, Vehicle, InjuryAccident
 from django.http import JsonResponse, HttpResponse
 import json
 import folium
@@ -203,8 +203,19 @@ def folium_map(request):
     # # return JsonResponse(loady_loads, safe=False)
 
 def accident_summary(request, **kwargs):
-    a = Accident.objects.get(id=kwargs['id'])
+    try:
+        a = Accident.objects.get(id=kwargs['id'])
+    except:
+        return redirect("/")
     return render(request, "accident_details.html", {"accident": a, "form": CommentForm})
+
+def injury_accident_summary(request, **kwargs):
+    try:
+        a = InjuryAccident.objects.get(id=kwargs['id'])
+    except:
+        return redirect("/")
+    return render(request, "accident_details_lite.html", {"accident": a})
+
 
 
 def connection(request, **kwargs):
@@ -739,6 +750,46 @@ def nonmotorist_csv(request):
 
     return response
 
+
+
+def colorado_fatality_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="colorado_fatalities.csv"'},
+    )
+
+    writer = csv.writer(response)
+    writer.writerow(["st_case", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
+
+    crashes = Accident.objects.filter(state_id=8)
+    for crash in crashes:
+        injury_count = len(Person.objects.filter(accident=crash, injury_severity=3))
+        writer.writerow([crash.st_case, crash.fatalitytotals.total_fatalities, injury_count, crash.datetime, crash.latitude, crash.longitude])
+
+    return response
+
+
+def colorado_injury_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="colorado_injuries.csv"'},
+    )
+
+    writer = csv.writer(response)
+    writer.writerow(["id", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
+
+    crashes = InjuryAccident.objects.filter(death_count=0, state_id=8)
+    for crash in crashes:
+        writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
+
+    return response
+
+
+
 def comments(request):
     comments = Comment.objects.all().order_by("-created")
     return render(request, "comment_moderation.html", {"comments": comments})
@@ -850,6 +901,9 @@ def texas(request):
 
 def denver(request):
     return render(request, "denver.html", {"TILES_URL": TILES_URL})
+
+def colorado(request):
+    return render(request, "colorado.html", {"TILES_URL": TILES_URL})
 
 def missed_connections(request):
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
