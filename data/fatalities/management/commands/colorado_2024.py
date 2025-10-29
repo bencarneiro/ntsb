@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from fatalities.models import InjuryAccident, InjuryPerson, InjuryVehicle
 import pandas as pd
 from datetime import datetime
+from data.settings import COLORADO_PATH
 
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
