@@ -203,11 +203,17 @@ def folium_map(request):
     # # return JsonResponse(loady_loads, safe=False)
 
 def accident_summary(request, **kwargs):
-    a = Accident.objects.get(id=kwargs['id'])
+    try:
+        a = Accident.objects.get(id=kwargs['id'])
+    except:
+        return redirect("/")
     return render(request, "accident_details.html", {"accident": a, "form": CommentForm})
 
 def injury_accident_summary(request, **kwargs):
-    a = InjuryAccident.objects.get(id=kwargs['id'])
+    try:
+        a = InjuryAccident.objects.get(id=kwargs['id'])
+    except:
+        return redirect("/")
     return render(request, "accident_details_lite.html", {"accident": a})
 
 
