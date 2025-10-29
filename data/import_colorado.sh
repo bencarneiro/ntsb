@@ -1,5 +1,5 @@
 #!/bin/sh
-export CSV_PATH="/root/ntsb/colorado/"
+export COLORADO_PATH="/root/ntsb/colorado/"
 python3 manage.py colorado_2024 > /var/log/colorado_2024.txt
 python3 manage.py colorado_2023 > /var/log/colorado_2023.txt
 python3 manage.py colorado_2022 > /var/log/colorado_2022.txt
