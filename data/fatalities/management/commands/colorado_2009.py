@@ -7,9 +7,9 @@ from datetime import datetime
 
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
-        InjuryPerson.objects.filter(injury_accident__dt__year=2009).delete()
-        InjuryVehicle.objects.filter(injury_accident__dt__year=2009).delete()
-        InjuryAccident.objects.filter(dt__year=2009).delete()
+        InjuryPerson.objects.filter(injury_accident__state_id=8, injury_accident__dt__year=2009).delete()
+        InjuryVehicle.objects.filter(injury_accident__state_id=8, injury_accident__dt__year=2009).delete()
+        InjuryAccident.objects.filter(state_id=8, dt__year=2009).delete()
         data = pd.read_excel(f"{COLORADO_PATH}CDOTRM_CD_Crash_Listing_-_2009.xlsx")
         data = data[(data['INJURY 04']>0) | (data['INJURY 03']>0)]
 

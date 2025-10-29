@@ -7,9 +7,9 @@ from data.settings import COLORADO_PATH
 
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
-        InjuryPerson.objects.filter(injury_accident__dt__year=2021).delete()
-        InjuryVehicle.objects.filter(injury_accident__dt__year=2021).delete()
-        InjuryAccident.objects.filter(dt__year=2021).delete()
+        InjuryPerson.objects.filter(injury_accident__state_id=8, injury_accident__dt__year=2021).delete()
+        InjuryVehicle.objects.filter(injury_accident__state_id=8, injury_accident__dt__year=2021).delete()
+        InjuryAccident.objects.filter(state_id=8, dt__year=2021).delete()
         data = pd.read_excel(f"{COLORADO_PATH}CDOTRM_CD_Crash_Listing_-_2021.xlsx")
         data = data[(data['Injury 04']>0) | (data['Injury 03']>0)]
 
