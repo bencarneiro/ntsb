@@ -22,10 +22,10 @@ def injury_severity_converter(injury_severity):
 
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
-        InjuryPerson.objects.filter(injury_accident__state_id=48, injury_accident__dt__year=2015).delete()
-        InjuryVehicle.objects.filter(injury_accident__state_id=48, injury_accident__dt__year=2015).delete()
-        InjuryAccident.objects.filter(state_id=48, dt__year=2015).delete()
-        data = pd.read_csv(f"{TEXAS_PATH}2015_texas.csv")
+        InjuryPerson.objects.filter(injury_accident__state_id=48, injury_accident__dt__year=2023).delete()
+        InjuryVehicle.objects.filter(injury_accident__state_id=48, injury_accident__dt__year=2023).delete()
+        InjuryAccident.objects.filter(state_id=48, dt__year=2023).delete()
+        data = pd.read_csv(f"{TEXAS_PATH}2023_texas_1.csv")
         crash_id = None
         for x in data.index:
             print(x)
@@ -115,56 +115,4 @@ class Command(BaseCommand):
                 accident.severe_injury_count += 1
                 accident.save()
                 print("added a disabling event to the count")
-        
-
-                
-                
-
-
-
-
-# class InjuryAccident(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     state = models.ForeignKey(State, on_delete= models.DO_NOTHING)
-#     state_accident_id = models.PositiveBigIntegerField(null=False, blank=False)
-#     dt = models.DateTimeField(null=False, blank=False)
-#     latitude = models.DecimalField(null=True, blank=True, decimal_places=7, max_digits=10)
-#     longitude = models.DecimalField(null=True, blank=True, decimal_places=7, max_digits=10)
-#     city = models.TextField(null=True, blank=True)
-#     county = models.TextField(null=True, blank=True)
-#     street_1 = models.TextField(null=True)
-#     street_2 = models.TextField(null=True)
-#     crash_type = models.TextField(null=True, blank=True)
-#     death_count = models.PositiveSmallIntegerField(null=True, blank=True)
-#     severe_injury_count = models.PositiveSmallIntegerField(null=True, blank=True)
-#     def map_link(self):
-#         return f"<a href='https://www.google.com/maps/search/?api=1&query={self.latitude},{self.longitude}'>({self.latitude}, {self.longitude})</a>"
-
-# class InjuryVehicle(models.Model):
-#     injury_accident = models.ForeignKey(InjuryAccident, on_delete=models.CASCADE)
-#     vehicle_number = models.PositiveSmallIntegerField(null=False, blank=False)
-#     make = models.TextField(null=True, blank=True)
-#     model = models.TextField(null=True, blank=True)
-#     body_type = models.TextField(null=True, blank=True)
-#     violation = models.TextField(null=True, blank=True)
-#     hit_and_run = models.BooleanField(default=False)
-
-# class InjuryPerson(models.Model):
-#     injury_accident = models.ForeignKey(InjuryAccident, on_delete=models.CASCADE)
-#     injury_vehicle = models.ForeignKey(InjuryVehicle, null=True, blank=True, on_delete = models.CASCADE)
-#     age = models.PositiveSmallIntegerField(null = True, blank = True)
-#     #p6 
-#     sex = models.CharField(max_length=64, null=True, blank=True)
-#     person_type = models.CharField(max_length=256,null=True, blank=True)
-#     #p8 injury_severity
-#     injury_severity_choices = [
-#         (0, 'No Apparent Injury (O)'),
-#         (1, 'Possible Injury (C)'),
-#         (2, 'Suspected Minor Injury (B)'),
-#         (3, 'Suspected Serious Injury (A)'),
-#         (4, 'Fatal Injury (K)'),
-#         (5, 'Injured, Severity Unknown (U) (Since 1978)'),
-#         (6, 'Died Prior to Crash'),
-#         (9, 'Unknown/Not Reported')
-#     ]			
-#     injury_severity = models.PositiveSmallIntegerField(choices=injury_severity_choices, default=9)
+    
