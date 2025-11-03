@@ -996,6 +996,10 @@ def create_missed_connection(request):
 def population(request):
     return render(request, "population.html", {"TILES_URL": TILES_URL})
 
+def state_injury_maps(request):
+    return render(request, "state_injury_maps.html", {})
+    
+
 def population_nonmotorist(request):
     return redirect("/population")
 

@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block header %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>State Injury Maps - roadway.report</title>
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html, body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                color: #000;
+                background-color: #fff;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 2rem 1rem;
+                min-height: 100vh;
+            }
+
+            .header {
+                text-align: center;
+                margin-bottom: 3rem;
+                padding-bottom: 2rem;
+                border-bottom: 2px solid #000;
+            }
+
+            .main-title {
+                padding-top: 3rem;
+                font-size: 2.5rem;
+                font-weight: 900;
+                margin-bottom: 0.5rem;
+                color: #000;
+                letter-spacing: -0.02em;
+            }
+            h1, h2 {
+                text-align: center;
+                padding: 10px;
+            }
+
+            @media (max-width:1260px) { 
+            .table {
+                width: 100%
+            }
+            } 
+
+            @media (min-width:1260px) { 
+            .table {
+                width: 50%;
+            }
+            } 
+
+            .table{
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            }
+            .header{
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: #b5e6d4;
+            color: black;
+            border: 1px solid #ddd;
+            padding: 8px;
+            }
+            td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            width: 50%;
+            text-align: center;
+            align-items: center;
+            position: center;
+            }
+
+
+            /* Mobile responsiveness */
+            @media only screen and (max-width: 768px) {
+                .container {
+                    padding: 1.5rem 1rem;
+                }
+
+                .main-title {
+                    font-size: 2rem;
+                }
+
+            }
+
+            @media only screen and (max-width: 480px) {
+                .container {
+                    padding: 1rem 0.75rem;
+                }
+
+                .main-title {
+                    font-size: 1.8rem;
+                }
+            }
+
+        </style>
+{% endblock %}
+{% block body %}
+        <div class="container">
+                <h1 class="main-title">State Injury Maps - roadway.report</h1>
+                <h2>We are adding new injury data every day.</h2>
+            <table class="table">
+                <tr>
+                    <th class="header">State</th>
+                    <th class="header">Injury Map</th>
+                </tr>
+                <tr>
+                    <td>Colorado</td>
+                    <td><a href="/colorado">LINK</a></td>
+                </tr>
+                <tr>
+                    <td>Texas</td>
+                    <td><a href="/texas">LINK</a></td>
+                </tr>
+            </table>
+
+            <h2> <a href="https://ko-fi.com/roadwayreport">Donate</a> to support our efforts</h2>
+        {% endblock %}
