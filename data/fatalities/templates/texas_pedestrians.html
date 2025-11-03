@@ -1,0 +1,346 @@
+
+
+<link rel="stylesheet" href="static/css/maplibre-gl.css">
+<script src="static/js/maplibre-gl.js"></script>
+<script src="static/js/pmtiles.js"></script>
+<style>
+    body {
+        margin: 0;
+    }
+    html, body, #map {
+        height:100%; width:100%;
+    }
+    .popup .maplibregl-popup-content {
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+    h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 4rem;
+    }
+    h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 2rem;
+    }
+    h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 1.2rem;
+    }
+    .table{
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto
+    }
+    td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    width: 50%;
+    text-align: center;
+    align-items: center;
+    position: center;
+    }
+    .dt {
+        width:20%;
+        text-wrap: wrap;
+        word-break: break-word;
+    }
+.map-overlay {
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+position: absolute;
+width: 200px;
+top: 0;
+left: 0;
+padding: 10px;
+}
+
+.map-overlay .map-overlay-inner {
+background-color: #fff;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+border-radius: 3px;
+padding: 10px;
+margin-bottom: 10px;
+}
+
+.map-overlay-inner fieldset {
+border: none;
+padding: 0;
+margin: 0 0 10px;
+}
+
+.map-overlay-inner fieldset:last-child {
+margin: 0;
+}
+
+.map-overlay-inner select {
+width: 100%;
+}
+
+.map-overlay-inner label {
+display: block;
+font-weight: bold;
+margin: 0 0 5px;
+}
+
+.map-overlay-inner button {
+display: inline-block;
+width: 36px;
+height: 20px;
+border: none;
+cursor: pointer;
+}
+
+.map-overlay-inner button:focus {
+outline: none;
+}
+
+.map-overlay-inner button:hover {
+box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+</style>
+<head>
+
+    <title>100,000 Texas Pedestrians Hit By Cars (2014-2024)</title>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
+</head>
+
+
+<body>
+
+    <div id="map"></div>
+    <div class="map-overlay top">
+        <div class="map-overlay-inner">
+            <h3>100,000 Texas Pedestrians Hit By Cars (2014-2024)</h3>
+            <h3><a href="info">More about roadway.report</a> </h3>
+        </div>
+    </div>
+</body>
+
+<script>
+
+
+let protocol = new pmtiles.Protocol();
+maplibregl.addProtocol("pmtiles", protocol.tile);
+var map = new maplibregl.Map({
+    container: 'map',
+    style: {
+        version: 8,
+        sources: {
+            "base-raster": {
+                type: "raster",
+                tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+                tileSize: 256,
+                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a>"
+            
+            }
+        },
+        layers: [
+            {
+                id: "base-raster",
+                type: "raster",
+                source: "base-raster",
+                paint: {
+                    "raster-saturation": -1,
+                }
+            }
+        ]
+    },
+    // these are the loading coordinates
+    center: [-100,32],
+    zoom: 5.5
+});
+
+map.on('load', () => {
+
+
+    map.addLayer({
+        id: "unknown_injuries",
+        type: "circle",
+        source: {
+            url: "{{ TILES_URL }}texas_tiles/unknown_injuries.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "unknown_injuries",
+        paint: {
+            "circle-opacity": .3,
+            "circle-color": "yellow",
+            "circle-radius": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, .3,
+                14, 5
+            ],
+            "circle-stroke-opacity": .6,
+            "circle-stroke-color": "yellow",
+            "circle-stroke-width": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, 0,
+                14, 1
+            ],
+        }
+    })
+
+    map.addLayer({
+        id: "no_injuries",
+        type: "circle",
+        source: {
+            url: "{{ TILES_URL }}texas_tiles/no_injuries.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "no_injuries",
+        paint: {
+            "circle-opacity": .3,
+            "circle-color": "yellow",
+            "circle-radius": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, .3,
+                14, 5
+            ],
+            "circle-stroke-opacity": .6,
+            "circle-stroke-color": "yellow",
+            "circle-stroke-width": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, 0,
+                14, 1
+            ],
+        }
+    })
+
+
+    map.addLayer({
+        id: "possible_injuries",
+        type: "circle",
+        source: {
+            url: "{{ TILES_URL }}texas_tiles/possible_injuries.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "possible_injuries",
+        paint: {
+            "circle-opacity": .3,
+            "circle-color": "yellow",
+            "circle-radius": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, .3,
+                14, 5
+            ],
+            "circle-stroke-opacity": .6,
+            "circle-stroke-color": "yellow",
+            "circle-stroke-width": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, 0,
+                14, 1
+            ],
+        }
+    })
+
+
+    map.addLayer({
+        id: "minor_injuries",
+        type: "circle",
+        source: {
+            url: "{{ TILES_URL }}texas_tiles/minor_injuries.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "minor_injuries",
+        paint: {
+            "circle-opacity": .3,
+            "circle-color": "orange",
+            "circle-radius": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, .3,
+                14, 5
+            ],
+            "circle-stroke-opacity": .6,
+            "circle-stroke-color": "orange",
+            "circle-stroke-width": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, 0,
+                14, 1
+            ],
+        }
+    })
+
+
+    map.addLayer({
+        id: "serious_injuries",
+        type: "circle",
+        source: {
+            url: "{{ TILES_URL }}texas_tiles/serious_injuries.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "serious_injuries",
+        paint: {
+            "circle-opacity": .3,
+            "circle-color": "red",
+            "circle-radius": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, .3,
+                14, 5
+            ],
+            "circle-stroke-opacity": .6,
+            "circle-stroke-color": "red",
+            "circle-stroke-width": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, 0,
+                14, 1
+            ],
+        }
+    })
+
+    map.addLayer({
+        id: "fatalities",
+        type: "circle",
+        source: {
+            url: "{{ TILES_URL }}texas_tiles/fatalities.pmtiles",
+            type: "vector"
+        },
+        "source-layer": "fatalities",
+        paint: {
+            "circle-opacity": .3,
+            "circle-color": "darkred",
+            "circle-radius": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, .3,
+                14, 5
+            ],
+            "circle-stroke-opacity": .6,
+            "circle-stroke-color": "darkred",
+            "circle-stroke-width": [
+                "interpolate", ["exponential", 1.1], ["zoom"],
+                2, 0,
+                14, 1
+            ],
+        }
+    })
+
+
+    map.on('mouseenter', `fatalities`, () => {map.getCanvas().style.cursor = 'pointer'});
+    map.on('mouseleave', `fatalities`, () => {map.getCanvas().style.cursor = ''});
+
+    map.on('click', (e) => {
+        const features = map.queryRenderedFeatures(e.point);
+        console.log(e)
+        console.log(features)
+        if (features.length == 0) return;
+        let table = "<table><thead><tr><th>Date</th><th>Person Type</th><th>Severity</th><th>Age</th><th>Gender</th><th>Ethnicity</th></tr></thead>";
+        let total = 0;
+        features.forEach((f, i) => {
+            table += "<tr>";
+            table += `<tr><td>${f.properties.crash_date} @ ${f.properties.crash_time}</td>`;
+            table += `<td>${f.properties.unit_description}</td>`;
+            table += `<td align='right'>${f.properties.person_injury_severity}}</td>`;
+            table += `<td>${f.properties.person_age}</td><td>${f.properties.person_gender}</td><td>${f.properties.person_ethnicity}</td>`;
+            table += "</tr>";
+        })
+        table += "</table>";
+        new maplibregl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(table)
+            .addTo(map)
+            .addClassName("popup");
+    });
+})
+</script>

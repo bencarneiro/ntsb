@@ -81,7 +81,7 @@ class Command(BaseCommand):
                         injury_accident=accident,
                         make = data['Vehicle Make'][x],
                         model = data['Vehicle Model Year'][x] + " " + data['Vehicle Model Name'][x],
-                        body_type = data['Vehicle Body Style'],
+                        body_type = data['Vehicle Body Style'][x],
                         hit_and_run = hit_and_run,
                         violation = data['Charge'][x],
                         vehicle_number = data['Unit Number'][x]
