@@ -15,6 +15,13 @@
     <changefreq>daily</changefreq>
   </url>
 
+
+  <url>
+    <loc>https://roadway.report/states</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
   <url>
     <loc>https://roadway.report/county_selector</loc>
     <priority>0.8</priority>
@@ -27,6 +34,18 @@
     <changefreq>daily</changefreq>
   </url>
 
+  <url>
+    <loc>https://roadway.report/colorado</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+
+  <url>
+    <loc>https://roadway.report/texas</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
 
 
   <!-- Safety and Vision Zero -->
@@ -105,7 +124,7 @@
 
   <!-- Regional Pages -->
   <url>
-    <loc>https://roadway.report/texas</loc>
+    <loc>https://roadway.report/texas_pedestrians</loc>
     <priority>0.7</priority>
     <changefreq>weekly</changefreq>
   </url>

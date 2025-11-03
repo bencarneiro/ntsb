@@ -29,6 +29,13 @@ import csv
 
 from django.db import connection
 
+from django.contrib.syndication.views import Feed
+from django.urls import reverse
+from .models import CustomerEmail, MissedConnection, MissedConnectionComment, PodcastEpisode, RedditPost  # Assume you have a model for episodes
+
+from django.utils import feedgenerator
+
+
 
 def three_year_moving_avg(years):
     new_list = []
@@ -699,94 +706,145 @@ def new_mexico_csv(request):
 
 
 def total_csv(request):
-    # Create the HttpResponse object with the appropriate CSV header.
-    year = request.GET['year']
-    response = HttpResponse(
-        content_type="text/csv",
-        headers={"Content-Disposition": f'attachment; filename="total_fatalities_{year}.csv"'},
-    )
+    if request.user.is_authenticated:  
+        # Create the HttpResponse object with the appropriate CSV header.
+        year = request.GET['year']
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="total_fatalities_{year}.csv"'},
+        )
 
-    writer = csv.writer(response)
-    writer.writerow(["st_case", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
+        writer = csv.writer(response)
+        writer.writerow(["st_case", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
 
-    crashes = Accident.objects.filter(year=year)
-    for crash in crashes:
-        writer.writerow([crash.st_case, crash.fatalitytotals.total_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
+        crashes = Accident.objects.filter(year=year)
+        for crash in crashes:
+            writer.writerow([crash.st_case, crash.fatalitytotals.total_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
 
-    return response
+        return response
+    return redirect("/")
 
 
 def vehicle_csv(request):
-    # Create the HttpResponse object with the appropriate CSV header.
-    year = request.GET['year']
-    response = HttpResponse(
-        content_type="text/csv",
-        headers={"Content-Disposition": f'attachment; filename="vehicle_fatalities_{year}.csv"'},
-    )
+    if request.user.is_authenticated:  
+        # Create the HttpResponse object with the appropriate CSV header.
+        year = request.GET['year']
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="vehicle_fatalities_{year}.csv"'},
+        )
 
-    writer = csv.writer(response)
-    writer.writerow(["st_case", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
+        writer = csv.writer(response)
+        writer.writerow(["st_case", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
 
-    crashes = Accident.objects.filter(year=year, fatalitytotals__vehicle_fatalities__gte=1)
-    for crash in crashes:
-        writer.writerow([crash.st_case, crash.fatalitytotals.vehicle_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
+        crashes = Accident.objects.filter(year=year, fatalitytotals__vehicle_fatalities__gte=1)
+        for crash in crashes:
+            writer.writerow([crash.st_case, crash.fatalitytotals.vehicle_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
 
-    return response
+        return response
+    return redirect("/")
 
 def nonmotorist_csv(request):
-    # Create the HttpResponse object with the appropriate CSV header.
-    year = request.GET['year']
-    response = HttpResponse(
-        content_type="text/csv",
-        headers={"Content-Disposition": f'attachment; filename="nonmotorist_fatalities_{year}.csv"'},
-    )
+    if request.user.is_authenticated:  
+        # Create the HttpResponse object with the appropriate CSV header.
+        year = request.GET['year']
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="nonmotorist_fatalities_{year}.csv"'},
+        )
 
-    writer = csv.writer(response)
-    writer.writerow(["st_case", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
+        writer = csv.writer(response)
+        writer.writerow(["st_case", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
 
-    crashes = Accident.objects.filter(year=year, fatalitytotals__nonmotorist_fatalities__gte=1)
-    for crash in crashes:
-        writer.writerow([crash.st_case, crash.fatalitytotals.nonmotorist_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
+        crashes = Accident.objects.filter(year=year, fatalitytotals__nonmotorist_fatalities__gte=1)
+        for crash in crashes:
+            writer.writerow([crash.st_case, crash.fatalitytotals.nonmotorist_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
 
-    return response
-
+        return response
+    return redirect("/")
 
 
 def colorado_fatality_csv(request):
+    if request.user.is_authenticated:  
     # Create the HttpResponse object with the appropriate CSV header.
     
-    response = HttpResponse(
-        content_type="text/csv",
-        headers={"Content-Disposition": f'attachment; filename="colorado_fatalities.csv"'},
-    )
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="colorado_fatalities.csv"'},
+        )
 
-    writer = csv.writer(response)
-    writer.writerow(["st_case", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
+        writer = csv.writer(response)
+        writer.writerow(["st_case", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
 
-    crashes = Accident.objects.filter(state_id=8)
-    for crash in crashes:
-        injury_count = len(Person.objects.filter(accident=crash, injury_severity=3))
-        writer.writerow([crash.st_case, crash.fatalitytotals.total_fatalities, injury_count, crash.datetime, crash.latitude, crash.longitude])
+        crashes = Accident.objects.filter(state_id=8)
+        for crash in crashes:
+            injury_count = len(Person.objects.filter(accident=crash, injury_severity=3))
+            writer.writerow([crash.st_case, crash.fatalitytotals.total_fatalities, injury_count, crash.datetime, crash.latitude, crash.longitude])
 
-    return response
+        return response
+    return redirect("/")
 
 
 def colorado_injury_csv(request):
+    if request.user.is_authenticated:  
     # Create the HttpResponse object with the appropriate CSV header.
     
-    response = HttpResponse(
-        content_type="text/csv",
-        headers={"Content-Disposition": f'attachment; filename="colorado_injuries.csv"'},
-    )
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="colorado_injuries.csv"'},
+        )
 
-    writer = csv.writer(response)
-    writer.writerow(["id", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
+        writer = csv.writer(response)
+        writer.writerow(["id", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
 
-    crashes = InjuryAccident.objects.filter(death_count=0, state_id=8)
-    for crash in crashes:
-        writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
+        crashes = InjuryAccident.objects.filter(death_count=0, state_id=8)
+        for crash in crashes:
+            writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
 
-    return response
+        return response
+    return redirect("/")
+
+
+def texas_fatality_csv(request):
+    if request.user.is_authenticated:  
+        # Create the HttpResponse object with the appropriate CSV header.
+        
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="texas_fatalities.csv"'},
+        )
+
+        writer = csv.writer(response)
+        writer.writerow(["st_case", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
+
+        crashes = Accident.objects.filter(state_id=48)
+        for crash in crashes:
+            injury_count = len(Person.objects.filter(accident=crash, injury_severity=3))
+            writer.writerow([crash.st_case, crash.fatalitytotals.total_fatalities, injury_count, crash.datetime, crash.latitude, crash.longitude])
+
+        return response
+    return redirect("/")
+
+
+def texas_injury_csv(request):
+    if request.user.is_authenticated:  
+        # Create the HttpResponse object with the appropriate CSV header.
+        
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="texas_injuries.csv"'},
+        )
+
+        writer = csv.writer(response)
+        writer.writerow(["id", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
+
+        crashes = InjuryAccident.objects.filter(death_count=0, state_id=48)
+        for crash in crashes:
+            writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
+
+        return response
+    return redirect("/")
+
 
 
 
@@ -794,11 +852,6 @@ def comments(request):
     comments = Comment.objects.all().order_by("-created")
     return render(request, "comment_moderation.html", {"comments": comments})
 
-from django.contrib.syndication.views import Feed
-from django.urls import reverse
-from .models import CustomerEmail, MissedConnection, MissedConnectionComment, PodcastEpisode, RedditPost  # Assume you have a model for episodes
-
-from django.utils import feedgenerator
 
 class PodcastFeedGenerator(feedgenerator.Rss201rev2Feed):
 
@@ -896,14 +949,17 @@ def episodes(request, **kwargs):
 def privacy(request):
     return render(request, "privacy.html", {})
 
-def texas(request):
-    return render(request, "texas.html", {"TILES_URL": TILES_URL})
+def texas_pedestrians(request):
+    return render(request, "texas_pedestrians.html", {"TILES_URL": TILES_URL})
 
 def denver(request):
     return render(request, "denver.html", {"TILES_URL": TILES_URL})
 
 def colorado(request):
     return render(request, "colorado.html", {"TILES_URL": TILES_URL})
+
+def texas(request):
+    return render(request, "texas.html", {"TILES_URL": TILES_URL})
 
 def missed_connections(request):
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
@@ -939,6 +995,10 @@ def create_missed_connection(request):
 
 def population(request):
     return render(request, "population.html", {"TILES_URL": TILES_URL})
+
+def state_injury_maps(request):
+    return render(request, "state_injury_maps.html", {})
+    
 
 def population_nonmotorist(request):
     return redirect("/population")
