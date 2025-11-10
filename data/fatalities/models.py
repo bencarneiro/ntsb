@@ -5002,7 +5002,7 @@ class MissedConnectionComment(models.Model):
 class InjuryAccident(models.Model):
     id = models.AutoField(primary_key=True)
     state = models.ForeignKey(State, on_delete= models.DO_NOTHING)
-    state_accident_id = models.PositiveBigIntegerField(null=False, blank=False)
+    state_accident_id = models.DecimalField(max_digits=20, decimal_places=0)
     dt = models.DateTimeField(null=False, blank=False)
     latitude = models.DecimalField(null=True, blank=True, decimal_places=7, max_digits=10)
     longitude = models.DecimalField(null=True, blank=True, decimal_places=7, max_digits=10)

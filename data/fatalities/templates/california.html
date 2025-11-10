@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+{% block header %}
+<link rel="stylesheet" href="static/css/maplibre-gl.css">
+<script src="static/js/maplibre-gl.js"></script>
+<script src="static/js/pmtiles.js"></script>
+<style>
+    body {
+        margin: 0;
+    }
+    html, body, #map {
+        height:100%; width:100%;
+    }
+    .popup .maplibregl-popup-content {
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+    h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 1.1rem;
+    }
+    h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 2rem;
+    }
+    h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 1.2rem;
+    }
+    .table{
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    }
+    td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    width: 50%;
+    text-align: center;
+    align-items: center;
+    position: center;
+    }
+    .dt {
+        width:20%;
+        text-wrap: wrap;
+        word-break: break-word;
+    }
+.map-overlay {
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+position: absolute;
+width: 200px;
+top: 2.25rem;
+left: 0;
+padding: 10px;
+}
+
+.map-overlay .map-overlay-inner {
+background-color: #fff;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+border-radius: 3px;
+padding: 10px;
+margin-bottom: 10px;
+}
+
+.map-overlay-inner fieldset {
+border: none;
+padding: 0;
+margin: 0 0 10px;
+}
+
+.map-overlay-inner fieldset:last-child {
+margin: 0;
+}
+
+.map-overlay-inner select {
+width: 100%;
+}
+
+.map-overlay-inner label {
+display: block;
+font-weight: bold;
+margin: 0 0 5px;
+}
+
+.map-overlay-inner button {
+display: inline-block;
+width: 36px;
+height: 20px;
+border: none;
+cursor: pointer;
+}
+
+.map-overlay-inner button:focus {
+outline: none;
+}
+
+.map-overlay-inner button:hover {
+box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+.boxlabel{
+    padding: 5px;
+    font-size: 1rem
+}
+input {
+    padding: 10px
+}
+
+</style>
+
+    <title>California Fatal (2001-2023) & Serious Injury (2014-2025) Crashes</title>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
+{% endblock %}
+
+{% block body %}
+
+    <div id="map"></div>
+    <div class="map-overlay top">
+        <div class="map-overlay-inner">
+            <h1 style="font-size:1.2rem">California Fatal (2001-2023) & Serious Injury (2014-2025) Crashes</h1>
+        </div>
+    </div>
+
+
+<script>
+
+
+let protocol = new pmtiles.Protocol();
+maplibregl.addProtocol("pmtiles", protocol.tile);
+var map = new maplibregl.Map({
+    container: 'map',
+    style: {
+        version: 8,
+        sources: {
+            "base-raster": {
+                type: "raster",
+                tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+                tileSize: 256,
+                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a>"
+            
+            }
+        },
+        layers: [
+            {
+                id: "base-raster",
+                type: "raster",
+                source: "base-raster",
+                paint: {
+                    "raster-saturation": -1,
+                }
+            }
+        ]
+    },
+    // these are the loading coordinates
+    center: [-120.64475, 37.64469],
+    zoom: 5
+});
+
+map.on('load', () => {
+
+    map.addLayer({
+            id: `california_injuries`,
+            type: "circle",
+            source: {
+                url: `{{ TILES_URL }}california/california_injuries.pmtiles`,
+                type: "vector"
+            },
+            "source-layer": `california_injuries`,
+            paint: {
+                "circle-opacity": .3,
+                "circle-color": "red",
+                "circle-radius": [
+                    "interpolate", ["exponential", 1.1], ["zoom"],
+                    2, .3,
+                    14, 5
+                ],
+                "circle-stroke-opacity": .6,
+                "circle-stroke-color": "red",
+                "circle-stroke-width": [
+                    "interpolate", ["exponential", 1.1], ["zoom"],
+                    2, 0,
+                    14, 1
+                ],
+            }})
+    map.addLayer({
+            id: `california_fatalities`,
+            type: "circle",
+            source: {
+                url: `{{ TILES_URL }}california/california_fatalities.pmtiles`,
+                type: "vector"
+            },
+            "source-layer": `california_fatalities`,
+            paint: {
+                "circle-opacity": .3,
+                "circle-color": "darkred",
+                "circle-radius": [
+                    "interpolate", ["exponential", 1.1], ["zoom"],
+                    2, .3,
+                    14, 5
+                ],
+                "circle-stroke-opacity": .6,
+                "circle-stroke-color": "darkred",
+                "circle-stroke-width": [
+                    "interpolate", ["exponential", 1.1], ["zoom"],
+                    2, 0,
+                    14, 1
+                ],
+            }});
+
+
+
+    map.on('mouseenter', `fatalities`, () => {map.getCanvas().style.cursor = 'pointer'});
+    map.on('mouseleave', `fatalities`, () => {map.getCanvas().style.cursor = ''});
+
+    map.on('click', (e) => {
+        const features = map.queryRenderedFeatures(e.point);
+        console.log(features)
+        if (features.length == 0) return;
+            console.log("This is a roadway death")
+
+        let table = "<table><thead><tr><th>Date</th><th>Deaths</th><th>Severe Injuries</th><th>More Info</tr></thead>";
+                features.forEach((f, i) => {
+                    console.log(f.properties)
+                    table += "<tr>";
+                    table += `<tr><td>${f.properties.dt.slice(0,19)}</td>`;
+                    let deaths = f.properties.fatalities;
+                    let injuries = f.properties.serious_injuries;
+                    table += `<td align='right'>${deaths}</td>`;
+                    table += `<td align='right'>${injuries}</td>`;
+                    // let id = f.properties.id
+                    if (f.properties.fatalities > 0) {
+                        console.log(f.properties.dt)
+                        console.log(typeof f.properties.dt)
+                        table += `<td><a href="/accidents/${f.properties.dt.slice(0, 4)}${String(f.properties.st_case).padStart(6, "0")}" target="_blank">Details</a></td>`;
+                        table += "</tr>";
+                    }
+                    else {
+
+                        table += `<td><a href="/injury_accidents/${f.properties.id}" target="_blank">Details</a></td>`;
+                        table += "</tr>";
+                    }
+                })
+                table += "</table>";
+               
+                new maplibregl.Popup()
+                    .setLngLat(e.lngLat)
+                    .setHTML(table)
+                    .addTo(map)
+                    .setMaxWidth("350px")
+                    .addClassName("popup");
+        
+    });
+})
+</script>
+{% endblock %}

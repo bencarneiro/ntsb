@@ -846,6 +846,47 @@ def texas_injury_csv(request):
     return redirect("/")
 
 
+def california_fatality_csv(request):
+    if request.user.is_authenticated:  
+        # Create the HttpResponse object with the appropriate CSV header.
+        
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="california_fatalities.csv"'},
+        )
+
+        writer = csv.writer(response)
+        writer.writerow(["st_case", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
+
+        crashes = Accident.objects.filter(state_id=6)
+        for crash in crashes:
+            injury_count = len(Person.objects.filter(accident=crash, injury_severity=3))
+            writer.writerow([crash.st_case, crash.fatalitytotals.total_fatalities, injury_count, crash.datetime, crash.latitude, crash.longitude])
+
+        return response
+    return redirect("/")
+
+
+def california_injury_csv(request):
+    if request.user.is_authenticated:  
+        # Create the HttpResponse object with the appropriate CSV header.
+        
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="california_injuries.csv"'},
+        )
+
+        writer = csv.writer(response)
+        writer.writerow(["id", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
+
+        crashes = InjuryAccident.objects.filter(death_count=0, state_id=6)
+        for crash in crashes:
+            writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
+
+        return response
+    return redirect("/")
+
+
 
 
 def comments(request):
@@ -960,6 +1001,9 @@ def colorado(request):
 
 def texas(request):
     return render(request, "texas.html", {"TILES_URL": TILES_URL})
+
+def california(request):
+    return render(request, "california.html", {"TILES_URL": TILES_URL})
 
 def missed_connections(request):
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
