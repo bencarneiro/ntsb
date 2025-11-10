@@ -41,7 +41,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "127.0.0.1:8000", "roadway.report", "
 CSV_PATH = os.environ.get("CSV_PATH", "/home/tonydeals/app/ntsb/data/csvs/")
 COLORADO_PATH = os.environ.get("COLORADO_PATH", "/home/tonydeals/app/ntsb/colorado/")
 TEXAS_PATH = os.environ.get("TEXAS_PATH", "/home/tonydeals/app/ntsb/texas/")
-CALIFORNIA_PATH = os.environ.get("TEXAS_PATH", "/home/tonydeals/app/ntsb/california/")
+CALIFORNIA_PATH = os.environ.get("CALIFORNIA_PATH", "/home/tonydeals/app/ntsb/california/")
 
 ACCIDENT_CSV_PATHS = {
     1975: '1975/ACCIDENT.CSV',
