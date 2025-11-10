@@ -94,7 +94,7 @@ class Command(BaseCommand):
         InjuryAccident.objects.filter(state_id=6, dt__year__gte=2014).delete()
         files = os.listdir(CALIFORNIA_PATH)
         for file in files:
-            if "." in file:
+            if "." in file or file == "early_data":
                 continue
             crashes_path = f"{CALIFORNIA_PATH}{file}/Crashes.csv"
             parties_crash = f"{CALIFORNIA_PATH}{file}/Parties.csv"
@@ -112,12 +112,9 @@ class Command(BaseCommand):
                 injury_totals = victims_of_crash['VICTIM_DEGREE_OF_INJURY'].value_counts()
                 death_count = 0
                 serious_injury_count = 0
-                if 1 in injury_totals:
-                    death_count += injury_totals[1]
-                if 2 in injury_totals:
-                    serious_injury_count += injury_totals[2]
-                if 5 in injury_totals:
-                    serious_injury_count += injury_totals[5]
+                death_count += len(victims_of_crash[victims_of_crash['VICTIM_DEGREE_OF_INJURY'] == 1])
+                serious_injury_count += len(victims_of_crash[victims_of_crash['VICTIM_DEGREE_OF_INJURY'] == 2])
+                serious_injury_count += len(victims_of_crash[victims_of_crash['VICTIM_DEGREE_OF_INJURY'] == 5])
                 time = crashes['COLLISION_TIME'][x]
                 if pd.isnull(time) or time > 2359:
                     time = 0
@@ -133,7 +130,7 @@ class Command(BaseCommand):
                 except:
                     latitude, longitude = None, None
                 new_injury_accident = InjuryAccident(
-                    state_accident_id=crashes['CASE_ID'][x],
+                    state_accident_id=int(crashes['CASE_ID'][x]),
                     state_id=6,
                     dt = timestamp,
                     latitude = latitude,
