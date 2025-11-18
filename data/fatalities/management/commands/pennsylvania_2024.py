@@ -114,6 +114,8 @@ def get_county_name(county_id):
     return counties.get(county_id, "UNKNOWN")
 
 def get_vehicle_make(make_code):
+    if pd.isnull(make_code):
+        return None
     vehicle_makes = {
         "AC": "A C (GREAT BRITAIN)",
         "ACAD": "ACADIAN (GM OF CANADA)",
@@ -479,11 +481,6 @@ def get_person_type(person_type_id):
 
 
 # Example usage:
-print(get_person_type(1))  # Output: Driver
-print(get_person_type(2))  # Output: Passenger
-print(get_person_type(7))  # Output: Pedestrian
-print(get_person_type(9))  # Output: Unknown
-print(get_person_type(3))  # Output: None
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
         InjuryPerson.objects.filter(injury_accident__state_id=42, injury_accident__dt__year=2024).delete()
@@ -518,21 +515,25 @@ class Command(BaseCommand):
                 month = "01"
             month = str(month).zfill(2)
             time = crashes['ARRIVAL_TM'][x]
-            if pd.isnull(time):
+            print(time)
+            if pd.isnull(time) or int(time) == 9999:
                 print("That time is null")
                 time = "00:00:00"
             else:
                 hours = str(math.floor(int(time)/100)).zfill(2)
                 minutes = str(int(time) % 100).zfill(2)
                 time = f"{hours}:{minutes}:00"
-            
+            latitude = crashes['DEC_LATITUDE'][x]
+            longitude = crashes['DEC_LONGITUDE'][x]
+            if pd.isnull(crashes['DEC_LATITUDE'][x]) or pd.isnull(crashes['DEC_LONGITUDE'][x]):
+                latitude, longitude = None, None
             timestamp = datetime.strptime(f"{year}-{month}-01T{time}", "%Y-%m-%dT%H:%M:%S")
             new_crash = InjuryAccident(
                 state_id=42,
-                state_accident_id = crashes['CRN'][x],
+                state_accident_id = int(crashes['CRN'][x]),
                 dt = timestamp,
-                latitude = crashes['DEC_LATITUDE'][x],
-                longitude = crashes['DEC_LONGITUDE'][x],
+                latitude = latitude,
+                longitude = longitude,
                 county = get_county_name(crashes['COUNTY'][x]),
                 street_1 = street_1,
                 street_2 = street_2,
@@ -540,14 +541,15 @@ class Command(BaseCommand):
                 death_count = crashes['FATAL_COUNT'][x],
                 severe_injury_count = crashes['SUSP_SERIOUS_INJ_COUNT'][x]
             )
+            
             crash_list += [new_crash]
             veh_dict = {}
             for y in crash_vehicles.index:
-                veh_num = int(crash_vehicles['UNIT_NUM'][y]),
-                make = get_vehicle_make(crash_vehicles['MAKE_CD'][y]),
+                veh_num = int(crash_vehicles['UNIT_NUM'][y])
+                make = get_vehicle_make(crash_vehicles['MAKE_CD'][y])
                 body_type = get_unit_type(crash_vehicles['UNIT_TYPE'][y])
                 hit_and_run = False
-                if int(crash_vehicles['DVR_PRES_IND'][y]) in {3, 4}:
+                if not pd.isnull(crash_vehicles['DVR_PRES_IND'][y]) and int(crash_vehicles['DVR_PRES_IND'][y]) in {3, 4}:
                     hit_and_run = True
                 new_vehicle = InjuryVehicle(
                     injury_accident=new_crash,
@@ -557,9 +559,9 @@ class Command(BaseCommand):
                     hit_and_run=hit_and_run
                 )
                 vehicle_list += [new_vehicle]
+                print(veh_num)
                 veh_dict[veh_num] = new_vehicle
             for z in crash_persons.index:
-                print(veh_dict)
                 new_person = InjuryPerson(
                     injury_accident=new_crash,
                     injury_vehicle=veh_dict[int(crash_persons['UNIT_NUM'][z])],
