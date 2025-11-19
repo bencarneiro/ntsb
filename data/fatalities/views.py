@@ -927,6 +927,9 @@ def california_injury_csv(request):
         return response
     return redirect("/")
 
+def donate(request):
+    return redirect("https://ko-fi.com/roadwayreport")
+
 
 
 
