@@ -1,0 +1,2 @@
+tippecanoe -zg -o ~/app/ntsb/data/fatalities/templates/static/tiles/pennsylvania/pennsylvania_injuries.pmtiles --coalesce-densest-as-needed -y id -y fatalities -y serious_injuries -y dt ~/Downloads/pennsylvania_injuries.csv
+tippecanoe -zg -o ~/app/ntsb/data/fatalities/templates/static/tiles/pennsylvania/pennsylvania_fatalities.pmtiles --coalesce-densest-as-needed -y st_case -y fatalities -y serious_injuries -y dt ~/Downloads/pennsylvania_fatalities.csv
