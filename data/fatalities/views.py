@@ -1046,6 +1046,9 @@ def texas(request):
 def california(request):
     return render(request, "california.html", {"TILES_URL": TILES_URL})
 
+def pennsylvania(request):
+    return render(request, "pennsylvania.html", {"TILES_URL": TILES_URL})
+
 def missed_connections(request):
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
         ip = get_client_ip(request)
