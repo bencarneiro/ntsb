@@ -483,14 +483,14 @@ def get_person_type(person_type_id):
 # Example usage:
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
-        InjuryPerson.objects.filter(injury_accident__state_id=42, injury_accident__dt__year=2024).delete()
-        InjuryVehicle.objects.filter(injury_accident__state_id=42, injury_accident__dt__year=2024).delete()
-        InjuryAccident.objects.filter(state_id=42, dt__year=2024).delete()
+        InjuryPerson.objects.filter(injury_accident__state_id=42, injury_accident__dt__year=2017).delete()
+        InjuryVehicle.objects.filter(injury_accident__state_id=42, injury_accident__dt__year=2017).delete()
+        InjuryAccident.objects.filter(state_id=42, dt__year=2017).delete()
 
-        crashes_path = f"{PENNSYLVANIA_PATH}crash_2024.csv"
-        roadway_path = f"{PENNSYLVANIA_PATH}roadway_2024.csv"
-        vehicle_path = f"{PENNSYLVANIA_PATH}vehicle_2024.csv"
-        person_path = f"{PENNSYLVANIA_PATH}person_2024.csv"
+        crashes_path = f"{PENNSYLVANIA_PATH}crash_2017.csv"
+        roadway_path = f"{PENNSYLVANIA_PATH}roadway_2017.csv"
+        vehicle_path = f"{PENNSYLVANIA_PATH}vehicle_2017.csv"
+        person_path = f"{PENNSYLVANIA_PATH}person_2017.csv"
         crashes = pd.read_csv(crashes_path)
         roadways = pd.read_csv(roadway_path)
         vehicles = pd.read_csv(vehicle_path)
@@ -509,7 +509,7 @@ class Command(BaseCommand):
             crash_vehicles = vehicles[vehicles['CRN'] == crashes['CRN'][x]]
             crash_persons = persons[persons['CRN'] == crashes['CRN'][x]]
             print(x)
-            year = 2024
+            year = 2017
             month = crashes['CRASH_MONTH'][x]
             if month < 1 or month > 12 or pd.isnull(month):
                 month = "01"
