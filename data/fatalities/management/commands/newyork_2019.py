@@ -44,7 +44,7 @@ class Command(BaseCommand):
                 latitude, longitude = None, None
             timestamp = datetime.strptime(crashes['dt'][x], "%Y-%m-%dT%H:%M:%S")
             new_crash = InjuryAccident(
-                state_id=42,
+                state_id=36,
                 state_accident_id = int(crashes['state_accident_id'][x]),
                 dt = timestamp,
                 latitude = latitude,
