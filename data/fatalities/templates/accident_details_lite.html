@@ -94,8 +94,8 @@ h1 {
 {% for person in accident.injuryperson_set.all %}
 <table class="table" id="person-{{ person.id }}">
 <tr>
-    <th class="header">{%if person.person_type != "nan"%}{{person.person_type}}{% if person.injury_vehicle_id %} in vehicle #{{ person.injury_vehicle.vehicle_number }}{% endif %}{% else %}Nonmotorist{%endif%} </th>
-    <th class="header">{%if person.person_type != "nan"%}{{person.person_type}}{% if person.injury_vehicle_id %} in vehicle #{{ person.injury_vehicle.vehicle_number }}{% endif %}{% else %}Nonmotorist{%endif%} </th>
+    <th class="header">{%if person.person_type != "nan" and person.person_type != "Pedestrian"%}{{person.person_type}}{% if person.injury_vehicle_id %} in vehicle #{{ person.injury_vehicle.vehicle_number }}{% endif %}{% else %}Nonmotorist{%endif%} </th>
+    <th class="header">{%if person.person_type != "nan" and person.person_type != "Pedestrian"%}{{person.person_type}}{% if person.injury_vehicle_id %} in vehicle #{{ person.injury_vehicle.vehicle_number }}{% endif %}{% else %}Nonmotorist{%endif%} </th>
 {% if person.injury_vehicle %}<tr><td>Vehicle Number</td><td>{{person.injury_vehicle.vehicle_number}} </td></tr>{% endif %}
 <tr><td>Age</td><td>{{person.age}} </td></tr>
 <tr><td>Sex</td><td>{{person.sex}} </td></tr>
@@ -105,6 +105,7 @@ h1 {
 
 <h1>Vehicles</h1>
 {% for vehicle in accident.injuryvehicle_set.all %}
+{% if vehicle.body_type %}
 <table class="table" id="vehicle-{{ vehicle.id }}">
 
     <tr>
@@ -123,6 +124,7 @@ h1 {
 <tr><td>Violation</td><td>{{vehicle.violation}} </td></tr>
 {% endif %}
 </table>
+{% endif %}
 {% endfor %}
 
 
