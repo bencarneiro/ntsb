@@ -59,6 +59,13 @@
     <changefreq>daily</changefreq>
   </url>
 
+  <url>
+    <loc>https://roadway.report/new-york</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+
 
   <!-- Safety and Vision Zero -->
   <url>
