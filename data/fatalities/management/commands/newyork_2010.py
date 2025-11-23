@@ -52,7 +52,7 @@ class Command(BaseCommand):
                 county = crashes['county'][x],
                 street_1 = crashes['street_1'][x],
                 street_2 = crashes['street_2'][x],
-                crash_type = crashes['crash_type'],
+                crash_type = crashes['crash_type'][x],
                 death_count = crashes['death_count'][x],
                 severe_injury_count = crashes['severe_injury_count'][x]
             )
