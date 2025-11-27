@@ -79,7 +79,7 @@ class Command(BaseCommand):
                 crash_vehicle_dict[crash_vehicles['veh_num'][y]] = new_injury_vehicle
             for z in crash_persons.index:
                 age = crash_persons['age'][z]
-                if age == "None":
+                if age == "None" or pd.isnull(age):
                     age = None
                 if crash_persons['veh_num'][z] == 0:
                     injury_vehicle = None
