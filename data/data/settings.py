@@ -44,6 +44,7 @@ TEXAS_PATH = os.environ.get("TEXAS_PATH", "/home/tonydeals/app/ntsb/texas/")
 CALIFORNIA_PATH = os.environ.get("CALIFORNIA_PATH", "/home/tonydeals/app/ntsb/california/")
 PENNSYLVANIA_PATH = os.environ.get("PENNSYLVANIA_PATH", "/home/tonydeals/app/ntsb/pennsylvania/")
 NEW_YORK_PATH = os.environ.get("NEW_YORK_PATH", "/home/tonydeals/app/ntsb/newyork/")
+FLORIDA_PATH = os.environ.get("FLORIDA_PATH", "/home/tonydeals/app/ntsb/florida/")
 
 ACCIDENT_CSV_PATHS = {
     1975: '1975/ACCIDENT.CSV',

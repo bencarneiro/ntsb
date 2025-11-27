@@ -1,0 +1,2 @@
+tippecanoe -zg -o ~/app/ntsb/data/fatalities/templates/static/tiles/florida/florida_injuries.pmtiles --coalesce-densest-as-needed -y id -y fatalities -y serious_injuries -y dt ~/Downloads/florida_injuries.csv
+tippecanoe -zg -o ~/app/ntsb/data/fatalities/templates/static/tiles/florida/florida_fatalities.pmtiles --coalesce-densest-as-needed -y st_case -y fatalities -y serious_injuries -y dt ~/Downloads/florida_fatalities.csv
