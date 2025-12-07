@@ -140,6 +140,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "data.wsgi.application"
+X_FRAME_OPTIONS = "SAMEORIGIN"
 
 
 # Database

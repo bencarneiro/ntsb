@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 
+from django.views.decorators.clickjacking import xframe_options_exempt
 from django.core.paginator import Paginator
 from django.views.decorators.cache import cache_page
 from django.db.models import Q, Sum, Count, Min
@@ -1138,6 +1139,11 @@ def newyork(request):
 
 def florida(request):
     return render(request, "florida.html", {"TILES_URL": TILES_URL})
+
+@xframe_options_exempt
+def rhodeisland(request):
+    return render(request, "rhodeisland.html", {"TILES_URL": TILES_URL})
+
 
 def missed_connections(request):
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
