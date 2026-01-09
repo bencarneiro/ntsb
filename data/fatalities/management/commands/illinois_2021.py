@@ -31,14 +31,14 @@ def person_type_converter(code):
 # Example usage:
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
-        InjuryPerson.objects.filter(injury_accident__state_id=17, injury_accident__dt__year=2015).delete()
-        InjuryVehicle.objects.filter(injury_accident__state_id=17, injury_accident__dt__year=2015).delete()
-        InjuryAccident.objects.filter(state_id=17, dt__year=2015).delete()
+        InjuryPerson.objects.filter(injury_accident__state_id=17, injury_accident__dt__year=2021).delete()
+        InjuryVehicle.objects.filter(injury_accident__state_id=17, injury_accident__dt__year=2021).delete()
+        InjuryAccident.objects.filter(state_id=17, dt__year=2021).delete()
 
 
-        crashes_path = f"{ILLINOIS_PATH}2015_crash.csv"
-        vehicle_path = f"{ILLINOIS_PATH}2015_vehicle.csv"
-        person_path = f"{ILLINOIS_PATH}2015_person.csv"
+        crashes_path = f"{ILLINOIS_PATH}2021_crash.csv"
+        vehicle_path = f"{ILLINOIS_PATH}2021_vehicle.csv"
+        person_path = f"{ILLINOIS_PATH}2021_person.csv"
         crashes = pd.read_csv(crashes_path)
         vehicles = pd.read_csv(vehicle_path)
         persons = pd.read_csv(person_path)
@@ -87,13 +87,19 @@ class Command(BaseCommand):
                 if not veh_num or pd.isnull(veh_num):
                     person_vehicle = None
                 else:
-                    person_vehicle = veh_dict[veh_num]
+                    try:
+                        person_vehicle = veh_dict[veh_num]
+                    except:
+                        person_vehicle = None
+                injury_severity = crash_persons['injury_severity'][z]
+                if pd.isnull(injury_severity):
+                    injury_severity = 9
                 new_person = InjuryPerson(
                     injury_accident=new_crash,
                     injury_vehicle=person_vehicle,
                     age = age,
                     sex = crash_persons['sex'][z],
-                    injury_severity = crash_persons['injury_severity'][z],
+                    injury_severity = injury_severity,
                     person_type = person_type_converter(crash_persons['person_type'][z])
                 )
                 person_list += [new_person]
