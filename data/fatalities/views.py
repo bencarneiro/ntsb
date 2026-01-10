@@ -1174,6 +1174,9 @@ def california(request):
 def pennsylvania(request):
     return render(request, "pennsylvania.html", {"TILES_URL": TILES_URL})
 
+def illinois(request):
+    return render(request, "illinois.html", {"TILES_URL": TILES_URL})
+
 def newyork(request):
     return render(request, "newyork.html", {"TILES_URL": TILES_URL})
 
