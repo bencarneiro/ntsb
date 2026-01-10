@@ -1,0 +1,2 @@
+tippecanoe -zg -o ~/app/ntsb/data/fatalities/templates/static/tiles/illinois/illinois_injuries.pmtiles --coalesce-densest-as-needed -y id -y fatalities -y serious_injuries -y dt ~/Downloads/illinois_injuries.csv
+tippecanoe -zg -o ~/app/ntsb/data/fatalities/templates/static/tiles/illinois/illinois_fatalities.pmtiles --coalesce-densest-as-needed -y st_case -y fatalities -y serious_injuries -y dt ~/Downloads/illinois_fatalities.csv
