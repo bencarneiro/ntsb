@@ -77,8 +77,8 @@ h1 {
       <td> {{  accident.dt | time}}</td>
     </tr>
     {% if accident.longitude %}<tr><td>Google Maps</td><td>{{accident.map_link|safe}}</td></tr>{% endif %}
-  <tr><td>Street Name 1</td><td> {{accident.street_1}} </td></tr>
-  <tr><td>Street Name 2</td><td> {{accident.street_2}} </td></tr>
+    {% if accident.street_1 %}<tr><td>Street Name 1</td><td> {{accident.street_1}} </td></tr>{% endif %}
+    {% if accident.street_2 %}<tr><td>Street Name 2</td><td> {{accident.street_2}} </td></tr>{% endif %}
   <tr><td>Crash Type</td><td> {{accident.crash_type}} </td></tr>
   <tr>
     <td>Serious Injuries</td>

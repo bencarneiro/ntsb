@@ -10,3 +10,4 @@ python3 manage.py illinois_2018 > /var/log/illinois_2018.txt
 python3 manage.py illinois_2017 > /var/log/illinois_2017.txt
 python3 manage.py illinois_2016 > /var/log/illinois_2016.txt
 python3 manage.py illinois_2015 > /var/log/illinois_2015.txt
+python3 manage.py illinois_crash_type_fix > /var/log/illinois_crash_type_fix.txt
