@@ -1,8 +1,8 @@
-{% extends "base.html" %}
-{% block header %}
+
 <link rel="stylesheet" href="static/css/maplibre-gl.css">
 <script src="static/js/maplibre-gl.js"></script>
 <script src="static/js/pmtiles.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
     body {
         margin: 0;
@@ -53,7 +53,7 @@
 font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 position: absolute;
 width: 200px;
-top: 2.25rem;
+top: 0;
 left: 0;
 padding: 10px;
 }
@@ -113,9 +113,7 @@ input {
 
     <title>Denver Fatal (2001-2023) & Serious Injury (2007-2024) Crashes</title>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
-{% endblock %}
 
-{% block body %}
 
     <div id="map"></div>
     <div class="map-overlay top">
@@ -303,4 +301,3 @@ map.on('load', () => {
     })
 
 </script>
-{% endblock %}
