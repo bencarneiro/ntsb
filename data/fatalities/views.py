@@ -1186,6 +1186,10 @@ def texas_pedestrians(request):
 def denver(request):
     return render(request, "denver.html", {"TILES_URL": TILES_URL})
 
+@xframe_options_exempt
+def embeddable_denver(request):
+    return render(request, "embeddable_denver.html", {"TILES_URL": TILES_URL})
+
 def colorado(request):
     return render(request, "colorado.html", {"TILES_URL": TILES_URL})
 
