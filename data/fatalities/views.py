@@ -669,22 +669,46 @@ def info(request):
     return render(request, "info.html", {"form": EmailForm, "success_message": ""})
 
 
-def denver_csv(request):
+def denver_fatality_csv(request):
+    if request.user.is_authenticated:  
+        # Create the HttpResponse object with the appropriate CSV header.
+        # year = request.GET['year']
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="denver_fatalities.csv"'},
+        )
+
+        writer = csv.writer(response)
+        writer.writerow(["st_case", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
+
+        crashes = Accident.objects.filter(year__gte=2001, county_id = 8031)
+        for crash in crashes:
+            writer.writerow([crash.id, crash.fatalitytotals.total_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
+
+        return response
+    return redirect("/")
+
+
+
+def denver_injury_csv(request):
+    if request.user.is_authenticated:  
     # Create the HttpResponse object with the appropriate CSV header.
-    # year = request.GET['year']
-    response = HttpResponse(
-        content_type="text/csv",
-        headers={"Content-Disposition": f'attachment; filename="denver_fatalities.csv"'},
-    )
+    
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="denver_injuries.csv"'},
+        )
 
-    writer = csv.writer(response)
-    writer.writerow(["st_case", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
+        writer = csv.writer(response)
+        writer.writerow(["id", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
 
-    crashes = Accident.objects.filter(year__gte=2001, county_id = 8031)
-    for crash in crashes:
-        writer.writerow([crash.id, crash.fatalitytotals.total_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
+        crashes = InjuryAccident.objects.filter(death_count=0, state_id=8, county="DENVER")
+        for crash in crashes:
+            writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
 
-    return response
+        return response
+    return redirect("/")
+
 
 
 
