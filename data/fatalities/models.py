@@ -51,7 +51,7 @@ class Accident(models.Model):
     def link(self):
         return f"<a href='/accidents/{self.id}'>Details Here</a>"
     def map_link(self):
-        return f"<a href='https://www.google.com/maps/search/?api=1&query={self.latitude},{self.longitude}'>({self.latitude}, {self.longitude})</a>"
+        return f"({self.latitude}, {self.longitude}) - <a href='/?latitude={self.latitude}&longitude={self.longitude}&zoom=15'>Fatality Map</a> - <a href='https://www.google.com/maps/search/?api=1&query={self.latitude},{self.longitude}'>Google Maps</a>"
     
     id = models.PositiveBigIntegerField(primary_key = True)
     year = models.PositiveSmallIntegerField(null=False, blank=False)

@@ -212,7 +212,7 @@ function togglePerson(n) {
     <td>Time</td>
     <td> {{  accident.datetime | time}}</td>
   </tr>
-  {% if accident.longitude %}<tr><td>Google Maps</td><td>{{accident.map_link|safe}}</td></tr>{% endif %}
+  {% if accident.longitude %}<tr><td>Location</td><td>{{accident.map_link|safe}}</td></tr>{% endif %}
 <tr><td>Street Name 1</td><td> {{accident.trafficway_identifier_1}} </td></tr>
 <tr><td>Street Name 2</td><td> {{accident.trafficway_identifier_2}} </td></tr>
 
