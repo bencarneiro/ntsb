@@ -250,7 +250,7 @@ map.on('load', () => {
                     table += `<td align='right'>${deaths}</td>`;
                     table += `<td align='right'>${injuries}</td>`;
                     // let id = f.properties.id
-                    if (f.properties.fatalities > 0) {
+                    if (f.properties.fatalities > 0 & parseInt(f.properties.dt.slice(0,4),10) < 2024) {
                         console.log(f.properties.dt)
                         console.log(typeof f.properties.dt)
                         table += `<td><a href="/accidents/${f.properties.dt.slice(0, 4)}${String(f.properties.st_case).padStart(6, "0")}" target="_blank">Details</a></td>`;
