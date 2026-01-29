@@ -50,7 +50,7 @@ h1 {
   {% endblock %}
   {% block body %}
 
-<h1>Serious Injury Crash Report</h1>
+<h1>{% if accident.death_count == 0 %}Serious Injury {% endif %}Crash Report</h1>
 <table class="table" id="accident">
     <tr>
       <th class="header">Crash #{{ accident.id }}</th>
