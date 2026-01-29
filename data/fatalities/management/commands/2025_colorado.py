@@ -13,7 +13,8 @@ class Command(BaseCommand):
         data = data[(data['Injury 04']>0) | (data['Injury 03']>0)]
 
         for x in data.index:
-            state_accident_id = data['CUID'][x]
+            print(x)
+            state_accident_id = int(data['CUID'][x])
             print(f"state_accident_id: {state_accident_id}")
             time = data['Crash Time'][x]
             if pd.isnull(time):
