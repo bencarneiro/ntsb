@@ -679,11 +679,12 @@ def denver_fatality_csv(request):
         )
 
         writer = csv.writer(response)
-        writer.writerow(["st_case", "fatalities", "month", "year", "day", "LATITUDE", "LONGITUDE"])
+        writer.writerow(["st_case", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
 
-        crashes = Accident.objects.filter(year__gte=2001, county_id = 8031)
+        crashes = Accident.objects.filter(year__gte=2007, county_id = 8031)
         for crash in crashes:
-            writer.writerow([crash.id, crash.fatalitytotals.total_fatalities, crash.month, crash.year, crash.day, crash.latitude, crash.longitude])
+            injury_count = len(Person.objects.filter(accident=crash, injury_severity=3))
+            writer.writerow([crash.st_case, crash.fatalitytotals.total_fatalities, injury_count, crash.datetime, crash.latitude, crash.longitude])
 
         return response
     return redirect("/")
@@ -703,6 +704,10 @@ def denver_injury_csv(request):
         writer.writerow(["id", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
 
         crashes = InjuryAccident.objects.filter(death_count=0, state_id=8, county="DENVER")
+        for crash in crashes:
+            writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
+
+        crashes = InjuryAccident.objects.filter(death_count__gte=1, state_id=8, county="DENVER", dt__year__gte=2024)
         for crash in crashes:
             writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
 

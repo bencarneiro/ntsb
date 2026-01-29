@@ -111,16 +111,16 @@ input {
 
 </style>
 
-    <title>Denver Fatal (2001-2023) & Serious Injury (2007-2024) Crashes</title>
+    <title>Denver Fatal & Severe Injury Crashes (2007-2025)</title>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
 
 
     <div id="map"></div>
     <div class="map-overlay top">
         <div class="map-overlay-inner">
-            <h1 style="font-size:1.2rem">Denver Fatal Crashes (2001-2023) & Serious Injuries (2007-2024)</h1>
-            <div class = "boxlabel"><input type="checkbox" id="deaths" checked> Roadway Deaths 2001-2023</div>
-            <div class = "boxlabel"><input type="checkbox" id="injuries" checked> Severe Injuries 2007-2024</div>
+            <h1 style="font-size:1.2rem">Denver Fatal & Severe Injury Crashes (2007-2025)</h1>
+            <div class = "boxlabel"><input type="checkbox" id="deaths" checked> Fatal Crashes<img src="/static/fatality_legend.png"></div>
+            <div class = "boxlabel"><input type="checkbox" id="injuries" checked> Severe Injury Crashes<img src="/static/injury_legend.png"></div>
         </div>
     </div>
 
@@ -250,7 +250,7 @@ map.on('load', () => {
                     table += `<td align='right'>${deaths}</td>`;
                     table += `<td align='right'>${injuries}</td>`;
                     // let id = f.properties.id
-                    if (f.properties.fatalities > 0) {
+                    if (f.properties.fatalities > 0 & parseInt(f.properties.dt.slice(0,4),10) < 2024) {
                         console.log(f.properties.dt)
                         console.log(typeof f.properties.dt)
                         table += `<td><a href="/accidents/${f.properties.dt.slice(0, 4)}${String(f.properties.st_case).padStart(6, "0")}" target="_blank">Details</a></td>`;
