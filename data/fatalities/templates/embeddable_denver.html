@@ -229,6 +229,31 @@ map.on('load', () => {
                 ],
             }});
 
+    map.addLayer({
+            id: `denver_fatalities_2`,
+            type: "circle",
+            source: {
+                url: `{{ TILES_URL }}denver/denver_fatalities_2.pmtiles`,
+                type: "vector"
+            },
+            "source-layer": `denver_fatalities_2`,
+            paint: {
+                "circle-opacity": .3,
+                "circle-color": "darkred",
+                "circle-radius": [
+                    "interpolate", ["exponential", 1.1], ["zoom"],
+                    2, .3,
+                    14, 5
+                ],
+                "circle-stroke-opacity": .6,
+                "circle-stroke-color": "darkred",
+                "circle-stroke-width": [
+                    "interpolate", ["exponential", 1.1], ["zoom"],
+                    2, 0,
+                    14, 1
+                ],
+            }});
+
 
 
     map.on('mouseenter', `fatalities`, () => {map.getCanvas().style.cursor = 'pointer'});
