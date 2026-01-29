@@ -1,3 +1,3 @@
 tippecanoe -zg -o ~/app/ntsb/data/fatalities/templates/static/tiles/denver/denver_injuries.pmtiles --coalesce-densest-as-needed -y id -y fatalities -y serious_injuries -y dt ~/Downloads/denver_injuries.csv
 tippecanoe -zg -o ~/app/ntsb/data/fatalities/templates/static/tiles/denver/denver_fatalities.pmtiles --coalesce-densest-as-needed -y st_case -y fatalities -y serious_injuries -y dt ~/Downloads/denver_fatalities.csv
-tippecanoe -zg -o ~/app/ntsb/data/fatalities/templates/static/tiles/denver/denver_fatalities_2.pmtiles --coalesce-densest-as-needed -y st_case -y fatalities -y serious_injuries -y dt ~/Downloads/denver_fatalities_2.csv
+tippecanoe -zg -o ~/app/ntsb/data/fatalities/templates/static/tiles/denver/denver_fatalities_2.pmtiles --coalesce-densest-as-needed -y id -y fatalities -y serious_injuries -y dt ~/Downloads/denver_fatalities_2.csv
