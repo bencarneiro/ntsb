@@ -81,6 +81,8 @@ Next, let's rip in some data, shall we?
 [download this db dump](https://drive.google.com/file/d/1Q4yAmPdjduxtit8GTLbOQcyt9aSREyNt/view?usp=sharing), which contains a real copy of production (1.7 GB):
 
 ```sh
+python3 manage.py migrate
+python3 manage.py createcachetable
 sudo -u postgres psql crash < db_backup_2025_07_02.sql
 ```
 
