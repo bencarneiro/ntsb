@@ -20,7 +20,8 @@ MEDIA_URL=os.environ.get("MEDIA_URL", "podcasts/")
 STATIC_ROOT=os.environ.get("STATIC_ROOT", "/var/www/static")
 STATICFILES_DIRS = [
     "/home/tonydeals/app/ntsb/data/fatalities/templates/static",
-    "/root/ntsb/data/fatalities/templates/static"
+    "/root/ntsb/data/fatalities/templates/static",
+    "/Users/root1/apps/ntsb/data/fatalities/templates/static"
 #     "/var/www/static/",
 ]
 # Quick-start development settings - unsuitable for production
@@ -35,6 +36,12 @@ GEOIP_PATH = os.environ.get("GEOIP_PATH", "/home/tonydeals/geo")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (bool(int(os.environ.get('DEBUG',1))))
+
+# I am moving my dev environment to MAC. I need to set the GEOS and GDAL paths on mac, but not the in PROD on Debian
+if DEBUG:
+    GDAL_LIBRARY_PATH = "/opt/homebrew/lib/libgdal.dylib"
+    GEOS_LIBRARY_PATH = "/opt/homebrew/lib/libgeos_c.dylib"
+    
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "127.0.0.1:8000", "roadway.report", "www.roadway.report", "45.33.29.42"]
 
