@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: postgres
+Version: 4.0
+Summary: postgres is a high-value abstraction over psycopg2.
+Home-page: https://github.com/liberapay/postgres.py
+Author: Chad Whitacre et al.
+Author-email: chad@zetaweb.com
+License: MIT
+Keywords: sql postgresql psycopg2
+Platform: any
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: SQL
+Classifier: Topic :: Database :: Front-Ends
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: psycopg2-binary (>=2.8)
+Requires-Dist: psycopg2-pool
+
+postgres is a high-value abstraction over psycopg2
+
+[Read the Docs](https://postgres-py.readthedocs.org)
+
+
