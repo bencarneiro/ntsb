@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+import platform
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +39,7 @@ GEOIP_PATH = os.environ.get("GEOIP_PATH", "/home/tonydeals/geo")
 DEBUG = (bool(int(os.environ.get('DEBUG',1))))
 
 # I am moving my dev environment to MAC. I need to set the GEOS and GDAL paths on mac, but not the in PROD on Debian
-if DEBUG:
+if platform.system() != "Linux":
     GDAL_LIBRARY_PATH = "/opt/homebrew/lib/libgdal.dylib"
     GEOS_LIBRARY_PATH = "/opt/homebrew/lib/libgeos_c.dylib"
     
