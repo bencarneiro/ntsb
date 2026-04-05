@@ -50,7 +50,7 @@ h1 {
   {% endblock %}
   {% block body %}
 
-<h1>{% if accident.death_count == 0 %}Serious Injury {% endif %}Crash Report</h1>
+<h1>{% if accident.death_count == 0 or accident.crash_severity == 'Severe Crash'%}Serious Injury {% else %} Fatal {% endif %}Crash Report</h1>
 <table class="table" id="accident">
     <tr>
       <th class="header">Crash #{{ accident.id }}</th>
@@ -80,6 +80,12 @@ h1 {
     {% if accident.street_1 %}<tr><td>Street Name 1</td><td> {{accident.street_1}} </td></tr>{% endif %}
     {% if accident.street_2 %}<tr><td>Street Name 2</td><td> {{accident.street_2}} </td></tr>{% endif %}
   <tr><td>Crash Type</td><td> {{accident.crash_type}} </td></tr>
+  {% if accident.state.id == 37%}
+  <tr><td>Crash Severity</td><td> {{accident.crash_severity}} </td></tr>
+  <tr><td>Number of Vehicles</td><td> {{accident.number_of_vehicles}} </td></tr>
+  <tr><td>Number of Nonmotorists</td><td> {{accident.number_of_nonmotorists}} </td></tr>
+  <tr><td>Motorcycle</td><td> {{accident.motorcycle}} </td></tr>
+  {% else %}
   <tr>
     <td>Serious Injuries</td>
     <td>{{ accident.severe_injury_count }}</td>
@@ -88,9 +94,11 @@ h1 {
     <td>Fatalities</td>
     <td>{{ accident.death_count }}</td>
   </tr>
+  {% endif %}
 </table>
-
+{% if accident.injuryperson_set|length > 0 %}
 <h1>Persons</h1>
+{% endif %}
 {% for person in accident.injuryperson_set.all %}
 <table class="table" id="person-{{ person.id }}">
 <tr>
@@ -103,7 +111,9 @@ h1 {
 </table>
 {% endfor %}
 
+{% if accident.injuryvehicle_set|length > 0 %}
 <h1>Vehicles</h1>
+{% endif %}
 {% for vehicle in accident.injuryvehicle_set.all %}
 {% if vehicle.body_type %}
 <table class="table" id="vehicle-{{ vehicle.id }}">
