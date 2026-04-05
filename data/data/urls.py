@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from fatalities.views import PodcastFeed, embeddable_denver, illinois, illinois_injury_csv, illinois_fatality_csv, rhodeisland, california, state_injury_maps, donate, injury_accident_summary, colorado, florida, texas_pedestrians, new_mexico_csv, pennsylvania, florida_fatality_csv, florida_injury_csv, newyork_fatality_csv, newyork_injury_csv, newyork, pennsylvania_fatality_csv, pennsylvania_injury_csv, california_fatality_csv, california_injury_csv, texas_fatality_csv, texas_injury_csv, colorado_injury_csv, colorado_fatality_csv, contact, visionzeroblog, denver, denver_fatality_csv, denver_injury_csv, state_blog, blog, sitemap, accident_list, get_counties_by_state, collect_email, gooner_army, visionzero, reddit, beta_redirect, favicon_view, texas, missed_connections, create_missed_connection, someone_died_here, connection, population, population_nonmotorist, pedestrian_safety, privacy, beta, total_csv, vehicle_csv, nonmotorist_csv, nonmotorist, vehicle, new_map, nonmotorist_map, schema, accident_summary, map, leaflet, testmap, folium_map, post_comment, post_missed_connection_comment, county_dashboard, total_fatalities, county_selector, county_table, info, comments, episode_detail, episodes, api_tutorial_notebook
+from fatalities.views import *
 from .api import api
 from django.conf import settings
 from django.conf.urls.static import static
@@ -50,6 +50,8 @@ urlpatterns = [
     path("total_csv", total_csv, name="total_csv"),
     path("denver_fatality_csv", denver_fatality_csv, name="denver_fatality_csv"),
     path("denver_injury_csv", denver_injury_csv, name="denver_injury_csv"),
+    path("northcarolina_fatality_csv", northcarolina_fatality_csv, name="northcarolina_fatality_csv"),
+    path("northcarolina_injury_csv", northcarolina_injury_csv, name="northcarolina_injury_csv"),
     path("new_mexico_csv", new_mexico_csv, name="new_mexico_csv"),
     path("colorado_injury_csv", colorado_injury_csv, name="colorado_injury_csv"),
     path("colorado_fatality_csv", colorado_fatality_csv, name="colorado_fatality_csv"),
@@ -91,6 +93,7 @@ urlpatterns = [
     path("texas_pedestrians", texas_pedestrians, name="texas_pedestrians"),
     path("denver", denver, name="denver"),
     path("colorado", colorado, name="colorado"),
+    path("north-carolina", northcarolina, name="northcarolina"),
     path("population", population, name="population"),
     path("population_nonmotorist", population_nonmotorist, name="population_nonmotorist"),
     path("reddit", reddit, name="reddit"),

@@ -5013,6 +5013,11 @@ class InjuryAccident(models.Model):
     crash_type = models.TextField(null=True, blank=True)
     death_count = models.PositiveSmallIntegerField(null=True, blank=True)
     severe_injury_count = models.PositiveSmallIntegerField(null=True, blank=True)
+    crash_severity = models.CharField(max_length=64, null=True, blank=True)
+    # this field only employed for north carolina right now. 
+    motorcycle = models.BooleanField(default=False)
+    number_of_vehicles = models.PositiveSmallIntegerField(null=True, blank=True)
+    number_of_nonmotorists = models.PositiveSmallIntegerField(null=True, blank=True)
     def map_link(self):
         return f"<a href='https://www.google.com/maps/search/?api=1&query={self.latitude},{self.longitude}'>({self.latitude}, {self.longitude})</a>"
 
