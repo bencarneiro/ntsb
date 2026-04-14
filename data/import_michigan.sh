@@ -1,0 +1,22 @@
+
+python3 manage.py michigan_2004 > /var/log/michigan_2004.txt
+python3 manage.py michigan_2005 > /var/log/michigan_2005.txt
+python3 manage.py michigan_2006 > /var/log/michigan_2006.txt
+python3 manage.py michigan_2007 > /var/log/michigan_2007.txt
+python3 manage.py michigan_2008 > /var/log/michigan_2008.txt
+python3 manage.py michigan_2009 > /var/log/michigan_2009.txt
+python3 manage.py michigan_2010 > /var/log/michigan_2010.txt
+python3 manage.py michigan_2011 > /var/log/michigan_2011.txt
+python3 manage.py michigan_2012 > /var/log/michigan_2012.txt
+python3 manage.py michigan_2013 > /var/log/michigan_2013.txt
+python3 manage.py michigan_2014 > /var/log/michigan_2014.txt
+python3 manage.py michigan_2015 > /var/log/michigan_2015.txt
+python3 manage.py michigan_2016 > /var/log/michigan_2016.txt
+python3 manage.py michigan_2017 > /var/log/michigan_2017.txt
+python3 manage.py michigan_2018 > /var/log/michigan_2018.txt
+python3 manage.py michigan_2019 > /var/log/michigan_2019.txt
+python3 manage.py michigan_2020 > /var/log/michigan_2020.txt
+python3 manage.py michigan_2021 > /var/log/michigan_2021.txt
+python3 manage.py michigan_2022 > /var/log/michigan_2022.txt
+python3 manage.py michigan_2023 > /var/log/michigan_2023.txt
+python3 manage.py michigan_2024 > /var/log/michigan_2024.txt
