@@ -878,7 +878,8 @@ class Vehicle(models.Model):
         (0, "Not an Articulated Vehicle"),
         (1, "No"),
         (2, "Yes, First Event"),
-        (3, "Yes, Subsequent Event")
+        (3, "Yes, Subsequent Event"),
+        (9, "Unknown if Articulated Vehicle")
     ]
     jackknife = models.PositiveSmallIntegerField(choices=jackknife_choices, default=0)
     
