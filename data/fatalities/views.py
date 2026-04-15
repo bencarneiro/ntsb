@@ -754,7 +754,19 @@ def denver_injury_csv(request):
         for crash in crashes:
             writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
 
-        crashes = InjuryAccident.objects.filter(death_count__gte=1, state_id=8, county="DENVER", dt__year__gte=2024)
+        return response
+    return redirect("/")
+
+
+def denver_fatality_csv_2(request):
+    if request.user.is_authenticated:  
+    # Create the HttpResponse object with the appropriate CSV header.
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="denver_fatalities_2.csv"'},
+        )
+        writer = csv.writer(response)
+        crashes = InjuryAccident.objects.filter(death_count__gte=1, state_id=8, county="DENVER", dt__year__gte=2025)
         for crash in crashes:
             writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
 
