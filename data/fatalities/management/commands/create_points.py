@@ -15,7 +15,7 @@ def get_point(lat, lon):
     
 class Command(BaseCommand):
     def handle(self, *args, **kwasrgs):
-        for a in Accident.objects.all().order_by("st_case"):
+        for a in Accident.objects.filter(year=2024).order_by("st_case"):
             latitude = a.latitude
             longitude = a.longitude
             point = get_point(latitude, longitude)
@@ -24,3 +24,6 @@ class Command(BaseCommand):
                 a.save()
             else: 
                 print("LOCAtION UNKNOWN")
+
+
+                

@@ -1630,16 +1630,9 @@ FARS_DATA_DICTIONARY = {
         {
             "range": {
                 "start": 2010,
-                "end": 2022
-            },
-            "key": "vehicle.ACC_TYPE"
-        },
-        {
-            "range": {
-                "start": 2023,
                 "end": None
             },
-            "key": "vehicle.ACC_CONFIG"
+            "key": "vehicle.ACC_TYPE"
         }
     ],
 
