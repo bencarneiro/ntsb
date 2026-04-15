@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from fatalities.models import Accident, Vehicle
 from data.settings import CSV_PATH
+import pandas as pd
 
 class Command(BaseCommand):
 
