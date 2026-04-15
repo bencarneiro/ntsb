@@ -52,7 +52,6 @@ urlpatterns = [
     path("denver_fatality_csv_2", denver_fatality_csv_2, name="denver_fatality_csv_2"),
     path("denver_injury_csv", denver_injury_csv, name="denver_injury_csv"),
     path("michigan_fatality_csv", michigan_fatality_csv, name="michigan_fatality_csv"),
-    path("michigan_fatality_csv_2", michigan_fatality_csv_2, name="michigan_fatality_csv_2"),
     path("michigan_injury_csv", michigan_injury_csv, name="michigan_injury_csv"),
     path("northcarolina_fatality_csv", northcarolina_fatality_csv, name="northcarolina_fatality_csv"),
     path("northcarolina_fatality_csv_2", northcarolina_fatality_csv_2, name="northcarolina_fatality_csv_2"),
