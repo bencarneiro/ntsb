@@ -26,3 +26,6 @@ python3 manage.py 2024_nmcrash > /var/log/2024_nmcrash.txt
 python3 manage.py 2024_nmimpair > /var/log/2024_nmimpair.txt
 python3 manage.py 2024_nmdistract > /var/log/2024_nmdistract.txt
 python3 manage.py 2024_nmprior > /var/log/2024_nmprior.txt
+python3 manage.py create_datetimes > /var/log/create_datetimes.txt
+python3 manage.py create_points > /var/log/create_points.txt
+python3 manage.py fatality_totals > /var/log/fatality_totals.txt
