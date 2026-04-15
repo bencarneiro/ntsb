@@ -1,0 +1,28 @@
+#!/bin/sh
+export CSV_PATH="/root/ntsb/data/csvs/"
+python3 manage.py 2024_accident > /var/log/2024_accident.txt
+python3 manage.py 2024_vehicle > /var/log/2024_vehicle.txt
+python3 manage.py 2024_parkwork > /var/log/2024_parkwork.txt
+python3 manage.py 2024_person > /var/log/2024_person.txt
+python3 manage.py 2024_cevent > /var/log/2024_cevent.txt
+python3 manage.py 2024_crashrf > /var/log/2024_crashrf.txt
+python3 manage.py 2024_weather > /var/log/2024_weather.txt
+python3 manage.py 2024_pbtype > /var/log/2024_pbtype.txt
+python3 manage.py 2024_safetyeq > /var/log/2024_safetyeq.txt
+python3 manage.py 2024_damage > /var/log/2024_damage.txt
+python3 manage.py 2024_distract > /var/log/2024_distract.txt
+python3 manage.py 2024_drimpair > /var/log/2024_drimpair.txt
+python3 manage.py 2024_factor > /var/log/2024_factor.txt
+python3 manage.py 2024_maneuver > /var/log/2024_maneuver.txt
+python3 manage.py 2024_violatn > /var/log/2024_violatn.txt
+python3 manage.py 2024_vision > /var/log/2024_vision.txt
+python3 manage.py 2024_vehiclesf > /var/log/2024_vehiclesf.txt
+python3 manage.py 2024_driverrf > /var/log/2024_driverrf.txt
+python3 manage.py 2024_pvehiclesf > /var/log/2024_pvehiclesf.txt
+python3 manage.py 2024_drugs > /var/log/2024_drugs.txt
+python3 manage.py 2024_race > /var/log/2024_race.txt
+python3 manage.py 2024_personrf > /var/log/2024_personrf.txt
+python3 manage.py 2024_nmcrash > /var/log/2024_nmcrash.txt
+python3 manage.py 2024_nmimpair > /var/log/2024_nmimpair.txt
+python3 manage.py 2024_nmdistract > /var/log/2024_nmdistract.txt
+python3 manage.py 2024_nmprior > /var/log/2024_nmprior.txt
