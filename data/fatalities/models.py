@@ -788,7 +788,7 @@ class Vehicle(models.Model):
         (93, 'Construction Equipment Other Than Trucks (Includes Graders)'),
         (94, 'Low-Speed Vehicle (LSV)/Neighborhood Electric Vehicle (NEV) (Since 2011)'),
         (95, 'Golf Cart (Since 2012)'),
-        (96, 'Recreational Off-Highway Vehicle'),
+        (96, 'Multipurpose Off-Highway Utility Vehicles [MOHUV] or Recreational Off-Highway Vehicle [ROV]'),
         (97, 'Other Vehicle Type (Includes Go-Cart, Fork-Lift, City Street Sweeper, Dune/Swamp Buggy)'),
         (98, 'Not Reported'),
         (99, 'Unknown Body Type')
@@ -2253,7 +2253,7 @@ class ParkedVehicle(models.Model):
         (93, 'Construction Equipment Other Than Trucks (Includes Graders)'),
         (94, 'Low-Speed Vehicle (LSV)/Neighborhood Electric Vehicle (NEV) (Since 2011)'),
         (95, 'Golf Cart (Since 2012)'),
-        (96, 'Recreational Off-Highway Vehicle'),
+        (96, 'Multipurpose Off-Highway Utility Vehicles [MOHUV] or Recreational Off-Highway Vehicle [ROV]'),
         (97, 'Other Vehicle Type (Includes Go-Cart, Fork-Lift, City Street Sweeper, Dune/Swamp Buggy)'),
         (98, 'Not Reported'),
         (99, 'Unknown Body Type')
