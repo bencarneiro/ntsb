@@ -46,8 +46,11 @@ class Command(BaseCommand):
             while len(veh_no) < 3:
                 veh_no = "0" + veh_no
             primary_key = f"2023{st_case}{veh_no}"
-            vehicle = Vehicle.objects.get(id=int(primary_key))
-            vehicle.crash_type = csv['ACC_TYPE'][x]
-            vehicle.save()
-            print(f"saved {primary_key}")
+            try:
+                vehicle = Vehicle.objects.get(id=int(primary_key))
+                vehicle.crash_type = csv['ACC_TYPE'][x]
+                vehicle.save()
+                # print(f"saved {primary_key}")
+            except:
+                print(f"{primary_key} NOT FOUND NOT FOUND NOT FOUND")
         
