@@ -106,7 +106,8 @@ ACCIDENT_CSV_PATHS = {
     2020: '2020/FARS2020NationalCSV/accident.csv',
     2021: '2021/FARS2021NationalCSV/accident.csv',
     2022: '2022/FARS2022NationalCSV/accident.csv',
-    2023: '2023/FARS2023NationalCSV/accident.csv'
+    2023: '2023/FARS2023NationalCSV/accident.csv',
+    2023: '2024/FARS2024NationalCSV/accident.csv'
 }
 
 # Application definition
