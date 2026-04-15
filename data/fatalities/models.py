@@ -4062,6 +4062,7 @@ class DriverRelatedFactor(models.Model):
         (103, "Road Rage"),
         (104, "Police Pursuing This Driver"),
         (105, "Police Officer in Pursuit"),
+        (107, "Driver Required to Use Ignition Interlock Device"),
         (999, "Reported as Unknown")
     ]
     driver_related_factor = models.PositiveSmallIntegerField(choices=driver_related_factor_choices, default=0)
