@@ -4257,6 +4257,7 @@ class Violation(models.Model):
         (14, 'Drinking While Operating'),
         (15, 'Illegal Possession of Alcohol or Drugs'),
         (16, 'Driving With Detectable Alcohol'),
+        (17, 'Circumvention of Ignition Interlock Device'),
         (18, 'Refusal to Submit to Chemical Test'),
         (19, 'Alcohol, Drug or Impairment Violations Generally'),
         (21, 'Racing'),
