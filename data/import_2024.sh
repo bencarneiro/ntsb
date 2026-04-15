@@ -30,3 +30,4 @@ python3 manage.py create_datetimes > /var/log/create_datetimes.txt
 python3 manage.py create_points > /var/log/create_points.txt
 python3 manage.py fatality_totals > /var/log/fatality_totals.txt
 python3 manage.py update_database_2024 > /var/log/update_database_2024.txt
+python3 manage.py migrate
