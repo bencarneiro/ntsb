@@ -1,0 +1,3 @@
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/northcarolina/northcarolina_injuries.pmtiles --coalesce-densest-as-needed -y id -y crash_severity -y dt ~/Downloads/northcarolina_injuries.csv
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/northcarolina/northcarolina_fatalities.pmtiles --coalesce-densest-as-needed -y st_case -y crash_severity -y dt ~/Downloads/northcarolina_fatalities.csv
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/northcarolina/northcarolina_fatalities_2.pmtiles --coalesce-densest-as-needed -y id -y crash_severity -y dt ~/Downloads/northcarolina_fatalities_2.csv
