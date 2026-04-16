@@ -230,6 +230,31 @@ map.on('load', () => {
                 ],
             }});
 
+    map.addLayer({
+            id: `northcarolina_fatalities_2`,
+            type: "circle",
+            source: {
+                url: `{{ TILES_URL }}northcarolina/northcarolina_fatalities_2.pmtiles`,
+                type: "vector"
+            },
+            "source-layer": `northcarolina_fatalities_2`,
+            paint: {
+                "circle-opacity": .3,
+                "circle-color": "darkred",
+                "circle-radius": [
+                    "interpolate", ["exponential", 1.1], ["zoom"],
+                    2, .3,
+                    14, 5
+                ],
+                "circle-stroke-opacity": .6,
+                "circle-stroke-color": "darkred",
+                "circle-stroke-width": [
+                    "interpolate", ["exponential", 1.1], ["zoom"],
+                    2, 0,
+                    14, 1
+                ],
+            }});
+
 
 
     map.on('mouseenter', `fatalities`, () => {map.getCanvas().style.cursor = 'pointer'});
@@ -249,7 +274,7 @@ map.on('load', () => {
                     let severity = f.properties.crash_severity;
                     table += `<td align='right'>${severity}</td>`;
                     // let id = f.properties.id
-                    if (f.properties.crash_severity == "Fatal Crash" & parseInt(f.properties.dt.slice(0,4),10) < 2024) {
+                    if (f.properties.crash_severity == "Fatal Crash" & parseInt(f.properties.dt.slice(0,4),10) < 2025) {
                         console.log(f.properties.dt)
                         console.log(typeof f.properties.dt)
                         table += `<td><a href="/accidents/${f.properties.dt.slice(0, 4)}${String(f.properties.st_case).padStart(6, "0")}" target="_blank">Details</a></td>`;

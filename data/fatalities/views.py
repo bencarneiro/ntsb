@@ -782,6 +782,7 @@ def denver_fatality_csv_2(request):
             headers={"Content-Disposition": f'attachment; filename="denver_fatalities_2.csv"'},
         )
         writer = csv.writer(response)
+        writer.writerow(["id", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
         crashes = InjuryAccident.objects.filter(death_count__gte=1, state_id=8, county="DENVER", dt__year__gte=2025)
         for crash in crashes:
             writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
