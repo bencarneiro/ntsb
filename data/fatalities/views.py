@@ -1341,6 +1341,9 @@ def newyork(request):
 def florida(request):
     return render(request, "florida.html", {"TILES_URL": TILES_URL})
 
+def bikelanes(request):
+    return render(request, "bikelanes.html", {"TILES_URL": TILES_URL})
+
 @xframe_options_exempt
 def rhodeisland(request):
     return render(request, "rhodeisland.html", {"TILES_URL": TILES_URL})

@@ -1,0 +1,2 @@
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/bikelanes/carlanes.pmtiles --drop-densest-as-needed carlanes.geojson
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/bikelanes/bikelanes.pmtiles --drop-densest-as-needed bikelanes.geojson
