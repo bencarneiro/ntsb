@@ -143,9 +143,9 @@ input {
     
     <div class="map-overlay top">
         <div class="map-overlay-inner">
-            <h1 style="font-size:1.2rem">Bike Lanes vs Car Lanes in Austin, TX</h1>
-            <div class = "boxlabel"><input type="checkbox" id="carlanes" checked> Car Lanes (Black)</div>
+            <h1 style="font-size:1.2rem">Austin, TX Protected Bike Lanes</h1>
             <div class = "boxlabel"><input type="checkbox" id="bikelanes" checked> Bike Lanes (Green)</div>
+            <div class = "boxlabel"><input type="checkbox" id="carlanes"> Car Lanes (Black)</div>
             <div class = "boxlabel"><input type="checkbox" id="crash"> Fatal & Disabling Crashes<img src="/static/injury_legend.png"></div>
         </div>
     </div>
@@ -165,7 +165,7 @@ var map = new maplibregl.Map({
                 type: "raster",
                 tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
                 tileSize: 256,
-                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a> | FDOT"
+                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a> | <a href='https://cris.dot.state.tx.us/public/Query/app/home' target='_blank'>TXDOT</a> | <a href='https://data.austintexas.gov/dataset/Street-Centerline/m5w3-uea6' target='_blank'>Car Lanes</a> | <a href='https://data.austintexas.gov/Transportation-and-Mobility/TRANSPORTATION_bicycle_facilities/uwbq-ycek' target='_blank'>Bike Lanes</a>"
             
             }
         },
@@ -263,6 +263,7 @@ map.on('load', () => {
 
     toggleLayerVisibility("texas_injuries", false)
     toggleLayerVisibility("texas_fatalities", false)
+    toggleLayerVisibility("carlanes", false)
 
     map.on('mouseenter', `fatalities`, () => {map.getCanvas().style.cursor = 'pointer'});
     map.on('mouseleave', `fatalities`, () => {map.getCanvas().style.cursor = ''});
