@@ -1,0 +1,391 @@
+{% extends "base.html" %}
+{% block header %}
+<link rel="stylesheet" href="static/css/maplibre-gl.css">
+<script src="static/js/maplibre-gl.js"></script>
+<script src="static/js/pmtiles.js"></script>
+<style>
+    body {
+        margin: 0;
+    }
+    html, body, #map {
+        height:100%; width:100%;
+    }
+    .popup .maplibregl-popup-content {
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+    h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 1.1rem;
+    }
+    h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 2rem;
+    }
+    h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 1.2rem;
+    }
+    .table{
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    }
+    td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    width: 50%;
+    text-align: center;
+    align-items: center;
+    position: center;
+    }
+    .dt {
+        width:20%;
+        text-wrap: wrap;
+        word-break: break-word;
+    }
+.map-overlay {
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+position: absolute;
+width: 200px;
+top: 2.25rem;
+left: 0;
+padding: 10px;
+}
+
+.map-overlay .map-overlay-inner {
+background-color: #fff;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+border-radius: 3px;
+padding: 10px;
+margin-bottom: 10px;
+}
+
+.map-overlay-inner fieldset {
+border: none;
+padding: 0;
+margin: 0 0 10px;
+}
+
+.map-overlay-inner fieldset:last-child {
+margin: 0;
+}
+
+.map-overlay-inner select {
+width: 100%;
+}
+
+.map-overlay-inner label {
+display: block;
+font-weight: bold;
+margin: 0 0 5px;
+}
+
+.map-overlay-inner button {
+display: inline-block;
+width: 36px;
+height: 20px;
+border: none;
+cursor: pointer;
+}
+
+.map-overlay-inner button:focus {
+outline: none;
+}
+
+.map-overlay-inner button:hover {
+box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+.boxlabel{
+    padding: 5px;
+    font-size: 1rem
+}
+input {
+    padding: 10px
+}
+        .context-menu {
+            position: absolute;
+            display: none;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+        .context-menu button {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+        .context-menu button:hover {
+            background-color: #f0f0f0;
+        }
+
+</style>
+
+    <title>Bike Lanes vs Car Lanes in Austin, TX</title>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
+{% endblock %}
+
+{% block body %}
+
+    <div id="context-menu" class="context-menu">
+        <button onclick="alert('Hello!')">Hello</button>
+    </div>
+    <div id="map"></div>
+    
+    <div class="map-overlay top">
+        <div class="map-overlay-inner">
+            <h1 style="font-size:1.2rem">Austin, TX Protected Bike Lanes</h1>
+            <div class = "boxlabel"><input type="checkbox" id="bikelanes" checked> Bike Lanes (Green)</div>
+            <div class = "boxlabel"><input type="checkbox" id="carlanes"> Car Lanes (Black)</div>
+            <div class = "boxlabel"><input type="checkbox" id="crash"> Fatal & Disabling Crashes<img src="/static/injury_legend.png"></div>
+        </div>
+    </div>
+
+
+<script>
+
+
+let protocol = new pmtiles.Protocol();
+maplibregl.addProtocol("pmtiles", protocol.tile);
+var map = new maplibregl.Map({
+    container: 'map',
+    style: {
+        version: 8,
+        sources: {
+            "base-raster": {
+                type: "raster",
+                tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+                tileSize: 256,
+                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a> | <a href='https://cris.dot.state.tx.us/public/Query/app/home' target='_blank'>TXDOT</a> | <a href='https://data.austintexas.gov/dataset/Street-Centerline/m5w3-uea6' target='_blank'>Car Lanes</a> | <a href='https://data.austintexas.gov/Transportation-and-Mobility/TRANSPORTATION_bicycle_facilities/uwbq-ycek' target='_blank'>Bike Lanes</a>"
+            
+            }
+        },
+        layers: [
+            {
+                id: "base-raster",
+                type: "raster",
+                source: "base-raster",
+                paint: {
+                    "raster-saturation": -1,
+                }
+            }
+        ]
+    },
+    center: [-97.7431, 30.2672],
+    zoom: 9
+});
+
+map.on('load', () => {
+
+    map.addLayer({
+            id: `bikelanes`,
+            type:"line",
+            source: {
+                url: `{{ TILES_URL }}bikelanes/bikelanes.pmtiles`,
+                type: "vector"
+            },
+            "source-layer": `bikelanes`,
+            paint: {
+                "line-color": "green",
+                "line-width": 2.5
+            }});
+    map.addLayer({
+            id: `carlanes`,
+            type:"line",
+            source: {
+                url: `{{ TILES_URL }}bikelanes/carlanes.pmtiles`,
+                type: "vector"
+            },
+            "source-layer": `carlanes`,
+            paint: {
+                "line-color": "black",
+                "line-width": 1
+            }});
+
+    map.addLayer({
+            id: `texas_injuries`,
+            type: "circle",
+            source: {
+                url: `{{ TILES_URL }}texas/texas_injuries.pmtiles`,
+                type: "vector"
+            },
+            "source-layer": `texas_injuries`,
+            paint: {
+                "circle-opacity": .3,
+                "circle-color": "red",
+                "circle-radius": [
+                    "interpolate", ["exponential", 1.1], ["zoom"],
+                    2, .3,
+                    14, 5
+                ],
+                "circle-stroke-opacity": .6,
+                "circle-stroke-color": "red",
+                "circle-stroke-width": [
+                    "interpolate", ["exponential", 1.1], ["zoom"],
+                    2, 0,
+                    14, 1
+                ],
+            }})
+    map.addLayer({
+            id: `texas_fatalities`,
+            type: "circle",
+            source: {
+                url: `{{ TILES_URL }}texas/texas_fatalities.pmtiles`,
+                type: "vector"
+            },
+            "source-layer": `texas_fatalities`,
+            paint: {
+                "circle-opacity": .3,
+                "circle-color": "darkred",
+                "circle-radius": [
+                    "interpolate", ["exponential", 1.1], ["zoom"],
+                    2, .3,
+                    14, 5
+                ],
+                "circle-stroke-opacity": .6,
+                "circle-stroke-color": "darkred",
+                "circle-stroke-width": [
+                    "interpolate", ["exponential", 1.1], ["zoom"],
+                    2, 0,
+                    14, 1
+                ],
+            }});
+
+
+    toggleLayerVisibility("texas_injuries", false)
+    toggleLayerVisibility("texas_fatalities", false)
+    toggleLayerVisibility("carlanes", false)
+
+    map.on('mouseenter', `fatalities`, () => {map.getCanvas().style.cursor = 'pointer'});
+    map.on('mouseleave', `fatalities`, () => {map.getCanvas().style.cursor = ''});
+
+    map.on('click', (e) => {
+        
+        const features = map.queryRenderedFeatures(e.point);
+        console.log(features)
+        if (features.length == 0) return;
+            console.log("This is a roadway death")
+
+        let table = "<table><thead><tr><th>Date</th><th>Deaths</th><th>Severe Injuries</th><th>More Info</tr></thead>";
+                features.forEach((f, i) => {
+                    console.log(f.properties)
+                    console.log(f.properties.fatalities)
+                    if (f.properties.fatalities != undefined){
+
+                        table += "<tr>";
+                        table += `<tr><td>${f.properties.dt.slice(0,19)}</td>`;
+                        let deaths = f.properties.fatalities;
+                        let injuries = f.properties.serious_injuries;
+                        table += `<td align='right'>${deaths}</td>`;
+                        table += `<td align='right'>${injuries}</td>`;
+                        // let id = f.properties.id
+                        if (f.properties.fatalities > 0) {
+                            console.log(f.properties.dt)
+                            console.log(typeof f.properties.dt)
+                            table += `<td><a href="/accidents/${f.properties.dt.slice(0, 4)}${String(f.properties.st_case).padStart(6, "0")}" target="_blank">Details</a></td>`;
+                            table += "</tr>";
+                        }
+                        else {
+
+                            table += `<td><a href="/injury_accidents/${f.properties.id}" target="_blank">Details</a></td>`;
+                            table += "</tr>";
+                        }
+                    } 
+                })
+                table += "</table>";
+                if (table == "<table><thead><tr><th>Date</th><th>Deaths</th><th>Severe Injuries</th><th>More Info</tr></thead></table>"){
+                    return
+                }
+               
+                new maplibregl.Popup()
+                    .setLngLat(e.lngLat)
+                    .setHTML(table)
+                    .addTo(map)
+                    .setMaxWidth("350px")
+                    .addClassName("popup");
+        
+    });
+
+            const contextMenu = document.getElementById('context-menu');
+
+            map.on('contextmenu', (e) => {
+                // Prevent the default context menu
+                e.preventDefault();
+
+                // Set the position of the custom context menu
+                contextMenu.style.left = `${e.originalEvent.clientX}px`;
+                contextMenu.style.top = `${e.originalEvent.clientY}px`;
+
+                // Show the context menu
+
+                var latitude = e.lngLat.lat.toFixed(10)
+                var longitude = e.lngLat.lng.toFixed(10)
+                
+                var googleUrl = `https://google.com/maps/@${latitude},${longitude}`
+                contextMenu.innerHTML=`<button onclick="window.open('https://google.com/maps/place/${latitude},${longitude}');">Open in Google Maps</button>`
+                
+                contextMenu.style.display = 'block';
+                contextMenu.style.zIndex = 200;
+            });
+
+            // Hide the context menu on map click
+            map.on('click', () => {
+                contextMenu.style.display = 'none';
+            });
+
+            // Hide the context menu on Escape key press
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    contextMenu.style.display = 'none';
+                }
+            });
+})
+</script>
+<script>
+
+
+    function toggleLayerVisibility(layerId, isVisible) {
+        map.setLayoutProperty(layerId, 'visibility', 
+            isVisible ? 'visible' : 'none'
+        );
+    }
+    const carlanes = document.getElementById('carlanes');
+    carlanes.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("carlanes", true)
+        } else {
+            toggleLayerVisibility("carlanes", false)
+        }
+    })
+
+    const bikelanes = document.getElementById('bikelanes');
+    bikelanes.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("bikelanes", true)
+        } else {
+            toggleLayerVisibility("bikelanes", false)
+        }
+    })
+
+    const crash = document.getElementById('crash');
+    crash.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("texas_fatalities", true)
+            toggleLayerVisibility("texas_injuries", true)
+        } else {
+            toggleLayerVisibility("texas_injuries", false)
+            toggleLayerVisibility("texas_fatalities", false)
+        }
+    })
+
+</script>
+{% endblock %}
