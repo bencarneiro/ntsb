@@ -115,7 +115,8 @@ h1 {
 <h1>Vehicles</h1>
 {% endif %}
 {% for vehicle in accident.injuryvehicle_set.all %}
-{% if vehicle.body_type %}
+<!-- TODO this logic sucks -->
+{% if vehicle.body_type or accident.state_id == 34 %}
 <table class="table" id="vehicle-{{ vehicle.id }}">
 
     <tr>
@@ -123,7 +124,10 @@ h1 {
         <th class="header">Vehicle #{{ vehicle.vehicle_number }}</th>
       </tr>
 <tr><td>Vehicle Number</td><td>{{vehicle.vehicle_number}} </td></tr>
+
+{% if vehicle.body_type %}
 <tr><td>Type</td><td>{{vehicle.body_type}} </td></tr>
+{% endif %}
 {% if vehicle.make %}
 <tr><td>Make</td><td>{{vehicle.make}} </td></tr>
 {% endif %}
