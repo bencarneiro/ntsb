@@ -36,7 +36,6 @@ class Command(BaseCommand):
         vehicle_object_list = []
         person_object_list = []
         for x in crashes.index[1:]:
-            print(x)
             crash_id = crashes['Crash ID'][x]
             street_1 = crashes['Street Name'][x]
             street_2 = crashes['Intersect Street Name'][x]
@@ -60,8 +59,8 @@ class Command(BaseCommand):
                 city=city,
                 crash_type = crash_type,
             )
+            # print(new_injury_accident.id)
             vehicle_ids = crashes['Vehicle ID'][x].replace('[','').replace(']','').replace('"','').split(",")
-            print(crashes['Vehicle Type'][x])
             vehicle_types = crashes['Vehicle Type'][x].replace('[','').replace(']','').replace('"','').split(",")
             vehicle_makes = crashes['Vehicle Make'][x].replace('[','').replace(']','').replace('"','').split(",")
             hit_and_runs = crashes['Hit and Run'][x].replace('[','').replace(']','').replace('"','').split(",")
@@ -73,7 +72,8 @@ class Command(BaseCommand):
             ages = crashes['Age'][x].replace("[","").replace("]","").split(",")
             sexes = crashes['Sex'][x].replace("[","").replace("]","").split(",")
             injury_severities = crashes['Severity Rating (Person)'][x].replace("[","").replace("]","").split(",")
-            
+            number_of_people_in_crash = len(person_ids)
+            number_of_sexes = len(sexes)
             unit_ids_saved = set()
             veh_ids_saved = set()
             person_number = 0
@@ -83,12 +83,12 @@ class Command(BaseCommand):
             death_count = 0
             severe_injury_count = 0
             for person_id in person_ids:
-                person_type = person_types[person_number]
-                age = ages[person_number]
-                try:
-                    sex = sexes[person_number]
-                except:
-                    sex = "Unknown"
+                # person_type = person_types[person_number]
+                # age = ages[person_number]
+                # try:
+                #     sex = sexes[person_number]
+                # except:
+                #     sex = "Unknown"
                 try:
                     injury_severity = injury_severity_processor(injury_severities[person_number])
                 except:
@@ -106,7 +106,7 @@ class Command(BaseCommand):
                     hitrun = False
                     if hit_and_runs[vehicle_number] == "Yes":
                         hitrun = True
-                    citation = citation_issued[vehicle_number]
+                    # citation = citation_issued[vehicle_number]
                     if vehicle_id not in veh_ids_saved:
                         new_injury_vehicle = InjuryVehicle(
                             injury_accident=new_injury_accident,
@@ -114,115 +114,45 @@ class Command(BaseCommand):
                             make = veh_make,
                             body_type = veh_type,
                             hit_and_run = hitrun,
-                            violation=citation
+                            # violation=citation
                         )
                         vehicle_object_list += [new_injury_vehicle]
                         veh_ids_saved.add(vehicle_id)
                         vehicle_number += 1
                         if len(veh_ids_saved) == 1:
                             vehicle_number -= 1
-                if unit_type == "Vehicle":
-                    new_injury_person = InjuryPerson(
-                        injury_accident=new_injury_accident,
-                        injury_vehicle=new_injury_vehicle,
-                        age = age,
-                        sex = sex,
-                        injury_severity = injury_severity,
-                        person_type = person_type
-                    )
-                    person_object_list += [new_injury_person]
-                else:
-                    new_injury_person = InjuryPerson(
-                        injury_accident=new_injury_accident,
-                        age = age,
-                        sex = sex,
-                        injury_severity = injury_severity,
-                        person_type = person_type
-                    )
-                    person_object_list += [new_injury_person]
-                if unit_id not in unit_ids_saved:
-                    unit_ids_saved.add(unit_id)
-                    unit_number += 1
-                    if len(unit_ids_saved) == 1:
-                        unit_number -= 1
-                person_number += 1
-                last_unit_id = unit_id
+                # if unit_type == "Vehicle":
+                #     new_injury_person = InjuryPerson(
+                #         injury_accident=new_injury_accident,
+                #         injury_vehicle=new_injury_vehicle,
+                #         age = age,
+                #         sex = sex,
+                #         injury_severity = injury_severity,
+                #         person_type = person_type
+                #     )
+                #     person_object_list += [new_injury_person]
+                # else:
+                #     new_injury_person = InjuryPerson(
+                #         injury_accident=new_injury_accident,
+                #         age = age,
+                #         sex = sex,
+                #         injury_severity = injury_severity,
+                #         person_type = person_type
+                #     )
+                #     person_object_list += [new_injury_person]
+                # if unit_id not in unit_ids_saved:
+                #     unit_ids_saved.add(unit_id)
+                #     unit_number += 1
+                #     if len(unit_ids_saved) == 1:
+                #         unit_number -= 1
+                # person_number += 1
+                # last_unit_id = unit_id
                 new_injury_accident.death_count = death_count
                 new_injury_accident.severe_injury_count = severe_injury_count
                 crash_object_list += [new_injury_accident]
         InjuryAccident.objects.bulk_create(crash_object_list)
         InjuryVehicle.objects.bulk_create(vehicle_object_list)
-        InjuryPerson.objects.bulk_create(person_object_list)
+        # InjuryPerson.objects.bulk_create(person_object_list)
 
 
 
-
-
-
-            # unit_keys = []
-            # for key in units:
-            #     unit_keys += [key]
-            # unit_num = 0
-            # veh_num = 0
-            # unit_members = []
-            # for unit_type in unit_types:
-            #     unit_number = unit_keys[unit_num]
-            #     unit_instances = units[unit_number]
-            #     print(f"unit type {unit_type}")
-            #     print(F"unit ID: {unit_number}")
-            #     print(F"unit Instances: {unit_instances}")
-            #     if unit_type == "Vehicle":
-            #         print("ITS A VEH")
-            #         vehicle_id = vehicle_ids[veh_num]
-            #         veh_type = vehicle_types[veh_num]
-            #         veh_make = vehicle_makes[veh_num]
-            #         hitrun = hit_and_runs[veh_num]
-            #         print(vehicle_id)
-            #         print(veh_make)
-            #         print(veh_type)
-            #         print(hitrun)
-            #     else:
-            #         print("no")
-                    
-
-            # ind = 0
-            # for vehicle in vehicle_ids:
-            #     print("VEHICLE ID")
-            #     print(int(vehicle))
-            #     veh_type = vehicle_types[ind]
-            #     veh_make = vehicle_makes[ind]
-            #     hitrun = hit_and_runs[ind]
-            #     print(veh_make)
-            #     print(veh_type)
-            #     print(hitrun)
-            
-            
-            # print("UNIT TYPES")
-            # print(unit_types)
-            # print(units)
-
-            # unit_num = 1
-
-            # for unit_type in crashes['Unit Type'][x]:
-            #     if unit_type == "Vehicle":
-            #         print("THIS IS A VEHICLE")
-            #     vehicle = crashes['Vehicle ID']
-            
-
-            # print("VEHICLE")
-            # print(crashes['Unit ID'][x])
-            # print(crashes['Unit Type'][x])
-            # print(crashes['Vehicle ID'][x])
-            # print(crashes['Vehicle Make'][x])
-            # # print(crashes['Vehicle Model'][x])
-            # print(crashes['Vehicle Type'][x])
-            # print(crashes['Hit and Run'][x])
-            # print(crashes['Citation Issued'][x])
-            # print("PERSON")
-            # print(crashes['Occupant ID'][x])
-            # print(crashes['Person ID'][x])
-            # print(crashes['Person Type'][x])
-            # print(crashes['Severity Rating (Person)'][x])
-            # print(crashes['Sex'][x])
-            # print(crashes['Age'][x])
-            # break
