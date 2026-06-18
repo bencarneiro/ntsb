@@ -96,7 +96,7 @@ h1 {
   </tr>
   {% endif %}
 </table>
-{% if accident.injuryperson_set|length > 0 %}
+{% if accident.injuryperson_set.all|length > 0 %}
 <h1>Persons</h1>
 {% endif %}
 {% for person in accident.injuryperson_set.all %}
@@ -110,8 +110,7 @@ h1 {
 <tr><td>Injury Severity</td><td>{{person.get_injury_severity_display}} </td></tr>
 </table>
 {% endfor %}
-
-{% if accident.injuryvehicle_set|length > 0 %}
+{% if accident.injuryvehicle_set.all|length > 0 %}
 <h1>Vehicles</h1>
 {% endif %}
 {% for vehicle in accident.injuryvehicle_set.all %}
