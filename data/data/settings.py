@@ -57,7 +57,7 @@ ILLINOIS_PATH = os.environ.get("ILLINOIS_PATH", "/home/tonydeals/app/ntsb/illino
 NORTH_CAROLINA_PATH = os.environ.get("NORTH_CAROLINA_PATH", "/home/tonydeals/app/ntsb/northcarolina")
 MICHIGAN_PATH = os.environ.get("MICHIGAN_PATH", "/home/tonydeals/app/ntsb/michigan")
 NEW_JERSEY_PATH = os.environ.get("NEW_JERSEY_PATH", "/Users/root1/apps/ntsb/newjersey")
-VIRGINIA_PATH = os.environ.get("NEW_JERSEY_PATH", "/home/tonydeals/app/ntsb/virginia")
+VIRGINIA_PATH = os.environ.get("NEW_JERSEY_PATH", "/Users/root1/apps/ntsb/virginia")
 
 ACCIDENT_CSV_PATHS = {
     1975: '1975/ACCIDENT.CSV',
