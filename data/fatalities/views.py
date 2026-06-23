@@ -1051,6 +1051,66 @@ def virginia_fatality_csv_2(request):
     return redirect("/")
 
 
+def washington_fatality_csv(request):
+    if request.user.is_authenticated:  
+        # Create the HttpResponse object with the appropriate CSV header.
+        # year = request.GET['year']
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="washington_fatalities.csv"'},
+        )
+
+        writer = csv.writer(response)
+        writer.writerow(["st_case", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
+
+        crashes = Accident.objects.filter(state_id=53)
+        for crash in crashes:
+            injury_count = len(Person.objects.filter(accident=crash, injury_severity=3))
+            writer.writerow([crash.st_case, crash.fatalitytotals.total_fatalities, injury_count, crash.datetime, crash.latitude, crash.longitude])
+
+        return response
+    return redirect("/")
+
+
+
+def washington_injury_csv(request):
+    if request.user.is_authenticated:  
+    # Create the HttpResponse object with the appropriate CSV header.
+    
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="washington_injuries.csv"'},
+        )
+
+        writer = csv.writer(response)
+        writer.writerow(["id", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
+
+        crashes = InjuryAccident.objects.filter(death_count=0, state_id=53)
+        for crash in crashes:
+            writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
+
+        return response
+    return redirect("/")
+
+
+def washington_fatality_csv_2(request):
+    if request.user.is_authenticated:  
+    # Create the HttpResponse object with the appropriate CSV header.
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="washington_fatalities_2.csv"'},
+        )
+        writer = csv.writer(response)
+        writer.writerow(["id", "fatalities", "serious_injuries", "dt", "LATITUDE", "LONGITUDE"])
+        crashes = InjuryAccident.objects.filter(death_count__gte=1, state_id=53, dt__year__gte=2025)
+        for crash in crashes:
+            writer.writerow([crash.id, crash.death_count, crash.severe_injury_count, crash.dt, crash.latitude, crash.longitude])
+
+        return response
+    return redirect("/")
+
+
+
 
 def new_jersey_fatality_csv(request):
     if request.user.is_authenticated:  
@@ -1428,6 +1488,9 @@ def texas(request):
 
 def newjersey(request):
     return render(request, "newjersey.html", {"TILES_URL": TILES_URL})
+
+def washington(request):
+    return render(request, "washington.html", {"TILES_URL": TILES_URL})
 
 def virginia(request):
     return render(request, "virginia.html", {"TILES_URL": TILES_URL})
