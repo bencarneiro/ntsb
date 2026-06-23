@@ -69,6 +69,7 @@ class Command(BaseCommand):
                 street_1=street_1,
                 street_2=street_2,
                 death_count=death_count,
+                severe_injury_count=severe_injury_count,
                 number_of_vehicles=total_vehicles,
                 number_of_nonmotorists=total_nonmotorists,
                 dt=dt,
