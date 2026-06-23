@@ -119,7 +119,7 @@ input {
     <div id="map"></div>
     <div class="map-overlay top">
         <div class="map-overlay-inner">
-            <h1 style="font-size:1.2rem">Washington Fatal (2001-2026) & Severe Injury Crashes (2017-2026)</h1>
+            <h1 style="font-size:1.2rem">Washington Fatal (2001-2026) & Severe Injury Crashes (2010-2026)</h1>
             <div class = "boxlabel"><input type="checkbox" id="deaths" checked> Fatal Crashes<img src="/static/fatality_legend.png"></div>
             <div class = "boxlabel"><input type="checkbox" id="injuries" checked> Severe Injury Crashes<img src="/static/injury_legend.png"></div>
         </div>
@@ -134,17 +134,17 @@ const url = new URL(window.location.href);
 if (params.has('latitude')) {
                 var lat = parseFloat(params.get('latitude')); 
             } else {
-                var lat = 38
+                var lat = 47
             }
             if (params.has('longitude')) {
                 var lon = parseFloat(params.get('longitude')); 
             } else {
-                var lon = -78.5
+                var lon = -120
             }
             if (params.has('zoom')) {
                 var zoom = parseInt(params.get('zoom')); 
             } else {
-                var zoom = 6.5
+                var zoom = 6
             }
 
 let protocol = new pmtiles.Protocol();
@@ -271,7 +271,7 @@ map.on('load', () => {
                 features.forEach((f, i) => {
                     console.log(f.properties)
                     table += "<tr>";
-                    table += `<tr><td>${f.properties.dt.slice(0,19)}</td>`;
+                    table += `<tr><td>${f.properties.dt.slice(0,10)}</td>`;
                     let deaths = f.properties.fatalities;
                     let injuries = f.properties.serious_injuries;
                     table += `<td align='right'>${deaths}</td>`;
