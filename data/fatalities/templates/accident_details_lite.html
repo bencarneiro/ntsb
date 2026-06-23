@@ -72,10 +72,12 @@ h1 {
       <td>Date</td>
       <td> {{  accident.dt | date}}</td>
     </tr>
+    {% if accident.state.id != 53 %}
     <tr>
       <td>Time</td>
       <td> {{  accident.dt | time}}</td>
     </tr>
+    {% endif %}
     {% if accident.longitude %}<tr><td>Google Maps</td><td>{{accident.map_link|safe}}</td></tr>{% endif %}
     {% if accident.street_1 %}<tr><td>Street Name 1</td><td> {{accident.street_1}} </td></tr>{% endif %}
     {% if accident.street_2 %}<tr><td>Street Name 2</td><td> {{accident.street_2}} </td></tr>{% endif %}
@@ -86,6 +88,10 @@ h1 {
   <tr><td>Number of Nonmotorists</td><td> {{accident.number_of_nonmotorists}} </td></tr>
   <tr><td>Motorcycle</td><td> {{accident.motorcycle}} </td></tr>
   {% else %}
+  {% if accident.state.id == 53 %}
+  <tr><td>Number of Vehicles</td><td> {{accident.number_of_vehicles}} </td></tr>
+  <tr><td>Number of Nonmotorists</td><td> {{accident.number_of_nonmotorists}} </td></tr>
+  {% endif %}
   <tr>
     <td>Serious Injuries</td>
     <td>{{ accident.severe_injury_count }}</td>

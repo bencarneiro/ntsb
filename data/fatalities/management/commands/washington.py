@@ -112,6 +112,71 @@ class Command(BaseCommand):
                 )
                 new_person_list += [new_driver]
 
+            # VEHICLE VEHICLE VEHICLE VEHICLE
+            if pd.notnull(crashes['VEH 2 TYPE'][x]):
+                body_type = f"{crashes['VEH 2 TYPE'][x]} - {crashes['VEH 2 STYLE'][x]}"
+                make = crashes['VEH 2 MAKE'][x]
+                model = crashes['VEH 2 MODEL'][x]
+                vehicle_number = 2
+                new_injury_vehicle = InjuryVehicle(
+                    injury_accident = new_injury_crash,
+                    body_type = body_type,
+                    make=make,
+                    model=model,
+                    vehicle_number = 2
+                )
+                new_vehicle_list += [new_injury_vehicle]
+
+                # DRIVER DRIVER DRIVER DRIVER
+
+                age = crashes['VEH 2 MV DRIVER AGE'][x]
+                if pd.isnull(age):
+                    age = None
+                sex = crashes['VEH 2 MV DRIVER GENDER'][x]
+                inj_sev = crashes['VEH 2 MV DRIVER INJURY TYPE'][x]
+                new_driver = InjuryPerson(
+                    injury_accident=new_injury_crash,
+                    injury_vehicle=new_injury_vehicle,
+                    person_type="Driver",
+                    age=age,
+                    sex=sex,
+                    injury_severity = get_inj_sev(inj_sev)
+                )
+                new_person_list += [new_driver]
+
+            # VEHICLE VEHICLE VEHICLE VEHICLE
+            if pd.notnull(crashes['VEH 3 TYPE'][x]):
+                body_type = f"{crashes['VEH 3 TYPE'][x]} - {crashes['VEH 3 STYLE'][x]}"
+                make = crashes['VEH 3 MAKE'][x]
+                model = crashes['VEH 3 MODEL'][x]
+                vehicle_number = 3
+                new_injury_vehicle = InjuryVehicle(
+                    injury_accident = new_injury_crash,
+                    body_type = body_type,
+                    make=make,
+                    model=model,
+                    vehicle_number = 3
+                )
+                new_vehicle_list += [new_injury_vehicle]
+
+                # DRIVER DRIVER DRIVER DRIVER
+
+                age = crashes['VEH 3 MV DRIVER AGE'][x]
+                if pd.isnull(age):
+                    age = None
+                sex = crashes['VEH 3 MV DRIVER GENDER'][x]
+                inj_sev = crashes['VEH 3 MV DRIVER INJURY TYPE'][x]
+                new_driver = InjuryPerson(
+                    injury_accident=new_injury_crash,
+                    injury_vehicle=new_injury_vehicle,
+                    person_type="Driver",
+                    age=age,
+                    sex=sex,
+                    injury_severity = get_inj_sev(inj_sev)
+                )
+                new_person_list += [new_driver]
+
+
             # PEDESTRIANS PEDESTRIANS PEDESTRIANS PEDESTRIANS
 
             if pd.notnull(crashes['UNIT 2 PEDESTRIAN ACTION'][x]):
