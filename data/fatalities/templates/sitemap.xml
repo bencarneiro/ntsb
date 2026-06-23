@@ -35,32 +35,18 @@
   </url>
 
   <url>
+    <loc>https://roadway.report/california</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://roadway.report/colorado</loc>
     <priority>0.7</priority>
     <changefreq>daily</changefreq>
   </url>
 
-
   <url>
-    <loc>https://roadway.report/texas</loc>
-    <priority>0.7</priority>
-    <changefreq>daily</changefreq>
-  </url>
-
-  <url>
-    <loc>https://roadway.report/california</loc>
-    <priority>0.7</priority>
-    <changefreq>daily</changefreq>
-  </url>
-
-  <url>
-    <loc>https://roadway.report/pennsylvania</loc>
-    <priority>0.7</priority>
-    <changefreq>daily</changefreq>
-  </url>
-
-  <url>
-    <loc>https://roadway.report/new-york</loc>
+    <loc>https://roadway.report/florida</loc>
     <priority>0.7</priority>
     <changefreq>daily</changefreq>
   </url>
@@ -72,12 +58,52 @@
   </url>
 
   <url>
-    <loc>https://roadway.report/florida</loc>
+    <loc>https://roadway.report/michigan</loc>
     <priority>0.7</priority>
     <changefreq>daily</changefreq>
   </url>
 
+  <url>
+    <loc>https://roadway.report/new-jersey</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
 
+  <url>
+    <loc>https://roadway.report/new-york</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>https://roadway.report/north-carolina</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>https://roadway.report/pennsylvania</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>https://roadway.report/texas</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>https://roadway.report/virginia</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>https://roadway.report/washington</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
 
   <!-- Safety and Vision Zero -->
   <url>
