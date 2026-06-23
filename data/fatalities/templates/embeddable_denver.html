@@ -311,8 +311,10 @@ map.on('load', () => {
     deaths.addEventListener('change', function() {
         if (this.checked) {
             toggleLayerVisibility("denver_fatalities", true)
+            toggleLayerVisibility("denver_fatalities_2", true)
         } else {
             toggleLayerVisibility("denver_fatalities", false)
+            toggleLayerVisibility("denver_fatalities_2", false)
         }
     })
 
