@@ -41,7 +41,7 @@ class Command(BaseCommand):
         InjuryVehicle.objects.filter(injury_accident__state_id=51).delete()
         InjuryAccident.objects.filter(state_id=51).delete()
         
-        basic = pd.read_csv(f"{VIRGINIA_PATH}/baisc.csv").sort_values(by="Document Nbr").reset_index()
+        basic = pd.read_csv(f"{VIRGINIA_PATH}/basic.csv").sort_values(by="Document Nbr").reset_index()
         basic = basic[(basic['Crash Severity'] == "A") | (basic['Crash Severity'] == "K")]
         detail = pd.read_csv(f"{VIRGINIA_PATH}/detail.csv").sort_values(by="Document_Nbr").reset_index()
         print(len(basic))
