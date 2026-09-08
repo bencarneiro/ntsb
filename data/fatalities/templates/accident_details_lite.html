@@ -124,7 +124,7 @@ h1 {
 {% endif %}
 {% for vehicle in accident.injuryvehicle_set.all %}
 <!-- TODO this logic sucks -->
-{% if vehicle.body_type or accident.state_id == 34 %}
+{% if vehicle.body_type or accident.state_id == 34 or accident.state_id == 25%}
 <table class="table" id="vehicle-{{ vehicle.id }}">
 
     <tr>

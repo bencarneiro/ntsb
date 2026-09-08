@@ -1,0 +1,3 @@
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/massachusetts/massachusetts_injuries.pmtiles --coalesce-densest-as-needed -y id -y fatalities -y serious_injuries -y dt ~/Downloads/massachusetts_injuries.csv
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/massachusetts/massachusetts_fatalities.pmtiles --coalesce-densest-as-needed -y st_case -y fatalities -y serious_injuries -y dt ~/Downloads/massachusetts_fatalities.csv
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/massachusetts/massachusetts_fatalities_2.pmtiles --coalesce-densest-as-needed -y id -y fatalities -y serious_injuries -y dt ~/Downloads/massachusetts_fatalities_2.csv
