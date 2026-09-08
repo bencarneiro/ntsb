@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% block header %}
 <link rel="stylesheet" href="static/css/maplibre-gl.css">
@@ -54,7 +55,7 @@
 font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 position: absolute;
 width: 200px;
-top: 2.25rem;
+top: 3rem;
 left: 0;
 padding: 10px;
 }
@@ -112,16 +113,14 @@ input {
 
 </style>
 
-    <title>Virginia Fatal (2001-2026) & Severe Injury Crashes (2017-2026)</title>
+    <title>Tennessee Fatal Crashes (2001-2026) & Severe Injury Crashes (2024-2026)</title>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
 
 
     <div id="map"></div>
     <div class="map-overlay top">
         <div class="map-overlay-inner">
-            <h1 style="font-size:1.2rem">Virginia Fatal (2001-2026) & Severe Injury Crashes (2017-2026)</h1>
-            <div class = "boxlabel"><input type="checkbox" id="deaths" checked> Fatal Crashes<img src="/static/fatality_legend.png"></div>
-            <div class = "boxlabel"><input type="checkbox" id="injuries" checked> Severe Injury Crashes<img src="/static/injury_legend.png"></div>
+            <h1 style="font-size:1.2rem">Tennessee Fatal Crashes (2001-2026) & Severe Injury Crashes (2024-2026)</h1>
         </div>
     </div>
 
@@ -134,12 +133,12 @@ const url = new URL(window.location.href);
 if (params.has('latitude')) {
                 var lat = parseFloat(params.get('latitude')); 
             } else {
-                var lat = 38
+                var lat = 35.8
             }
             if (params.has('longitude')) {
                 var lon = parseFloat(params.get('longitude')); 
             } else {
-                var lon = -78.5
+                var lon = -86.67
             }
             if (params.has('zoom')) {
                 var zoom = parseInt(params.get('zoom')); 
@@ -158,7 +157,7 @@ var map = new maplibregl.Map({
                 type: "raster",
                 tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
                 tileSize: 256,
-                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a> | <a href='https://hub.arcgis.com/maps/1a96a2f31b4f4d77991471b6cabb38ba/about' target='_blank'>VDOT</a>"
+                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a> | <a href='https://ncdot.maps.arcgis.com/apps/mapviewer/index.html?webmap=9a25021dbe91427a92f2eca57bd71ee2' target='_blank'>NCDOT</a>"
             
             }
         },
@@ -183,13 +182,13 @@ map.on('load', () => {
     
 
     map.addLayer({
-            id: `virginia_injuries`,
+            id: `tennessee_injuries`,
             type: "circle",
             source: {
-                url: `{{ TILES_URL }}virginia/virginia_injuries.pmtiles`,
+                url: `{{ TILES_URL }}tennessee/tennessee_injuries.pmtiles`,
                 type: "vector"
             },
-            "source-layer": `virginia_injuries`,
+            "source-layer": `tennessee_injuries`,
             paint: {
                 "circle-opacity": .3,
                 "circle-color": "red",
@@ -207,13 +206,13 @@ map.on('load', () => {
                 ],
             }})
     map.addLayer({
-            id: `virginia_fatalities`,
+            id: `tennessee_fatalities`,
             type: "circle",
             source: {
-                url: `{{ TILES_URL }}virginia/virginia_fatalities.pmtiles`,
+                url: `{{ TILES_URL }}tennessee/tennessee_fatalities.pmtiles`,
                 type: "vector"
             },
-            "source-layer": `virginia_fatalities`,
+            "source-layer": `tennessee_fatalities`,
             paint: {
                 "circle-opacity": .3,
                 "circle-color": "darkred",
@@ -232,13 +231,13 @@ map.on('load', () => {
             }});
 
     map.addLayer({
-            id: `virginia_fatalities_2`,
+            id: `tennessee_fatalities_2`,
             type: "circle",
             source: {
-                url: `{{ TILES_URL }}virginia/virginia_fatalities_2.pmtiles`,
+                url: `{{ TILES_URL }}tennessee/tennessee_fatalities_2.pmtiles`,
                 type: "vector"
             },
-            "source-layer": `virginia_fatalities_2`,
+            "source-layer": `tennessee_fatalities_2`,
             paint: {
                 "circle-opacity": .3,
                 "circle-color": "darkred",
@@ -267,17 +266,15 @@ map.on('load', () => {
         if (features.length == 0) return;
             console.log("This is a roadway death")
 
-        let table = "<table><thead><tr><th>Date</th><th>Deaths</th><th>Severe Injuries</th><th>More Info</tr></thead>";
+        let table = "<table><thead><tr><th>Date</th><th>Crash Severity</th><th>More Info</tr></thead>";
                 features.forEach((f, i) => {
                     console.log(f.properties)
                     table += "<tr>";
                     table += `<tr><td>${f.properties.dt.slice(0,19)}</td>`;
-                    let deaths = f.properties.fatalities;
-                    let injuries = f.properties.serious_injuries;
-                    table += `<td align='right'>${deaths}</td>`;
-                    table += `<td align='right'>${injuries}</td>`;
+                    let severity = f.properties.crash_severity;
+                    table += `<td align='right'>${severity}</td>`;
                     // let id = f.properties.id
-                    if (f.properties.fatalities > 0 & parseInt(f.properties.dt.slice(0,4),10) < 2025) {
+                    if (f.properties.crash_severity == "Fatal Crash" & parseInt(f.properties.dt.slice(0,4),10) < 2025) {
                         console.log(f.properties.dt)
                         console.log(typeof f.properties.dt)
                         table += `<td><a href="/accidents/${f.properties.dt.slice(0, 4)}${String(f.properties.st_case).padStart(6, "0")}" target="_blank">Details</a></td>`;
@@ -301,33 +298,5 @@ map.on('load', () => {
     });
 })
 </script>
-<script>
 
-    function toggleLayerVisibility(layerId, isVisible) {
-        map.setLayoutProperty(layerId, 'visibility', 
-            isVisible ? 'visible' : 'none'
-        );
-    }
-
-    const deaths = document.getElementById('deaths');
-    deaths.addEventListener('change', function() {
-        if (this.checked) {
-            toggleLayerVisibility("virginia_fatalities", true)
-            toggleLayerVisibility("virginia_fatalities_2", true)
-        } else {
-            toggleLayerVisibility("virginia_fatalities", false)
-            toggleLayerVisibility("virginia_fatalities_2", false)
-        }
-    })
-
-    const injuries = document.getElementById('injuries');
-    injuries.addEventListener('change', function() {
-        if (this.checked) {
-            toggleLayerVisibility("virginia_injuries", true)
-        } else {
-            toggleLayerVisibility("virginia_injuries", false)
-        }
-    })
-
-</script>
 {% endblock %}
