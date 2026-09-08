@@ -88,6 +88,18 @@
   </url>
 
   <url>
+    <loc>https://roadway.report/tennessee</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>https://roadway.report/arizona</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
     <loc>https://roadway.report/texas</loc>
     <priority>0.7</priority>
     <changefreq>daily</changefreq>
