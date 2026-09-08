@@ -1111,6 +1111,68 @@ def arizona_fatality_csv_2(request):
     return redirect("/")
 
 
+def tennessee_fatality_csv(request):
+    if request.user.is_authenticated:  
+        # Create the HttpResponse object with the appropriate CSV header.
+        # year = request.GET['year']
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="tennessee_fatalities.csv"'},
+        )
+
+        writer = csv.writer(response)
+        writer.writerow(["st_case", "crash_severity", "dt", "LATITUDE", "LONGITUDE"])
+
+        crashes = Accident.objects.filter(state_id=47)
+        for crash in crashes:
+            # injury_count = len(Person.objects.filter(accident=crash, injury_severity=3))
+            writer.writerow([crash.st_case, "Fatal Crash", crash.datetime, crash.latitude, crash.longitude])
+
+        return response
+    return redirect("/")
+
+
+
+def tennessee_injury_csv(request):
+    if request.user.is_authenticated:  
+    # Create the HttpResponse object with the appropriate CSV header.
+    
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="tennessee_injuries.csv"'},
+        )
+
+        writer = csv.writer(response)
+        writer.writerow(["id", "crash_severity", "dt", "LATITUDE", "LONGITUDE"])
+
+        crashes = InjuryAccident.objects.filter(crash_severity = "Suspected Serious Injury", state_id=47)
+        for crash in crashes:
+            writer.writerow([crash.id, "Suspected Serious Injury", crash.dt, crash.latitude, crash.longitude])
+
+
+        return response
+    return redirect("/")
+
+
+def tennessee_fatality_csv_2(request):
+    if request.user.is_authenticated:  
+    # Create the HttpResponse object with the appropriate CSV header.
+    
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="tennessee_fatalities_2.csv"'},
+        )
+
+        writer = csv.writer(response)
+        writer.writerow(["id", "crash_severity", "dt", "LATITUDE", "LONGITUDE"])
+
+        crashes = InjuryAccident.objects.filter(crash_severity = "Fatal", state_id=47, dt__year__gte=2025)
+        for crash in crashes:
+            writer.writerow([crash.id, "Fatal Crash", crash.dt, crash.latitude, crash.longitude])
+
+        return response
+    return redirect("/")
+
 
 def washington_fatality_csv(request):
     if request.user.is_authenticated:  
