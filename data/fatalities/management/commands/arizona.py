@@ -60,7 +60,8 @@ class Command(BaseCommand):
                     injury_accident=new_injury_accident,
                     age=age,
                     sex=sex,
-                    injury_severity=inj_sev
+                    injury_severity=inj_sev,
+                    person_type = person_type
                 )
                 new_person_list += [new_injury_person]
 
@@ -69,7 +70,8 @@ class Command(BaseCommand):
                     injury_accident=last_injury_accident,
                     age=age,
                     sex=sex,
-                    injury_severity=inj_sev
+                    injury_severity=inj_sev,
+                    person_type = person_type
                 )
                 new_person_list += [new_injury_person]
             last_crash_id = crash_id
