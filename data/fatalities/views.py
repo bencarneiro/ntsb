@@ -1510,6 +1510,12 @@ def newyork(request):
 def florida(request):
     return render(request, "florida.html", {"TILES_URL": TILES_URL})
 
+def arizona(request):
+    return render(request, "arizona.html", {"TILES_URL": TILES_URL})
+
+def tennessee(request):
+    return render(request, "tennessee.html", {"TILES_URL": TILES_URL})
+
 def bikelanes(request):
     return render(request, "bikelanes.html", {"TILES_URL": TILES_URL})
 
