@@ -112,14 +112,14 @@ input {
 
 </style>
 
-    <title>Virginia Fatal (2001-2026) & Severe Injury Crashes (2017-2026)</title>
+    <title>Arizona Fatal (2001-2025) & Severe Injury Crashes (2017-2025)</title>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
 
 
     <div id="map"></div>
     <div class="map-overlay top">
         <div class="map-overlay-inner">
-            <h1 style="font-size:1.2rem">Virginia Fatal (2001-2026) & Severe Injury Crashes (2017-2026)</h1>
+            <h1 style="font-size:1.2rem">Arizona Fatal (2001-2025) & Severe Injury Crashes (2017-2025)</h1>
             <div class = "boxlabel"><input type="checkbox" id="deaths" checked> Fatal Crashes<img src="/static/fatality_legend.png"></div>
             <div class = "boxlabel"><input type="checkbox" id="injuries" checked> Severe Injury Crashes<img src="/static/injury_legend.png"></div>
         </div>
@@ -134,17 +134,17 @@ const url = new URL(window.location.href);
 if (params.has('latitude')) {
                 var lat = parseFloat(params.get('latitude')); 
             } else {
-                var lat = 38
+                var lat = 34.5
             }
             if (params.has('longitude')) {
                 var lon = parseFloat(params.get('longitude')); 
             } else {
-                var lon = -78.5
+                var lon = -111.8272
             }
             if (params.has('zoom')) {
                 var zoom = parseInt(params.get('zoom')); 
             } else {
-                var zoom = 6.5
+                var zoom = 6.0
             }
 
 let protocol = new pmtiles.Protocol();
@@ -183,13 +183,13 @@ map.on('load', () => {
     
 
     map.addLayer({
-            id: `virginia_injuries`,
+            id: `arizona_injuries`,
             type: "circle",
             source: {
-                url: `{{ TILES_URL }}virginia/virginia_injuries.pmtiles`,
+                url: `{{ TILES_URL }}arizona/arizona_injuries.pmtiles`,
                 type: "vector"
             },
-            "source-layer": `virginia_injuries`,
+            "source-layer": `arizona_injuries`,
             paint: {
                 "circle-opacity": .3,
                 "circle-color": "red",
@@ -207,13 +207,13 @@ map.on('load', () => {
                 ],
             }})
     map.addLayer({
-            id: `virginia_fatalities`,
+            id: `arizona_fatalities`,
             type: "circle",
             source: {
-                url: `{{ TILES_URL }}virginia/virginia_fatalities.pmtiles`,
+                url: `{{ TILES_URL }}arizona/arizona_fatalities.pmtiles`,
                 type: "vector"
             },
-            "source-layer": `virginia_fatalities`,
+            "source-layer": `arizona_fatalities`,
             paint: {
                 "circle-opacity": .3,
                 "circle-color": "darkred",
@@ -232,13 +232,13 @@ map.on('load', () => {
             }});
 
     map.addLayer({
-            id: `virginia_fatalities_2`,
+            id: `arizona_fatalities_2`,
             type: "circle",
             source: {
-                url: `{{ TILES_URL }}virginia/virginia_fatalities_2.pmtiles`,
+                url: `{{ TILES_URL }}arizona/arizona_fatalities_2.pmtiles`,
                 type: "vector"
             },
-            "source-layer": `virginia_fatalities_2`,
+            "source-layer": `arizona_fatalities_2`,
             paint: {
                 "circle-opacity": .3,
                 "circle-color": "darkred",
@@ -312,20 +312,20 @@ map.on('load', () => {
     const deaths = document.getElementById('deaths');
     deaths.addEventListener('change', function() {
         if (this.checked) {
-            toggleLayerVisibility("virginia_fatalities", true)
-            toggleLayerVisibility("virginia_fatalities_2", true)
+            toggleLayerVisibility("arizona_fatalities", true)
+            toggleLayerVisibility("arizona_fatalities_2", true)
         } else {
-            toggleLayerVisibility("virginia_fatalities", false)
-            toggleLayerVisibility("virginia_fatalities_2", false)
+            toggleLayerVisibility("arizona_fatalities", false)
+            toggleLayerVisibility("arizona_fatalities_2", false)
         }
     })
 
     const injuries = document.getElementById('injuries');
     injuries.addEventListener('change', function() {
         if (this.checked) {
-            toggleLayerVisibility("virginia_injuries", true)
+            toggleLayerVisibility("arizona_injuries", true)
         } else {
-            toggleLayerVisibility("virginia_injuries", false)
+            toggleLayerVisibility("arizona_injuries", false)
         }
     })
 
