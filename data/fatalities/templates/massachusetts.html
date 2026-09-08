@@ -134,17 +134,17 @@ const url = new URL(window.location.href);
 if (params.has('latitude')) {
                 var lat = parseFloat(params.get('latitude')); 
             } else {
-                var lat = 34.5
+                var lat = 42.2
             }
             if (params.has('longitude')) {
                 var lon = parseFloat(params.get('longitude')); 
             } else {
-                var lon = -111.8272
+                var lon = -71.75
             }
             if (params.has('zoom')) {
                 var zoom = parseInt(params.get('zoom')); 
             } else {
-                var zoom = 6.0
+                var zoom = 7.5
             }
 
 let protocol = new pmtiles.Protocol();
