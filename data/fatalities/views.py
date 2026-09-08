@@ -1147,7 +1147,7 @@ def tennessee_injury_csv(request):
 
         crashes = InjuryAccident.objects.filter(crash_severity = "Suspected Serious Injury", state_id=47)
         for crash in crashes:
-            writer.writerow([crash.id, "Suspected Serious Injury", crash.dt, crash.latitude, crash.longitude])
+            writer.writerow([crash.id, "Serious Injury", crash.dt, crash.latitude, crash.longitude])
 
 
         return response
