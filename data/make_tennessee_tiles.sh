@@ -1,0 +1,3 @@
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/tennessee/tennessee_injuries.pmtiles --coalesce-densest-as-needed -y id -y crash_severity -y dt ~/Downloads/tennessee_injuries.csv
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/tennessee/tennessee_fatalities.pmtiles --coalesce-densest-as-needed -y st_case -y crash_severity -y dt ~/Downloads/tennessee_fatalities.csv
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/tennessee/tennessee_fatalities_2.pmtiles --coalesce-densest-as-needed -y id -y crash_severity -y dt ~/Downloads/tennessee_fatalities_2.csv
