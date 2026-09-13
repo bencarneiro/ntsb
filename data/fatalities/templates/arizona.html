@@ -112,16 +112,16 @@ input {
 
 </style>
 
-    <title>Arizona Fatal (2001-2025) & Severe Injury Crashes (2017-2025)</title>
+    <title>Arizona Vision Zero Fatal & Severe Injury Crash Map (2001-2025)</title>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
 
 
     <div id="map"></div>
     <div class="map-overlay top">
         <div class="map-overlay-inner">
-            <h1 style="font-size:1.2rem">Arizona Fatal (2001-2025) & Severe Injury Crashes (2017-2025)</h1>
-            <div class = "boxlabel"><input type="checkbox" id="deaths" checked> Fatal Crashes<img src="/static/fatality_legend.png"></div>
-            <div class = "boxlabel"><input type="checkbox" id="injuries" checked> Severe Injury Crashes<img src="/static/injury_legend.png"></div>
+            <h1  style="font-size: 1.5rem; padding:.3rem;margin-bottom:.2rem;line-height:1.6rem">Arizona Vision Zero Fatal Crash Map</h1>
+            <div class = "boxlabel"><input type="checkbox" id="deaths" checked> Fatal Crashes (2001-2025)<img src="/static/fatality_legend.png"></div>
+            <div class = "boxlabel"><input type="checkbox" id="injuries" checked> Severe Injuries (2017-2025)<img src="/static/injury_legend.png"></div>
         </div>
     </div>
 
@@ -158,7 +158,7 @@ var map = new maplibregl.Map({
                 type: "raster",
                 tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
                 tileSize: 256,
-                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a> | <a href='https://hub.arcgis.com/maps/1a96a2f31b4f4d77991471b6cabb38ba/about' target='_blank'>VDOT</a>"
+                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a> | <a href='https://experience.arcgis.com/experience/a7711f17055a4e9dab845577a13e737f' target='_blank'>ADOT</a>"
             
             }
         },
