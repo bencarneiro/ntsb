@@ -113,7 +113,7 @@ input {
 
 </style>
 
-    <title>Michigan Fatal Crashes (2001-2024) & Severe Injury Crashes (2004-2024)</title>
+    <title>Michigan Vision Zero Fatal & Severe Injury Crash Map (2001-2024)</title>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
 
 {% endblock %}
@@ -121,7 +121,9 @@ input {
     <div id="map"></div>
     <div class="map-overlay top">
         <div class="map-overlay-inner">
-            <h1 style="font-size:1.2rem">Michigan Fatal Crashes (2001-2024) & Severe Injury Crashes (2004-2024)</h1>
+            <h1 style="font-size: 1.5rem; padding:.3rem;margin-bottom:.2rem;line-height:1.6rem">Michigan Vision Zero Fatal & Severe Crash Map</h1>
+            <div class = "boxlabel"><input type="checkbox" id="deaths" checked> Fatal Crashes  (2001-2024)<img src="/static/fatality_legend.png"></div>
+            <div class = "boxlabel"><input type="checkbox" id="injuries" checked> Severe Injuries (2004-2024)<img src="/static/injury_legend.png"></div>
         </div>
     </div>
 
@@ -274,5 +276,33 @@ map.on('load', () => {
         
     });
 })
+</script>
+
+<script>
+
+    function toggleLayerVisibility(layerId, isVisible) {
+        map.setLayoutProperty(layerId, 'visibility', 
+            isVisible ? 'visible' : 'none'
+        );
+    }
+
+    const deaths = document.getElementById('deaths');
+    deaths.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("michigan_fatalities", true)
+        } else {
+            toggleLayerVisibility("michigan_fatalities", false)
+        }
+    })
+
+    const injuries = document.getElementById('injuries');
+    injuries.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("michigan_injuries", true)
+        } else {
+            toggleLayerVisibility("michigan_injuries", false)
+        }
+    })
+
 </script>
 {% endblock %}
