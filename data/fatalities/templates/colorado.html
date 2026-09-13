@@ -111,7 +111,7 @@ input {
 
 </style>
 
-    <title>Colorado Fatal (2001-2024) & Serious Injury (2007-2024) Crashes</title>
+    <title>Colorado Vision Zero Fatal & Severe Injury Crash Map (2001-2024)</title>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
 {% endblock %}
 
@@ -120,7 +120,9 @@ input {
     <div id="map"></div>
     <div class="map-overlay top">
         <div class="map-overlay-inner">
-            <h1 style="font-size:1.2rem">Colorado Fatal Crashes (2001-2024) & Serious Injuries (2007-2024)</h1>
+            <h1 style="font-size: 1.5rem; padding:.3rem;margin-bottom:.2rem;line-height:1.6rem">Colorado Vision Zero Fatal & Severe Crash Map</h1>
+            <div class = "boxlabel"><input type="checkbox" id="deaths" checked> Fatal Crashes  (2001-2024)<img src="/static/fatality_legend.png"></div>
+            <div class = "boxlabel"><input type="checkbox" id="injuries" checked> Severe Injuries (2007-2024)<img src="/static/injury_legend.png"></div>
         </div>
     </div>
 
@@ -254,6 +256,34 @@ map.on('load', () => {
         
     });
 })
+</script>
+
+<script>
+
+    function toggleLayerVisibility(layerId, isVisible) {
+        map.setLayoutProperty(layerId, 'visibility', 
+            isVisible ? 'visible' : 'none'
+        );
+    }
+
+    const deaths = document.getElementById('deaths');
+    deaths.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("colorado_fatalities", true)
+        } else {
+            toggleLayerVisibility("colorado_fatalities", false)
+        }
+    })
+
+    const injuries = document.getElementById('injuries');
+    injuries.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("colorado_injuries", true)
+        } else {
+            toggleLayerVisibility("colorado_injuries", false)
+        }
+    })
+
 </script>
 <p style='display:none'>ADAMS County accident, ADAMS County crash, Fatal car accident data, serious car accident report, car accident map</p>
 <p style='display:none'>ELBERT County accident, ELBERT County crash, Fatal car accident data, serious car accident report, car accident map</p>
