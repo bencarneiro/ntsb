@@ -111,21 +111,17 @@ input {
 
 </style>
 
-    <title>New Jersey Fatal & Severe Crashes - Unknown Date Range</title>
+    <title>New Jersey Vision Zero Fatal & Severe Injury Crash Map (2001-2024)</title>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
 {% endblock %}
 
 {% block body %}
-    <div id="popup-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;z-index:9999">
-        <div style="background:#fff;border-radius:12px;padding:2rem 2.5rem;text-align:center">
-            <p style="font-size:1.5rem;margin:0 0 1rem">NJDOT public data contains issues with data quality. The date range of this map is unknown, and the accuracy of this map cannot be guaranteed.</p>
-            <button onclick="document.getElementById('popup-overlay').remove()">Close</button>
-        </div>
-    </div>
     <div id="map"></div>
     <div class="map-overlay top">
         <div class="map-overlay-inner">
-            <h1 style="font-size:1.2rem">New Jersey Fatal (2001-2024) & Serious Injury (Unknown) Crashes</h1>
+            <h1 style="font-size: 1.5rem; padding:.3rem;margin-bottom:.2rem;line-height:1.6rem">New Jersey Vision Zero Fatal & Severe Crash Map</h1>
+            <div class = "boxlabel"><input type="checkbox" id="deaths" checked> Fatal Crashes  (2001-2024)<img src="/static/fatality_legend.png"></div>
+            <div class = "boxlabel"><input type="checkbox" id="injuries" checked> Severe Injuries (Unknown)<img src="/static/injury_legend.png"></div>
         </div>C
     </div>
 
@@ -260,4 +256,33 @@ map.on('load', () => {
     });
 })
 </script>
+
+<script>
+
+    function toggleLayerVisibility(layerId, isVisible) {
+        map.setLayoutProperty(layerId, 'visibility', 
+            isVisible ? 'visible' : 'none'
+        );
+    }
+
+    const deaths = document.getElementById('deaths');
+    deaths.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("new_jersey_fatalities", true)
+        } else {
+            toggleLayerVisibility("new_jersey_fatalities", false)
+        }
+    })
+
+    const injuries = document.getElementById('injuries');
+    injuries.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("new_jersey_injuries", true)
+        } else {
+            toggleLayerVisibility("new_jersey_injuries", false)
+        }
+    })
+
+</script>
+
 {% endblock %}
