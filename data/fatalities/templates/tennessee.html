@@ -113,14 +113,16 @@ input {
 
 </style>
 
-    <title>Tennessee Fatal Crashes (2001-2026) & Severe Injury Crashes (2024-2026)</title>
+    <title>Tennessee Vision Zero Fatal & Severe Injury Crash Map (2001-2026)</title>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ed28f41a-8cbe-4646-9d15-1b4e9141c713"></script>
 
 
     <div id="map"></div>
     <div class="map-overlay top">
         <div class="map-overlay-inner">
-            <h1 style="font-size:1.2rem">Tennessee Fatal Crashes (2001-2026) & Severe Injury Crashes (2024-2026)</h1>
+            <h1  style="font-size: 1.5rem; padding:.3rem;margin-bottom:.2rem;line-height:1.6rem">Tennessee Vision Zero Fatal & Severe Crash Map</h1>
+            <div class = "boxlabel"><input type="checkbox" id="deaths" checked> Fatal Crashes (2001-2026)<img src="/static/fatality_legend.png"></div>
+            <div class = "boxlabel"><input type="checkbox" id="injuries" checked> Severe Injuries (2024-2026)<img src="/static/injury_legend.png"></div>
         </div>
     </div>
 
@@ -157,7 +159,7 @@ var map = new maplibregl.Map({
                 type: "raster",
                 tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
                 tileSize: 256,
-                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a> | <a href='https://ncdot.maps.arcgis.com/apps/mapviewer/index.html?webmap=9a25021dbe91427a92f2eca57bd71ee2' target='_blank'>NCDOT</a>"
+                attribution: "© <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap contributors</a> | <a href='https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars' target='_blank'>NHTSA FARS</a> | <a href='https://www.tn.gov/safety/stats/dashboards.html' target='_blank'>TDOT</a>"
             
             }
         },
@@ -299,4 +301,33 @@ map.on('load', () => {
 })
 </script>
 
+<script>
+
+    function toggleLayerVisibility(layerId, isVisible) {
+        map.setLayoutProperty(layerId, 'visibility', 
+            isVisible ? 'visible' : 'none'
+        );
+    }
+
+    const deaths = document.getElementById('deaths');
+    deaths.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("tennessee_fatalities", true)
+            toggleLayerVisibility("tennessee_fatalities_2", true)
+        } else {
+            toggleLayerVisibility("tennessee_fatalities", false)
+            toggleLayerVisibility("tennessee_fatalities_2", false)
+        }
+    })
+
+    const injuries = document.getElementById('injuries');
+    injuries.addEventListener('change', function() {
+        if (this.checked) {
+            toggleLayerVisibility("tennessee_injuries", true)
+        } else {
+            toggleLayerVisibility("tennessee_injuries", false)
+        }
+    })
+
+</script>
 {% endblock %}
