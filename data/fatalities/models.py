@@ -46,7 +46,7 @@ class Accident(models.Model):
         return self
     def coordinates(self):
         if not self.longitude or not self.latitude:
-            return [-999.9999,99.9999]
+            return [-999.9999,999.9999]
         return [self.longitude, self.latitude]
     def link(self):
         return f"<a href='/accidents/{self.id}'>Details Here</a>"
