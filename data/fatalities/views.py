@@ -1859,3 +1859,34 @@ def newyork2(request):
 
 def northcarolina2(request):
     return redirect("/north-carolina")
+
+def csv_download(request):
+    
+    if request.user.is_authenticated:  
+        # Create the HttpResponse object with the appropriate CSV header.
+        q_statement = Q()
+        state = request.GET.get('state', None)
+        if not state:
+            return JsonResponse({"Error":"Please add a state to the request via the FIPS code IE roadway.report/csv?state=2"})
+        q_statement &= Q(state=state)
+        year = request.GET.get('year', None)
+        if year:
+            q_statement &= Q(year=year)
+        county = request.GET.get('county', None)
+        if county:
+            q_statement &= Q(county=county)
+        try:
+            accidents = Accident.objects.filter(q_statement)
+        except:
+            return JsonResponse({"Error":"Malformed Request"})
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="crash_data_{state}.csv"'},
+        )
+        writer = csv.writer(response)
+        writer.writerow(["id", "crash_report", "crash_data", "num_fatalities", "datetime", "LATITUDE", "LONGITUDE", "To obtain data for a given crash - visit https://roadway.report/accidents/{id} for HTML crash report or https://roadway.report/v1/{id} for JSON"])
+        for crash in accidents:
+            writer.writerow([crash.id, crash.fatalitytotals.total_fatalities, crash.datetime, crash.latitude, crash.longitude])
+
+        return response
+    return redirect("/")
