@@ -1875,16 +1875,25 @@ def csv_download(request):
         county = request.GET.get('county', None)
         if county:
             q_statement &= Q(county=county)
+    
+        date_gte = request.GET.get('date__gte', None)
+        if date_gte:
+            q_statement &= Q(datetime__gte=date_gte)
+
+        date_lte = request.GET.get('date__lte', None)
+        if date_lte:
+            q_statement &= Q(datetime__lte=date_lte)
+        accidents = Accident.objects.filter(q_statement)
         try:
             accidents = Accident.objects.filter(q_statement)
         except:
             return JsonResponse({"Error":"Malformed Request"})
         response = HttpResponse(
             content_type="text/csv",
-            headers={"Content-Disposition": f'attachment; filename="crash_data_{state}.csv"'},
+            headers={"Content-Disposition": f'attachment; filename="crash_data_download_state_{state}.csv"'},
         )
         writer = csv.writer(response)
-        writer.writerow(["id", "crash_report", "crash_data", "num_fatalities", "datetime", "LATITUDE", "LONGITUDE", "To obtain data for a given crash - visit https://roadway.report/accidents/{id} for HTML crash report or https://roadway.report/v1/{id} for JSON"])
+        writer.writerow(["id", "num_fatalities", "datetime", "LATITUDE", "LONGITUDE", "To obtain data for a given crash - visit https://roadway.report/accidents/{id} for HTML crash report or https://roadway.report/v1/{id} for JSON"])
         for crash in accidents:
             writer.writerow([crash.id, crash.fatalitytotals.total_fatalities, crash.datetime, crash.latitude, crash.longitude])
 
