@@ -22,7 +22,8 @@ STATIC_ROOT=os.environ.get("STATIC_ROOT", "/var/www/static")
 STATICFILES_DIRS = [
     "/home/tonydeals/app/ntsb/data/fatalities/templates/static",
     "/root/ntsb/data/fatalities/templates/static",
-    "/Users/root1/apps/ntsb/data/fatalities/templates/static"
+    "/Users/root1/apps/ntsb/data/fatalities/templates/static",
+    "C:/Users/lucas/ntsb/data/fatalities/templates/static",
 #     "/var/www/static/",
 ]
 # Quick-start development settings - unsuitable for production
@@ -39,10 +40,18 @@ GEOIP_PATH = os.environ.get("GEOIP_PATH", "/home/tonydeals/geo")
 DEBUG = (bool(int(os.environ.get('DEBUG',1))))
 
 # I am moving my dev environment to MAC. I need to set the GEOS and GDAL paths on mac, but not the in PROD on Debian
-if platform.system() != "Linux":
-    GDAL_LIBRARY_PATH = "/opt/homebrew/lib/libgdal.dylib"
-    GEOS_LIBRARY_PATH = "/opt/homebrew/lib/libgeos_c.dylib"
-    
+if platform.system() == "Darwin":
+     GDAL_LIBRARY_PATH = "/opt/homebrew/lib/libgdal.dylib"
+     GEOS_LIBRARY_PATH = "/opt/homebrew/lib/libgeos_c.dylib"
+
+if platform.system() == "Windows":  # Windows configuration
+        OSGEO4W_ROOT = r"C:\Users\lucas\AppData\Local\Programs\OSGeo4W"
+        
+        # Set environment variables so Django can find dependent files
+        os.environ['OSGEO4W_ROOT'] = OSGEO4W_ROOT
+        os.environ['GDAL_DATA'] = os.path.join(OSGEO4W_ROOT, r"share\gdal")
+        os.environ['PROJ_LIB'] = os.path.join(OSGEO4W_ROOT, r"share\proj")
+        os.environ['PATH'] = os.path.join(OSGEO4W_ROOT, r"bin;") + os.environ['PATH']
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "127.0.0.1:8000", "roadway.report", "www.roadway.report", "45.33.29.42"]
 
