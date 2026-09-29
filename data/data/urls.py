@@ -108,6 +108,7 @@ urlpatterns = [
     path("fatality_csv", state_fatality_csv, name="state_fatality_csv"),
     path("injury_csv", state_injury_csv, name="state_injury_csv"),
     path("fatality_csv_2", state_fatality_csv_2, name="state_fatality_csv_2"),
+    path("api-tutorial", api_tutorial, name="api_tutorial"),
     re_path(r'^favicon\.ico$', favicon_view),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
