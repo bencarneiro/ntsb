@@ -21,7 +21,6 @@ from django.shortcuts import get_object_or_404
 api = NinjaAPI(docs = Redoc(),
    openapi_extra={
        "info": {
-           "termsOfService": "https://github.com/bencarneiro/ntsb",
            "contact": {
                 "name": "Ben Carneiro",
                 "url": "https://roadway.report",
