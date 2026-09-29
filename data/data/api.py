@@ -80,13 +80,13 @@ def csv_download(request, filters: AccidentFilterSchema = Query(...)):
     EXAMPLES:
 
     Texas Crashes since Jan 1, 2020:
-    https://roadway.report/v1/accidents?state_id=48&datetime__gt=2020-01-01
+    https://roadway.report/v1/csv?state_id=48&datetime__gt=2020-01-01
 
     Travis County, TX Fatal Crashes 1975-2024:
-    https://roadway.report/v1/accidents?county_id=48453
+    https://roadway.report/v1/csv?county_id=48453
 
     Fatal Crashes in Florida in 2005:
-    https://roadway.report/v1/accidents?state_id=12&year=2005
+    https://roadway.report/v1/csv?state_id=12&year=2005
     """
     queryset = Accident.objects.order_by("id")
     try:
@@ -1442,79 +1442,3 @@ def pedestrian_crash_group_choices(request):
 @api.get("/bike_crash_group_choices", response=List[Tuple])
 def bike_crash_group_choices(request):
     return list(PedestrianType.bike_crash_group_choices)
-
-
-
-@api.get("/accidents_by_location_geojson", response=ShortFeatureCollectionSchema)
-def geojson_accidents_by_loction(request, filters: AccidentLocationFilterSchema = Query(...)):
-    if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
-        return "Required Parameters are lat, lon, radius"
-    try:
-        search_location = Point(x=float(request.GET['lon']), y=float(request.GET['lat']), srid=4326)
-        radius_in_miles = float(request.GET['radius'])
-    except:
-        return list()
-
-    queryset = Accident.objects.annotate(
-        distance=Distance('location', search_location)
-    ).order_by('distance').filter(location__distance_lte=(search_location, D(mi=radius_in_miles)))
-    qe = filters.get_filter_expression()
-    q = Q()
-    for param in qe.deconstruct()[1]:
-        if param[0] not in {'lat', 'lon', 'radius'}:
-            q &= Q((param[0], param[1]))
-    queryset = queryset.filter(q)
-    if len(queryset) > 5000:
-        queryset = queryset[:5000]
-    return {"features": queryset}
-
-
-@api.get("/nonmotorist_accidents_by_location_geojson", response=ShortFeatureCollectionSchema)
-def nonmotorist_accidents_by_location_geojson(request, filters: AccidentLocationFilterSchema = Query(...)):
-    if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
-        return "Required Parameters are lat, lon, radius"
-    try:
-        search_location = Point(x=float(request.GET['lon']), y=float(request.GET['lat']), srid=4326)
-        radius_in_miles = float(request.GET['radius'])
-    except:
-        return list()
-    person_qs = Person.objects.filter(person_type__in=[5,6,7,8,10,19], injury_severity=4) # hardcoded values are nonmotorists :/
-    listo = list(person_qs.values_list("accident_id", flat=True))
-    queryset = Accident.objects.annotate(
-        distance=Distance('location', search_location)
-    ).order_by('distance').filter(id__in=listo, location__distance_lte=(search_location, D(mi=radius_in_miles)))
-    qe = filters.get_filter_expression()
-    q = Q()
-    for param in qe.deconstruct()[1]:
-        if param[0] not in {'lat', 'lon', 'radius'}:
-            q &= Q((param[0], param[1]))
-    queryset = queryset.filter(q)
-    if len(queryset) > 5000:
-        queryset = queryset[:5000]
-    return {"features": queryset}
-
-
-#These are exact copies of /v1/accidents and /v1/accidents/<id>
-@api.get("/accidents_geojson", response=List[ShortFeatureSchema])
-@paginate
-def geojson_accident_list(request, filters: AccidentFilterSchema = Query(...)):
-    queryset = Accident.objects.order_by("id")
-    queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K crashes at once. See https://roadway.report/v1/docs")
-        
-    return list(queryset)
-
-@api.get("/accidents_geojson/{accident_id}", response=FeatureSchema)
-def geojson_accident_by_id(request, accident_id: int):
-    accident = get_object_or_404(Accident, id=accident_id)
-    return accident
-
-
-@api.get("/accidents/{accident_id}/", response=FeatureSchema)
-def geojson_accident_by_id(request, accident_id: int):
-    accident = get_object_or_404(Accident, id=accident_id)
-    return accident
-
-
-
