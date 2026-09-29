@@ -191,11 +191,6 @@
     <changefreq>daily</changefreq>
   </url>
 
-  <url>
-    <loc>https://roadway.report/missed_connections</loc>
-    <priority>0.6</priority>
-    <changefreq>daily</changefreq>
-  </url>
 
   <!-- Regional Pages -->
   <url>
