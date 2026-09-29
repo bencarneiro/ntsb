@@ -33,7 +33,7 @@ api = NinjaAPI(docs = Redoc(),
        }
    },
    title="Roadway Report",
-   description="The roadway.report API returns data on USA traffic fatalities 1975-2024 --- [GITHUB](https://github.com/bencarneiro/ntsb) --- [WEBSITE](https://roadway.report)")
+   description="The roadway.report API returns data on USA traffic fatalities 1975-2024 --- [CODE EXAMPLES](https://roadway.report/api-tutorial) --- [SOURCE CODE](https://github.com/bencarneiro/ntsb)")
 
 
 @api.get("/accidents", response=List[ShortFeatureSchema])

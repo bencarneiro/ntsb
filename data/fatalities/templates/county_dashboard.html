@@ -1206,6 +1206,7 @@
             <h1 class="main-title">{{county.name}} County Vision Zero Dashboard</h1>
             <a class="back-link" href="/county_selector">Other Counties</a>
             <a class="back-link" href="/accidents?state={{ state.id }}&county={{ county.id }}">{{ county.name }} County Crash Reports</a>
+            <a class="back-link" href="/v1/csv?county_id={{ county.id }}">Download Crash CSV</a>
         </div>
 
         <div class="chart-section">

@@ -603,7 +603,7 @@ class AccidentSchema(Schema):
     atmospheric_condition: int = Field(..., alias="atmospheric_condition")
     atmospheric_condition__display: str = Field(..., alias="get_atmospheric_condition_display")
     school_bus_related: bool
-    rail_grade_crossing_identifier: str
+    rail_grade_crossing_identifier: Optional[str] = None
     ems_notified_hour: Optional[int] = None
     ems_notified_minute: Optional[int] = None
     ems_arrived_hour: Optional[int] = None

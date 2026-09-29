@@ -1025,3 +1025,6 @@ def newyork2(request):
 
 def northcarolina2(request):
     return redirect("/north-carolina")
+
+def api_tutorial(request):
+    return render(request, "api_tutorial.html", {})
