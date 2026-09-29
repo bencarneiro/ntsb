@@ -15,6 +15,10 @@ from ninja.errors import HttpError
 
 from django.contrib.gis.geos import Point
 from django.shortcuts import get_object_or_404
+
+from django.http import HttpResponse
+import csv
+import time
 # from ninja import 
 
 
@@ -60,6 +64,46 @@ def accident_list(request, filters: AccidentFilterSchema = Query(...)):
     if queryset.count() > 50000:
         raise HttpError(422, "Use arguments to query less than 50K crashes at once. See https://roadway.report/v1/docs")
     return list(queryset)
+
+
+@api.get("/csv")
+def csv_download(request, filters: AccidentFilterSchema = Query(...)):
+    """
+    This endpoint returns a **LIST OF COLLISIONS** in CSV format.
+
+    You can only query 50K records at a time, so try chunking up your requests using common arguments.
+
+    Use [roadway.report/v1/states](https://roadway.report/v1/states) & [roadway.report/v1/counties](https://roadway.report/v1/counties) to narrow the geographic scope
+
+    or narrow the timescale with these args: year=, year__gt, year__lt, datetime__gt, datetime__lt
+    
+    EXAMPLES:
+
+    Texas Crashes since Jan 1, 2020:
+    https://roadway.report/v1/accidents?state_id=48&datetime__gt=2020-01-01
+
+    Travis County, TX Fatal Crashes 1975-2024:
+    https://roadway.report/v1/accidents?county_id=48453
+
+    Fatal Crashes in Florida in 2005:
+    https://roadway.report/v1/accidents?state_id=12&year=2005
+    """
+    queryset = Accident.objects.order_by("id")
+    try:
+        queryset = filters.filter(queryset)
+        if queryset.count() > 50000:
+            raise HttpError(422, "Use arguments to query less than 50K crashes at once. See https://roadway.report/v1/docs")
+    except:
+        return JsonResponse({"Error":"Malformed Request"})
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = f'attachment; filename="crash_data_download_{int(time.time())}.csv"'
+    writer = csv.writer(response)
+    writer.writerow(["id", "num_fatalities", "datetime", "LATITUDE", "LONGITUDE", "To obtain data for a given crash - visit https://roadway.report/accidents/{id}/ for HTML crash report or https://roadway.report/v1/{id} for JSON"])
+    for crash in queryset:
+        writer.writerow([crash.id, crash.fatalitytotals.total_fatalities, crash.datetime, crash.latitude, crash.longitude])
+
+    return response
+
 
 @api.get("/accidents/{accident_id}", response=FeatureSchema)
 def accident_by_id(request, accident_id: int):

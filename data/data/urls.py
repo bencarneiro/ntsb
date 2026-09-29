@@ -141,7 +141,6 @@ urlpatterns = [
     path("someone_died_here", someone_died_here, name="someone_died_here"),
     path("api_tutorial_notebook", api_tutorial_notebook, name="api_tutorial_notebook"),
     path("blog", blog, name="blog"),
-    path("csv",csv_download,name="csv"),
     re_path(r'^favicon\.ico$', favicon_view),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
