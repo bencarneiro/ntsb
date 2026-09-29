@@ -36,6 +36,26 @@ api = NinjaAPI(docs = Redoc(),
 @api.get("/accidents", response=List[ShortFeatureSchema])
 @paginate
 def accident_list(request, filters: AccidentFilterSchema = Query(...)):
+    """
+    This endpoint returns a **LIST OF COLLISIONS** in GeoJSON format.
+
+    You can only query 50K records at a time, so try chunking up your requests using common arguments.
+
+    Use [roadway.report/v1/states](https://roadway.report/v1/states) & [roadway.report/v1/counties](https://roadway.report/v1/counties) to narrow the geographic scope
+
+    or narrow the timescale with these args: year=, year__gt, year__lt, datetime__gt, datetime__lt
+    
+    EXAMPLES:
+
+    Texas Crashes since Jan 1, 2020:
+    https://roadway.report/v1/accidents?state_id=48&datetime__gt=2020-01-01
+
+    Travis County, TX Fatal Crashes 1975-2024:
+    https://roadway.report/v1/accidents?county_id=48453
+
+    Fatal Crashes in Florida in 2005:
+    https://roadway.report/v1/accidents?state_id=12&year=2005
+    """
     queryset = Accident.objects.order_by("id")
     queryset = filters.filter(queryset)
     if queryset.count() > 50000:
@@ -52,7 +72,6 @@ def list_states(request):
     """Return a list of all states without filtering."""
     return State.objects.order_by("id")
 
-
 @api.get("/counties", response=List[CountySchema])
 @paginate
 def list_counties(request, filters: CountyFilterSchema = Query(...)):
@@ -62,6 +81,14 @@ def list_counties(request, filters: CountyFilterSchema = Query(...)):
     queryset = filters.filter(queryset)
     return list(queryset)
 
+@api.get("/cities", response=List[CitySchema])
+@paginate
+def list_cities(request, filters: CityFilterSchema = Query(...)):
+    """Return a list of all cities with nested state details."""
+    # select_related fetches state data in a single SQL JOIN query
+    queryset = City.objects.select_related("state").all()
+    queryset = filters.filter(queryset)
+    return list(queryset)
 
 @api.get("/accidents_by_vehicle", response=List[ShortFeatureSchema])
 @paginate

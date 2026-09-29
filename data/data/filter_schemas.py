@@ -4031,4 +4031,7 @@ class MissedConnectionFilterSchema(FilterSchema):
     crash_dt__gte: datetime
 
 class CountyFilterSchema(FilterSchema):
-    state: int
+    state_id: int
+    
+class CityFilterSchema(FilterSchema):
+    state_id: int

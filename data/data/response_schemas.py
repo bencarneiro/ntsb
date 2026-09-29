@@ -694,8 +694,11 @@ class StateSchema(Schema):
     name: str
 
 class CountySchema(Schema):
-    # Include nested State schema so the client gets full state details
-    # or use `state_id: int` if you only want the raw foreign key ID
+    state: StateSchema
+    id: int
+    name: str
+
+class CitySchema(Schema):
     state: StateSchema
     id: int
     name: str
