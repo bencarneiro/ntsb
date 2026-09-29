@@ -22,10 +22,15 @@ api = NinjaAPI(docs = Redoc(),
    openapi_extra={
        "info": {
            "termsOfService": "https://github.com/bencarneiro/ntsb",
+           "contact": {
+                "name": "Ben Carneiro",
+                "url": "https://roadway.report",
+                "email": "ben@roadway.report"
+           }
        }
    },
    title="Roadway Report",
-   description="This is a free API which returns data on ALL traffic fatalities in the USA. The database currently contains a complete dataset for 2022, and I will be importing 1975-2021 in the coming months.    Check out the [github](https://github.com/bencarneiro/ntsb) --- or click around on the [test map](https://roadway.report)")
+   description="The roadway.report API returns data on USA traffic fatalities 1975-2024 --- [GITHUB](https://github.com/bencarneiro/ntsb) --- [WEBSITE](https://roadway.report)")
 
 
 @api.get("/accidents", response=List[ShortFeatureSchema])
@@ -42,7 +47,20 @@ def accident_by_id(request, accident_id: int):
     accident = get_object_or_404(Accident, id=accident_id)
     return accident
 
+@api.get("/states", response=List[StateSchema])
+def list_states(request):
+    """Return a list of all states without filtering."""
+    return State.objects.order_by("id")
 
+
+@api.get("/counties", response=List[CountySchema])
+@paginate
+def list_counties(request, filters: CountyFilterSchema = Query(...)):
+    """Return a list of all counties with nested state details."""
+    # select_related fetches state data in a single SQL JOIN query
+    queryset = County.objects.select_related("state").all()
+    queryset = filters.filter(queryset)
+    return list(queryset)
 
 @api.get("/accidents_by_location", response=List[ShortFeatureSchema])
 @paginate

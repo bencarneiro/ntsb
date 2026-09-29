@@ -688,3 +688,14 @@ class MissedConnectionFeatureSchema(Schema):
 class MissedConnectionFeatureCollectionSchema(Schema):
     type: str = Field("FeatureCollection", alias="not_applicable")
     features: list[MissedConnectionFeatureSchema]
+
+class StateSchema(Schema):
+    id: int
+    name: str
+
+class CountySchema(Schema):
+    # Include nested State schema so the client gets full state details
+    # or use `state_id: int` if you only want the raw foreign key ID
+    state: StateSchema
+    id: int
+    name: str

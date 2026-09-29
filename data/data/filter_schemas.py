@@ -4029,3 +4029,6 @@ class NonmotoristPriorActionFilterSchema(FilterSchema):
 class MissedConnectionFilterSchema(FilterSchema):
     crash_dt__lte: datetime
     crash_dt__gte: datetime
+
+class CountyFilterSchema(FilterSchema):
+    state: int
