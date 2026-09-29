@@ -62,153 +62,21 @@ def get_client_ip(request):
 
 def beta_redirect(request):
     return redirect("/")
-    # return render(request, "landing_page.html", context={})
 
 def schema(request):
     return render(request, "schema.html", context={})
 
 def leaflet(request):
     return redirect("/")
-    # if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
-    #     return redirect("/leaflet?lat=37.756745231&lon=-122.442857530&radius=4")
-    # return render(request, "leaflet.html", context={})
 
 def testmap(request):
     return redirect("/")
-    # if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
-    #     ip = get_client_ip(request)
-    #     # print(ip)
-    #     try:
-    #         g = GeoIP2()
-    #         country = g.country(ip)
-    #         if country['country_code'] != "US":
-    #             return redirect("/testmap?lat=37.756745231&lon=-122.442857530&radius=4")
-    #         coordinates = g.lat_lon(ip)
-    #         return redirect(f"/testmap?lat={coordinates[0]}&lon={coordinates[1]}&radius=4")
-    #     except Exception as e:
-    #         print(e)
-    #         return redirect("/testmap?lat=37.756745231&lon=-122.442857530&radius=4")
-        
-        
-    # return render(request, "leaflet.html", context={})
 
 def nonmotorist_map(request):
     return redirect("/")
-    # if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
-    #     ip = get_client_ip(request)
-    #     print(ip)
-    #     try:
-    #         g = GeoIP2()
-    #         country = g.country(ip)
-    #         if country['country_code'] != "US":
-    #             return redirect("/nonmotorist_map?lat=37.756745231&lon=-122.442857530&radius=4")
-    #         coordinates = g.lat_lon(ip)
-    #         return redirect(f"/nonmotorist_map?lat={coordinates[0]}&lon={coordinates[1]}&radius=4")
-    #     except Exception as e:
-    #         print(e)
-    #         return redirect("/nonmotorist_map?lat=37.756745231&lon=-122.442857530&radius=4")
-        
-        
-    # return render(request, "nonmotorist_map.html", context={})
-
-
-def map(request):
-    if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
-        ip = get_client_ip(request)
-        print(ip)
-        try:
-            g = GeoIP2()
-            country = g.country(ip)
-            if country['country_code'] != "US":
-                return redirect("/map?lat=37.8011&lon=-122.3267&radius=4")
-            coordinates = g.lat_lon(ip)
-            return redirect(f"/map?lat={coordinates[0]}&lon={coordinates[1]}&radius=4")
-        except Exception as e:
-            print(e)
-            return redirect("/map?lat=37.8011&lon=-122.3267&radius=4")
-        
-        
-    return render(request, "test.html", context={})
-
-def home(request):
-    context = {
-        "url": "/"
-    }
-    return render(request, "map.html", context)
-
-favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
-
-
-
-# def accidents_by_loction(request, filters: AccidentLocationFilterSchema = Query(...)):
-    # if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
-    #     return "Required Parameters are lat, lon, radius"
-    # try:
-    #     search_location = Point(x=float(request.GET['lon']), y=float(request.GET['lat']), srid=4326)
-    #     radius_in_miles = float(request.GET['radius'])
-    # except:
-    #     return list()
-
-    # queryset = Accident.objects.annotate(
-    #     distance=Distance('location', search_location)
-    # ).order_by('distance').filter(location__distance_lte=(search_location, D(mi=radius_in_miles)))
-    # qe = filters.get_filter_expression()
-    # q = Q()
-    # for param in qe.deconstruct()[1]:
-    #     if param[0] not in {'lat', 'lon', 'radius'}:
-    #         q &= Q((param[0], param[1]))
-    # queryset = queryset.filter(q)
-    # return list(queryset)
-
 
 def folium_map(request):
     return redirect("/")
-    # # deaths = Accident.objects.filter(state_id=48, county_id__in=[48453])
-    # if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:
-    #     return redirect("/map?lat=37.8011&lon=-122.3267&radius=25")
-    # try:
-    #     search_location = Point(x=float(request.GET['lon']), y=float(request.GET['lat']), srid=4326)
-    #     radius_in_miles = float(request.GET['radius'])
-    # except:
-    #     return list()
-
-    # queryset = Accident.objects.annotate(
-    #     distance=Distance('location', search_location)
-    # ).order_by('distance').filter(location__distance_lte=(search_location, D(mi=radius_in_miles)))
-    # # return list(queryset)
-    # if len(queryset) > 5000:
-    #     return JsonResponse({"Error": "Try a smaller radius"})
-    # feature_collection = """
-    #     { "type": "FeatureCollection",
-    #         "features": [
-    # """
-    # for death in queryset:
-    #     if death.latitude and death.longitude:
-    #         feature = f"""
-    #             {{ "type": "Feature",
-    #                 "geometry": {{"type": "Point", "coordinates": [{death.longitude}, {death.latitude}]}},
-    #                 "properties": {{"fatalities": "{death.fatalities}", "datetime": "{death.datetime}", "details": "{death.link()}"}}
-    #             }},"""
-    #         feature_collection += feature
-    # feature_collection = feature_collection[:-1]
-    # feature_collection += "]}"
-
-    # print(feature_collection)
-    # loady_loads = json.loads(feature_collection)
-    # m = folium.Map(location=[request.GET['lat'], request.GET['lon']], zoom_start=11).add_child(
-    #     folium.ClickForMarker("<a target='_blank' href='/map?lat=${lat}&lon=${lng}&radius=25'>RELOAD MAP AT THIS POINT</a>")
-    # )
-
-    # popup = folium.GeoJsonPopup(
-    #     fields=["fatalities", "datetime", "details"]
-    # )
-    
-    # folium.GeoJson(loady_loads, name="geojson", popup=popup).add_to(m)
-    
-    # m = m._repr_html_()
-    # context = {"map": m}
-    # return render(request, "map.html", context=context)
-    # # return JsonResponse(loady_loads, safe=False)
 
 def accident_summary(request, **kwargs):
     try:
@@ -224,13 +92,10 @@ def injury_accident_summary(request, **kwargs):
         return redirect("/")
     return render(request, "accident_details_lite.html", {"accident": a})
 
-
-
 def connection(request, **kwargs):
     
     a = MissedConnection.objects.get(id=kwargs['id'])
     return render(request, "connection.html", {"connection": a, "form": CommentForm})
-
 
 def post_missed_connection_comment(request):
     # if this is a POST request we need to process the form data
@@ -255,8 +120,6 @@ def post_missed_connection_comment(request):
         form = CommentForm()
 
     return render(request, "name.html", {"form": form})
-
-
 
 def post_comment(request):
     # if this is a POST request we need to process the form data
@@ -302,14 +165,6 @@ def collect_email(request):
     
     return redirect(f"/contact#email")
 
-    # if a GET (or any other method) we'll create a blank form
-    # else:
-    #     form = EmailForm()
-
-    # return render(request, "name.html", {"form": form})
-
-
-
 def county_dashboard(request, **kwargs):
     county = County.objects.get(id=kwargs['county_id'])
     return render(request, "county_dashboard.html", {"county": county})
@@ -317,7 +172,6 @@ def county_dashboard(request, **kwargs):
 
 def blog(request, **kwargs):
     return render(request, "blog.html", {})
-
 
 @cache_page(60 * 60 * 24 * 30)
 def state_blog(request, **kwargs):
@@ -354,8 +208,6 @@ def total_fatalities(request):
     bicycle_fatalities_qs = Accident.objects.filter(county=county).values("year").annotate(bike_fatalities=Sum("fatalitytotals__bike_fatalities")).order_by("year")
     list_of_cars_which_hit_people = Person.objects.filter(accident__county=county, person_type__in=[5,6,7,8,10,19], injury_severity=4).values_list("vehicle_which_struck_non_motorist__id", flat=True)
     
-    
-
     data = {"labels": years, "total": [], "vehicle_fatalities": [ ], "nonmotorist_fatalities": [] , "pedestrian_fatalities": [] , "bicycle_fatalities": []}
     
     functional_system_data = []
@@ -424,9 +276,6 @@ def total_fatalities(request):
     data['total_lanes_data'] = total_lanes_data
     data['body_type_data'] = body_type_data
     return JsonResponse(data)
-
-
-
 
 def county_selector(request):
     states = State.objects.all()
