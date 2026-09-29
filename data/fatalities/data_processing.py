@@ -173,7 +173,9 @@ def longitude_converter(longitude, year):
 def soe_converter(soe, year):
     if year < 1982:
         if soe is None:
-            return 99
+            return 99    
+        if soe in {13}:
+            return 12
         if soe in {16}:
             return 18
         if soe in {17}:
@@ -1085,6 +1087,12 @@ def vehicle_which_struck_non_motorist_converter(value, year, accident_id):
 
 def nonmotorist_location_converter(value, year):
     if year < 1982:
+        if value in {4}:
+            return 9
+        if value in {5}:
+            return 10
+        if value in {6}:
+            return 21
         if value in {7}:
             return 16
         if value in {8}:
