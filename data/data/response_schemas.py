@@ -324,7 +324,7 @@ class VehicleSchema(Schema):
     special_vehicle_use__display: str = Field(..., alias='get_special_vehicle_use_display')
     emergency_vehicle_use: int = Field(..., alias='emergency_vehicle_use')	
     emergency_vehicle_use__display: str = Field(..., alias='get_emergency_vehicle_use_display')
-    travel_speed: int
+    travel_speed: Optional[int] = None
     underride_override: int = Field(..., alias='underride_override')	
     underride_override__display: str = Field(..., alias='get_underride_override_display')
     rollover: int = Field(..., alias='rollover')	

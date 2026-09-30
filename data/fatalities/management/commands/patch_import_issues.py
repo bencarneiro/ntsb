@@ -30,3 +30,7 @@ class Command(BaseCommand):
             print(x.year)
             x.first_harmful_event=31
             x.save()
+        route_signing_issues = Accident.objects.filter(route_signing=9)
+        for z in route_signing_issues:
+            z.route_signing=99
+            z.save()

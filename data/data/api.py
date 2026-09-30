@@ -36,7 +36,7 @@ api = NinjaAPI(docs = Redoc(),
    description="The roadway.report API returns data on USA traffic fatalities 1975-2024 --- [CODE EXAMPLES](https://roadway.report/api-tutorial) --- [SOURCE CODE](https://github.com/bencarneiro/ntsb)")
 
 
-@api.get("/accidents", response=List[ShortFeatureSchema])
+@api.get("/accidents", response=List[FeatureSchema])
 @paginate
 def accident_list(request, filters: AccidentFilterSchema = Query(...)):
     """
@@ -133,7 +133,7 @@ def list_cities(request, filters: CityFilterSchema = Query(...)):
     queryset = filters.filter(queryset)
     return list(queryset)
 
-@api.get("/accidents_by_vehicle", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_vehicle", response=List[FeatureSchema])
 @paginate
 def accidents_by_vehicle(request, filters: VehicleFilterSchema = Query(...)):
     queryset = Vehicle.objects.order_by("accident__id")
@@ -144,7 +144,7 @@ def accidents_by_vehicle(request, filters: VehicleFilterSchema = Query(...)):
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_parked_vehicle", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_parked_vehicle", response=List[FeatureSchema])
 @paginate
 def accidents_by_parked_vehicle(request, filters: ParkedVehicleFilterSchema = Query(...)):
     queryset = ParkedVehicle.objects.order_by("accident__id")
@@ -155,7 +155,7 @@ def accidents_by_parked_vehicle(request, filters: ParkedVehicleFilterSchema = Qu
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_person", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_person", response=List[FeatureSchema])
 @paginate
 def accidents_by_person(request, filters: PersonFilterSchema = Query(...)):
     queryset = Person.objects.order_by("accident__id")
@@ -166,7 +166,7 @@ def accidents_by_person(request, filters: PersonFilterSchema = Query(...)):
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_crash_event", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_crash_event", response=List[FeatureSchema])
 @paginate
 def accidents_by_crash_event(request, filters: CrashEventFilterSchema = Query(...)):
     queryset = CrashEvent.objects.order_by("accident__id")
@@ -177,7 +177,7 @@ def accidents_by_crash_event(request, filters: CrashEventFilterSchema = Query(..
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_weather", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_weather", response=List[FeatureSchema])
 @paginate
 def accidents_by_weather(request, filters: WeatherFilterSchema = Query(...)):
     queryset = Weather.objects.order_by("accident__id")
@@ -189,7 +189,7 @@ def accidents_by_weather(request, filters: WeatherFilterSchema = Query(...)):
     return list(new_qs)
 
 
-@api.get("/accidents_by_crash_related_factor", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_crash_related_factor", response=List[FeatureSchema])
 @paginate
 def accidents_by_crash_related_factor(request, filters: CrashRelatedFactorFilterSchema = Query(...)):
     queryset = CrashRelatedFactors.objects.order_by("accident__id")
@@ -201,7 +201,7 @@ def accidents_by_crash_related_factor(request, filters: CrashRelatedFactorFilter
     return list(new_qs)
 
 
-@api.get("/accidents_by_damage", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_damage", response=List[FeatureSchema])
 @paginate
 def accidents_by_damage(request, filters: DamageFilterSchema = Query(...)):
     queryset = Damage.objects.order_by("vehicle__accident__id")
@@ -213,7 +213,7 @@ def accidents_by_damage(request, filters: DamageFilterSchema = Query(...)):
     return list(new_qs)
 
 
-@api.get("/accidents_by_distraction", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_distraction", response=List[FeatureSchema])
 @paginate
 def accidents_by_distraction(request, filters: DriverDistractedFilterSchema = Query(...)):
     queryset = DriverDistracted.objects.order_by("vehicle__accident__id")
@@ -226,7 +226,7 @@ def accidents_by_distraction(request, filters: DriverDistractedFilterSchema = Qu
 
 
 
-@api.get("/accidents_by_driver_impairment", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_driver_impairment", response=List[FeatureSchema])
 @paginate
 def accidents_by_driver_impairment(request, filters: DriverImpairedFilterSchema = Query(...)):
     queryset = DriverImpaired.objects.order_by("vehicle__accident__id")
@@ -238,7 +238,7 @@ def accidents_by_driver_impairment(request, filters: DriverImpairedFilterSchema 
     return list(new_qs)
 
 
-@api.get("/accidents_by_vehicle_factor", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_vehicle_factor", response=List[FeatureSchema])
 @paginate
 def accidents_by_vehicle_factor(request, filters: VehicleFactorFilterSchema = Query(...)):
     queryset = VehicleFactor.objects.order_by("vehicle__accident__id")
@@ -249,7 +249,7 @@ def accidents_by_vehicle_factor(request, filters: VehicleFactorFilterSchema = Qu
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_maneuver", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_maneuver", response=List[FeatureSchema])
 @paginate
 def accidents_by_maneuver(request, filters: ManeuverFilterSchema = Query(...)):
     queryset = Maneuver.objects.order_by("vehicle__accident__id")
@@ -260,7 +260,7 @@ def accidents_by_maneuver(request, filters: ManeuverFilterSchema = Query(...)):
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_moving_violation", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_moving_violation", response=List[FeatureSchema])
 @paginate
 def accidents_by_moving_violation(request, filters: ViolationFilterSchema = Query(...)):
     queryset = Violation.objects.order_by("vehicle__accident__id")
@@ -272,7 +272,7 @@ def accidents_by_moving_violation(request, filters: ViolationFilterSchema = Quer
     return list(new_qs)
 
 
-@api.get("/accidents_by_vision_obstruction", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_vision_obstruction", response=List[FeatureSchema])
 @paginate
 def accidents_by_vision_obstruction(request, filters: VisionFilterSchema = Query(...)):
     queryset = Vision.objects.order_by("vehicle__accident__id")
@@ -284,7 +284,7 @@ def accidents_by_vision_obstruction(request, filters: VisionFilterSchema = Query
     return list(new_qs)
 
 
-@api.get("/accidents_by_driver_related_factor", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_driver_related_factor", response=List[FeatureSchema])
 @paginate
 def accidents_by_driver_related_factor(request, filters: DriverRelatedFactorFilterSchema = Query(...)):
     queryset = DriverRelatedFactor.objects.order_by("vehicle__accident__id")
@@ -295,7 +295,7 @@ def accidents_by_driver_related_factor(request, filters: DriverRelatedFactorFilt
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_vehicle_related_factor", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_vehicle_related_factor", response=List[FeatureSchema])
 @paginate
 def accidents_by_driver_related_factor(request, filters: VehicleRelatedFactorFilterSchema = Query(...)):
     queryset = VehicleRelatedFactor.objects.order_by("vehicle__accident__id")
@@ -307,7 +307,7 @@ def accidents_by_driver_related_factor(request, filters: VehicleRelatedFactorFil
     return list(new_qs)
 
 
-@api.get("/accidents_by_parked_vehicle_related_factor", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_parked_vehicle_related_factor", response=List[FeatureSchema])
 @paginate
 def accidents_by_parked_vehicle_related_factor(request, filters: ParkedVehicleRelatedFactorFilterSchema = Query(...)):
     queryset = ParkedVehicleRelatedFactor.objects.order_by("parked_vehicle__accident__id")
@@ -318,7 +318,7 @@ def accidents_by_parked_vehicle_related_factor(request, filters: ParkedVehicleRe
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_drug", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_drug", response=List[FeatureSchema])
 @paginate
 def accidents_by_drug(request, filters: DrugsFilterSchema = Query(...)):
     queryset = Drugs.objects.order_by("person__accident__id")
@@ -329,7 +329,7 @@ def accidents_by_drug(request, filters: DrugsFilterSchema = Query(...)):
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_race", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_race", response=List[FeatureSchema])
 @paginate
 def accidents_by_race(request, filters: RaceFilterSchema = Query(...)):
     queryset = Race.objects.order_by("person__accident__id")
@@ -340,7 +340,7 @@ def accidents_by_race(request, filters: RaceFilterSchema = Query(...)):
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_person_related_factor", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_person_related_factor", response=List[FeatureSchema])
 @paginate
 def accidents_by_person_related_factor(request, filters: PersonRelatedFactorFilterSchema = Query(...)):
     queryset = PersonRelatedFactor.objects.order_by("person__accident__id")
@@ -351,7 +351,7 @@ def accidents_by_person_related_factor(request, filters: PersonRelatedFactorFilt
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_nonmotorist_contributing_circumstance", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_nonmotorist_contributing_circumstance", response=List[FeatureSchema])
 @paginate
 def accidents_by_nonmotorist_contributing_circumstance(request, filters: NonmotoristContributingCircumstanceFilterSchema = Query(...)):
     queryset = NonmotoristContributingCircumstance.objects.order_by("person__accident__id")
@@ -362,7 +362,7 @@ def accidents_by_nonmotorist_contributing_circumstance(request, filters: Nonmoto
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_nonmotorist_impairment", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_nonmotorist_impairment", response=List[FeatureSchema])
 @paginate
 def accidents_by_nonmotorist_impairment(request, filters: NonmotoristImpairedFilterSchema = Query(...)):
     queryset = NonmotoristImpaired.objects.order_by("person__accident__id")
@@ -373,7 +373,7 @@ def accidents_by_nonmotorist_impairment(request, filters: NonmotoristImpairedFil
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_nonmotorist_distraction", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_nonmotorist_distraction", response=List[FeatureSchema])
 @paginate
 def accidents_by_nonmotorist_distraction(request, filters: NonmotoristDistractedFilterSchema = Query(...)):
     queryset = NonmotoristDistracted.objects.order_by("person__accident__id")
@@ -384,7 +384,7 @@ def accidents_by_nonmotorist_distraction(request, filters: NonmotoristDistracted
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_nonmotorist_prior_action", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_nonmotorist_prior_action", response=List[FeatureSchema])
 @paginate
 def accidents_by_nonmotorist_prior_action(request, filters: NonmotoristPriorActionFilterSchema = Query(...)):
     queryset = NonmotoristPriorAction.objects.order_by("person__accident__id")
@@ -395,7 +395,7 @@ def accidents_by_nonmotorist_prior_action(request, filters: NonmotoristPriorActi
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
 
-@api.get("/accidents_by_location", response=List[ShortFeatureSchema])
+@api.get("/accidents_by_location", response=List[FeatureSchema])
 @paginate
 def accidents_by_loction(request, filters: AccidentLocationFilterSchema = Query(...)):
     if "lon" not in request.GET or "lat" not in request.GET or "radius" not in request.GET or not request.GET['lon'] or not request.GET['lat'] or not request.GET['radius']:

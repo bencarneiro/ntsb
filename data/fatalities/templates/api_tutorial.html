@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
-{% block header %}<meta charset="utf-8"/>
+{% block header %}<!DOCTYPE html>
+
+<html lang="en">
+<head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Roadway Report API Tutorial</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
@@ -7793,7 +7796,7 @@ a.anchor-link {
 </style>
 {% endblock %}
 {% block body %}
-<!-- End of mermaid configuration -->
+<!-- End of mermaid configuration --></head>
 <main>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=33c12ba4-a94e-4282-b838-843b49aca5e9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7802,7 +7805,7 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><br/><br/></p>
-<h1 id="Roadway-Report-API-Tutorial---Code-Examples">Roadway Report API Tutorial - Code Examples<a class="anchor-link" href="#Roadway-Report-API-Tutorial---Code-Examples">¶</a></h1><h2 id="Full-Documentation---Website"><a href="https://roadway.report/v1/docs">Full Documentation</a> - <a href="https://github.com/bencarneiro/ntsb">Source Code</a><a class="anchor-link" href="#Full-Documentation---Website">¶</a></h2>
+<h1 id="Roadway-Report-API-Tutorial---Code-Examples">Roadway Report API Tutorial - Code Examples<a class="anchor-link" href="#Roadway-Report-API-Tutorial---Code-Examples">¶</a></h1><h2 id="Full-Documentation---Website"><a href="https://roadway.report/v1/docs">Full Documentation</a> - <a href="https://roadway.report">Website</a><a class="anchor-link" href="#Full-Documentation---Website">¶</a></h2>
 </div>
 </div>
 </div>
@@ -7811,10 +7814,11 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 </pre></div>
 </div>
 </div>
@@ -7836,7 +7840,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [60]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"https://roadway.report/v1/states"</span><span class="p">)</span>
@@ -7851,7 +7855,7 @@ a.anchor-link {
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[60]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
 <pre>[{'id': 1, 'name': 'ALABAMA'},
  {'id': 2, 'name': 'ALASKA'},
@@ -7883,7 +7887,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [31]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">county_id</span> <span class="o">=</span> <span class="kc">None</span>
@@ -7932,7 +7936,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [44]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">COUNTY_ID</span><span class="o">=</span><span class="mi">48453</span>
@@ -7997,7 +8001,7 @@ saving file texas_crashes.geojson
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [49]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">COUNTY_ID</span><span class="o">=</span><span class="mi">48453</span>
@@ -8032,10 +8036,7 @@ saving file texas_crashes.geojson
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Extract-FULL-JSON-Data-for-a-set-of-crashes">Extract FULL JSON Data for a set of crashes<a class="anchor-link" href="#Extract-FULL-JSON-Data-for-a-set-of-crashes">¶</a></h2><p>The first two endpoints (/v1/accidents, /v1/csv) return a limited set of fields.</p>
-<p>You can extract all crash fields as JSON for each crash, but they can only be retrieved one crash at a time.</p>
-<p>In this example, we will garner all data available on bicycle / micromobility fatalities in king county</p>
-<p>We want to filter objects from the ACCIDENT table, based on records in the PERSON table, so we use the endpoint /v1/accidents_by_person</p>
+<h2 id="Get-Bicycle-/-Micromobility-Crashes-in-King-County,-WA">Get Bicycle / Micromobility Crashes in King County, WA<a class="anchor-link" href="#Get-Bicycle-/-Micromobility-Crashes-in-King-County,-WA">¶</a></h2><p>We want to filter objects from the ACCIDENT table, based on records in the PERSON table, so we use the endpoint /v1/accidents_by_person</p>
 </div>
 </div>
 </div>
@@ -8044,7 +8045,7 @@ saving file texas_crashes.geojson
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [51]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
@@ -8072,7 +8073,7 @@ saving file texas_crashes.geojson
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [52]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">BICYCLE_PERSON_TYPE</span> <span class="o">=</span> <span class="s2">"6"</span> <span class="c1">#bicycle</span>
@@ -8088,7 +8089,7 @@ saving file texas_crashes.geojson
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [55]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">COUNTY_ID</span> <span class="o">=</span> <span class="s2">"53033"</span> <span class="c1"># king county wa</span>
@@ -8110,48 +8111,47 @@ saving file texas_crashes.geojson
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=c3b1093a-c5e1-4f47-977c-93c13195a121">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d110b1fa-a50b-4f94-981c-316ddf4ded8b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [56]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">bicycle_fatalities</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">API_URL</span><span class="si">}</span><span class="s2">?accident__county_id=</span><span class="si">{</span><span class="n">COUNTY_ID</span><span class="si">}</span><span class="s2">&amp;person_type=</span><span class="si">{</span><span class="n">BICYCLE_PERSON_TYPE</span><span class="si">}</span><span class="s2">&amp;injury_severity=</span><span class="si">{</span><span class="n">INJURY_SEVERITY</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="n">pedalcycle_fatalities</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">API_URL</span><span class="si">}</span><span class="s2">?accident__county_id=</span><span class="si">{</span><span class="n">COUNTY_ID</span><span class="si">}</span><span class="s2">&amp;person_type=</span><span class="si">{</span><span class="n">PEDALCYCLE_PERSON_TYPE</span><span class="si">}</span><span class="s2">&amp;injury_severity=</span><span class="si">{</span><span class="n">INJURY_SEVERITY</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="n">personal_conveyance_fatalities</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">API_URL</span><span class="si">}</span><span class="s2">?accident__county_id=</span><span class="si">{</span><span class="n">COUNTY_ID</span><span class="si">}</span><span class="s2">&amp;person_type=</span><span class="si">{</span><span class="n">PERSONAL_CONVEYANCE_PERSON_TYPE</span><span class="si">}</span><span class="s2">&amp;injury_severity=</span><span class="si">{</span><span class="n">INJURY_SEVERITY</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c7624d7f-ec8d-4695-bb64-ab0c3441cceb">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [59]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"king_county_micromobility_fatalities.geojson"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'{"type": "FeatureCollection", "features": ['</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bicycle_fatalities</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">'items'</span><span class="p">]:</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">CRASH_DETAILS_URL</span><span class="si">}{</span><span class="n">item</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">","</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"bike death: https://roadway.report/v1/accidents/</span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">pedalcycle_fatalities</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">'items'</span><span class="p">]:</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">CRASH_DETAILS_URL</span><span class="si">}{</span><span class="n">item</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">","</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"other pedal death: https://roadway.report/v1/accidents/</span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">personal_conveyance_fatalities</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">'items'</span><span class="p">]:</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">CRASH_DETAILS_URL</span><span class="si">}{</span><span class="n">item</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">","</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"personal conveyance death: https://roadway.report/v1/accidents/</span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">']}'</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">all_json_objects</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># Loop through all the Bicycle crashes (Person Type 6)</span>
+<span class="n">OFFSET</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">10000000</span>
+<span class="k">while</span> <span class="n">OFFSET</span> <span class="o">&lt;</span> <span class="n">count</span><span class="p">:</span>
+    <span class="n">bicycle_fatalities</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">API_URL</span><span class="si">}</span><span class="s2">?accident__county_id=</span><span class="si">{</span><span class="n">COUNTY_ID</span><span class="si">}</span><span class="s2">&amp;person_type=</span><span class="si">{</span><span class="n">BICYCLE_PERSON_TYPE</span><span class="si">}</span><span class="s2">&amp;injury_severity=</span><span class="si">{</span><span class="n">INJURY_SEVERITY</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">bicycle_fatalities</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">'count'</span><span class="p">]</span>
+    <span class="n">OFFSET</span> <span class="o">+=</span> <span class="mi">100</span>
+    <span class="n">all_json_objects</span> <span class="o">+=</span> <span class="n">bicycle_fatalities</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">'items'</span><span class="p">]</span>
+<span class="c1"># Loop through all the Pedalcycle crashes (Person Type 7)</span>
+<span class="n">OFFSET</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">10000000</span>
+<span class="k">while</span> <span class="n">OFFSET</span> <span class="o">&lt;</span> <span class="n">count</span><span class="p">:</span>
+    <span class="n">pedalcycle_fatalities</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">API_URL</span><span class="si">}</span><span class="s2">?accident__county_id=</span><span class="si">{</span><span class="n">COUNTY_ID</span><span class="si">}</span><span class="s2">&amp;person_type=</span><span class="si">{</span><span class="n">PEDALCYCLE_PERSON_TYPE</span><span class="si">}</span><span class="s2">&amp;injury_severity=</span><span class="si">{</span><span class="n">INJURY_SEVERITY</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">pedalcycle_fatalities</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">'count'</span><span class="p">]</span>
+    <span class="n">OFFSET</span> <span class="o">+=</span> <span class="mi">100</span>
+    <span class="n">all_json_objects</span> <span class="o">+=</span> <span class="n">pedalcycle_fatalities</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">'items'</span><span class="p">]</span>
+<span class="c1"># Loop through all the "Personal Conveyance" crashes (Person Type 8)</span>
+<span class="n">OFFSET</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">10000000</span>
+<span class="k">while</span> <span class="n">OFFSET</span> <span class="o">&lt;</span> <span class="n">count</span><span class="p">:</span>
+    <span class="n">personal_conveyance_fatalities</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">API_URL</span><span class="si">}</span><span class="s2">?accident__county_id=</span><span class="si">{</span><span class="n">COUNTY_ID</span><span class="si">}</span><span class="s2">&amp;person_type=</span><span class="si">{</span><span class="n">PERSONAL_CONVEYANCE_PERSON_TYPE</span><span class="si">}</span><span class="s2">&amp;injury_severity=</span><span class="si">{</span><span class="n">INJURY_SEVERITY</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">personal_conveyance_fatalities</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">'count'</span><span class="p">]</span>
+    <span class="n">OFFSET</span> <span class="o">+=</span> <span class="mi">100</span>
+    <span class="n">all_json_objects</span> <span class="o">+=</span> <span class="n">personal_conveyance_fatalities</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">'items'</span><span class="p">]</span>
+<span class="n">geojson</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"FeatureCollection"</span><span class="p">,</span>
+    <span class="s2">"features"</span><span class="p">:</span> <span class="n">all_json_objects</span>
+<span class="p">}</span>
+<span class="n">output_file</span> <span class="o">=</span> <span class="s2">"king_county_bicycle_crashes.geojson"</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"saving file </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">geojson</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8164,148 +8164,14 @@ saving file texas_crashes.geojson
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>bike death: https://roadway.report/v1/accidents/1975530082
-bike death: https://roadway.report/v1/accidents/1975530115
-bike death: https://roadway.report/v1/accidents/1976530126
-bike death: https://roadway.report/v1/accidents/1976530336
-bike death: https://roadway.report/v1/accidents/1976530540
-bike death: https://roadway.report/v1/accidents/1976530561
-bike death: https://roadway.report/v1/accidents/1977533279
-bike death: https://roadway.report/v1/accidents/1978530019
-bike death: https://roadway.report/v1/accidents/1979530124
-bike death: https://roadway.report/v1/accidents/1979530289
-bike death: https://roadway.report/v1/accidents/1979530667
-bike death: https://roadway.report/v1/accidents/1980530498
-bike death: https://roadway.report/v1/accidents/1981530021
-bike death: https://roadway.report/v1/accidents/1981530097
-bike death: https://roadway.report/v1/accidents/1981530173
-bike death: https://roadway.report/v1/accidents/1981530227
-bike death: https://roadway.report/v1/accidents/1981530477
-bike death: https://roadway.report/v1/accidents/1982530112
-bike death: https://roadway.report/v1/accidents/1982530652
-bike death: https://roadway.report/v1/accidents/1982530657
-bike death: https://roadway.report/v1/accidents/1983530235
-bike death: https://roadway.report/v1/accidents/1983530319
-bike death: https://roadway.report/v1/accidents/1983530400
-bike death: https://roadway.report/v1/accidents/1983530532
-bike death: https://roadway.report/v1/accidents/1984530185
-bike death: https://roadway.report/v1/accidents/1984530330
-bike death: https://roadway.report/v1/accidents/1984530382
-bike death: https://roadway.report/v1/accidents/1985530442
-bike death: https://roadway.report/v1/accidents/1986530118
-bike death: https://roadway.report/v1/accidents/1987530191
-bike death: https://roadway.report/v1/accidents/1988530360
-bike death: https://roadway.report/v1/accidents/1989530143
-bike death: https://roadway.report/v1/accidents/1989530387
-bike death: https://roadway.report/v1/accidents/1989530468
-bike death: https://roadway.report/v1/accidents/1990530449
-bike death: https://roadway.report/v1/accidents/1990530457
-bike death: https://roadway.report/v1/accidents/1990530538
-bike death: https://roadway.report/v1/accidents/1990530550
-bike death: https://roadway.report/v1/accidents/1992530069
-bike death: https://roadway.report/v1/accidents/1992530616
-bike death: https://roadway.report/v1/accidents/1993530332
-bike death: https://roadway.report/v1/accidents/1993530336
-bike death: https://roadway.report/v1/accidents/1993530343
-bike death: https://roadway.report/v1/accidents/1994530239
-bike death: https://roadway.report/v1/accidents/1994530412
-bike death: https://roadway.report/v1/accidents/1994530413
-bike death: https://roadway.report/v1/accidents/1995530021
-bike death: https://roadway.report/v1/accidents/1995530443
-bike death: https://roadway.report/v1/accidents/1995530588
-bike death: https://roadway.report/v1/accidents/1997530113
-bike death: https://roadway.report/v1/accidents/1997530159
-bike death: https://roadway.report/v1/accidents/1997530281
-bike death: https://roadway.report/v1/accidents/1997530397
-bike death: https://roadway.report/v1/accidents/1997530524
-bike death: https://roadway.report/v1/accidents/1997530548
-bike death: https://roadway.report/v1/accidents/1997530574
-bike death: https://roadway.report/v1/accidents/1998530218
-bike death: https://roadway.report/v1/accidents/1998530256
-bike death: https://roadway.report/v1/accidents/1998530422
-bike death: https://roadway.report/v1/accidents/1999530161
-bike death: https://roadway.report/v1/accidents/1999530262
-bike death: https://roadway.report/v1/accidents/1999530535
-bike death: https://roadway.report/v1/accidents/2000530254
-bike death: https://roadway.report/v1/accidents/2000530266
-bike death: https://roadway.report/v1/accidents/2000530293
-bike death: https://roadway.report/v1/accidents/2000530340
-bike death: https://roadway.report/v1/accidents/2000530342
-bike death: https://roadway.report/v1/accidents/2000530566
-bike death: https://roadway.report/v1/accidents/2001530043
-bike death: https://roadway.report/v1/accidents/2001530156
-bike death: https://roadway.report/v1/accidents/2001530415
-bike death: https://roadway.report/v1/accidents/2002530214
-bike death: https://roadway.report/v1/accidents/2002530252
-bike death: https://roadway.report/v1/accidents/2002530501
-bike death: https://roadway.report/v1/accidents/2004530220
-bike death: https://roadway.report/v1/accidents/2005530133
-bike death: https://roadway.report/v1/accidents/2005530222
-bike death: https://roadway.report/v1/accidents/2005530223
-bike death: https://roadway.report/v1/accidents/2005530534
-bike death: https://roadway.report/v1/accidents/2006530080
-bike death: https://roadway.report/v1/accidents/2006530448
-bike death: https://roadway.report/v1/accidents/2007530061
-bike death: https://roadway.report/v1/accidents/2007530147
-bike death: https://roadway.report/v1/accidents/2007530379
-bike death: https://roadway.report/v1/accidents/2008530430
-bike death: https://roadway.report/v1/accidents/2008530474
-bike death: https://roadway.report/v1/accidents/2009530050
-bike death: https://roadway.report/v1/accidents/2009530195
-bike death: https://roadway.report/v1/accidents/2009530204
-bike death: https://roadway.report/v1/accidents/2009530221
-bike death: https://roadway.report/v1/accidents/2010530269
-bike death: https://roadway.report/v1/accidents/2010530418
-bike death: https://roadway.report/v1/accidents/2011530212
-bike death: https://roadway.report/v1/accidents/2011530222
-bike death: https://roadway.report/v1/accidents/2011530387
-bike death: https://roadway.report/v1/accidents/2011530408
-bike death: https://roadway.report/v1/accidents/2011530434
-bike death: https://roadway.report/v1/accidents/2012530049
-bike death: https://roadway.report/v1/accidents/2012530197
-bike death: https://roadway.report/v1/accidents/2012530407
-other pedal death: https://roadway.report/v1/accidents/2008530348
-other pedal death: https://roadway.report/v1/accidents/2020530530
-personal conveyance death: https://roadway.report/v1/accidents/2007530371
-personal conveyance death: https://roadway.report/v1/accidents/2008530079
-personal conveyance death: https://roadway.report/v1/accidents/2009530455
-personal conveyance death: https://roadway.report/v1/accidents/2011530226
-personal conveyance death: https://roadway.report/v1/accidents/2011530426
-personal conveyance death: https://roadway.report/v1/accidents/2012530294
-personal conveyance death: https://roadway.report/v1/accidents/2014530363
-personal conveyance death: https://roadway.report/v1/accidents/2016530139
-personal conveyance death: https://roadway.report/v1/accidents/2017530282
-personal conveyance death: https://roadway.report/v1/accidents/2019530008
-personal conveyance death: https://roadway.report/v1/accidents/2020530550
-personal conveyance death: https://roadway.report/v1/accidents/2021530167
-personal conveyance death: https://roadway.report/v1/accidents/2021530552
-personal conveyance death: https://roadway.report/v1/accidents/2022530707
-personal conveyance death: https://roadway.report/v1/accidents/2022530708
-personal conveyance death: https://roadway.report/v1/accidents/2023530329
-personal conveyance death: https://roadway.report/v1/accidents/2023530357
-personal conveyance death: https://roadway.report/v1/accidents/2023530390
-personal conveyance death: https://roadway.report/v1/accidents/2023530550
-personal conveyance death: https://roadway.report/v1/accidents/2023530775
+<pre>saving file king_county_bicycle_crashes.geojson
 </pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=42f1a774-01ed-4aff-b740-9632664b309c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </main>
+</html>
 
 {% endblock %}
