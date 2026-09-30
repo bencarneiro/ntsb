@@ -144,7 +144,7 @@ class Accident(models.Model):
         (96, "Trafficway Not in State Inventory"),
         (99, "Unknown/Not Reported")
     ]
-    route_signing = models.PositiveSmallIntegerField(choices=route_signing_choices, default=9)
+    route_signing = models.PositiveSmallIntegerField(choices=route_signing_choices, default=99)
     #C12A
     rural_urban_choices = [
         (1, "Rural"),
