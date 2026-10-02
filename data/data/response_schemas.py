@@ -267,7 +267,7 @@ class VehicleSchema(Schema):
     id: int
     accident: int = Field(..., alias="accident.id")
     vehicle_number: int
-    number_of_occupants: int
+    number_of_occupants: Optional[int] = None
     fatalities: int
     hit_and_run: int = Field(..., alias='hit_and_run')	
     hit_and_run__display: str = Field(..., alias='get_hit_and_run_display')
@@ -512,7 +512,7 @@ class ParkedVehicleSchema(Schema):
     combined_make_model: Optional[int] = Field(None, alias="combined_make_model")
     persons: List[ParkedVehiclePersonSchema] = Field(..., alias='person_set')
     parked_vehicle_related_factors: List[ParkedVehicleRelatedFactorSchema] = Field(..., alias='parkedvehiclerelatedfactor_set')
-    number_of_occupants: int
+    number_of_occupants: Optional[int] = None
     
 
 class CrashEventSchema(Schema):

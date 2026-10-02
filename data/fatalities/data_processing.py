@@ -211,7 +211,8 @@ def soe_converter(soe, year):
         if soe in {33}:
             return 23
         return soe
-    
+    if soe in {0}:
+        return 99
     if soe in {13}:
         return 12
     if soe in {22}:
@@ -647,7 +648,7 @@ def rollover_converter(value, year):
     return value
 
 def vehicle_towed_converter(value, year):
-    if value is None:
+    if value is None or value in {0}:
         return 8
     if year < 1976:
         if value in {2}:
@@ -1397,7 +1398,7 @@ def maneuver_converter(value, year):
     return value
 
 def area_of_impact_converter(value, year):
-    if value is None:
+    if value is None or value in {21}:
         return 99
     if year < 2012:
         if value in {15}:

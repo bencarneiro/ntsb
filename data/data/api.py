@@ -42,7 +42,7 @@ def accident_list(request, filters: AccidentFilterSchema = Query(...)):
     """
     This endpoint returns a **LIST OF COLLISIONS** in GeoJSON format.
 
-    You can only query 50K records at a time, so try chunking up your requests using common arguments.
+    You can only query 10K records at a time, so try chunking up your requests using common arguments.
 
     Use [roadway.report/v1/states](https://roadway.report/v1/states) & [roadway.report/v1/counties](https://roadway.report/v1/counties) to narrow the geographic scope
 
@@ -61,8 +61,8 @@ def accident_list(request, filters: AccidentFilterSchema = Query(...)):
     """
     queryset = Accident.objects.order_by("id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K crashes at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K crashes at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 
@@ -138,8 +138,8 @@ def list_cities(request, filters: CityFilterSchema = Query(...)):
 def accidents_by_vehicle(request, filters: VehicleFilterSchema = Query(...)):
     queryset = Vehicle.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vehicles at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vehicles at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("accident_id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -149,8 +149,8 @@ def accidents_by_vehicle(request, filters: VehicleFilterSchema = Query(...)):
 def accidents_by_parked_vehicle(request, filters: ParkedVehicleFilterSchema = Query(...)):
     queryset = ParkedVehicle.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K Parked Cars at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K Parked Cars at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("accident_id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -160,8 +160,8 @@ def accidents_by_parked_vehicle(request, filters: ParkedVehicleFilterSchema = Qu
 def accidents_by_person(request, filters: PersonFilterSchema = Query(...)):
     queryset = Person.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K Persons at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K Persons at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("accident_id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -171,8 +171,8 @@ def accidents_by_person(request, filters: PersonFilterSchema = Query(...)):
 def accidents_by_crash_event(request, filters: CrashEventFilterSchema = Query(...)):
     queryset = CrashEvent.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K crash events at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K crash events at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("accident_id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -182,8 +182,8 @@ def accidents_by_crash_event(request, filters: CrashEventFilterSchema = Query(..
 def accidents_by_weather(request, filters: WeatherFilterSchema = Query(...)):
     queryset = Weather.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K crashes at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K crashes at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("accident_id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -194,8 +194,8 @@ def accidents_by_weather(request, filters: WeatherFilterSchema = Query(...)):
 def accidents_by_crash_related_factor(request, filters: CrashRelatedFactorFilterSchema = Query(...)):
     queryset = CrashRelatedFactors.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K crash-related factors at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K crash-related factors at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("accident_id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -206,8 +206,8 @@ def accidents_by_crash_related_factor(request, filters: CrashRelatedFactorFilter
 def accidents_by_damage(request, filters: DamageFilterSchema = Query(...)):
     queryset = Damage.objects.order_by("vehicle__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K damages at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K damages at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("vehicle__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -218,8 +218,8 @@ def accidents_by_damage(request, filters: DamageFilterSchema = Query(...)):
 def accidents_by_distraction(request, filters: DriverDistractedFilterSchema = Query(...)):
     queryset = DriverDistracted.objects.order_by("vehicle__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K distractions at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K distractions at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("vehicle__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -231,8 +231,8 @@ def accidents_by_distraction(request, filters: DriverDistractedFilterSchema = Qu
 def accidents_by_driver_impairment(request, filters: DriverImpairedFilterSchema = Query(...)):
     queryset = DriverImpaired.objects.order_by("vehicle__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K driver impairments at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K driver impairments at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("vehicle__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -243,8 +243,8 @@ def accidents_by_driver_impairment(request, filters: DriverImpairedFilterSchema 
 def accidents_by_vehicle_factor(request, filters: VehicleFactorFilterSchema = Query(...)):
     queryset = VehicleFactor.objects.order_by("vehicle__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vehicle factors at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vehicle factors at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("vehicle__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -254,8 +254,8 @@ def accidents_by_vehicle_factor(request, filters: VehicleFactorFilterSchema = Qu
 def accidents_by_maneuver(request, filters: ManeuverFilterSchema = Query(...)):
     queryset = Maneuver.objects.order_by("vehicle__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K maneuvers at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K maneuvers at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("vehicle__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -265,8 +265,8 @@ def accidents_by_maneuver(request, filters: ManeuverFilterSchema = Query(...)):
 def accidents_by_moving_violation(request, filters: ViolationFilterSchema = Query(...)):
     queryset = Violation.objects.order_by("vehicle__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K violations at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K violations at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("vehicle__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -277,8 +277,8 @@ def accidents_by_moving_violation(request, filters: ViolationFilterSchema = Quer
 def accidents_by_vision_obstruction(request, filters: VisionFilterSchema = Query(...)):
     queryset = Vision.objects.order_by("vehicle__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vision obstructions at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vision obstructions at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("vehicle__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -289,8 +289,8 @@ def accidents_by_vision_obstruction(request, filters: VisionFilterSchema = Query
 def accidents_by_driver_related_factor(request, filters: DriverRelatedFactorFilterSchema = Query(...)):
     queryset = DriverRelatedFactor.objects.order_by("vehicle__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K driver-related factors at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K driver-related factors at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("vehicle__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -300,8 +300,8 @@ def accidents_by_driver_related_factor(request, filters: DriverRelatedFactorFilt
 def accidents_by_driver_related_factor(request, filters: VehicleRelatedFactorFilterSchema = Query(...)):
     queryset = VehicleRelatedFactor.objects.order_by("vehicle__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vehicle-related factors at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vehicle-related factors at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("vehicle__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -312,8 +312,8 @@ def accidents_by_driver_related_factor(request, filters: VehicleRelatedFactorFil
 def accidents_by_parked_vehicle_related_factor(request, filters: ParkedVehicleRelatedFactorFilterSchema = Query(...)):
     queryset = ParkedVehicleRelatedFactor.objects.order_by("parked_vehicle__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K parked-vehicle-related factors at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K parked-vehicle-related factors at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("parked_vehicle__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -323,8 +323,8 @@ def accidents_by_parked_vehicle_related_factor(request, filters: ParkedVehicleRe
 def accidents_by_drug(request, filters: DrugsFilterSchema = Query(...)):
     queryset = Drugs.objects.order_by("person__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K people at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K people at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("person__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -334,8 +334,8 @@ def accidents_by_drug(request, filters: DrugsFilterSchema = Query(...)):
 def accidents_by_race(request, filters: RaceFilterSchema = Query(...)):
     queryset = Race.objects.order_by("person__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K people at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K people at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("person__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -345,8 +345,8 @@ def accidents_by_race(request, filters: RaceFilterSchema = Query(...)):
 def accidents_by_person_related_factor(request, filters: PersonRelatedFactorFilterSchema = Query(...)):
     queryset = PersonRelatedFactor.objects.order_by("person__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K people at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K people at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("person__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -356,8 +356,8 @@ def accidents_by_person_related_factor(request, filters: PersonRelatedFactorFilt
 def accidents_by_nonmotorist_contributing_circumstance(request, filters: NonmotoristContributingCircumstanceFilterSchema = Query(...)):
     queryset = NonmotoristContributingCircumstance.objects.order_by("person__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K people at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K people at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("person__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -367,8 +367,8 @@ def accidents_by_nonmotorist_contributing_circumstance(request, filters: Nonmoto
 def accidents_by_nonmotorist_impairment(request, filters: NonmotoristImpairedFilterSchema = Query(...)):
     queryset = NonmotoristImpaired.objects.order_by("person__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K people at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K people at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("person__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -378,8 +378,8 @@ def accidents_by_nonmotorist_impairment(request, filters: NonmotoristImpairedFil
 def accidents_by_nonmotorist_distraction(request, filters: NonmotoristDistractedFilterSchema = Query(...)):
     queryset = NonmotoristDistracted.objects.order_by("person__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K people at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K people at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("person__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -389,8 +389,8 @@ def accidents_by_nonmotorist_distraction(request, filters: NonmotoristDistracted
 def accidents_by_nonmotorist_prior_action(request, filters: NonmotoristPriorActionFilterSchema = Query(...)):
     queryset = NonmotoristPriorAction.objects.order_by("person__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K people at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K people at once. See https://roadway.report/v1/docs")
     listo = list(queryset.values_list("person__accident__id", flat=True))
     new_qs = Accident.objects.filter(id__in=listo)
     return list(new_qs)
@@ -425,8 +425,8 @@ def accidents_by_loction(request, filters: AccidentLocationFilterSchema = Query(
 def vehicle_list(request, filters: VehicleFilterSchema = Query(...)):
     queryset = Vehicle.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vehicles at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vehicles at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/vehicles/{vehicle_id}", response=VehicleSchema)
@@ -439,8 +439,8 @@ def vehicle_by_id(request, vehicle_id: int):
 def parked_vehicle_list(request, filters: ParkedVehicleFilterSchema = Query(...)):
     queryset = ParkedVehicle.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K parked vehicles at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K parked vehicles at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/parked_vehicles/{vehicle_id}", response=ParkedVehicleSchema)
@@ -453,8 +453,8 @@ def parked_vehicle_by_id(request, vehicle_id: int):
 def person_list(request, filters: PersonFilterSchema = Query(...)):
     queryset = Person.objects.order_by("accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K persons at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K persons at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/persons/{person_id}", response=NonMotoristSchema)
@@ -470,8 +470,8 @@ def crash_event_list(request, filters: CrashEventFilterSchema = Query(...)):
     if "vehicle" in request.GET and request.GET['vehicle']:
         queryset = queryset.filter(Q(vehicle_1_id=request.GET['vehicle']) | Q(vehicle_2_id=request.GET['vehicle']) | Q(parked_vehicle_1_id=request.GET['vehicle']) | Q(parked_vehicle_2_id=request.GET['vehicle']))
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K crash events at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K crash events at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/crash_events/{crash_event_id}", response=CrashEventSchema)
@@ -485,8 +485,8 @@ def crash_event_by_id(request, crash_event_id: int):
 def damage_list(request, filters: DamageFilterSchema = Query(...)):
     queryset = Damage.objects.order_by("vehicle__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K damages at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K damages at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/damages/{damage_id}", response=DamageSchema)
@@ -500,8 +500,8 @@ def damage_by_id(request, damage_id: int):
 def distraction_list(request, filters: DamageFilterSchema = Query(...)):
     queryset = DriverDistracted.objects.order_by("vehicle__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vehicles at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vehicles at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/distractions/{distraction_id}", response=DriverDistractedSchema)
@@ -515,8 +515,8 @@ def distraction_by_id(request, distraction_id: int):
 def driver_impairment_list(request, filters: DriverImpairedFilterSchema = Query(...)):
     queryset = DriverImpaired.objects.order_by("vehicle__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vehicles at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vehicles at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/driver_impairments/{driver_impairment_id}", response=DriverImpairedSchema)
@@ -530,8 +530,8 @@ def driver_impairment_by_id(request, driver_impairment_id: int):
 def vehicle_factor_list(request, filters: VehicleFactorFilterSchema = Query(...)):
     queryset = VehicleFactor.objects.order_by("vehicle__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vehicles at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vehicles at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/vehicle_factors/{vehicle_factor_id}", response=VehicleFactorSchema)
@@ -546,8 +546,8 @@ def vehicle_factor_by_id(request, vehicle_factor_id: int):
 def maneuver_list(request, filters: ManeuverFilterSchema = Query(...)):
     queryset = Maneuver.objects.order_by("vehicle__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vehicles at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vehicles at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/maneuvers/{maneuver_id}", response=ManeuverSchema)
@@ -562,8 +562,8 @@ def maneuver_by_id(request, maneuver_id: int):
 def moving_violation_list(request, filters: ViolationFilterSchema = Query(...)):
     queryset = Violation.objects.order_by("vehicle__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vehicles at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vehicles at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/moving_violations/{moving_violation_id}", response=ViolationSchema)
@@ -577,8 +577,8 @@ def moving_violation_by_id(request, moving_violation_id: int):
 def vision_obstruction_list(request, filters: VisionFilterSchema = Query(...)):
     queryset = Vision.objects.order_by("vehicle__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vehicles at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vehicles at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/vision_obstructions/{vision_obstruction_id}", response=VisionSchema)
@@ -593,8 +593,8 @@ def vision_obstruction_by_id(request, vision_obstruction_id: int):
 def vehicle_related_factor_list(request, filters: VehicleRelatedFactorFilterSchema = Query(...)):
     queryset = VehicleRelatedFactor.objects.order_by("vehicle__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vehicles at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vehicles at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/vehicle_related_factors/{vehicle_related_factor_id}", response=VehicleRelatedFactorSchema)
@@ -610,8 +610,8 @@ def vehicle_related_factor_by_id(request, vehicle_related_factor_id: int):
 def driver_related_factor_list(request, filters: DriverRelatedFactorFilterSchema = Query(...)):
     queryset = DriverRelatedFactor.objects.order_by("vehicle__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vehicles at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vehicles at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/driver_related_factors/{driver_related_factor_id}", response=DriverRelatedFactorSchema)
@@ -625,8 +625,8 @@ def driver_related_factor_by_id(request, driver_related_factor_id: int):
 def parked_vehicle_related_factor_list(request, filters: ParkedVehicleRelatedFactorFilterSchema = Query(...)):
     queryset = ParkedVehicleRelatedFactor.objects.order_by("parked_vehicle__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K vehicles at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K vehicles at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/parked_vehicle_related_factors/{parked_vehicle_related_factor_id}", response=ParkedVehicleRelatedFactorSchema)
@@ -641,8 +641,8 @@ def parked_vehicle_related_factor_by_id(request, parked_vehicle_related_factor_i
 def drugs_list(request, filters: DrugsFilterSchema = Query(...)):
     queryset = Drugs.objects.order_by("person__accident__id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K persons at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K persons at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/drugs/{drugs_id}", response=DrugsSchema)
@@ -655,8 +655,8 @@ def drugs_by_id(request, drugs_id: int):
 def race_list(request, filters: RaceFilterSchema = Query(...)):
     queryset = Race.objects.order_by("person__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K persons at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K persons at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/race/{race_id}", response=RaceSchema)
@@ -670,8 +670,8 @@ def race_by_id(request, race_id: int):
 def person_related_factor_list(request, filters: PersonRelatedFactorFilterSchema = Query(...)):
     queryset = PersonRelatedFactor.objects.order_by("person__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K persons at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K persons at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/person_related_factors/{person_related_factor_id}", response=PersonRelatedFactorSchema)
@@ -686,8 +686,8 @@ def person_related_factor_by_id(request, person_related_factor_id: int):
 def nonmotorist_impairment_list(request, filters: NonmotoristImpairedFilterSchema = Query(...)):
     queryset = NonmotoristImpaired.objects.order_by("person__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K persons at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K persons at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/nonmotorist_impairments/{nonmotorist_impairment_id}", response=NonmotoristImpairedSchema)
@@ -702,8 +702,8 @@ def nonmotorist_impairment_by_id(request, nonmotorist_impairment_id: int):
 def nonmotorist_prior_action_list(request, filters: NonmotoristPriorActionFilterSchema = Query(...)):
     queryset = NonmotoristPriorAction.objects.order_by("person__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K persons at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K persons at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/nonmotorist_prior_actions/{nonmotorist_prior_action_id}", response=NonmotoristPriorActionSchema)
@@ -718,8 +718,8 @@ def nonmotorist_prior_action_by_id(request, nonmotorist_prior_action_id: int):
 def nonmotorist_contributing_circumstance_list(request, filters: NonmotoristContributingCircumstanceFilterSchema = Query(...)):
     queryset = NonmotoristContributingCircumstance.objects.order_by("person__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K persons at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K persons at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/nonmotorist_contributing_circumstances/{nonmotorist_contributing_circumstance_id}", response=NonmotoristContributingCircumstanceSchema)
@@ -733,8 +733,8 @@ def nonmotorist_contributing_circumstance_by_id(request, nonmotorist_contributin
 def nonmotorist_distraction_list(request, filters: NonmotoristDistractedFilterSchema = Query(...)):
     queryset = NonmotoristDistracted.objects.order_by("person__accident_id")
     queryset = filters.filter(queryset)
-    if queryset.count() > 50000:
-        raise HttpError(422, "Use arguments to query less than 50K persons at once. See https://roadway.report/v1/docs")
+    if queryset.count() > 10000:
+        raise HttpError(422, "Use arguments to query less than 10K persons at once. See https://roadway.report/v1/docs")
     return list(queryset)
 
 @api.get("/nonmotorist_distractions/{nonmotorist_distraction_id}", response=NonmotoristDistractedSchema)
