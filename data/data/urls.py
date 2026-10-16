@@ -83,6 +83,7 @@ urlpatterns = [
     path("illinois", illinois, name="illinois"),
     path("new-york", newyork, name="newyork"),
     path("newyork", newyork2, name="newyork2"),
+    path("maryland", maryland, name="maryland"),
     path("florida", florida, name="florida"),
     path("bikelanes", bikelanes, name="bikelanes"),
     path("texas_pedestrians", texas_pedestrians, name="texas_pedestrians"),

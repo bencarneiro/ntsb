@@ -71,6 +71,9 @@ WASHINGTON_PATH = os.environ.get("WASHINGTON_PATH", "/Users/root1/apps/ntsb/wash
 TENNESSEE_PATH = os.environ.get("TENNESSEE_PATH", "/Users/root1/apps/ntsb/tennessee")
 ARIZONA_PATH = os.environ.get("ARIZONA_PATH", "/Users/root1/apps/ntsb/arizona")
 MASSACHUSETTS_PATH = os.environ.get("MASSACHUSETTS_PATH", "/Users/root1/apps/ntsb/massachusetts")
+MARYLAND_PATH = os.environ.get("MARYLAND_PATH", "/Users/root1/apps/ntsb/maryland")
+WISCONSIN_PATH = os.environ.get("WISCONSIN_PATH", "/Users/root1/apps/ntsb/wisconsin")
+MINNESOTA_PATH = os.environ.get("MINNESOTA_PATH", "/Users/root1/apps/ntsb/minnesota")
 
 ACCIDENT_CSV_PATHS = {
     1975: '1975/ACCIDENT.CSV',

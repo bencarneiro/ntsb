@@ -869,6 +869,9 @@ def massachusetts(request):
 def tennessee(request):
     return render(request, "tennessee.html", {"TILES_URL": TILES_URL})
 
+def maryland(request):
+    return render(request, "maryland.html", {"TILES_URL": TILES_URL})
+
 def bikelanes(request):
     return render(request, "bikelanes.html", {"TILES_URL": TILES_URL})
 

@@ -1,0 +1,3 @@
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/maryland/maryland_injuries.pmtiles --coalesce-densest-as-needed -y id -y fatalities -y serious_injuries -y dt ~/Downloads/maryland_injuries.csv
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/maryland/maryland_fatalities.pmtiles --coalesce-densest-as-needed -y st_case -y fatalities -y serious_injuries -y dt ~/Downloads/maryland_fatalities.csv
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/maryland/maryland_fatalities_2.pmtiles --coalesce-densest-as-needed -y id -y fatalities -y serious_injuries -y dt ~/Downloads/maryland_fatalities_2.csv
