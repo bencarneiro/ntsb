@@ -950,6 +950,10 @@ def michigan(request):
     return render(request, "michigan.html", {"TILES_URL": TILES_URL})
 
 
+def minnesota(request):
+    return render(request, "minnesota.html", {"TILES_URL": TILES_URL})
+
+
 @xframe_options_exempt
 def embeddable_denver(request):
     return render(request, "embeddable_denver.html", {"TILES_URL": TILES_URL})
