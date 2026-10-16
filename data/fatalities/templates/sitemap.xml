@@ -58,6 +58,13 @@
   </url>
 
   <url>
+    <loc>https://roadway.report/iowa</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+
+  <url>
     <loc>https://roadway.report/maryland</loc>
     <priority>0.7</priority>
     <changefreq>daily</changefreq>
