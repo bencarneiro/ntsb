@@ -49,8 +49,8 @@ class Command(BaseCommand):
             if pd.isnull(geometry):
                 lat, lon = None, None
             else:
-                lat = geometry.split("{'coordinates': [")[1].split(", ")[0]
-                lon = geometry.split("{'coordinates': [")[1].split(", ")[1].split("]")[0]
+                lon = geometry.split("{'coordinates': [")[1].split(", ")[0]
+                lat = geometry.split("{'coordinates': [")[1].split(", ")[1].split("]")[0]
             print(date)
             new_injury_accident = InjuryAccident(
                 state_id = 55,
