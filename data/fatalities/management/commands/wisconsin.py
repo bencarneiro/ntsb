@@ -66,4 +66,8 @@ class Command(BaseCommand):
                 crash_type = crash_type
             )
             crash_list += [new_injury_accident]
+            if x % 100 == 0:
+                InjuryAccident.objects.bulk_create(crash_list)
+                crash_list = []
+
         InjuryAccident.objects.bulk_create(crash_list)
