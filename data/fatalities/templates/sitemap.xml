@@ -137,6 +137,11 @@
   </url>
 
   <url>
+    <loc>https://roadway.report/minnesota</loc>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://roadway.report/wisconsin</loc>
     <priority>0.7</priority>
     <changefreq>daily</changefreq>
