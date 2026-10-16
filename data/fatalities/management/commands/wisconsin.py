@@ -28,7 +28,7 @@ class Command(BaseCommand):
             date = properties.split("'date': '")[1].split("',")[0]
             dt = convert_to_iso(date)
             try:
-                street_1 = properties.split("'onrdwy': '")[1].split("',")[0]
+                street_1 = properties.split("'onrdwy': '")[1].split("'}")[0]
             except:
                 street_1 = properties.split("'onrdwy': ")[1].split('",')[0]
             try:
