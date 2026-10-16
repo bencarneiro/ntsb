@@ -20,8 +20,12 @@ class Command(BaseCommand):
                 vehicle_list = []
             dt = crashes['DateOfIncident'][x]
             state_accident_id = crashes['LocalCodeTxt'][x]
-            lat = round(crashes['LatDec'][x],7)
-            lon = round(crashes['LongDec'][x],7)
+            try:
+                lat = round(float(crashes['LatDec'][x]),7)
+                lon = round(float(crashes['LongDec'][x]),7)
+            except:
+                lat = None
+                lon = None
             street_1 = crashes['RdwyNameTxt'][x]
             city = crashes['CityTownship'][x]
             county = crashes['CountyNameTxt'][x]
