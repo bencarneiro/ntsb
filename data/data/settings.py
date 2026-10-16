@@ -74,6 +74,7 @@ MASSACHUSETTS_PATH = os.environ.get("MASSACHUSETTS_PATH", "/Users/root1/apps/nts
 MARYLAND_PATH = os.environ.get("MARYLAND_PATH", "/Users/root1/apps/ntsb/maryland")
 WISCONSIN_PATH = os.environ.get("WISCONSIN_PATH", "/Users/root1/apps/ntsb/wisconsin")
 MINNESOTA_PATH = os.environ.get("MINNESOTA_PATH", "/Users/root1/apps/ntsb/minnesota")
+IOWA_PATH = os.environ.get("IOWA_PATH", "/Users/root1/apps/ntsb/iowa")
 
 ACCIDENT_CSV_PATHS = {
     1975: '1975/ACCIDENT.CSV',

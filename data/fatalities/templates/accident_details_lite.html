@@ -60,6 +60,7 @@ h1 {
       <td>State</td>
       <td>{{ accident.state.name }}</td>
     </tr>
+    {% if accident.state.id != 19%}
     <tr>
       <td>County</td>
       <td>{{ accident.county }}</td>
@@ -68,11 +69,12 @@ h1 {
       <td>City</td>
       <td>{{ accident.city }}</td>
     </tr>
+    {% endif %}
     <tr>
       <td>Date</td>
       <td> {{  accident.dt | date}}</td>
     </tr>
-    {% if accident.state.id != 53 %}
+    {% if accident.state.id != 19 and accident.state.id != 53 %}
     <tr>
       <td>Time</td>
       <td> {{  accident.dt | time}}</td>
@@ -82,7 +84,7 @@ h1 {
     {% if accident.street_1 %}<tr><td>Street Name 1</td><td> {{accident.street_1}} </td></tr>{% endif %}
     {% if accident.street_2 %}<tr><td>Street Name 2</td><td> {{accident.street_2}} </td></tr>{% endif %}
   <tr><td>Crash Type</td><td> {{accident.crash_type}} </td></tr>
-  {% if accident.state.id == 37 or accident.state.id == 47 %}
+  {% if accident.state.id == 19 or accident.state.id == 37 or accident.state.id == 47 %}
   
   <tr><td>Crash Severity</td><td> {{accident.crash_severity}} </td></tr>
   {% if accident.state.id == 37 %}
