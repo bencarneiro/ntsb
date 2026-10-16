@@ -1,0 +1,3 @@
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/minnesota/minnesota_injuries.pmtiles --coalesce-densest-as-needed -y id -y fatalities -y serious_injuries -y dt ~/Downloads/minnesota_injuries.csv
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/minnesota/minnesota_fatalities.pmtiles --coalesce-densest-as-needed -y st_case -y fatalities -y serious_injuries -y dt ~/Downloads/minnesota_fatalities.csv
+tippecanoe -zg -o ~/apps/ntsb/data/fatalities/templates/static/tiles/minnesota/minnesota_fatalities_2.pmtiles --coalesce-densest-as-needed -y id -y fatalities -y serious_injuries -y dt ~/Downloads/minnesota_fatalities_2.csv

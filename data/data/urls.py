@@ -97,6 +97,7 @@ urlpatterns = [
     path("colorado", colorado, name="colorado"),
     path("iowa", iowa, name="iowa"),
     path("wisconsin", wisconsin, name="wisconsin"),
+    path("minnesota", minnesota, name="minnesota"),
     path("north-carolina", northcarolina, name="northcarolina"),
     path("northcarolina", northcarolina2, name="northcarolina2"),
     path("population", population, name="population"),
